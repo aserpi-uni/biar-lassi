@@ -6,4 +6,6 @@ class Employee < ApplicationRecord
          :registerable,
          :trackable,
          :validatable
+
+  enum role: {supervisor: 0, analyst: 1, operator: 2}
 end
