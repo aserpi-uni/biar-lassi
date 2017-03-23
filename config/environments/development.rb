@@ -52,17 +52,6 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  # config.force_ssl = true
-
-
   # Mailer
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
-  ActionMailer::Base.smtp_settings = {
-      :address              => 'smtp.sendgrid.net',
-      :port                 => 587,
-      :authentication       => :plain,
-      :user_name            => 'apikey',
-      :password             => ENV['TESI_MAILER_TOKEN'],
-      :enable_starttls_auto => true
-  }
 end

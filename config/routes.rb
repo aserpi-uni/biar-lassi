@@ -7,4 +7,9 @@ Rails.application.routes.draw do
   resources :admin
   resources :consumers
   resources :employees
+
+  get 'consumers/facebook/select_username_form'
+  get 'consumers/facebook/connect_existing'
+
+  root :to => 'consumers#index'
 end
