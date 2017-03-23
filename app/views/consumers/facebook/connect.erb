@@ -6,11 +6,11 @@
 
 
 
-<%= form_tag({controller: 'consumers/registrations', action: 'facebook_select_username_form'}, method: 'get') do %>
+<%= form_tag({controller: 'consumers/facebook', action: 'select_username_form'}, method: 'get') do %>
 
     <div class="field">
       <%= label_tag :username %><br />
-      <%= text_field :username, autofocus: true %>
+      <%= text_field_tag :username, nil, autofocus: true %>
     </div>
 
     <div class="actions">
@@ -23,16 +23,16 @@
   Or sign in with an existing account:
 </p>
 
-<%= form_tag({controller: 'consumers/registrations', action: 'facebook_connect_existing'}, method: 'get') do %>
+<%= form_tag({controller: 'consumers/facebook', action: 'connect_existing'}, method: 'get') do %>
 
     <div class="field">
       <%= label_tag :username %><br />
-      <%= text_field :username, autofocus: true %>
+      <%= text_field_tag :username %>
     </div>
 
     <div class="field">
       <%= label_tag :password %><br />
-      <%= password_field :password, autocomplete: 'off' %>
+      <%= password_field_tag :password, nil, autocomplete: 'off' %>
     </div>
 
     <div class="actions">
@@ -40,5 +40,3 @@
     </div>
 
 <% end %>
-
-<%= render 'consumers/shared/links' %>

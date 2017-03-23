@@ -1,16 +1,17 @@
 class Consumers::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def facebook
     # You need to implement the method below in your model (e.g. app/models/user.rb)
-    consumer = Consumer.find_by provider: request.env['omniauth.auth'].provider, uid: request.env['omniauth.auth'].uid
+    auth = request.env['omniauth.auth']
+    consumer = Consumer.find_by provider: auth.provider, uid: auth.uid
 
     if consumer.nil?
-      consumer = consumer.email.nil? ? nil : Consumer.find_by email: consumer.email
+      consumer = if auth.info.email.nil? then nil else Consumer.find_by(email: auth.info.email) end
       if consumer.nil?
-        session['devise.facebook_data'] = request.env['omniauth.auth']
-        redirect_to 'consumers/registrations/facebook_connect'
+        session['devise.facebook_data'] = auth
+        render 'consumers/facebook/connect'
       else
-        consumer.provider = request.env['omniauth.auth'].provider
-        consumer.uid = request.env['omniauth.auth'].uid
+        consumer.provider = auth.provider
+        consumer.uid = auth.uid
         consumer.save!
         sign_in_and_redirect consumer, :event => :authentication
       end
