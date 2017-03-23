@@ -1,28 +1,26 @@
 class Consumers::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  # You should configure your model like this:
-  # devise :omniauthable, omniauth_providers: [:twitter]
+  def facebook
+    # You need to implement the method below in your model (e.g. app/models/user.rb)
+    consumer = Consumer.find_by provider: request.env['omniauth.auth'].provider, uid: request.env['omniauth.auth'].uid
 
-  # You should also create an action method in this controller like this:
-  # def twitter
-  # end
+    if consumer.nil?
+      consumer = consumer.email.nil? ? nil : Consumer.find_by email: consumer.email
+      if consumer.nil?
+        session['devise.facebook_data'] = request.env['omniauth.auth']
+        redirect_to 'consumers/registrations/facebook_connect'
+      else
+        consumer.provider = request.env['omniauth.auth'].provider
+        consumer.uid = request.env['omniauth.auth'].uid
+        consumer.save!
+        sign_in_and_redirect consumer, :event => :authentication
+      end
+    else
+      sign_in_and_redirect consumer, :event => :authentication #this will throw if @user is not activated
+      set_flash_message(:notice, :success, :kind => 'Facebook') if is_navigational_format?
+    end
 
-  # More info at:
-  # https://github.com/plataformatec/devise#omniauth
-
-  # GET|POST /resource/auth/twitter
-  # def passthru
-  #   super
-  # end
-
-  # GET|POST /users/auth/twitter/callback
-  # def failure
-  #   super
-  # end
-
-  # protected
-
-  # The path used when OmniAuth fails
-  # def after_omniauth_failure_path_for(scope)
-  #   super(scope)
-  # end
+    def failure
+      redirect_to root_path
+    end
+  end
 end

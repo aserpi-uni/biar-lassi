@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170321180815) do
+ActiveRecord::Schema.define(version: 20170322163938) do
 
   create_table "admins", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "username",               default: "", null: false
@@ -58,8 +58,15 @@ ActiveRecord::Schema.define(version: 20170321180815) do
     t.datetime "locked_at"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "oauth_token"
+    t.datetime "oauth_expires_at"
+    t.string   "email"
     t.index ["confirmation_token"], name: "index_consumers_on_confirmation_token", unique: true, length: { confirmation_token: 191 }, using: :btree
+    t.index ["email"], name: "index_consumers_on_email", unique: true, length: { email: 191 }, using: :btree
     t.index ["reset_password_token"], name: "index_consumers_on_reset_password_token", unique: true, length: { reset_password_token: 191 }, using: :btree
+    t.index ["uid"], name: "index_consumers_on_uid", length: { uid: 191 }, using: :btree
     t.index ["unlock_token"], name: "index_consumers_on_unlock_token", unique: true, length: { unlock_token: 191 }, using: :btree
     t.index ["username"], name: "index_consumers_on_username", unique: true, length: { username: 191 }, using: :btree
   end
