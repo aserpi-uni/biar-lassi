@@ -1,0 +1,44 @@
+<h2>Sign up</h2>
+
+<p>
+  This is the first time you are logging in with a Facebook account.
+</p>
+
+
+
+<%= form_tag({controller: 'consumers/registrations', action: 'facebook_select_username_form'}, method: 'get') do %>
+
+    <div class="field">
+      <%= label_tag :username %><br />
+      <%= text_field :username, autofocus: true %>
+    </div>
+
+    <div class="actions">
+      <%= submit_tag 'Sign up' %>
+    </div>
+
+<% end %>
+
+<p>
+  Or sign in with an existing account:
+</p>
+
+<%= form_tag({controller: 'consumers/registrations', action: 'facebook_connect_existing'}, method: 'get') do %>
+
+    <div class="field">
+      <%= label_tag :username %><br />
+      <%= text_field :username, autofocus: true %>
+    </div>
+
+    <div class="field">
+      <%= label_tag :password %><br />
+      <%= password_field :password, autocomplete: 'off' %>
+    </div>
+
+    <div class="actions">
+      <%= submit_tag 'Sign up' %>
+    </div>
+
+<% end %>
+
+<%= render 'consumers/shared/links' %>

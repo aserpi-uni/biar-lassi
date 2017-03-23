@@ -60,4 +60,31 @@ class Consumers::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+
+  def facebook_connect
+  end
+
+  def facebook_connect_existing
+    @consumer = Consumer.find_by username: params[:username]
+    if @consumer.nil? or not @consumer.valid_password? params[:password]
+      flash.now[:error] = 'Incorrect username or password'
+      render 'facebook_connect'
+    else
+      @consumer.provider = session['devise.facebook_data'].provider
+      @consumer.uid = session['devise.facebook_data'].uid
+      @consumer.save!
+      sign_in_and_redirect @consumer
+    end
+  end
+
+  def facebook_select_username_form
+    if Consumer.find_by(username: params[:username]).nil?
+      @consumer = Consumer.from_omniauth! session['devise.facebook_data'], params[:username]
+      sign_in_and_redirect @consumer
+    else
+      flash.now[:error] = 'Username already taken'
+      render 'facebook_connect'
+    end
+
+  end
 end
