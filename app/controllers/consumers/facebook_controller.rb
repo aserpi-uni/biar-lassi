@@ -9,10 +9,10 @@ class Consumers::FacebookController < ApplicationController
     @consumer = Consumer.find_by username: params[:username]
     if @consumer.nil? or not @consumer.valid_password? params[:password]
       flash.now[:error] = 'Incorrect username or password'
-      render 'facebook_connect'
+      render 'connect'
     else
-      @consumer.provider = session['devise.facebook_data'].provider
-      @consumer.uid = session['devise.facebook_data'].uid
+      @consumer.provider = session['devise.facebook_data']['provider']
+      @consumer.uid = session['devise.facebook_data']['uid']
       @consumer.save!
       sign_in_and_redirect @consumer
     end
@@ -28,13 +28,4 @@ class Consumers::FacebookController < ApplicationController
       render 'connect'
     end
   end
-
-
-=begin
-  protected
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.permit :connect_existing, keys: [:username]
-    devise_parameter_sanitizer.permit :select_username_form, keys: [:username, :password]
-  end
-=end
 end
