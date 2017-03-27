@@ -4,12 +4,12 @@ Rails.application.routes.draw do
                                         registration: 'consumers/registration', sessions: 'consumers/sessions' }
   devise_for :employees, controllers: { registration: 'employees/registration', sessions: 'admins/sessions' }
 
-  resources :admin
-  resources :consumers
-  resources :employees
+  resources :admins, param: :username
+  resources :consumers, param: :username
+  resources :employees, param: :username
 
-  get 'consumers/facebook/select_username_form'
+  get 'consumers/facebook/select_username'
   get 'consumers/facebook/connect_existing'
 
-  root :to => 'consumers#index'
+  root to: 'consumers#index'
 end

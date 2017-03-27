@@ -5,8 +5,11 @@ class Consumer < ApplicationRecord
          :recoverable,
          :rememberable,
          :trackable,
-         #:validatable,
          :omniauthable, :omniauth_providers => [:facebook]
+
+  def to_param
+    username
+  end
 
 
   def self.from_omniauth(auth, username)
