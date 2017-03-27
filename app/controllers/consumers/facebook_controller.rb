@@ -18,7 +18,7 @@ class Consumers::FacebookController < ApplicationController
     end
   end
 
-  def select_username_form
+  def select_username
     username = params[:username]
     if Consumer.find_by(username: username).nil?
       @consumer = Consumer.from_omniauth session['devise.facebook_data'], username

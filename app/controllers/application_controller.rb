@@ -2,6 +2,17 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+
+  def after_sign_in_path_for(resource)
+    if resource.is_a? Admin
+      admin_path resource
+    elsif resource.is_a? Consumer
+      consumer_path resource
+    elsif resource.is_a? Employee
+      employee_path resource
+    end
+  end
+
   include Pundit
   protected
   def configure_permitted_parameters

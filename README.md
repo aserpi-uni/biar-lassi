@@ -2,18 +2,24 @@
 I passi per avviare il server usando Intellij IDEA o RubyMine da zero sono:
 1. avviare il server MYSQL
 2. creare l'utente `tesi` con la password desiderata
-3. avviare l'IDE
-4. clonare la repository localmente
-5. creare la configurazione:
+3. concedere all'utente `tesi` privilegi sui database `Tesi_development`, `Tesi_production` e `Tesi_test`
+4. avviare l'IDE
+5. clonare la repository localmente
+6. creare la configurazione:
    * tipologia: `Rails`
    * IP address: `127.0.0.1`
-   * aggiungere la variabile d'ambiente `TESI_DATABASE_PASSWORD` con la password impostata precedentemente
-6. apire un terminale e:
-   1. caricare la variabile d'ambiente `TESI_DATABASE_PASSWORD` con la password impostata precedentemente
-   2. caricare la variabile d'ambiente `SUPER_PASSWORD` con la password scelta per `SuperAdmin`
-   3. caricare la variabile d'ambiente `SUPER_EMAIL` con l'email scelta per `SuperAdmin`
-   4. `bin/rake db:setup`
-7. avviare il server premendo il tasto `Debug` o premendo `Shift + F9`
+   * impostare le variabili d'ambiente:
+       * `TESI_DATABASE_PASSWORD` con la password impostata precedentemente
+       * `FACEBOOK_APP_ID` con l'id fornito da Facebook
+       * `FACEBOOK_SECRET` con il token fornito da Facebook
+       * `TESI_MAILER_TOKEN` con il token fornito da SendGrid
+7. apire un terminale e:
+   1. caricare le variabili d'ambiente:
+       * `TESI_DATABASE_PASSWORD` con la password impostata precedentemente
+       * `SUPER_PASSWORD` con la password scelta per `SuperAdmin`
+       * `SUPER_EMAIL` con l'email scelta per `SuperAdmin`
+   2. `bin/rake db:setup`
+8. avviare il server premendo il tasto `Debug` o con lo shortcut `Shift + F9`
 
 
 Se invece si devono solo eseguire modifiche incrementali si deve eseguire in
