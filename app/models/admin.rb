@@ -8,4 +8,11 @@ class Admin < ApplicationRecord
          :timeoutable,
          :trackable,
          :validatable
+
+  validates :email, unique: true
+  validates :username, unique: true
+
+  def to_param
+    username
+  end
 end

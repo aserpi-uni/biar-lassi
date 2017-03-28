@@ -1,8 +1,9 @@
 class Consumer < ApplicationRecord
   devise :database_authenticatable,
          :confirmable,
-         :registerable,
+         :lockable,
          :recoverable,
+         :registerable,
          :rememberable,
          :trackable,
          :omniauthable, :omniauth_providers => [:facebook]
@@ -17,17 +18,23 @@ class Consumer < ApplicationRecord
     username
   end
 
-  def self.from_omniauth(auth, username)
+  def self.from_omniauth(auth, username, email)
     consumer = Consumer.new
     consumer.username = username
     consumer.provider = auth['provider']
     consumer.uid = auth['uid']
-    consumer.email = auth['info']['email'] || 'null@null.null'
-    consumer.password = Devise.friendly_token[0,20]
+    consumer.email = auth['info']['email'] || email
+    consumer.email = 'null@null.com' if consumer.email.blank?
+    consumer.password = Devise.friendly_token[0,8]
     consumer.password_confirmation = consumer.password
 
     consumer.skip_confirmation!
     consumer.save!
+
+    if consumer.valid? and auth['info']['email'].blank? and email.blank?
+      consumer.email = nil
+      consumer.save validate: false
+    end
 
     consumer
   end

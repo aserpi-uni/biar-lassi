@@ -99,6 +99,7 @@ bower.json
 .idea/tasks.xml
 .idea/dictionaries
 .idea/misc.xml
+*.iml
 
 # Sensitive or high-churn files:
 .idea/**/dataSources/
