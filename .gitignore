@@ -54,7 +54,6 @@ Gemfile.lock
 capybara-*.html
 .rspec
 /log
-/tmp
 /db/*.sqlite3
 /db/*.sqlite3-journal
 /public/system
@@ -75,10 +74,6 @@ config/initializers/secret_token.rb
 ## Environment normalization:
 /.bundle
 # these should all be checked in to normalize the environment:
-Gemfile.lock
-.ruby-version
-.ruby-gemset
-
 # unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
 # if using bower-rails ignore default bower_components path bower.json files
 /vendor/assets/bower_components

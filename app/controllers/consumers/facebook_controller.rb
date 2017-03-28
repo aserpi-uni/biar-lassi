@@ -4,8 +4,7 @@ class Consumers::FacebookController < ApplicationController
   before_action :check_user
   # before_action :configure_permitted_parameters
 
-  def connect
-  end
+  def connect; end
 
   def connect_existing
     @consumer = Consumer.find_by username: params[:username]
@@ -21,12 +20,10 @@ class Consumers::FacebookController < ApplicationController
   end
 
   def select_username
-    begin
-      @consumer = Consumer.from_omniauth session['devise.facebook_data'], params[:username], params[:email]
-      sign_in_and_redirect @consumer
-    rescue  ActiveRecord::RecordInvalid => e
-      flash.now[:error] = e.message
-      render 'connect'
-    end
+    @consumer = Consumer.from_omniauth session['devise.facebook_data'], params[:username], params[:email]
+    sign_in_and_redirect @consumer
+  rescue ActiveRecord::RecordInvalid => e
+    flash.now[:error] = e.message
+    render 'connect'
   end
 end
