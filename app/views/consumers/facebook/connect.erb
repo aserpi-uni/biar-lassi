@@ -11,11 +11,18 @@
 
 
 <%= form_tag({controller: 'consumers/facebook', action: 'select_username'}, method: 'get') do %>
-
     <div class="field">
       <%= label_tag :username %><br />
       <%= text_field_tag :username, nil, autofocus: true %>
     </div>
+
+    <% if session['devise.facebook_data']['email'].nil? %>
+        <div class="field">
+          <%= label_tag :email %>
+          <em>(optional)</em><br />
+          <%= email_field_tag :email %>
+        </div>
+    <% end %>
 
     <div class="actions">
       <%= submit_tag 'Sign up' %>
