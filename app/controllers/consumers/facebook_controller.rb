@@ -20,10 +20,10 @@ class Consumers::FacebookController < ApplicationController
 
   def select_username
     username = params[:username]
-    if Consumer.find_by(username: username).nil?
+    begin
       @consumer = Consumer.from_omniauth session['devise.facebook_data'], username
       sign_in_and_redirect @consumer
-    else
+    rescue
       flash.now[:error] = 'Username already taken'
       render 'connect'
     end
