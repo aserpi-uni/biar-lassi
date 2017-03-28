@@ -1,5 +1,9 @@
 <h2>Sign up</h2>
 
+<% flash.each do |name, msg| -%>
+    <%= content_tag :div, msg, class: name %>
+<% end -%>
+
 <p>
   This is the first time you are logging in with a Facebook account.
 </p>
