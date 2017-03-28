@@ -5,10 +5,10 @@ require_relative 'application'
 Rails.application.initialize!
 
 ActionMailer::Base.smtp_settings = {
-    :address              => 'smtp.sendgrid.net',
-    :port                 => 587,
-    :authentication       => :plain,
-    :user_name            => 'apikey',
-    :password             => ENV['TESI_MAILER_TOKEN'],
-    :enable_starttls_auto => true
+    address: 'smtp.sendgrid.net',
+    port: 587,
+    authentication: :plain,
+    user_name: 'apikey',
+    password: ENV['TESI_MAILER_TOKEN'],
+    enable_starttls_auto: true
 }

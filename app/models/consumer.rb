@@ -6,10 +6,10 @@ class Consumer < ApplicationRecord
          :registerable,
          :rememberable,
          :trackable,
-         :omniauthable, :omniauth_providers => [:facebook]
+         :omniauthable, omniauth_providers: [:facebook]
 
   validates :email, unique: true,
-            format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i, message: 'invalid' }
+            format: {with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i, message: 'invalid' }
   validates :password, confirmation: true, length: { in: 8..128 }
   validates :password_confirmation, presence: true
   validates :username, unique: true
@@ -25,13 +25,13 @@ class Consumer < ApplicationRecord
     consumer.uid = auth['uid']
     consumer.email = auth['info']['email'] || email
     consumer.email = 'null@null.com' if consumer.email.blank?
-    consumer.password = Devise.friendly_token[0,8]
+    consumer.password = Devise.friendly_token[0, 8]
     consumer.password_confirmation = consumer.password
 
     consumer.skip_confirmation!
     consumer.save!
 
-    if consumer.valid? and auth['info']['email'].blank? and email.blank?
+    if consumer.valid? && auth['info']['email'].blank? && email.blank?
       consumer.email = nil
       consumer.save validate: false
     end

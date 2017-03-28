@@ -16,7 +16,7 @@
       <%= text_field_tag :username, nil, autofocus: true %>
     </div>
 
-    <% if session['devise.facebook_data']['email'].nil? %>
+    <% if session['devise.facebook_data']['info']['email'].blank? %>
         <div class="field">
           <%= label_tag :email %>
           <em>(optional)</em><br />
