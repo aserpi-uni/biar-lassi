@@ -1,13 +1,15 @@
-<% provide :title, 'Sign in with Facebook' %>
+<% provide :title, t(:facebook_title) %>
 
-<h2>Sign up</h2>
+<h2>
+  <%= t(:sign_up) %>
+</h2>
 
 <% flash.each do |name, msg| -%>
     <%= content_tag :div, msg, class: name %>
 <% end -%>
 
 <p>
-  This is the first time you are logging in with a Facebook account.
+  <%= t(:facebook_first_time) %>
 </p>
 
 
@@ -27,13 +29,13 @@
     <% end %>
 
     <div class="actions">
-      <%= submit_tag 'Sign up' %>
+      <%= submit_tag t(:sign_up) %>
     </div>
 
 <% end %>
 
 <p>
-  Or sign in with an existing account:
+  <%= t(:facebook_sign_in_existing) %>
 </p>
 
 <%= form_tag({controller: 'consumers/facebook', action: 'connect_existing'}, method: 'get') do %>
@@ -49,7 +51,7 @@
     </div>
 
     <div class="actions">
-      <%= submit_tag 'Sign up' %>
+      <%= submit_tag t(:sign_up) %>
     </div>
 
 <% end %>
