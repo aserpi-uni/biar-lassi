@@ -20,4 +20,58 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  back: 'Back'
+
+  change: 'Change'
+
+  confirmation_lost: "Didn't receive confirmation instructions?"
+
+  delete: 'Delete'
+  delete_account: 'Delete my account'
+
+  devise_confirmation_email_link: 'Confirm my account'
+  devise_confirmation_email_body: 'You can confirm your account email through the link below:'
+  devise_confirmation_email_welcome: "Welcome %{username}!"
+  devise_email_hello: "Hello %{username}!"
+  devise_password_change_email_body: "We're contacting you to notify you that your password has been changed."
+  devise_password_reset_email_body: "If you didn't request this, please ignore this email: your password won't change until you access the link above and create a new one."
+  devise_password_reset_email_link: 'Change my password'
+  devise_password_reset_email_preamble: 'Someone has requested a link to change your password. You can do this through the link below.'
+  devise_resend_confirmation: 'Resend confirmation instructions'
+  devise_unlock_email_body: 'Click the link below to unlock your account:'
+  devise_unlock_email_link: 'Unlock my account'
+  devise_unlock_email_preamble: 'Your account has been locked due to an excessive number of unsuccessful sign in attempts.'
+
+  facebook_first_time: 'This is the first time you are logging in with a Facebook account. Choose an username'
+  facebook_sign_in_existing: 'or sign in with an existing account:'
+  facebook_title: 'Sign in with Facebook'
+
+  password_blank: "(leave blank if you don't want to change it)"
+  password_change: 'Change your password'
+  password_forgot: 'Forgot your password?'
+  password_forgotten: 'Forgotten password'
+  password_min_length: "(%{length} characters minimum)"
+  password_new: 'New password'
+  password_new_confirm: 'Confirm new password'
+  password_reset: 'Reset password'
+  password_reset_send: 'Send me reset password instructions'
+
+  resend: 'Send'
+  resend_confirmation: 'Resend confirmation instructions'
+
+  save: 'Save'
+
+  settings: 'Settings'
+
+  sign_in: 'Login'
+  sign_in_omniauth: "Login with %{provider}"
+  sign_out: 'Logout, loser!'
+  sign_up: 'Register'
+
+  sure: 'Are you sure?'
+
+  unhappy: 'Unhappy?'
+
+  unlock_lost: "Didn't receive unlock instructions?"
+  unlock_resend: 'Resend unlock'
+  unlock_resend_instructions: 'Resend unlock instructions'
