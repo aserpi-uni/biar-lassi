@@ -1,7 +1,7 @@
-<p><%= t :devise_email_hello, username: @resource.username %></p>
+<p><%= t :hello, scope: [:devise_email], username: @resource.username %></p>
 
-<p><%= t :devise_unlock_email_preamble %>/p>
+<p><%= t :unlock_preamble, scope: [:devise_email] %>/p>
 
-<p><%= t :devise_unlock_email_body %></p>
+<p><%= t :unlock_body, scope: [:devise_email] %></p>
 
-<p><%= link_to t(:devise_unlock_email_link), unlock_url(@resource, unlock_token: @token) %></p>
+<p><%= link_to t(:unlock_link, scope: [:devise_email]), unlock_url(@resource, unlock_token: @token) %></p>

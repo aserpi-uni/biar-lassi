@@ -9,7 +9,7 @@ class Consumers::FacebookController < ApplicationController
   def connect_existing
     @consumer = Consumer.find_by username: params[:username]
     if @consumer.nil? or not @consumer.valid_password? params[:password]
-      flash.now[:error] = 'Incorrect username or password'
+      flash.now[:error] = t(:incorrect_credentials)
       render 'connect'
     else
       @consumer.provider = session['devise.facebook_data']['provider']
