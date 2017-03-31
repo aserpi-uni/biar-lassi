@@ -1,6 +1,6 @@
 # Istruzioni per l'uso
 I passi per avviare il server usando Intellij IDEA o RubyMine da zero sono:
-1. avviare il server MYSQL
+1. avviare il server MySQL
 2. creare l'utente `tesi` con la password desiderata
 3. concedere all'utente `tesi` privilegi sui database `Tesi_development`, `Tesi_production` e `Tesi_test`
 4. avviare l'IDE

@@ -9,8 +9,8 @@ class Admin < ApplicationRecord
          :trackable,
          :validatable
 
-  validates :email, unique: true
-  validates :username, unique: true
+  validates :email, unique: true, on: :create
+  validates :username, unique: true, on: :create
 
   def to_param
     username

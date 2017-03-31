@@ -12,16 +12,20 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    if resource.is_a? Admin
-      admin_path resource
-    elsif resource.is_a? Consumer
-      consumer_path resource
-    elsif resource.is_a? Employee
-      employee_path resource
-    end
+    user_path resource
   end
 
   def current_user
     current_admin || current_consumer || current_employee
+  end
+
+  def user_path(user)
+    if user.is_a? Admin
+      admin_path user
+    elsif user.is_a? Consumer
+      consumer_path user
+    elsif user.is_a? Employee
+      employee_path user
+    end
   end
 end
