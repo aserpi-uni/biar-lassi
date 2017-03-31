@@ -9,5 +9,6 @@
     <% elsif not @consumer.email.blank? %>
         <%= link_to t(:disconnect, scope: [:facebook]), 'facebook/disconnect' %><br />
     <% end %>
+    <%= link_to t(:password_change), edit_consumer_registration_path %> <br />
     <%= link_to t(:sign_out), 'sign_out', method: :delete %>
 <% end %>
