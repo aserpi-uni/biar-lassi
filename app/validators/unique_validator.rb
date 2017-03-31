@@ -3,7 +3,7 @@ class UniqueValidator < ActiveModel::EachValidator
     if Admin.find_by(attribute => value) ||
        Consumer.find_by(attribute => value) ||
        Employee.find_by(attribute => value)
-      record.errors[attribute] << t(:already_used)
+      record.errors[attribute] << I18n.t(:already_used)
     end
   end
 end

@@ -1,4 +1,4 @@
-<% provide :title, t(:facebook_title) %>
+<% provide :title, t(:title, scope: [:facebook]) %>
 
 <h2>
   <%= t(:sign_up) %>
@@ -9,7 +9,7 @@
 <% end -%>
 
 <p>
-  <%= t(:facebook_first_time) %>
+  <%= t(:first_time, scope: [:facebook]) %>
 </p>
 
 
@@ -35,7 +35,7 @@
 <% end %>
 
 <p>
-  <%= t(:facebook_sign_in_existing) %>
+  <%= t(:sign_in_existing, scope: [:facebook]) %>
 </p>
 
 <%= form_tag({controller: 'consumers/facebook', action: 'connect_existing'}, method: 'get') do %>

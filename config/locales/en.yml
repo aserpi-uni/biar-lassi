@@ -31,10 +31,6 @@ en:
   delete: 'Delete'
   delete_account: 'Delete my account'
 
-  facebook_first_time: 'This is the first time you are logging in with a Facebook account. Choose an username'
-  facebook_sign_in_existing: 'or sign in with an existing account:'
-  facebook_title: 'Sign in with Facebook'
-
   password_blank: "(leave blank if you don't want to change it)"
   password_change: 'Change your password'
   password_forgot: 'Forgot your password?'
@@ -84,3 +80,11 @@ en:
     unlock_body: 'Click the link below to unlock your account:'
     unlock_link: 'Unlock my account'
     unlock_preamble: 'Your account has been locked due to an excessive number of unsuccessful sign in attempts.'
+
+
+  facebook:
+    connect: 'Connect with Facebook'
+    disconnect: 'Disconnect from Facebook'
+    first_time: 'This is the first time you are logging in with a Facebook account. Choose an username'
+    sign_in_existing: 'or sign in with an existing account:'
+    title: 'Sign in with Facebook'

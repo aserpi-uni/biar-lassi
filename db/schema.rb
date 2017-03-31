@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170328092321) do
+ActiveRecord::Schema.define(version: 20170330094339) do
 
   create_table "admins", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "username",               default: "", null: false
@@ -60,8 +60,6 @@ ActiveRecord::Schema.define(version: 20170328092321) do
     t.datetime "updated_at",                          null: false
     t.string   "provider"
     t.string   "uid"
-    t.string   "oauth_token"
-    t.datetime "oauth_expires_at"
     t.string   "email"
     t.index ["confirmation_token"], name: "index_consumers_on_confirmation_token", unique: true, length: { confirmation_token: 191 }, using: :btree
     t.index ["email"], name: "index_consumers_on_email", unique: true, length: { email: 191 }, using: :btree

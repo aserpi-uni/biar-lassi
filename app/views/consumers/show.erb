@@ -1,4 +1,13 @@
 <% provide :title, @consumer.username %>
 
 <%= debug @consumer %>
-<%= link_to t(:sign_out), 'sign_out', method: :delete %>
+
+
+<% if current_consumer == @consumer %>
+    <% if @consumer.provider.blank? %>
+        <%= link_to t(:connect, scope: [:facebook]), 'auth/facebook' %><br />
+    <% elsif not @consumer.email.blank? %>
+        <%= link_to t(:disconnect, scope: [:facebook]), 'facebook/disconnect' %><br />
+    <% end %>
+    <%= link_to t(:sign_out), 'sign_out', method: :delete %>
+<% end %>
