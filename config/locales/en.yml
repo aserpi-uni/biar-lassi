@@ -31,6 +31,8 @@ en:
   delete: 'Delete'
   delete_account: 'Delete my account'
 
+  incorrect_credentials: 'Incorrect username or password'
+
   password_blank: "(leave blank if you don't want to change it)"
   password_change: 'Change your password'
   password_forgot: 'Forgot your password?'
@@ -41,7 +43,7 @@ en:
   password_reset: 'Reset password'
   password_reset_send: 'Send me reset password instructions'
 
-  incorrect_credentials: 'Incorrect username or password'
+  or: 'or'
 
   resend: 'Send'
   resend_confirmation: 'Resend confirmation instructions'
