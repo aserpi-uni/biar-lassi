@@ -1,20 +1,16 @@
 <% provide :title, t(:title, scope: [:facebook]) %>
 
 <h2>
-  <%= t(:sign_up) %>
+    <%= t(:sign_up) %>
 </h2>
 
-<% flash.each do |name, msg| -%>
-    <%= content_tag :div, msg, class: name %>
-<% end -%>
-
 <p>
-  <%= t(:first_time, scope: [:facebook]) %>
+    <%= t(:first_time, scope: [:facebook]) %>
 </p>
 
 
-
 <%= form_tag({controller: 'consumers/facebook', action: 'select_username'}, method: 'get') do %>
+    <%= t(:username, scope: [:facebook]) %>
     <div class="field">
       <%= label_tag :username %><br />
       <%= text_field_tag :username, nil, autofocus: true %>

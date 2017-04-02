@@ -5,13 +5,14 @@ class Consumers::FacebookController < ApplicationController
 
   def connect_existing
     @consumer = Consumer.find_by username: params[:username]
-    if @consumer.nil? or not @consumer.valid_password? params[:password]
+    if @consumer.nil? || !@consumer.valid_password?(params[:password])
       flash.now[:error] = t(:incorrect_credentials)
       render 'connect'
     else
       @consumer.provider = session['devise.facebook_data']['provider']
       @consumer.uid = session['devise.facebook_data']['uid']
       @consumer.save
+      session.delete 'devise.facebook_data'
       sign_in_and_redirect @consumer
     end
   end
@@ -30,6 +31,10 @@ class Consumers::FacebookController < ApplicationController
 
   def select_username
     @consumer = Consumer.from_omniauth session['devise.facebook_data'], params[:username], params[:email]
+    session.delete 'devise.facebook_data'
+    flash['notice'] = I18n.t :password_notice,
+                             link: view_context.link_to('here', '/consumers/edit'),
+                             pwd: @consumer.password
     sign_in_and_redirect @consumer
   rescue ActiveRecord::RecordInvalid => e
     flash.now[:error] = e.message
