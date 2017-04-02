@@ -8,9 +8,9 @@ Rails.application.routes.draw do
   resources :consumers, param: :username
   resources :employees, param: :username
 
-  get 'consumers/facebook/select_username'
   get 'consumers/facebook/connect_existing'
   get 'consumers/facebook/disconnect'
+  get 'consumers/facebook/select_username'
 
   root to: 'consumers#index'
 end
