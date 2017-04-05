@@ -8,6 +8,7 @@ class Consumers::OmniauthCallbacksController < Devise::OmniauthCallbacksControll
       current_consumer.provider = auth.provider
       current_consumer.uid = auth.uid
       current_consumer.save validate: false
+      flash[:success] = I18n.t(:connected, scope: [:facebook])
     end
 
     if current_user
@@ -33,6 +34,7 @@ class Consumers::OmniauthCallbacksController < Devise::OmniauthCallbacksControll
       set_flash_message(:notice, :success, kind: 'Facebook') if is_navigational_format?
     end
   end
+
 
   def failure
     redirect_to root_path
