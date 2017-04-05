@@ -12,5 +12,9 @@ Rails.application.routes.draw do
   get 'consumers/facebook/disconnect'
   get 'consumers/facebook/select_username'
 
-  root to: 'consumers#index'
+  get '/welcome/enterprise', as: :admin_root
+  get '/welcome/consumer', as: :consumer_root
+  get '/welcome/enterprise', as: :employee_root
+
+  root to: 'welcome#index'
 end
