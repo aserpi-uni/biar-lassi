@@ -12,3 +12,5 @@ ActionMailer::Base.smtp_settings = {
     password: ENV['TESI_MAILER_TOKEN'],
     enable_starttls_auto: true
 }
+
+Rails.logger.info 'My log has something to say about this'
