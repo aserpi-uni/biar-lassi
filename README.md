@@ -12,6 +12,7 @@ I passi per avviare il server usando Intellij IDEA o RubyMine da zero sono:
        * `TESI_DATABASE_PASSWORD` con la password impostata precedentemente
        * `FACEBOOK_APP_ID` con l'id fornito da Facebook
        * `FACEBOOK_SECRET` con il token fornito da Facebook
+       * `HOST` con l'host del server
        * `TESI_MAILER_TOKEN` con il token fornito da SendGrid
 7. apire un terminale e:
    1. caricare le variabili d'ambiente:
@@ -19,7 +20,7 @@ I passi per avviare il server usando Intellij IDEA o RubyMine da zero sono:
        * `SUPER_PASSWORD` con la password scelta per `SuperAdmin`
        * `SUPER_EMAIL` con l'email scelta per `SuperAdmin`
    2. `bin/rake db:setup`
-8. avviare il server premendo il tasto `Debug` o con lo shortcut `Shift + F9`
+8. avviare il server in modalità debug premendo il tasto `Debug` o con lo shortcut `Shift + F9`
 
 
 Se invece si devono solo eseguire modifiche incrementali si deve eseguire in
