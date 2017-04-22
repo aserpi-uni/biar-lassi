@@ -85,5 +85,5 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Mailer
-  config.action_mailer.default_url_options = { host: ENV['MAILER_HOST'] }
+  config.action_mailer.default_url_options = { host: ENV['HOST'] }
 end
