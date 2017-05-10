@@ -7,7 +7,7 @@ class Employee < ApplicationRecord
          :trackable,
          :validatable
 
-  enum role: {supervisor: 0, analyst: 1, operator: 2}
+  enum role: { supervisor: 0, analyst: 1, operator: 2 }
 
   validates :email, unique: true, on: :create
   validates :username, unique: true, on: :create
