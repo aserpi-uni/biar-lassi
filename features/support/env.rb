@@ -6,6 +6,9 @@
 
 require 'cucumber/rails'
 
+require 'capybara/poltergeist'
+Capybara.javascript_driver = :poltergeist
+
 # Capybara defaults to CSS3 selectors rather than XPath.
 # If you'd prefer to use XPath, just uncomment this line and adjust any
 # selectors in your step definitions to use the XPath syntax.
@@ -56,3 +59,13 @@ end
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
+Before('@omniauth_test') do
+  OmniAuth.config.test_mode = true
+  Capybara.default_host = 'http://example.com'
+
+  OmniAuth.config.add_mock(:facebook, {:uid => '12345', :info => { :email => 'facebook@example.com' }})
+end
+
+After('@omniauth_test') do
+  OmniAuth.config.test_mode = false
+end
