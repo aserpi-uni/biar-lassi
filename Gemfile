@@ -54,4 +54,15 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 ## Custom
 gem 'devise'
+gem 'omniauth'
+gem 'omniauth-facebook'
 gem 'pundit'
+
+
+group :test do
+  gem 'cucumber-rails', require: false
+  # database_cleaner is not required, but highly recommended
+  gem 'database_cleaner'
+  gem 'poltergeist'
+  gem 'simplecov', require: false
+end

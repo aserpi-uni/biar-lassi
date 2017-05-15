@@ -20,4 +20,80 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  already_used: 'already used'
+
+  back: 'Back'
+
+  change: 'Change'
+
+  confirmation_lost: "Didn't receive confirmation instructions?"
+
+  delete: 'Delete'
+  delete_account: 'Delete my account'
+
+  incorrect_credentials: 'Incorrect username or password'
+
+  password_blank: "(leave blank if you don't want to change it)"
+  password_change: 'Change your password'
+  password_forgot: 'Forgot your password?'
+  password_forgotten: 'Forgotten password'
+  password_min_length: "(%{length} characters minimum)"
+  password_new: 'New password'
+  password_new_confirm: 'Confirm new password'
+  password_notice: "This is your password: %{pwd}, write it somewhere then change it %{link}!"
+  password_reset: 'Reset password'
+  password_reset_send: 'Send me reset password instructions'
+
+  or: 'or'
+
+  resend: 'Send'
+  resend_confirmation: 'Resend confirmation instructions'
+
+  save: 'Save'
+
+  settings: 'Settings'
+  settings_change: 'Change your settings'
+
+  sign_in: 'Login'
+  sign_in_omniauth: "Login with %{provider}"
+  sign_out: 'Logout, loser!'
+  sign_up: 'Register'
+
+  sure: 'Are you sure?'
+
+  unhappy: 'Unhappy?'
+
+  unlock_lost: "Didn't receive unlock instructions?"
+  unlock_resend: 'Resend unlock'
+  unlock_resend_instructions: 'Resend unlock instructions'
+
+
+  devise_email:
+    confirmation_link: 'Confirm my account'
+    confirmation_body: 'You can confirm your account through the link below:'
+    confirmation_welcome: "Welcome %{username}!"
+
+    hello: "Hello %{username}!"
+
+    password_change_body: "We're contacting you to notify you that your password has been changed."
+
+    password_reset_body: "If you didn't request this, please ignore this email: your password won't change until you access the link above and create a new one."
+    password_reset_link: 'Change my password'
+    password_reset_preamble: 'Someone has requested a link to change your password. You can do this through the link below.'
+
+    unlock_body: 'Click the link below to unlock your account:'
+    unlock_link: 'Unlock my account'
+    unlock_preamble: 'Your account has been locked due to an excessive number of unsuccessful sign in attempts.'
+
+
+  facebook:
+    connect: 'Connect with Facebook'
+    connected: 'Successfully connected your account with Facebook.'
+    disconnect: 'Disconnect from Facebook'
+    email_invalid: 'This email has already been taken by a non-consumer account.'
+    first_time: 'This is the first time you are logging in with a Facebook account.'
+    sign_in_existing: 'or sign in with an existing account:'
+    sign_in_existing_only: 'Your email is already taken by a non-consumer account. Please sign in with username and password:'
+    success: 'Successfully disconnected your account from Facebook.'
+    username: 'Choose an username (a password will be automatically generated)'
+    title: 'Sign in with Facebook'
