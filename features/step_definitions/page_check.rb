@@ -2,8 +2,8 @@ Given(/^I am on the "([^"]*)" page$/) do |arg|
   visit path_to(arg)
 end
 
-Then(/^I should see a "([^"]*)" input field$/) do |arg|
-  page.assert_selector :css, "label[for=\"#{arg}\"]"
+Then(/^I should( not)? see a "([^"]*)" input field$/) do |absent, field|
+  page.assert_selector(:css, "label[for=\"#{field}\"]") == absent.blank?
 end
 
 Then(/^I should see a "([^"]*)" link$/) do |arg|
