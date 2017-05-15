@@ -1,53 +1,58 @@
 <% provide :title, t(:title, scope: [:facebook]) %>
 
 <h2>
-    <%= t(:sign_up) %>
+  <%= t(:sign_up) %>
 </h2>
 
 <p>
-    <%= t(:first_time, scope: [:facebook]) %>
+  <%= t(:first_time, scope: [:facebook]) %>
 </p>
 
-
-<%= form_tag({controller: 'consumers/facebook', action: 'select_username'}, method: 'get') do %>
-    <%= t(:username, scope: [:facebook]) %>
-    <div class="field">
-      <%= label_tag :username %><br />
-      <%= text_field_tag :username, nil, autofocus: true %>
-    </div>
-
-    <% if session['devise.facebook_data']['info']['email'].blank? %>
+<% unless @email_taken %>
+    <%= form_tag({controller: 'consumers/facebook', action: 'select_username'}, method: 'get') do %>
+        <%= t(:username, scope: [:facebook]) %>
         <div class="field">
-          <%= label_tag :email %>
-          <em>(optional)</em><br />
-          <%= email_field_tag :email %>
+          <%= label_tag :username %><br/>
+          <%= text_field_tag :username, nil, autofocus: true %>
         </div>
+
+        <% if session['devise.facebook_data']['info']['email'].blank? %>
+            <div class="field">
+              <%= label_tag :email %>
+              <em>(optional)</em><br/>
+              <%= email_field_tag :email %>
+            </div>
+        <% end %>
+
+        <div class="actions">
+          <%= submit_tag t(:sign_up) %>
+        </div>
+
     <% end %>
 
-    <div class="actions">
-      <%= submit_tag t(:sign_up) %>
-    </div>
-
+    <p>
+      <%= t(:sign_in_existing, scope: [:facebook]) %>
+    </p>
+<% else %>
+    <p>
+      <%= t(:sign_in_existing_only, scope: [:facebook]) %>
+    </p>
 <% end %>
-
-<p>
-  <%= t(:sign_in_existing, scope: [:facebook]) %>
-</p>
 
 <%= form_tag({controller: 'consumers/facebook', action: 'connect_existing'}, method: 'get') do %>
 
     <div class="field">
-      <%= label_tag :username %><br />
+      <%= label_tag :username %><br/>
       <%= text_field_tag :username %>
     </div>
 
     <div class="field">
-      <%= label_tag :password %><br />
+      <%= label_tag :password %><br/>
       <%= password_field_tag :password, nil, autocomplete: 'off' %>
     </div>
 
     <div class="actions">
-      <%= submit_tag t(:sign_up) %>
+      <%= submit_tag t(:sign_in) %>
     </div>
 
 <% end %>
