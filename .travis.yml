@@ -9,7 +9,7 @@ services:
 
 before_script:
   - 'bundle install'
-  - "RAILS_ENV='test' bundle db:setup"
+  - "RAILS_ENV='test' bundle exec db:setup"
 
 script: 'bundle exec cucumber'
 
