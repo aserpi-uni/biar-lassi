@@ -28,17 +28,41 @@ Feature: Signing in as a consumer
     Then I should see a "sign_out" link
 
   @omniauth_test
-  Scenario: Login with Facebook creating a new account
+  Scenario: Login with Facebook creating a new account (email inserted manually)
     Given I am on the "Consumer sign in" page
     And I want to login with Facebook with "" as email
     And I click on the "/consumers/auth/facebook" link
     And I fill in "username" (in "form" with "action" as "/consumers/facebook/select_username") with "facebook_success"
     And I fill in "email" with "facebook@example.com"
     When I press "Register" in "form" with "action" as "/consumers/facebook/select_username"
+    Then I should see a "/consumers/auth/facebook" link
+
+  @omniauth_test
+  Scenario: Login with Facebook creating a new account (no email inserted)
+    Given I am on the "Consumer sign in" page
+    And I want to login with Facebook with "" as email
+    And I click on the "/consumers/auth/facebook" link
+    And I fill in "username" (in "form" with "action" as "/consumers/facebook/select_username") with "facebook_success"
+    When I press "Register" in "form" with "action" as "/consumers/facebook/select_username"
     Then I should see a "sign_out" link
 
-  # TODO: Scenario: Try to login with Facebook, inserting manually an email and a wrong password
+  @omniauth_test
+  Scenario: Try to login with Facebook, inserting manually an email and a wrong password
+    Given I created a Consumer account with username "facebook_fail" and email "facebook_fail@example.com"
+    And I am on the "Consumer sign in" page
+    And I want to login with Facebook with "" as email
+    And I click on the "/consumers/auth/facebook" link
+    And I fill in "username" (in "form" with "action" as "/consumers/facebook/connect_existing") with "facebook_fail"
+    And I fill in "password" with "wrong_password"
+    When I press "Login" in "form" with "action" as "/consumers/facebook/connect_existing"
+    Then I should see a "password" input field
 
-  # TODO: Scenario: Try to login with Facebook associated with an Employee account
+  @omniauth_test
+  Scenario: Try to login with Facebook with an email associated with an Admin account
+    Given I created an Admin account with username "admin_account" and email "facebook_fail@example.com"
+    And I am on the "Consumer sign in" page
+    And I want to login with Facebook with "facebook_fail@example.com" as email
+    When I click on the "/consumers/auth/facebook" link
+    Then I should not see a "username" input field
 
-  # TODO: Scenario: Try to login with Facebook creating a new account with an username already taken by an Admin
+  # TODO: Scenario: Try to login with Facebook creating a new account with an username already taken by an Employee

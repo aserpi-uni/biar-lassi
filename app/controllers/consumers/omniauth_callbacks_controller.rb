@@ -8,13 +8,15 @@ class Consumers::OmniauthCallbacksController < Devise::OmniauthCallbacksControll
       current_consumer.provider = auth.provider
       current_consumer.uid = auth.uid
       current_consumer.save validate: false
-      flash[:success] = I18n.t(:connected, scope: [:facebook])
+      flash[:success] = I18n.t :connected, scope: [:facebook]
     end
 
     if current_user
-      redirect_to(user_path current_user)
+      redirect_to user_path(current_user)
       return
     end
+
+    @email_taken = Admin.find_by(email: auth.info.email) || Employee.find_by(email: auth.info.email)
 
     @consumer = Consumer.find_by provider: auth.provider, uid: auth.uid
     if @consumer.nil?
