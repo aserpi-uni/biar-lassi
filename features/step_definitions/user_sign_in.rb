@@ -6,12 +6,10 @@ When(/^I accurately login as an? (Admin|Consumer) with username "([^"]*)"$/) do 
   click_button 'Login'
 end
 
-
 And(/^I click on the "([^"]*)" link$/) do |arg|
   find(:xpath, "//a[@href=\"#{arg}\"]").click
 end
 
-
 And(/^I want to login with Facebook with "([^"]*)" as email$/) do |arg|
-  OmniAuth.config.add_mock :facebook, :info => { :email => '' }
+  OmniAuth.config.add_mock :facebook, info: { email: arg }
 end

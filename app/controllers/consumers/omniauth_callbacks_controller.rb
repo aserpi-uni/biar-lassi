@@ -37,7 +37,6 @@ class Consumers::OmniauthCallbacksController < Devise::OmniauthCallbacksControll
     end
   end
 
-
   def failure
     redirect_to root_path
   end

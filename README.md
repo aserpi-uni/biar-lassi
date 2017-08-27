@@ -1,4 +1,6 @@
 # Istruzioni per l'uso
+[![Build Status](https://travis-ci.org/aserpi/Tesi.svg?branch=feature/user_login)](https://travis-ci.org/aserpi/Tesi)
+[![Coverage Status](https://coveralls.io/repos/github/aserpi/Tesi/badge.svg?branch=feature/user_login)](https://coveralls.io/github/aserpi/Tesi?branch=feature/user_login)
 
 Installazione:
 1. avviare il server MySQL
