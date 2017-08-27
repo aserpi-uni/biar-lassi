@@ -12,7 +12,3 @@ before_script:
   - "RAILS_ENV='test' rake db:setup"
 
 script: 'bundle exec cucumber'
-
-branches:
-  only:
-    - development

@@ -3,14 +3,13 @@ Given(/^I am on the "([^"]*)" page$/) do |arg|
 end
 
 Then(/^I should( not)? see a "([^"]*)" input field$/) do |absent, field|
-  page.assert_selector(:css, "label[for=\"#{field}\"]") == absent.blank?
+  assert(page.has_css?("label[for=\"#{field}\"]") == absent.blank?)
 end
 
-Then(/^I should see a "([^"]*)" link$/) do |arg|
-  page.assert_selector :css, "a[href=\"#{arg}\"]"
+Then(/^I should( not)? see a "([^"]*)" link$/) do |absent, field|
+  assert(page.has_css?("a[href=\"#{field}\"]") == absent.blank?)
 end
 
-
-Then(/^I should see a "([^"]*)" text$/) do |arg|
-  page.has_text? arg
+Then(/^I should( not)? see a "([^"]*)" text$/) do |absent, field|
+  assert(page.has_text?(field) == absent.blank?)
 end

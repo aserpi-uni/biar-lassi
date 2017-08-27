@@ -65,4 +65,5 @@ group :test do
   gem 'database_cleaner'
   gem 'poltergeist'
   gem 'simplecov', require: false
+  gem 'coveralls', require: false
 end

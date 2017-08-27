@@ -4,11 +4,15 @@
   <%= t(:sign_up) %>
 </h2>
 
-<p>
-  <%= t(:first_time, scope: [:facebook]) %>
-</p>
+<% if @email_taken %>
+    <p>
+      <%= t(:sign_in_existing_only, scope: [:facebook]) %>
+    </p>
+<% else %>
+    <p>
+      <%= t(:first_time, scope: [:facebook]) %>
+    </p>
 
-<% unless @email_taken %>
     <%= form_tag({controller: 'consumers/facebook', action: 'select_username'}, method: 'get') do %>
         <%= t(:username, scope: [:facebook]) %>
         <div class="field">
@@ -33,26 +37,23 @@
     <p>
       <%= t(:sign_in_existing, scope: [:facebook]) %>
     </p>
-<% else %>
-    <p>
-      <%= t(:sign_in_existing_only, scope: [:facebook]) %>
-    </p>
-<% end %>
 
-<%= form_tag({controller: 'consumers/facebook', action: 'connect_existing'}, method: 'get') do %>
+    <%= form_tag({controller: 'consumers/facebook', action: 'connect_existing'}, method: 'get') do %>
 
-    <div class="field">
-      <%= label_tag :username %><br/>
-      <%= text_field_tag :username %>
-    </div>
+        <div class="field">
+          <%= label_tag :username %><br/>
+          <%= text_field_tag :username %>
+        </div>
 
-    <div class="field">
-      <%= label_tag :password %><br/>
-      <%= password_field_tag :password, nil, autocomplete: 'off' %>
-    </div>
+        <div class="field">
+          <%= label_tag :password %><br/>
+          <%= password_field_tag :password, nil, autocomplete: 'off' %>
+        </div>
 
-    <div class="actions">
-      <%= submit_tag t(:sign_in) %>
-    </div>
+        <div class="actions">
+          <%= submit_tag t(:sign_in) %>
+        </div>
+
+    <% end %>
 
 <% end %>
