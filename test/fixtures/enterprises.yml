@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyText
+  nickname_suffix: MyText
+  description: MyText
+  headquarters: MyText
+  founded: 2017-08-28
+  website: MyText
+  avatar: MyText
+  icon: MyText
+  avatar_operator: MyText
+  avatar_supervisor: MyText
+
+two:
+  name: MyText
+  nickname_suffix: MyText
+  description: MyText
+  headquarters: MyText
+  founded: 2017-08-28
+  website: MyText
+  avatar: MyText
+  icon: MyText
+  avatar_operator: MyText
+  avatar_supervisor: MyText

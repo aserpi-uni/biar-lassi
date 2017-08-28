@@ -23,7 +23,7 @@
         <% if session['devise.facebook_data']['info']['email'].blank? %>
             <div class="field">
               <%= label_tag :email %>
-              <em>(optional)</em><br/>
+              <em><%= t(:optional_email, scope: [:facebook]) %></em><br/>
               <%= email_field_tag :email %>
             </div>
         <% end %>

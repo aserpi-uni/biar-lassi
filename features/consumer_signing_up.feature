@@ -30,11 +30,15 @@ Feature: Signing up as a consumer
     When I accurately register a Consumer with username "consumer_sign_up_fail" and email "consumer@example.com"
     Then I should see a "consumer_username" input field
 
+  Scenario: Try to create a new account with an email already taken
+    Given I created an Admin account with username "test@admin" and email "consumer_sign_up_fail@example.com"
+    When I accurately register a Consumer with username "consumer_sign_up_fail" and email "consumer_sign_up_fail@example.com"
+    Then I should see a "consumer_username" input field
+
   Scenario: Try to create a new account with an incorrect username
     When I accurately register a Consumer with username "fail@consumer" and email "consumer_sign_up_fails@example.com"
     Then I should see a "consumer_username" input field
 
-  Scenario: Try to create a new account with an email already taken
-    Given I created an Admin account with username "test@admin" and email "consumer_sign_up_fail@example.com"
-    When I accurately register a Consumer with username "consumer_sign_up_fail" and email "consumer_sign_up_fail@example.com"
+  Scenario: Try to create a new account with a reserved username
+    When I accurately register a Consumer with username "Admin" and email "consumer_sign_up_fails@example.com"
     Then I should see a "consumer_username" input field

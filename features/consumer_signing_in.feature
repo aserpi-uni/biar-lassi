@@ -29,7 +29,18 @@ Feature: Signing in as a consumer
     Then I should see a "sign_out" link
 
   @omniauth_test
-  Scenario: Login with Facebook and a pre-existing account inserting manually the email address and password
+  Scenario: Create, sign out and login with a Facebook account
+    Given I am on the "Consumer sign in" page
+    When I click on the "/consumers/auth/facebook" link
+    And I fill in "username" (in "form" with "action" as "/consumers/facebook/select_username") with "facebook_success"
+    And I press "Register" in "form" with "action" as "/consumers/facebook/select_username"
+    And I click on the "sign_out" link
+    And I am on the "Consumer sign in" page
+    When I click on the "/consumers/auth/facebook" link
+    Then I should see a "sign_out" link
+
+  @omniauth_test
+  Scenario: Login with Facebook and a pre-existing account inserting manually username and password
     Given I created a Consumer account with username "facebook_success" and email "facebook@example.com"
     And I want to login with Facebook with "" as email
     And I am on the "Consumer sign in" page
@@ -60,7 +71,7 @@ Feature: Signing in as a consumer
     And I should not see a "facebook/disconnect" link
 
   @omniauth_test
-  Scenario: Try to login with Facebook, inserting manually an email and a wrong password
+  Scenario: Try to login with Facebook, manually inserting username and (wrong) password
     Given I created a Consumer account with username "facebook_fail" and email "facebook_fail@example.com"
     And I am on the "Consumer sign in" page
     And I want to login with Facebook with "" as email

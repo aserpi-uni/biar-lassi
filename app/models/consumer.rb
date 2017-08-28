@@ -11,7 +11,8 @@ class Consumer < ApplicationRecord
   validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i, message: 'invalid' },
                     unique: { global: true }, on: :create
   validates :password, confirmation: true, length: { in: 8..128 }, on: :create
-  validates :username, format: { with: /\A\w{,32}\z/, message: 'invalid' }, unique: { global: false }, on: :create
+  validates :username, format: { with: /\A\w{5,32}\z/, message: 'invalid' }, reserved_name: true,
+                       unique: { global: false }, on: :create
 
   validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i, message: 'invalid' },
                     allow_blank: true, on: :update
