@@ -1,13 +1,9 @@
 class Admin < ApplicationRecord
   devise :database_authenticatable,
-         :confirmable,
          :lockable,
          :recoverable,
-         :rememberable,
-         :registerable,
          :timeoutable,
-         :trackable,
-         :validatable
+         :trackable
 
   validates :email, unique: true, on: :create
   validates :username, unique: true, on: :create

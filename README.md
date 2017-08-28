@@ -27,6 +27,7 @@ Per avviare il server attraverso Intellij IDEA o RubyMine è necessario creare l
        * `FACEBOOK_APP_ID` con l'id fornito da Facebook
        * `FACEBOOK_SECRET` con il token fornito da Facebook
        * `HOST` con l'host del server
+       * `RESERVED_NAMES` con tutti gli username riservati dal sistema
        * `SECRET_KEY_BASE` con la chiave base (necessaria solo per avviare ilm erver in modalità
        `production`)
        * `TESI_MAILER_TOKEN` con il token fornito da SendGrid

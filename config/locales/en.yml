@@ -93,6 +93,7 @@ en:
     email_invalid: 'This email has already been taken by a non-consumer account.'
     first_time: 'This is the first time you are logging in with a Facebook account.'
     no_email: 'Operation not permitted: no email associated with the account.'
+    optional_email: 'optional, if you insert it you need to verify it'
     sign_in_existing: 'or sign in with an existing account:'
     sign_in_existing_only: 'Your email is already taken by a non-consumer account. Please sign in with username and password.'
     success: 'Successfully disconnected your account from Facebook.'

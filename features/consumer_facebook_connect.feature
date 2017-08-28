@@ -5,7 +5,7 @@ Feature: Connect to Facebook
 
 
   @omniauth_test
-  Scenario: Login with Facebook and a pre-existing account
+  Scenario: Connect Facebook to an account
     Given I created a Consumer account with username "facebook_success" and email "facebook@example.com"
     And I accurately login as a Consumer with username "facebook_success"
     # OmniAuth has a default configuration

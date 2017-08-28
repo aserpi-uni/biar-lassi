@@ -19,7 +19,10 @@ class Consumers::FacebookController < ApplicationController
 
   def disconnect
     if current_consumer.email.blank?
-      flash[:error] = I18n.t(:no_email, scope: [:facebook]) # it is not possible to reach this point without tiping manually a link
+      # :nocov:
+      # it is not possible to reach this point without tiping manually an address
+      flash[:error] = I18n.t(:no_email, scope: [:facebook])
+      # :nocov:
     else
       current_consumer.provider = nil
       current_consumer.uid = nil
