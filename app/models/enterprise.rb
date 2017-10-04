@@ -1,5 +1,10 @@
 class Enterprise < ApplicationRecord
-  # TODO: validations
+
+  validates :name, format: { with: /\A[\w\s?!-]{3,64}\z/, message: 'is invalid' }, reserved_name: true,
+            unique: { global: false }, on: :create
+
+  validates :nickname_suffix, format: { with: /\A[\w\s?!-]{3,32}\z/, message: 'is invalid' }, reserved_name: true,
+            unique: { global: false }, on: :create
 
   has_many :employees
 

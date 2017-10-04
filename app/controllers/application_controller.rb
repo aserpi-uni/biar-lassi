@@ -40,3 +40,7 @@ class ApplicationController < ActionController::Base
     end
   end
 end
+
+
+# TODO: capire perché enterprise.errors ed employee.errors a volte non funzionano.
+# Problema universale o solo di Firefox?

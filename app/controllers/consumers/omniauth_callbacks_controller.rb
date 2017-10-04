@@ -37,7 +37,10 @@ class Consumers::OmniauthCallbacksController < Devise::OmniauthCallbacksControll
     end
   end
 
+  # :nocov:
+  # Impossible to test
   def failure
     redirect_to root_path
   end
+  # :nocov:
 end

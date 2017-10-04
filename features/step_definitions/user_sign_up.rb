@@ -1,4 +1,4 @@
-When(/^I accurately register an? (Admin|Consumer) with username "([^"]*)" and email "([^"]*)"$/) do |klass, name, email|
+When(/^I register an? (Admin|Consumer) with username "([^"]*)" and email "([^"]*)"$/) do |klass, name, email|
   visit path_to("#{klass} sign up")
   klass = klass.downcase
   fill_in "#{klass}_username", with: name
