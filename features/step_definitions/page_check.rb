@@ -9,3 +9,7 @@ end
 Then(/^I should( not)? see a "([^"]*)" text$/) do |absent, field|
   assert(page.has_text?(field) == absent.blank?)
 end
+
+Then(/^I should( not)? see a "([^"]*)" title$/) do |absent, field|
+  assert(page.has_title?(field) == absent.blank?)
+end

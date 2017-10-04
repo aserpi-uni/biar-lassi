@@ -8,7 +8,7 @@ When(/^I register an? (Admin|Consumer) with username "([^"]*)" and email "([^"]*
   click_button 'Register'
 end
 
-Given(/^I created (an Admin|a Consumer) account with username "([^"]*)" and email "([^"]*)"$/)  do |klass, name, email|
+Given(/^I created (an Admin|a Consumer) account with username "([^"]*)" and email "([^"]*)"$/) do |klass, name, email|
   if klass == 'an Admin' && !Admin.find_by(username: name)
     admin = Admin.new(email: email, password: 'password', username: name)
     admin.save!
@@ -19,16 +19,18 @@ Given(/^I created (an Admin|a Consumer) account with username "([^"]*)" and emai
   end
 end
 
-Given(/^I created an Employee account with username "([^"]*)", email "([^"]*)" and role "(analyst|operator|supervisor)"$/)  do |name, email, role|
-  employee = Employee.find_by(username: name)
-  if employee
-    unless employee.role == role
-      employee.role = role
-      employee.save!
-    end
-  else
-    admin = Employee.new(email: email, password: 'password', role: role, username: name)
-    admin.skip_confirmation!
-    admin.save!
-  end
+Given(/^I created an Employee account with username "([^"]*)", email "([^"]*)", role "(operator|supervisor)" and enterprise "([^"]*)"$/) do |username, email, role, enterprise|
+  Employee.create_new(username: username, email: email, role: role, password: 'password', password_confirmation: 'password',
+                      enterprise: Enterprise.find_by!(name: enterprise)).save!
+end
+
+When(/^I register an Employee account with username "([^"]*)", email "([^"]*)", role "(Operator|Supervisor)"( and enterprise "([^"]*)")?$/) do |username, email, role, enterprise|
+  visit path_to 'new Employee'
+  fill_in 'employee[username]', with: username
+  fill_in 'employee[email]', with: email
+  select role, from: 'employee[role]'
+  fill_in('employee[enterprise]', with: enterprise) unless enterprise.blank?
+  fill_in 'employee[password]', with: 'password'
+  fill_in 'employee[password_confirmation]', with: 'password'
+  click_button 'Create Employee'
 end
