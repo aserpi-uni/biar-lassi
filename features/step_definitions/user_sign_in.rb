@@ -1,4 +1,4 @@
-When(/^I login as an? (Admin|Consumer) with username "([^"]*)"$/) do |klass, name|
+When(/^I login as an? (Admin|Consumer|Employee) with username "([^"]*)"$/) do |klass, name|
   visit path_to("#{klass} sign in")
   klass = klass.downcase
   fill_in "#{klass}_username", with: name
