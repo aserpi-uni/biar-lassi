@@ -1,0 +1,19 @@
+language: ruby
+cache: bundler
+rvm:
+- 2.4.0
+services:
+- mysql
+before_script:
+- bundle install
+- RAILS_ENV='test' bundle exec rake db:setup
+script: bundle exec cucumber
+after_failure: cat log/test.log
+env:
+- RESERVED_NAMES="index show new edit create update destroy admin employee"
+
+notifications:
+  slack:
+    secure: JsRBuTq+dc4jM60u1TvTRGqCR72zd48Sqf+Ftt/ZvMsY8+F3xHuD7nHtNCh1KYDX3dGJmLXU7oDV3G9nq+ALFSltZTxRQ89c5SmqHoDOWMpESj8Mbu8J0YalwWjDKi/WYhvCo06s8oMJbbPDwqGC7WaU2UPhaVpKO4/09G3qHEYlpM59KAi2wo1f+a1rwZH06rius4XI5ftUtAtfFj6sskJ7izadWJTpVvmkwjnfPfbkgq7zzcIVpgWP5lVrPHvxphd8PjehXz0UbbIagcCJzByacGGzT70VKdutDTdHqcCbC9mXm7CpwLcLH7D7p3haWuFkn7Md66DwRIgVVvOy17Xe/fgovx9guEcaMIzOFuJ7DR9nNbDTJjGkKF/IisCuQuXWaepNeJMwBK+THmAWd/uNxXkvOOwCfMijlhPYsM6DuhJp/BQ28TeR6xMk28W3d9T6Hl36vuepn3LPtg+zaG/sGMF/zZjJ76YdstPCqRsA5K1N0mTQft2MD0mE8DDBAM72pammEZ7QQpXjYgVndQU3DKtcXa12scpJ77Q3tlrONpTxhi5dFSa2MiCGC7l49lFbdmIqiEmfei2uFBtIc3+OhpDXoeH1SWckUgE3ku3oniapfMBFMGH6HWIIULOZTWcy4+n/wOEcuoH14GdCC0OkTHmEa7Ifs6AEsU+ZxWw=
+    on_success: change
+    on_failure: always
