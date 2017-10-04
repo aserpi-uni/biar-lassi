@@ -1,7 +1,7 @@
 class Consumers::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  include Accessible
 
   def facebook
+    authorize :facebook, :facebook?
     auth = request.env['omniauth.auth']
 
     # :nocov:
@@ -11,14 +11,10 @@ class Consumers::OmniauthCallbacksController < Devise::OmniauthCallbacksControll
       current_consumer.uid = auth.uid
       current_consumer.save validate: false
       flash[:success] = I18n.t :connected, scope: [:facebook]
-    end
-    # :nocov:
-
-    # TODO: test per admin ed employee, che non possono accedere tramite facebook
-    if current_user
       redirect_to user_path(current_user)
       return
     end
+    # :nocov:
 
     @email_taken = Admin.find_by(email: auth.info.email) || Employee.find_by(email: auth.info.email)
 

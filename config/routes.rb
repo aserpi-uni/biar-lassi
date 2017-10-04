@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   resources :consumers, param: :username
   resources :employees, param: :username
 
+  resources :enterprises, param: :name
+
   get 'consumers/facebook/connect_existing'
   get 'consumers/facebook/disconnect'
   get 'consumers/facebook/select_username'

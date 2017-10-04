@@ -1,0 +1,15 @@
+<%= form_with model: @enterprise do |form| %>
+    <p>
+      <%= form.label :name %><br>
+      <%= form.text_field :name %>
+    </p>
+
+    <p>
+      <%= form.label :nickname_suffix %><br>
+      <%= form.text_field :nickname_suffix %>
+    </p>
+
+    <p>
+      <%= form.submit %>
+    </p>
+<% end %>

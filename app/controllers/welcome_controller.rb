@@ -1,6 +1,8 @@
 class WelcomeController < ApplicationController
   include Accessible
-  before_action :redirect_user
+
+  before_action :authorize_user
+  #TODO: rivedere un po' tutto
 
   def index
   end

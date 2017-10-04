@@ -1,4 +1,4 @@
-class DeviseCreateConsumers < ActiveRecord::Migration[5.0]
+class DeviseCreateConsumers < ActiveRecord::Migration[5.1]
   def change
     create_table :consumers do |t|
       ## Database authenticatable

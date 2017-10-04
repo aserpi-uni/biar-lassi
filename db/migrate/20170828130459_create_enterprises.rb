@@ -1,4 +1,4 @@
-class CreateEnterprises < ActiveRecord::Migration[5.0]
+class CreateEnterprises < ActiveRecord::Migration[5.1]
   def change
     create_table :enterprises do |t|
       t.text :name
@@ -14,5 +14,7 @@ class CreateEnterprises < ActiveRecord::Migration[5.0]
 
       t.timestamps
     end
+
+    add_index :enterprises, :name, unique: true, length: 191
   end
 end

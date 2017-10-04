@@ -1,4 +1,4 @@
-class AddFacebookLoginToConsumer < ActiveRecord::Migration[5.0]
+class AddFacebookLoginToConsumer < ActiveRecord::Migration[5.1]
   def change
     add_column :consumers, :provider, :string
     add_column :consumers, :uid, :string
