@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
   include Pundit
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
 
   protected
 
@@ -22,6 +24,19 @@ class ApplicationController < ActionController::Base
       consumer_path user
     elsif user.is_a? Employee
       employee_path user
+    end
+  end
+
+
+  private
+
+  def user_not_authorized
+    if current_user
+      flash[:alert] = I18n.t :forbidden
+      redirect_to user_path current_user
+    else
+      response.headers['Status-Code'] = '403'
+      render file: '/public/403.html', layout: false
     end
   end
 end
