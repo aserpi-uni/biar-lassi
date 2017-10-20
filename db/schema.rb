@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 20171003182345) do
 
-  create_table "admins", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "admins", force: :cascade do |t|
     t.string "username", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20171003182345) do
     t.index ["username"], name: "index_admins_on_username", unique: true, length: { username: 191 }
   end
 
-  create_table "consumers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "consumers", force: :cascade do |t|
     t.string "username", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 20171003182345) do
     t.index ["username"], name: "index_consumers_on_username", unique: true, length: { username: 191 }
   end
 
-  create_table "employees", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "employees", force: :cascade do |t|
     t.string "username", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -89,7 +89,7 @@ ActiveRecord::Schema.define(version: 20171003182345) do
     t.index ["username"], name: "index_employees_on_username", unique: true, length: { username: 191 }
   end
 
-  create_table "enterprises", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "enterprises", force: :cascade do |t|
     t.text "name"
     t.text "nickname_suffix"
     t.text "description"

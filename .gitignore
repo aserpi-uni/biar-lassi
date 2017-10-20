@@ -44,7 +44,6 @@ build-iPhoneSimulator/
 
 # for a library or gem, you might want to ignore these files since the code is
 # intended to run in multiple environments; otherwise, check them in:
-Gemfile.lock
 .ruby-version
 .ruby-gemset
 
@@ -90,29 +89,9 @@ bower.json
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 # User-specific stuff:
-.idea/inspectionProfiles/
-.idea/dictionaries
-.idea/misc.xml
-.idea/modules.xml
-.idea/tasks.xml
-.idea/workspace.xml
+.idea
 *.iml
 
-# Sensitive or high-churn files:
-.idea/**/dataSources/
-.idea/**/dataSources.ids
-.idea/**/dataSources.xml
-.idea/**/dataSources.local.xml
-.idea/**/sqlDataSources.xml
-.idea/**/dynamic.xml
-.idea/**/uiDesigner.xml
-
-# Gradle:
-.idea/**/gradle.xml
-.idea/**/libraries
-
-# Mongo Explorer plugin:
-.idea/**/mongoSettings.xml
 
 ## File-based project format:
 *.iws

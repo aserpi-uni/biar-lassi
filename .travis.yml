@@ -3,17 +3,16 @@ cache: bundler
 rvm:
 - 2.4.0
 services:
-- mysql
+- postgresql
 before_script:
 - bundle install
 - RAILS_ENV='test' bundle exec rake db:setup
 script: bundle exec cucumber
 after_failure: cat log/test.log
-env:
-- RESERVED_NAMES="index show new edit create update destroy admin employee"
-
 notifications:
+  email: false
   slack:
-    secure: JsRBuTq+dc4jM60u1TvTRGqCR72zd48Sqf+Ftt/ZvMsY8+F3xHuD7nHtNCh1KYDX3dGJmLXU7oDV3G9nq+ALFSltZTxRQ89c5SmqHoDOWMpESj8Mbu8J0YalwWjDKi/WYhvCo06s8oMJbbPDwqGC7WaU2UPhaVpKO4/09G3qHEYlpM59KAi2wo1f+a1rwZH06rius4XI5ftUtAtfFj6sskJ7izadWJTpVvmkwjnfPfbkgq7zzcIVpgWP5lVrPHvxphd8PjehXz0UbbIagcCJzByacGGzT70VKdutDTdHqcCbC9mXm7CpwLcLH7D7p3haWuFkn7Md66DwRIgVVvOy17Xe/fgovx9guEcaMIzOFuJ7DR9nNbDTJjGkKF/IisCuQuXWaepNeJMwBK+THmAWd/uNxXkvOOwCfMijlhPYsM6DuhJp/BQ28TeR6xMk28W3d9T6Hl36vuepn3LPtg+zaG/sGMF/zZjJ76YdstPCqRsA5K1N0mTQft2MD0mE8DDBAM72pammEZ7QQpXjYgVndQU3DKtcXa12scpJ77Q3tlrONpTxhi5dFSa2MiCGC7l49lFbdmIqiEmfei2uFBtIc3+OhpDXoeH1SWckUgE3ku3oniapfMBFMGH6HWIIULOZTWcy4+n/wOEcuoH14GdCC0OkTHmEa7Ifs6AEsU+ZxWw=
     on_success: change
     on_failure: always
+    rooms:
+      secure: k57EqPC2Um7R5HoyZT0SNFu/LxxpkUOMbMnlVOvBlmfxy8t+mLyN2gbQBNa5W1j5wiQDmGGnsysK8QCpT72lDRK0qcF5RGn7ByeFRVobv6CLJh/hEqBg+0QL2FB8Tgtw7QljU4AOZEIg+EQPV5KQxSqjITT8LFlCYjuK/qw6TpVpKNPzRV9guzIlM94Krycns8vlMQ9Myd5ffb5AAOjG2tzTvQGGXGEb+8DteB2xW+vP0dp2PDgTOr5M6OGSZ6gcYiu3XfMXdNnPUH1+CxShs0/XpAl/YY9NZSaVnreDgVawoVNQBCdmR300Js5RO4jDVIoYVrUTl0GGHsAdIKuQBcdRrv2O1DR+0OuS43VgT0y1i8KZvocwjyyUi1u94P4TrOkljknPoQNZGgPP90eABZ6G41MNVxgV6tjN262iFU7S26J1VuPMSLJh6wgoDhcIflxxE5+yqfAbQUmcbJS+I/NSGKmB4v2nic26vK2UbvSoISs5zdXMPqiTqBWypBsKecREsC5GOm5ccXnkxCks//70bV4eMLBTQEg4/HX+m4psvh2Fhg8Q46+oUW6JizV5QXVVRSgDm9WyX4CECaKm5CHZzbZ5LJQZEXzOhS29GzYemAR4eebn1SP1A6Thf5kA3bcmp4Ed4PsqFYTXWAqHegZ7CKMtY+HYXFN2a959BhI=
