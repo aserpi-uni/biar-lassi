@@ -41,12 +41,18 @@ GEM
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
     arel (8.0.0)
-    backports (3.8.0)
+    autoprefixer-rails (7.1.5)
+      execjs
+    backports (3.10.3)
     bcrypt (3.1.11)
     bindex (0.5.0)
+    bootstrap (4.0.0.beta2)
+      autoprefixer-rails (>= 6.0.3)
+      popper_js (>= 1.12.3, < 2)
+      sass (>= 3.5.2)
     builder (3.2.3)
     byebug (9.1.0)
-    capybara (2.15.3)
+    capybara (2.15.4)
       addressable
       mini_mime (>= 0.1.3)
       nokogiri (>= 1.3.3)
@@ -82,7 +88,7 @@ GEM
       backports (>= 3.8.0)
       cucumber-tag_expressions (>= 1.0.1)
       gherkin (>= 4.1.3)
-    cucumber-expressions (4.0.3)
+    cucumber-expressions (4.0.4)
     cucumber-rails (1.5.0)
       capybara (>= 1.1.2, < 3)
       cucumber (>= 1.3.8, < 4)
@@ -100,16 +106,19 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.3)
     docile (1.1.5)
-    erubi (1.6.1)
+    erubi (1.7.0)
     execjs (2.7.0)
     faraday (0.12.2)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.18)
+    font-awesome-rails (4.7.0.2)
+      railties (>= 3.2, < 5.2)
     gherkin (4.1.3)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
     hashie (3.5.6)
-    i18n (0.8.6)
+    i18n (0.9.0)
+      concurrent-ruby (~> 1.0)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
@@ -119,7 +128,7 @@ GEM
       thor (>= 0.14, < 2.0)
     json (2.1.0)
     jwt (1.5.6)
-    libv8 (3.16.14.19-x86_64-linux)
+    libv8 (3.16.14.19)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -163,6 +172,7 @@ GEM
       capybara (~> 2.1)
       cliver (~> 0.3.1)
       websocket-driver (>= 0.2.0)
+    popper_js (1.12.5)
     public_suffix (3.0.0)
     puma (3.10.0)
     pundit (1.1.0)
@@ -202,7 +212,7 @@ GEM
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
     ruby_dep (1.5.0)
-    sass (3.5.1)
+    sass (3.5.2)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -263,12 +273,14 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bootstrap (~> 4.0.0.beta2)
   byebug
   coffee-rails (>= 4.2)
   coveralls
   cucumber-rails
   database_cleaner
   devise
+  font-awesome-rails
   jbuilder (>= 2.5)
   jquery-rails
   listen (>= 3.0.5)
@@ -279,7 +291,7 @@ DEPENDENCIES
   puma (>= 3.0)
   pundit
   rails (>= 5.1, < 5.2)
-  sass-rails (~> 5.0)
+  sass-rails (>= 5.0)
   simplecov
   spring
   spring-watcher-listen (>= 2.0.0)

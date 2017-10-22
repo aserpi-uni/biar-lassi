@@ -23,7 +23,7 @@ class Consumers::OmniauthCallbacksController < Devise::OmniauthCallbacksControll
       @consumer = auth.info.email.nil? ? nil : Consumer.find_by(email: auth.info.email)
       if @consumer.nil?
         session['devise.facebook_data'] = auth
-        render 'consumers/facebook/connect'
+        render 'auth/consumers/facebook/connect'
       else
         @consumer.provider = auth.provider
         @consumer.uid = auth.uid

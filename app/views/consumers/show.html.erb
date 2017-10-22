@@ -4,10 +4,9 @@
 
 <% if current_consumer == @consumer %>
     <% if @consumer.provider.blank? %>
-        <%= link_to t(:connect, scope: [:facebook]), 'auth/facebook' %><br />
+        <%= link_to t(:connect, scope: [:facebook]), consumer_facebook_omniauth_authorize_path %><br />
     <% elsif not @consumer.email.blank? %>
-        <%= link_to t(:disconnect, scope: [:facebook]), 'facebook/disconnect' %><br />
+        <%= link_to t(:disconnect, scope: [:facebook]), auth_consumers_facebook_disconnect_path %><br />
     <% end %>
     <%= link_to t(:settings_change), edit_consumer_registration_path %> <br />
-    <%= link_to t(:sign_out), 'sign_out', method: :delete %>
 <% end %>

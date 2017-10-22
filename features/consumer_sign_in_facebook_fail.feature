@@ -7,9 +7,9 @@ Feature: Signing in as a consumer (Facebook fail)
   Scenario: Try to login with Facebook, manually inserting username and (wrong) password
     Given I created a Consumer account with username "username" and email "email@example.com"
     And I login with Facebook with a null email
-    And I fill in "username" (in "form" with "/consumers/facebook/connect_existing" as "action") with "username"
+    And I fill in "username" (in "form" with "/auth/consumers/facebook/connect_existing" as "action") with "username"
     And I fill in "password" with "wrong_password"
-    When I press "Login" in "form" with "/consumers/facebook/connect_existing" as "action"
+    When I press "Login" in "form" with "/auth/consumers/facebook/connect_existing" as "action"
     Then I should see a "password" input field
 
   @omniauth_test

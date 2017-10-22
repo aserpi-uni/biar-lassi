@@ -13,7 +13,7 @@
       <%= t(:first_time, scope: [:facebook]) %>
     </p>
 
-    <%= form_tag({controller: 'consumers/facebook', action: 'select_username'}, method: 'get') do %>
+    <%= form_tag({controller: '/auth/consumers/facebook', action: 'select_username'}, method: 'get') do %>
         <%= t(:username, scope: [:facebook]) %>
         <div class="field">
           <%= label_tag :username %><br/>
@@ -38,7 +38,7 @@
       <%= t(:sign_in_existing, scope: [:facebook]) %>
     </p>
 
-    <%= form_tag({controller: 'consumers/facebook', action: 'connect_existing'}, method: 'get') do %>
+    <%= form_tag({controller: '/auth/consumers/facebook', action: 'connect_existing'}, method: 'get') do %>
 
         <div class="field">
           <%= label_tag :username %><br/>

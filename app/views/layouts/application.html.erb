@@ -1,20 +1,94 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= yield :title %></title>
-    <%= csrf_meta_tags %>
+<head>
+  <title><%= yield :title %></title>
+  <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
-  <body>
-    <div id="flash_messages">
-      <% flash.each do |key, value| %>
-          <%= content_tag(:div, sanitize(value), :class => "flash #{key}") %>
-      <% end %>
-    </div>
-    <%= yield %>
-  </body>
-  <!-- GNU Terry Pratchett -->
+<body>
+<nav class="navbar sticky-top navbar-expand-md navbar-dark bg-dark">
+  <div class="container-fluid">
+
+    <%= link_to root_path, class: 'navbar-brand' do %>
+        <%= fa_icon 'comments' %>
+        Uservoice
+    <% end %>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbarNavDropdown" class="navbar-collapse collapse">
+
+      <ul class="navbar-nav ml-auto">
+        <% if current_user.nil? %>
+
+          <li class="nav-item <%= 'active' unless current_page? new_employee_session_path %>">
+            <%= link_to new_employee_session_path, class: 'nav-link' do %>
+                <%= fa_icon 'users' %>
+                Enterprise
+            <% end %>
+          </li>
+
+          <li class="nav-item <%= 'active' unless current_page? new_consumer_registration_path %>">
+            <%= link_to new_consumer_registration_path, class: 'nav-link' do %>
+                <%= fa_icon 'user-plus' %>
+                <%= t(:sign_up) %>
+            <% end %>
+          </li>
+
+          <li class="nav-item <%= 'active' unless current_page? new_consumer_session_path %>">
+            <%= link_to new_consumer_session_path, class: 'nav-link' do %>
+                <%= fa_icon 'sign-in' %>
+                <%= t(:sign_in) %>
+            <% end %>
+          </li>
+
+        <% else %>
+
+          <li class="nav-item active">
+            <%= link_to destroy_consumer_session_path, class: 'nav-link', method: :delete do %>
+                <%= fa_icon 'sign-out' %>
+                <%= t(:sign_out) %>
+            <% end %>
+          </li>
+
+        <% end %>
+      </ul> <!-- right elements -->
+
+    </div> <!-- dropdown -->
+  </div> <!-- container-fluid -->
+</nav>
+
+<div id="flash_messages">
+  <% flash.each do |msg_type, msg| %>
+    <div class="alert <%= bootstrap_class_for msg_type %> fade show col-7 mx-auto" role="alert">
+      <button class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">
+          ×
+        </span>
+      </button>
+      <span aria-hidden="true">
+        <% if bootstrap_class_for(msg_type) == ('alert-warning' || 'alert-danger') %>
+          <%= fa_icon 'exclamation-triangle' %>
+        <% elsif bootstrap_class_for(msg_type) == 'alert-success' %>
+          <%= fa_icon 'check-circle' %>
+        <% else %>
+          <%= fa_icon 'info-circle' %>
+        <% end %>
+      </span>
+      <%= msg %>
+    </div> <!-- flash message -->
+  <% end %>
+</div> <!-- flash messages -->
+
+<div class="container mt-3">
+  <%= yield %>
+</div>
+</body>
+<!-- GNU Terry Pratchett -->
 </html>

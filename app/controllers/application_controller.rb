@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
+  helper_method :current_user
+  helper_method :bootstrap_class_for
 
   protected
 
@@ -27,7 +29,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-
   private
 
   def user_not_authorized
@@ -39,8 +40,22 @@ class ApplicationController < ActionController::Base
       render file: '/public/403.html', layout: false
     end
   end
-end
 
+  def bootstrap_class_for(flash_type)
+    case flash_type
+    when 'success'
+      'alert-success' # Green
+    when 'error'
+      'alert-danger' # Red
+    when 'alert'
+      'alert-warning' # Yellow
+    when 'notice'
+      'info' # Blue
+    else
+      flash_type.to_s
+    end
+  end
+end
 
 # TODO: capire perché enterprise.errors ed employee.errors a volte non funzionano.
 # Problema universale o solo di Firefox?

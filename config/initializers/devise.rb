@@ -181,6 +181,7 @@ Devise.setup do |config|
   # :both  = Enables both strategies
   # :none  = No unlock strategy. You should handle unlocking by yourself.
   config.unlock_strategy = :time
+  # TODO: change to :email
 
   # Number of authentication tries before locking an account if lock_strategy
   # is failed attempts.
@@ -248,7 +249,7 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_SECRET'], scope: 'public_profile,email',
-                  display: 'popup', callback_url: 'http://localhost:3000/consumers/auth/facebook/callback'
+                  display: 'popup', callback_url: "http://#{ENV['HOST']}/auth/consumers/auth/facebook/callback"
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

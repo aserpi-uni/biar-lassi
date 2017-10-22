@@ -7,7 +7,7 @@ Feature: Signing in as a consumer
   Scenario: Log in with a pre-existing account
     Given I created a Consumer account with username "username" and email "email@example.com"
     When I login as a Consumer with username "username"
-    Then I should see a "sign_out" link
+    Then I should see a "/auth/consumers/sign_out" link
 
   Scenario: Try to log in with a nonexistent account
     When I login as a Consumer with username "nonexistent"
@@ -25,11 +25,11 @@ Feature: Signing in as a consumer
     Given I created a Consumer account with username "username" and email "email@example.com"
     And I login as a Consumer with username "username"
     When I am on the "Consumer sign in" page
-    Then I should see a "sign_out" link
+    Then I should see a "/auth/consumers/sign_out" link
 
     # TODO: modificare username quando ci saranno gli admin
   Scenario: Try to login even if already logged in as a Consumer
     Given I created an Admin account with username "username" and email "email@example.com"
     And I login as an Admin with username "username"
     When I am on the "Consumer sign in" page
-    Then I should see a "sign_out" link
+    Then I should see a "/auth/consumers/sign_out" link

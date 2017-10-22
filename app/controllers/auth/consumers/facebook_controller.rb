@@ -1,4 +1,4 @@
-class Consumers::FacebookController < ApplicationController
+class Auth::Consumers::FacebookController < ApplicationController
 
   def connect_existing
     authorize :facebook
