@@ -1,5 +1,5 @@
 Then(/^I should( not)? see a "([^"]*)" input field$/) do |absent, field|
-  assert(page.has_css?("label[for=\"#{field}\"]") == absent.blank?)
+  assert(page.has_css?("input[id=\"#{field}\"]") == absent.blank?)
 end
 
 Then(/^I should( not)? see a "([^"]*)" link$/) do |absent, field|
@@ -12,4 +12,8 @@ end
 
 Then(/^I should( not)? see a "([^"]*)" title$/) do |absent, field|
   assert(page.has_title?(field) == absent.blank?)
+end
+
+When(/^I save the current page$/) do
+  save_page
 end

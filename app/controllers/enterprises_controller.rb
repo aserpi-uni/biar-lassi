@@ -12,9 +12,11 @@ class EnterprisesController < ApplicationController
     authorize Enterprise
     @enterprise = Enterprise.new(enterprise_params_create)
     if @enterprise.save
-      redirect_to enterprise_path @enterprise
+      flash[:success] = I18n.t(:new_resource_success, resource: I18n.t(:enterprise).downcase)
+      flash[:notice] =I18n.t(:enterprise_name, name: @enterprise.name)
+      redirect_to new_employee_path
     else
-      render 'new'
+      render new_enterprise_path
     end
   end
 
@@ -22,6 +24,6 @@ class EnterprisesController < ApplicationController
   private
 
   def enterprise_params_create
-    params.require(:enterprise).permit(:name, :nickname_suffix)
+    params.require(:enterprise).permit(:name, :username_suffix)
   end
 end

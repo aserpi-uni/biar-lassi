@@ -11,9 +11,9 @@ Rails.application.routes.draw do
 
   resources :enterprises, param: :name
 
-  get 'auth/consumers/facebook/connect_existing'
-  get 'auth/consumers/facebook/disconnect'
-  get 'auth/consumers/facebook/select_username'
+  post 'auth/consumers/facebook/connect_existing'
+  delete 'auth/consumers/facebook/disconnect'
+  post 'auth/consumers/facebook/select_username'
 
   get '/welcome/enterprise', as: :admin_root
   get '/welcome/consumer', as: :consumer_root

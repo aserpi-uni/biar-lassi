@@ -1,0 +1,27 @@
+<% if resource.errors.any? %>
+  <div class="row align-items-center alert alert-warning fade show mx-auto" role="alert">
+    <%= fa_icon 'exclamation-triangle' %>
+
+    <div class="col">
+      <% if resource.errors.count == 1 %>
+        <h5><%= t(:one, scope: [:validation_failed], resource: :employee, count: resource.errors.count) %></h5>
+      <% else %>
+        <h5><%= t(:many, scope: [:validation_failed], resource: :employee, count: resource.errors.count) %></h5>
+      <% end %>
+      <ul>
+        <% resource.errors.full_messages.each do |msg| %>
+          <li>
+            <%= msg %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <button class="close align-items-center" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">
+        ×
+      </span>
+    </button>
+
+  </div>
+<% end %>

@@ -1,53 +1,54 @@
-<% if @employee.errors.any? %>
-    <div id="error_explanation">
-      <% if @employee.errors.count == 1 %>
-          <h2><%= t(:one, scope: [:validation_failed], resource: :employee, count: @employee.errors.count) %></h2>
-      <% else %>
-          <h2><%= t(:many, scope: [:validation_failed], resource: :employee, count: @employee.errors.count) %></h2>
+<% provide :title, t(:new_resource_title, resource: @employee.class.name) %>
+
+<%= render partial: 'errors', locals: { resource: @employee } %>
+
+<div class="jumbotron align-items-center">
+  <div class="col-6 mx-auto" >
+
+    <h2>
+      <%= t :new_resource_create, resource: @employee.class.name.downcase %>
+    </h2>
+
+    <%= form_with model: @employee, local: true do |f| %>
+      <fieldset class="row align-items-center">
+        <%= fa_icon('user fw', class: 'col-1 mt-4') %>
+        <div class="form-group bmd-form-group col">
+          <!-- after a failed validation, restore the right format of the username -->
+          <%= f.text_field :username, class: 'form-control', id: :username,
+                           value: (@employee.nil? ? nil : @employee.username.split('@')[0]) %>
+          <%= label_tag :username, t(:username), class: 'bmd-label-floating' %>
+        </div>
+      </fieldset>
+
+      <%= render partial: 'application/forms/email', locals: { form: f } %>
+
+      <% unless current_employee %>
+        <fieldset class="row align-items-center">
+          <%= fa_icon('briefcase fw', class: 'col-1 mt-4') %>
+          <div class="form-group bmd-form-group col">
+            <!-- after a failed validation, restore the Enterprise name -->
+            <%= f.text_field :enterprise, class: 'form-control', id: :enterprise,
+                             value: ((@employee.nil? || @employee.enterprise.nil?) ? nil : @employee.enterprise.name) %>
+            <%= label_tag :enterprise, t(:enterprise), class: 'bmd-label-floating'%>
+          </div>
+        </fieldset>
       <% end %>
-      <ul>
-        <% @employee.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-<% end %>
 
+      <fieldset class="row align-items-center">
+        <%= fa_icon('cogs fw', class: 'col-1 mt-4') %>
+        <div class="form-group bmd-form-group col" >
+          <%= f.select(:role, [%w(Operator operator), %w(Supervisor supervisor)], { } , { class: 'form-control', id: :role }) %>
+          <%= label_tag :role, t(:role), class: 'bmd-label-floating'%>
+        </div>
+      </fieldset>
 
-<%= form_with model: @employee do |form| %>
-    <p>
-      <%= form.label :username %><br>
-      <%= form.text_field :username %>
-    </p>
+      <%= render partial: 'application/forms/password', locals: { form: f, min_length: 8 } %>
 
-    <p>
-      <%= form.label :email %><br>
-      <%= form.text_field :email %>
-    </p>
+      <%= render partial: 'application/forms/password_confirmation', locals: { form: f } %>
 
-    <% if current_admin %>
-        <p>
-          <%= form.label :enterprise %><br>
-          <%= form.text_field :enterprise %>
-        </p>
-    <% end %>
+      <%= render partial: 'application/forms/submit', locals: { form: f, locale: :create } %>
 
-    <p>
-      <%= form.label :role %><br>
-      <%= form.select :role, [%w(Operator operator), %w(Supervisor supervisor)] %>
-    </p>
+    <% end %> <!-- form -->
 
-    <div class="field">
-      <%= form.label :password %><br/>
-      <%= form.password_field :password, autocomplete: 'off' %>
-    </div>
-
-    <div class="field">
-      <%= form.label :password_confirmation %><br/>
-      <%= form.password_field :password_confirmation, autocomplete: 'off' %>
-    </div>
-
-    <p>
-      <%= form.submit %>
-    </p>
-<% end %>
+  </div> <!-- col-6 -->
+</div> <!-- jumbotron -->

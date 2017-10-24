@@ -3,28 +3,14 @@
 <div class="jumbotron align-items-center">
   <div class="col-6 mx-auto" >
 
-    <h2><%= t :sign_in %></h2>
+    <h2>
+      <%= t :sign_in %>
+    </h2>
 
-    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-      <fieldset class="row align-items-center">
-        <div class="col-1">
-          <%= fa_icon('user fw', class: 'mt-4') %>
-        </div>
-        <div class="form-group bmd-form-group col">
-          <%= f.text_field :username, class: 'form-control' %>
-          <%= label_tag "#{resource.class.name.downcase}_username", :Username, class: 'bmd-label-floating' %>
-        </div>
-      </fieldset>
+    <%= form_with model: resource, as: resource_name, url: session_path(resource_name), local: true do |f| %>
+      <%= render partial: 'application/forms/username', locals: { form: f } %>
 
-      <fieldset class="row align-items-center">
-        <div class="col-1">
-          <%= fa_icon('key fw', class: 'mt-4') %>
-        </div>
-        <div class="form-group bmd-form-group col" >
-          <%= f.password_field :password, autocomplete: 'off', class: 'form-control'%>
-          <%= label_tag :password, :Password, class: 'bmd-label-floating'%>
-        </div>
-      </fieldset>
+      <%= render partial: 'application/forms/password', locals: { form: f } %>
 
       <% if devise_mapping.rememberable? %>
         <fieldset class="row align-items-center">
@@ -32,9 +18,9 @@
             <%= fa_icon('unlock fw', class: 'mt-4') %>
           </div>
           <div class="checkbox col ml-3">
-            <%= f.label :remember_me do %>
-                <%= f.check_box :remember_me %>
-                <%= 'Remember me' %>
+            <%= label_tag :remember_me do %>
+                <%= f.check_box :remember_me, id: :remember_me %>
+                <%= t(:remember_me) %>
             <% end %>
           </div>
         </fieldset>

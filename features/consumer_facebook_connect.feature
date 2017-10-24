@@ -5,16 +5,12 @@ Feature: Connect to Facebook
 
 
   @omniauth_test
-  Scenario: Connect Facebook to an account
+  Scenario: Connect and disconnect a Facebook account
     Given I created a Consumer account with username "username" and email "facebook@example.com"
     And I login as a Consumer with username "username"
-    When I click on the "/auth/consumers/auth/facebook" link
-    # OmniAuth's default configuration has a non-null email
-    Then I should see a "/auth/consumers/facebook/disconnect" link
-
-  @omniauth_test
-  Scenario: Disconnect from Facebook
-    Given I login with Facebook registering the username "facebook"
+    And I am on the "Consumer settings" page
+    And I click on the "/auth/consumers/auth/facebook" link
+    And I am on the "Consumer settings" page
     # OmniAuth's default configuration has a non-null email
     When I click on the "/auth/consumers/facebook/disconnect" link
     Then I should see a "/auth/consumers/auth/facebook" link

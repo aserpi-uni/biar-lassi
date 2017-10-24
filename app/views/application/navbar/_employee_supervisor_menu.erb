@@ -1,0 +1,18 @@
+<li class="nav-item active dropdown">
+  <%= link_to user_path(current_user), class: 'nav-link dropdown-toggle', data: { toggle: 'dropdown' } do %>
+      <%= fa_icon 'bolt fw' %>
+      <%= t :actions %>
+  <% end %>
+  <div class="dropdown-menu dropdown-menu-right">
+    <%= link_to new_employee_path, class: 'dropdown-item' do %>
+        <%= fa_icon 'plus fw', class: 'mr-2' %>
+        <%= t(:employee_new) %>
+    <% end %>
+    <%= link_to new_enterprise_path, class: 'dropdown-item' do %>
+              <span class="col" style="padding-left:0;padding-right:0">
+                <%= fa_icon 'briefcase fw' %>
+                <%= t(:enterprise_settings) %>
+              </span>
+    <% end %>
+  </div>
+</li>
