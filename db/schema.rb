@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171003182345) do
+ActiveRecord::Schema.define(version: 20171024145256) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "admins", force: :cascade do |t|
     t.string "username", default: "", null: false
@@ -28,10 +31,10 @@ ActiveRecord::Schema.define(version: 20171003182345) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "email"
-    t.index ["email"], name: "index_admins_on_email", unique: true, length: { email: 191 }
-    t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, length: { reset_password_token: 191 }
-    t.index ["unlock_token"], name: "index_admins_on_unlock_token", unique: true, length: { unlock_token: 191 }
-    t.index ["username"], name: "index_admins_on_username", unique: true, length: { username: 191 }
+    t.index ["email"], name: "index_admins_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+    t.index ["unlock_token"], name: "index_admins_on_unlock_token", unique: true
+    t.index ["username"], name: "index_admins_on_username", unique: true
   end
 
   create_table "consumers", force: :cascade do |t|
@@ -56,12 +59,13 @@ ActiveRecord::Schema.define(version: 20171003182345) do
     t.string "provider"
     t.string "uid"
     t.string "email"
-    t.index ["confirmation_token"], name: "index_consumers_on_confirmation_token", unique: true, length: { confirmation_token: 191 }
-    t.index ["email"], name: "index_consumers_on_email", unique: true, length: { email: 191 }
-    t.index ["reset_password_token"], name: "index_consumers_on_reset_password_token", unique: true, length: { reset_password_token: 191 }
-    t.index ["uid"], name: "index_consumers_on_uid", length: { uid: 191 }
-    t.index ["unlock_token"], name: "index_consumers_on_unlock_token", unique: true, length: { unlock_token: 191 }
-    t.index ["username"], name: "index_consumers_on_username", unique: true, length: { username: 191 }
+    t.text "unconfirmed_email"
+    t.index ["confirmation_token"], name: "index_consumers_on_confirmation_token", unique: true
+    t.index ["email"], name: "index_consumers_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_consumers_on_reset_password_token", unique: true
+    t.index ["uid"], name: "index_consumers_on_uid"
+    t.index ["unlock_token"], name: "index_consumers_on_unlock_token", unique: true
+    t.index ["username"], name: "index_consumers_on_username", unique: true
   end
 
   create_table "employees", force: :cascade do |t|
@@ -82,16 +86,16 @@ ActiveRecord::Schema.define(version: 20171003182345) do
     t.integer "role", default: 0
     t.string "email"
     t.bigint "enterprise_id"
-    t.index ["email"], name: "index_employees_on_email", unique: true, length: { email: 191 }
+    t.index ["email"], name: "index_employees_on_email", unique: true
     t.index ["enterprise_id"], name: "index_employees_on_enterprise_id"
-    t.index ["reset_password_token"], name: "index_employees_on_reset_password_token", unique: true, length: { reset_password_token: 191 }
-    t.index ["unlock_token"], name: "index_employees_on_unlock_token", unique: true, length: { unlock_token: 191 }
-    t.index ["username"], name: "index_employees_on_username", unique: true, length: { username: 191 }
+    t.index ["reset_password_token"], name: "index_employees_on_reset_password_token", unique: true
+    t.index ["unlock_token"], name: "index_employees_on_unlock_token", unique: true
+    t.index ["username"], name: "index_employees_on_username", unique: true
   end
 
   create_table "enterprises", force: :cascade do |t|
     t.text "name"
-    t.text "nickname_suffix"
+    t.text "username_suffix"
     t.text "description"
     t.text "headquarters"
     t.date "founded"
@@ -102,7 +106,7 @@ ActiveRecord::Schema.define(version: 20171003182345) do
     t.text "avatar_supervisor"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_enterprises_on_name", unique: true, length: { name: 191 }
+    t.index ["name"], name: "index_enterprises_on_name", unique: true
   end
 
   add_foreign_key "employees", "enterprises"

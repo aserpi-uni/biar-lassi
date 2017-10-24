@@ -11,15 +11,15 @@ Feature: Signing in as a consumer
 
   Scenario: Try to log in with a nonexistent account
     When I login as a Consumer with username "nonexistent"
-    Then I should see a "consumer_username" input field
+    Then I should see a "username" input field
 
   Scenario: Try to log in with a wrong password
     Given I created a Consumer account with username "username" and email "email@example.com"
     And I am on the "Consumer sign in" page
-    And I fill in "consumer_username" with "username"
-    And I fill in "consumer_password" with "wrong_password"
+    And I fill in "username" with "username"
+    And I fill in "password" with "wrong_password"
     When I press "Login"
-    Then I should see a "consumer_username" input field
+    Then I should see a "username" input field
 
   Scenario: Try to login even if already logged in as a Consumer
     Given I created a Consumer account with username "username" and email "email@example.com"

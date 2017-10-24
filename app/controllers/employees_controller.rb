@@ -14,12 +14,13 @@ class EmployeesController < ApplicationController
     params[:enterprise] = current_employee ? current_employee.enterprise : Enterprise.find_by(name: params[:enterprise])
     if params[:enterprise].nil?
       @employee = Employee.new
-      @employee.errors.add(:enterprise, I18n.t(:nonexistent_enterprise))
+      @employee.errors.add(:enterprise, I18n.t(:nonexistent))
       render :new
       return
     end
     @employee = Employee.create_new(params)
     if @employee.save
+      flash[:success] = I18n.t(:new_resource_success, resource: I18n.t(:employee).downcase)
       redirect_to employee_path @employee
     else
       render :new

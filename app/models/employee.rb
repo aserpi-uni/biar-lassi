@@ -23,7 +23,7 @@ class Employee < ApplicationRecord
     employee = Employee.new
     employee.email = params[:email]
     employee.enterprise = params[:enterprise]
-    employee.username = "#{params[:username]}@#{employee.enterprise.nickname_suffix}"
+    employee.username = "#{params[:username]}@#{employee.enterprise.username_suffix}"
     employee.role = params[:role]
     employee.password = params[:password]
     employee.password_confirmation = params[:password_confirmation]

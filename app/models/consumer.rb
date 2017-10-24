@@ -44,11 +44,19 @@ class Consumer < ApplicationRecord
 
     consumer.save!
 
-    if consumer.valid? && auth['info']['email'].blank? && email.blank?
+    if consumer.valid? && consumer.email == 'null@example.com'
       consumer.email = nil
       consumer.save validate: false
     end
 
     consumer
+  end
+
+  def lock
+    self.email = nil
+    self.locked_at = Time.now
+    self.provider = nil
+    self.uid = nil
+    save
   end
 end

@@ -1,8 +1,7 @@
 When(/^I login as an? (Admin|Consumer|Employee) with username "([^"]*)"$/) do |klass, name|
   visit path_to("#{klass} sign in")
-  klass = klass.downcase
-  fill_in "#{klass}_username", with: name
-  fill_in "#{klass}_password", with: 'password'
+  fill_in 'username', with: name
+  fill_in 'password', with: 'password'
   click_button 'Login'
 end
 
@@ -13,10 +12,9 @@ When(/^I login with Facebook( with a null email)?( registering the username "([^
 
   if username
     within(:css, 'form[action="/auth/consumers/facebook/select_username"]') do
-      fill_in 'username', with: username
-      fill_in 'email', with: email if email
+      fill_in 'username_select', with: username
+      fill_in 'email_select', with: email if email
       click_button 'Register'
     end
   end
 end
-

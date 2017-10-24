@@ -4,13 +4,14 @@ class Auth::Consumers::FacebookController < ApplicationController
     authorize :facebook
     @consumer = Consumer.find_by username: params[:username]
     if @consumer.nil? || !@consumer.valid_password?(params[:password])
-      flash.now[:error] = t(:incorrect_credentials)
+      flash.now[:warning] = t :incorrect_credentials
       render 'connect'
     else
       @consumer.provider = session['devise.facebook_data']['provider']
       @consumer.uid = session['devise.facebook_data']['uid']
       @consumer.save
       session.delete 'devise.facebook_data'
+      flash[:success] = I18n.t(:connected, scope: [:facebook])
       sign_in_and_redirect @consumer
     end
   end
@@ -20,20 +21,18 @@ class Auth::Consumers::FacebookController < ApplicationController
     current_consumer.provider = nil
     current_consumer.uid = nil
     current_consumer.save validate: false
-    flash[:notice] = I18n.t(:success, scope: [:facebook])
-    redirect_to consumer_path current_consumer
+    flash[:success] = I18n.t(:success, scope: [:facebook])
+    redirect_to edit_registration_path(current_consumer)
   end
 
   def select_username
     authorize :facebook
     @consumer = Consumer.from_omniauth session['devise.facebook_data'], params[:username], params[:email]
     session.delete 'devise.facebook_data'
-    flash['notice'] = I18n.t :password_notice,
-                             link: view_context.link_to('here', '/consumers/edit'),
-                             pwd: @consumer.password
+    flash['alert'] = I18n.t :password_notice, pwd: @consumer.password
     sign_in_and_redirect @consumer
   rescue ActiveRecord::RecordInvalid => e
-    flash.now[:error] = e.message
+    flash.now[:alert] = e.message.humanize
     render 'connect'
   end
 end

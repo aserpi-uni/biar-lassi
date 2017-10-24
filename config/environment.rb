@@ -9,7 +9,7 @@ ActionMailer::Base.smtp_settings = {
     port: 587,
     authentication: :plain,
     user_name: 'apikey',
-    password: ENV['TESI_MAILER_TOKEN'],
+    password: ENV['SENDGRID_APIKEY'],
     enable_starttls_auto: true
 }
 
