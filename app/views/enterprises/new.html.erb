@@ -1,0 +1,31 @@
+<% if @enterprise.errors.any? %>
+    <div id="error_explanation">
+      <% if @enterprise.errors.count == 1 %>
+          <h2><%= t(:one, scope: [:validation_failed], resource: :employee, count: @enterprise.errors.count) %></h2>
+      <% else %>
+          <h2><%= t(:many, scope: [:validation_failed], resource: :employee, count: @enterprise.errors.count) %></h2>
+      <% end %>
+      <ul>
+        <% @enterprise.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+<% end %>
+
+
+<%= form_with model: @enterprise do |form| %>
+    <p>
+      <%= form.label :name %><br>
+      <%= form.text_field :name %>
+    </p>
+
+    <p>
+      <%= form.label :nickname_suffix %><br>
+      <%= form.text_field :nickname_suffix %>
+    </p>
+
+    <p>
+      <%= form.submit %>
+    </p>
+<% end %>

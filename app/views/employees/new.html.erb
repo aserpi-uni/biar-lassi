@@ -1,0 +1,53 @@
+<% if @employee.errors.any? %>
+    <div id="error_explanation">
+      <% if @employee.errors.count == 1 %>
+          <h2><%= t(:one, scope: [:validation_failed], resource: :employee, count: @employee.errors.count) %></h2>
+      <% else %>
+          <h2><%= t(:many, scope: [:validation_failed], resource: :employee, count: @employee.errors.count) %></h2>
+      <% end %>
+      <ul>
+        <% @employee.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+<% end %>
+
+
+<%= form_with model: @employee do |form| %>
+    <p>
+      <%= form.label :username %><br>
+      <%= form.text_field :username %>
+    </p>
+
+    <p>
+      <%= form.label :email %><br>
+      <%= form.text_field :email %>
+    </p>
+
+    <% if current_admin %>
+        <p>
+          <%= form.label :enterprise %><br>
+          <%= form.text_field :enterprise %>
+        </p>
+    <% end %>
+
+    <p>
+      <%= form.label :role %><br>
+      <%= form.select :role, [%w(Operator operator), %w(Supervisor supervisor)] %>
+    </p>
+
+    <div class="field">
+      <%= form.label :password %><br/>
+      <%= form.password_field :password, autocomplete: 'off' %>
+    </div>
+
+    <div class="field">
+      <%= form.label :password_confirmation %><br/>
+      <%= form.password_field :password_confirmation, autocomplete: 'off' %>
+    </div>
+
+    <p>
+      <%= form.submit %>
+    </p>
+<% end %>
