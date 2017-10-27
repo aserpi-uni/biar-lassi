@@ -78,7 +78,6 @@ en:
   password_min_length: "At least %{length} characters"
   password_new: 'New password'
   password_new_confirm: 'Confirm new password'
-  password_notice: "This is your password: %{pwd}, write it somewhere then change it!"
   password_optional: "Password (only if you want to change it)"
   password_reset: 'Reset password'
   password_reset_send: 'Send me reset password instructions'
@@ -143,6 +142,7 @@ en:
 
 
   facebook:
+    change_password: "This is your password: %{pwd}, change it immediately!"
     connect: 'Connect with Facebook'
     connected: 'Successfully connected your account with Facebook.'
     disconnect: 'Disconnect from Facebook'

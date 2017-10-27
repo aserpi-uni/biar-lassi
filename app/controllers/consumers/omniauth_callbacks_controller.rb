@@ -11,7 +11,7 @@ class Consumers::OmniauthCallbacksController < Devise::OmniauthCallbacksControll
       current_consumer.uid = auth.uid
       current_consumer.save validate: false
       flash[:success] = I18n.t :connected, scope: [:facebook]
-      redirect_to user_path(current_user)
+      redirect_to edit_registration_path(current_user)
       return
     end
     # :nocov:

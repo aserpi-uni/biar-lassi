@@ -29,8 +29,9 @@ class Auth::Consumers::FacebookController < ApplicationController
     authorize :facebook
     @consumer = Consumer.from_omniauth session['devise.facebook_data'], params[:username], params[:email]
     session.delete 'devise.facebook_data'
-    flash['alert'] = I18n.t :password_notice, pwd: @consumer.password
-    sign_in_and_redirect @consumer
+    flash['alert'] = I18n.t :change_password, scope: [:facebook], pwd: @consumer.password
+    sign_in @consumer
+    redirect_to edit_registration_path(current_consumer)
   rescue ActiveRecord::RecordInvalid => e
     flash.now[:alert] = e.message.humanize
     render 'connect'
