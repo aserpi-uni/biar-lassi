@@ -10,11 +10,13 @@ class FacebookPolicy < Struct.new(:user, :facebook)
   end
 
   def disconnect?
-    @user.is_a?(Consumer) && !@user.email.blank?
+    @user.is_a?(Consumer) &&
+      !@user.email.blank?
   end
 
   def facebook?
-    !@user || @user.is_a?(Consumer)
+    !@user ||
+      @user.is_a?(Consumer)
   end
 
   def select_username?

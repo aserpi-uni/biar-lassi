@@ -13,6 +13,8 @@ When(/^I login with Facebook( with a null email)?( registering the username "([^
   if username
     within(:css, 'form[action="/auth/consumers/facebook/select_username"]') do
       fill_in 'username_select', with: username
+      fill_in 'password_select', with: 'password'
+      fill_in 'password_confirmation_select', with: 'password'
       fill_in 'email_select', with: email if email
       click_button 'Register'
     end

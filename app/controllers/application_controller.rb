@@ -1,17 +1,23 @@
 class ApplicationController < ActionController::Base
   include Pundit
+
   protect_from_forgery with: :exception
+
   before_action :configure_permitted_parameters, if: :devise_controller?
-  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
+  rescue_from Pundit::NotAuthorizedError, with: :not_authorized
 
   helper_method :current_user
 
 
+  # TODO: create Devise controllers when not present
+  # TODO: include Accessible module in all Devise controllers
+
+
   protected
 
-  # TODO: rivedere
   def configure_permitted_parameters
-    added_attrs = [:username, :email, :password, :password_confirmation, :remember_me]
+    added_attrs = [:username, :email, :password, :password_confirmation]
     devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
     devise_parameter_sanitizer.permit :account_update, keys: added_attrs
   end
@@ -32,7 +38,8 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def user_not_authorized
+  # Redirects
+  def not_authorized
     flash[:error] = I18n.t :forbidden
     response.headers['Status-Code'] = '403'
     redirect_to root_path

@@ -21,9 +21,9 @@ Feature: Signing in as a consumer (Facebook success)
   Scenario: Login with Facebook and a pre-existing account inserting manually username and password
     Given I created a Consumer account with username "facebook_success" and email "facebook@example.com"
     And I login with Facebook with a null email
-    And I fill in "username" (in "form" with "/auth/consumers/facebook/connect_existing" as "action") with "facebook_success"
-    And I fill in "password" with "password"
-    When I press "Login" in "form" with "/auth/consumers/facebook/connect_existing" as "action"
+    And I fill in "username_sign_in" with "facebook_success"
+    And I fill in "password_sign_in" with "password"
+    When I press "Login"
     Then I should see a "/auth/consumers/sign_out" link
 
   @omniauth_test

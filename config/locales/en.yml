@@ -50,7 +50,6 @@ en:
   employee_new: 'New employee'
 
   enterprise: 'Enterprise'
-  enterprise_name: 'Enterprise name: %{name}'
   enterprise_settings: 'Enterprise settings'
 
   forbidden: 'You are not authorized to perform this action'
@@ -121,7 +120,7 @@ en:
 
   validation_failed:
     one: "1 error prohibited this %{resource} from being saved:"
-    many: "%{count} errors prohibited this %{resource} from being saved:"
+    other: "%{count} errors prohibited this %{resource} from being saved:"
 
 
   devise_email:
@@ -143,16 +142,16 @@ en:
 
 
   facebook:
-    change_password: "This is your password: %{pwd}, change it immediately!"
     connect: 'Connect with Facebook'
     connected: 'Successfully connected your account with Facebook.'
     disconnect: 'Disconnect from Facebook'
+    disconnected: 'Successfully disconnected your account from Facebook.'
     email_invalid: 'This email has already been taken by a non-consumer account.'
     email_optional: 'If you insert it you need to verify it'
+    failure: 'An error has occurred. Please try again.'
     first_time: 'This is the first time you are logging in with a Facebook account.'
     no_email: 'To disconnect from Facebook you must provide a valid email address.'
     sign_in_existing: 'or sign in with an existing account:'
     sign_in_existing_only: 'Your email is already taken by a non-consumer account. Please sign in with username and password.'
-    success: 'Successfully disconnected your account from Facebook.'
-    username: 'Choose a username (a password will be automatically generated)'
+    username: 'Choose a username'
     title: 'Sign in with Facebook'

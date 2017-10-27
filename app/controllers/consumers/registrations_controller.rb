@@ -25,7 +25,8 @@ class Consumers::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  # DELETE /resource
+  # Soft deletes the +current_consumer+.
+  # Method: DELETE
   def destroy
     current_consumer.lock
     sign_out current_consumer

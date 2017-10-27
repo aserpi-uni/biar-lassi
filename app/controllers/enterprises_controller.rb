@@ -10,14 +10,13 @@ class EnterprisesController < ApplicationController
 
   def create
     authorize Enterprise
+
     @enterprise = Enterprise.new(enterprise_params_create)
-    if @enterprise.save
-      flash[:success] = I18n.t(:new_resource_success, resource: I18n.t(:enterprise).downcase)
-      flash[:notice] =I18n.t(:enterprise_name, name: @enterprise.name)
-      redirect_to new_employee_path
-    else
-      render new_enterprise_path
-    end
+    return render new_enterprise_path unless @enterprise.save
+
+    flash[:success] = I18n.t(:new_resource_success, resource: I18n.t(:enterprise).downcase)
+    session['enterprise.created'] = @enterprise.name
+    redirect_to new_employee_path
   end
 
 

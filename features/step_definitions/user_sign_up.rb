@@ -20,7 +20,7 @@ end
 
 Given(/^I created an Employee account with username "([^"]*)", email "([^"]*)", role "(operator|supervisor)" and enterprise "([^"]*)"$/) do |username, email, role, enterprise|
   Employee.create_new(username: username, email: email, role: role, password: 'password', password_confirmation: 'password',
-                      enterprise: Enterprise.find_by!(name: enterprise)).save!
+                      enterprise: enterprise).save!
 end
 
 When(/^I register an Employee account with username "([^"]*)", email "([^"]*)", role "(Operator|Supervisor)"( and enterprise "([^"]*)")?$/) do |username, email, role, enterprise|

@@ -3,11 +3,9 @@
     <%= fa_icon 'exclamation-triangle' %>
 
     <div class="col">
-      <% if resource.errors.count == 1 %>
-        <h5><%= t(:one, scope: [:validation_failed], resource: :employee, count: resource.errors.count) %></h5>
-      <% else %>
-        <h5><%= t(:many, scope: [:validation_failed], resource: :employee, count: resource.errors.count) %></h5>
-      <% end %>
+      <h5>
+        <%= t(:validation_failed, resource: :employee, count: resource.errors.count) %>
+      </h5>
       <ul>
         <% resource.errors.full_messages.each do |msg| %>
           <li>

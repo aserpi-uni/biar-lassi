@@ -1,46 +1,59 @@
+# Groups all OmniAuth callbacks for the Consumer model.
 class Consumers::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
+
+  # OmniAuth callback for Facebook
   def facebook
     authorize :facebook, :facebook?
     auth = request.env['omniauth.auth']
 
-    # :nocov:
-    # Impossible to test accurately
-    if current_consumer
-      current_consumer.provider = auth.provider
-      current_consumer.uid = auth.uid
-      current_consumer.save validate: false
-      flash[:success] = I18n.t :connected, scope: [:facebook]
-      redirect_to edit_registration_path(current_user)
-      return
-    end
-    # :nocov:
+    return connect_current(auth) if current_consumer
 
-    @email_taken = Admin.find_by(email: auth.info.email) || Employee.find_by(email: auth.info.email)
+    @consumer = Consumer.find_by(provider: auth.provider, uid: auth.uid) and
+      return already_signed_up(@consumer)
 
-    @consumer = Consumer.find_by provider: auth.provider, uid: auth.uid
-    if @consumer.nil?
-      @consumer = auth.info.email.nil? ? nil : Consumer.find_by(email: auth.info.email)
-      if @consumer.nil?
-        session['devise.facebook_data'] = auth
-        render 'auth/consumers/facebook/connect'
-      else
-        @consumer.provider = auth.provider
-        @consumer.uid = auth.uid
-        @consumer.save
-        sign_in_and_redirect @consumer, event: :authentication
-      end
+    # Can't accept the email if it has already been used by a non-Consumer account
+    @email_taken = Admin.find_by(email: auth.info.email) || Employee.find_by(email: auth.info.email) and
+      return render 'auth/consumers/facebook/connect'
 
+    if !auth.info.email.nil? && (@consumer = Consumer.find_by(email: auth.info.email))
+      @consumer.connect_facebook(auth)
+      flash[:success] = I18n.t(:connected, scope: [:facebook])
+      sign_in_and_redirect @consumer, event: :authentication
     else
-      sign_in_and_redirect @consumer, event: :authentication # this will throw if @consumer is not activated
-      set_flash_message(:notice, :success, kind: 'Facebook') if is_navigational_format?
+      session['devise.facebook_data'] = auth
+      render 'auth/consumers/facebook/connect'
     end
   end
 
+
   # :nocov:
-  # Impossible to test
+  # Redirects the user when an error occurs.
   def failure
+    flash[:error] = I18n.t :failure, scope: [:facebook]
     redirect_to root_path
   end
   # :nocov:
+
+
+
+  private
+
+
+  # Signes in the user that has these Facebook credential.
+  def already_signed_up(consumer)
+    sign_in_and_redirect consumer, event: :authentication
+    set_flash_message(:notice, :success, kind: 'Facebook') if is_navigational_format?
+  end
+
+
+  # :nocov:
+  # Updates the current account with these Facebook credentials.
+  def connect_current(auth)
+    current_consumer.connect_facebook(auth)
+    flash[:success] = I18n.t(:connected, scope: [:facebook])
+    redirect_to edit_registration_path(current_user)
+  end
+  # :nocov:
+
 end
