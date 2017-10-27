@@ -5,8 +5,10 @@ class Admin < ApplicationRecord
          :timeoutable,
          :trackable
 
-  validates :email, unique: true, on: :create
-  validates :username, unique: true, on: :create
+  validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i, message: 'is invalid' },
+            global_uniqueness: true
+
+  validates :username, uniqueness: { case_sensitive: false }, on: :create
 
   def to_param
     username

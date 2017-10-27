@@ -4,7 +4,7 @@ class Auth::Consumers::FacebookController < ApplicationController
     authorize :facebook
     @consumer = Consumer.find_by username: params[:username]
     if @consumer.nil? || !@consumer.valid_password?(params[:password])
-      flash.now[:warning] = t :incorrect_credentials
+      flash.now[:alert] = t :incorrect_credentials
       render 'connect'
     else
       @consumer.provider = session['devise.facebook_data']['provider']
@@ -28,12 +28,13 @@ class Auth::Consumers::FacebookController < ApplicationController
   def select_username
     authorize :facebook
     @consumer = Consumer.from_omniauth session['devise.facebook_data'], params[:username], params[:email]
-    session.delete 'devise.facebook_data'
-    flash['alert'] = I18n.t :change_password, scope: [:facebook], pwd: @consumer.password
-    sign_in @consumer
-    redirect_to edit_registration_path(current_consumer)
-  rescue ActiveRecord::RecordInvalid => e
-    flash.now[:alert] = e.message.humanize
-    render 'connect'
+    if @consumer.save
+      session.delete 'devise.facebook_data'
+      flash[:alert] = I18n.t :change_password, scope: [:facebook], pwd: @consumer.password
+      sign_in @consumer
+      redirect_to edit_registration_path(current_consumer)
+    else
+      render 'connect'
+    end
   end
 end

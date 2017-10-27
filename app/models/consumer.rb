@@ -9,14 +9,14 @@ class Consumer < ApplicationRecord
          :omniauthable, omniauth_providers: [:facebook]
 
   validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i, message: 'is invalid' },
-                    unique: { global: true }, on: :create
-  validates :password, confirmation: true, length: { in: 8..128 }, on: :create
-  validates :username, format: { with: /\A\w{5,32}\z/, message: 'is invalid' }, reserved_name: true,
-                       unique: { global: false }, on: :create
+            global_uniqueness: true, allow_blank: true, consumer_authentication: true
 
-  validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i, message: 'is invalid' },
-                    allow_blank: true, on: :update
+  validates :password, confirmation: true, length: { in: 8..128 }, on: :create
   validates :password, confirmation: true, length: { in: 8..128 }, allow_blank: true, on: :update
+
+  validates :username, format: { with: /\A\w{5,32}\z/, message: 'is invalid' }, reserved_name: true,
+            uniqueness: { case_sensitive: false }, on: :create
+
 
   def to_param
     username
@@ -27,26 +27,17 @@ class Consumer < ApplicationRecord
     consumer.username = username
     consumer.provider = auth['provider']
     consumer.uid = auth['uid']
-    consumer.email = auth['info']['email']
     consumer.password = Devise.friendly_token[0, 8]
     consumer.password_confirmation = consumer.password
-
-    if consumer.email.blank?
+    if auth['info']['email'].blank?
       if email.blank?
-        consumer.email = 'null@example.com'
         consumer.skip_confirmation!
       else
         consumer.email = email
       end
     else
+      consumer.email = auth['info']['email']
       consumer.skip_confirmation!
-    end
-
-    consumer.save!
-
-    if consumer.valid? && consumer.email == 'null@example.com'
-      consumer.email = nil
-      consumer.save validate: false
     end
 
     consumer

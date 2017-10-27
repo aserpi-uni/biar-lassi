@@ -66,6 +66,7 @@ en:
   new_resource_success: 'Successfully created a new %{resource}'
   new_resource_title: 'New %{resource}'
 
+  no_auth_methods: 'An email address or a Facebook account must be present'
   nonexistent: 'does not exist'
 
   optional: ' (optional)'
@@ -149,7 +150,7 @@ en:
     email_invalid: 'This email has already been taken by a non-consumer account.'
     email_optional: 'If you insert it you need to verify it'
     first_time: 'This is the first time you are logging in with a Facebook account.'
-    no_email: 'Operation not permitted: no email associated with the account.'
+    no_email: 'To disconnect from Facebook you must provide a valid email address.'
     sign_in_existing: 'or sign in with an existing account:'
     sign_in_existing_only: 'Your email is already taken by a non-consumer account. Please sign in with username and password.'
     success: 'Successfully disconnected your account from Facebook.'
