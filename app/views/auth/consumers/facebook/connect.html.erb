@@ -1,0 +1,63 @@
+<% provide :title, t(:title, scope: [:facebook]) %>
+
+<% unless @consumer.nil? %>
+  <%= render partial: 'errors', locals: { resource: @consumer } %>
+<% end %>
+
+<div class="jumbotron align-items-center">
+  <div class="col-6 mx-auto" >
+
+    <h2>
+      <%= t(:sign_up) %>
+    </h2>
+
+    <% if @email_taken %>
+      <p>
+        <%= t(:sign_in_existing_only, scope: [:facebook]) %>
+      </p>
+
+    <% else %>
+      <p>
+        <%= t(:first_time, scope: [:facebook]) %>
+      </p>
+
+      <%= form_with url: auth_consumers_facebook_select_username_path, local: true do |f| %>
+        <%= t(:username, scope: [:facebook]) %>
+
+        <%= render partial: 'application/forms/username', locals: { form: f, id: :username_select } %>
+
+        <% if session['devise.facebook_data']['info']['email'].blank? %>
+          <fieldset class="row align-items-center">
+            <%= fa_icon('envelope fw', class: 'col-1 mt-4') %>
+            <div class="form-group bmd-form-group col" >
+              <%= f.email_field :email,  class: 'form-control', id: :email_select %>
+              <%= label_tag :email_select, t(:email) + t(:optional), class: 'bmd-label-floating'%>
+              <span class="bmd-help">
+                <%= t :email_optional, scope: [:facebook] %>
+              </span>
+            </div>
+          </fieldset>
+        <% end %>
+
+        <%= render partial: 'application/forms/password', locals: { form: f, id: :password_select } %>
+        <%= render partial: 'application/forms/password_confirmation', locals: { form: f, id: :password_confirmation_select } %>
+
+        <%= render partial: 'application/forms/submit', locals: { form: f, locale: :sign_up } %>
+      <% end %> <!-- select_username form -->
+
+      <p>
+        <%= t(:sign_in_existing, scope: [:facebook]) %>
+      </p>
+
+      <%= form_with url: auth_consumers_facebook_connect_existing_path, local: true do |f| %>
+        <%= render partial: 'application/forms/username', locals: { form: f, id: :username_sign_in } %>
+
+        <%= render partial: 'application/forms/password', locals: { form: f, id: :password_sign_in } %>
+
+        <%= render partial: 'application/forms/submit', locals: { form: f, locale: :sign_in } %>
+      <% end %> <!-- connect_existing form -->
+
+    <% end %> <!-- if block email_taken -->
+
+  </div> <!-- col-6 -->
+</div> <!-- jumbotron -->

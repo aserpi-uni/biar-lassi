@@ -1,0 +1,18 @@
+language: ruby
+cache: bundler
+rvm:
+- 2.4.0
+services:
+- postgresql
+before_script:
+- bundle install
+- RAILS_ENV='test' bundle exec rake db:setup
+script: bundle exec cucumber
+after_failure: cat log/test.log
+notifications:
+  email: false
+  slack:
+    on_success: change
+    on_failure: always
+    rooms:
+      secure: k57EqPC2Um7R5HoyZT0SNFu/LxxpkUOMbMnlVOvBlmfxy8t+mLyN2gbQBNa5W1j5wiQDmGGnsysK8QCpT72lDRK0qcF5RGn7ByeFRVobv6CLJh/hEqBg+0QL2FB8Tgtw7QljU4AOZEIg+EQPV5KQxSqjITT8LFlCYjuK/qw6TpVpKNPzRV9guzIlM94Krycns8vlMQ9Myd5ffb5AAOjG2tzTvQGGXGEb+8DteB2xW+vP0dp2PDgTOr5M6OGSZ6gcYiu3XfMXdNnPUH1+CxShs0/XpAl/YY9NZSaVnreDgVawoVNQBCdmR300Js5RO4jDVIoYVrUTl0GGHsAdIKuQBcdRrv2O1DR+0OuS43VgT0y1i8KZvocwjyyUi1u94P4TrOkljknPoQNZGgPP90eABZ6G41MNVxgV6tjN262iFU7S26J1VuPMSLJh6wgoDhcIflxxE5+yqfAbQUmcbJS+I/NSGKmB4v2nic26vK2UbvSoISs5zdXMPqiTqBWypBsKecREsC5GOm5ccXnkxCks//70bV4eMLBTQEg4/HX+m4psvh2Fhg8Q46+oUW6JizV5QXVVRSgDm9WyX4CECaKm5CHZzbZ5LJQZEXzOhS29GzYemAR4eebn1SP1A6Thf5kA3bcmp4Ed4PsqFYTXWAqHegZ7CKMtY+HYXFN2a959BhI=

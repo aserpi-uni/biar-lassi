@@ -1,0 +1,54 @@
+<% provide :title, t(:new_resource_title, resource: @employee.class.name) %>
+
+<%= render partial: 'errors', locals: { resource: @employee } %>
+
+<div class="jumbotron align-items-center">
+  <div class="col-6 mx-auto" >
+
+    <h2>
+      <%= t :new_resource_create, resource: @employee.class.name.downcase %>
+    </h2>
+
+    <%= form_with model: @employee, local: true do |f| %>
+      <fieldset class="row align-items-center">
+        <%= fa_icon('user fw', class: 'col-1 mt-4') %>
+        <div class="form-group bmd-form-group col">
+          <!-- after a failed validation, restore the right format of the username -->
+          <%= f.text_field :username, class: 'form-control', id: :username,
+                           value: (@employee.nil? ? nil : @employee.username.split('@')[0]) %>
+          <%= label_tag :username, t(:username), class: 'bmd-label-floating' %>
+        </div>
+      </fieldset>
+
+      <%= render partial: 'application/forms/email', locals: { form: f } %>
+
+      <% unless current_employee %>
+        <fieldset class="row align-items-center">
+          <%= fa_icon('briefcase fw', class: 'col-1 mt-4') %>
+          <div class="form-group bmd-form-group col">
+            <!-- after a failed validation, restore the Enterprise name -->
+            <%= f.text_field :enterprise, class: 'form-control', id: :enterprise,
+                             value: ((@employee.nil? || @employee.enterprise.nil?) ? nil : @employee.enterprise.name) %>
+            <%= label_tag :enterprise, t(:enterprise), class: 'bmd-label-floating'%>
+          </div>
+        </fieldset>
+      <% end %>
+
+      <fieldset class="row align-items-center">
+        <%= fa_icon('cogs fw', class: 'col-1 mt-4') %>
+        <div class="form-group bmd-form-group col" >
+          <%= f.select(:role, [%w(Operator operator), %w(Supervisor supervisor)], { } , { class: 'form-control', id: :role }) %>
+          <%= label_tag :role, t(:role), class: 'bmd-label-floating'%>
+        </div>
+      </fieldset>
+
+      <%= render partial: 'application/forms/password', locals: { form: f, min_length: 8 } %>
+
+      <%= render partial: 'application/forms/password_confirmation', locals: { form: f } %>
+
+      <%= render partial: 'application/forms/submit', locals: { form: f, locale: :create } %>
+
+    <% end %> <!-- form -->
+
+  </div> <!-- col-6 -->
+</div> <!-- jumbotron -->

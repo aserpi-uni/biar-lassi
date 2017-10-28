@@ -1,0 +1,20 @@
+<li class="nav-item active dropdown"> <!-- profile dropdown -->
+  <%= link_to user_path(current_user), class: 'nav-link dropdown-toggle', data: { toggle: 'dropdown' } do %>
+      <%= gravatar_image_tag(current_user.email.nil? ? current_user.username : current_user.email , 23, t(:avatar)) %>
+      <%= current_user.username %>
+  <% end %>
+  <div class="dropdown-menu">
+    <%= link_to user_path(current_user), class: 'dropdown-item' do %>
+        <%= fa_icon 'user fw', class: 'mr-2' %>
+        <%= t(:profile) %>
+    <% end %>
+    <%= link_to edit_path(current_user), class: 'dropdown-item' do %>
+        <%= fa_icon 'wrench fw', class: 'mr-2' %>
+        <%= t(:settings) %>
+    <% end %>
+    <%= link_to destroy_consumer_session_path, class: 'dropdown-item', method: :delete do %>
+        <%= fa_icon 'sign-out fw', class: 'mr-2' %>
+        <%= t(:sign_out) %>
+    <% end %>
+  </div>
+</li>

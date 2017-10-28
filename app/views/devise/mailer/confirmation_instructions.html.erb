@@ -1,0 +1,5 @@
+<p><%= t :confirmation_welcome, scope: [:devise_email], username: @resource.username %></p>
+
+<p><%= t :confirmation_body, scope: [:devise_email] %></p>
+
+<p><%= link_to t(:confirmation_link, scope: [:devise_email]), confirmation_url(@resource, confirmation_token: @token) %></p>

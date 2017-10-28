@@ -20,4 +20,138 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  actions: 'Actions'
+
+  admin: 'Admin'
+
+  already_used: 'already used'
+
+  avatar: 'avatar'
+
+  back: 'Back'
+
+  change: 'Change'
+
+  close: 'Close'
+
+  confirmation_lost: "Didn't receive confirmation instructions?"
+  confirmation_waiting: 'Currently waiting confirmation for: %{resource}'
+
+  create: 'Create'
+
+  delete: 'Delete'
+  deleted: 'Your account has been deleted'
+  delete_account: 'Delete my account'
+  delete_disclaimer: 'All your contents will remain on the platform. However, we will delete all your account informations, making tracing back to your identity impossible.'
+
+  email: 'Email'
+
+  employee: 'Employee'
+  employee_new: 'New employee'
+
+  enterprise: 'Enterprise'
+  enterprise_settings: 'Enterprise settings'
+
+  forbidden: 'You are not authorized to perform this action'
+
+  incorrect_credentials: 'Incorrect username or password'
+
+  irreversible: 'This action is irreversible.'
+
+  name: 'Name'
+
+  new_resource: 'New resource'
+  new_resource_create: 'Create a new %{resource}'
+  new_resource_success: 'Successfully created a new %{resource}'
+  new_resource_title: 'New %{resource}'
+
+  no_auth_methods: 'An email address or a Facebook account must be present'
+  nonexistent: 'does not exist'
+
+  optional: ' (optional)'
+
+  password: 'Password'
+  password_change: 'Change your password'
+  password_confirm: 'Confirm password'
+  password_forgot: 'Forgot your password?'
+  password_forgotten: 'Forgotten password'
+  password_min_length: "At least %{length} characters"
+  password_new: 'New password'
+  password_new_confirm: 'Confirm new password'
+  password_optional: "Password (only if you want to change it)"
+  password_reset: 'Reset password'
+  password_reset_send: 'Send me reset password instructions'
+
+  profile: 'Profile'
+
+  or: 'or'
+
+  remember_me: 'Remember me'
+
+  role: 'Role'
+
+  resend: 'Send'
+  resend_confirmation: 'Resend confirmation instructions'
+
+  save: 'Save'
+
+  send: 'Send'
+
+  settings: 'Settings'
+  settings_change: 'Change your settings'
+
+  sign_in: 'Login'
+  sign_in_omniauth: "Login with %{provider}"
+  sign_out: 'Logout'
+  sign_up: 'Register'
+
+  sure: 'Are you sure?'
+
+  unhappy: 'Unhappy?'
+
+  username: 'Username'
+  username_suffix: 'Username suffix'
+
+  unlock_lost: "Didn't receive unlock instructions?"
+  unlock_resend: 'Resend unlock'
+  unlock_resend_instructions: 'Resend unlock instructions'
+
+  uservoice: 'Uservoice'
+
+  validation_failed:
+    one: "1 error prohibited this %{resource} from being saved:"
+    other: "%{count} errors prohibited this %{resource} from being saved:"
+
+
+  devise_email:
+    confirmation_link: 'Confirm my account'
+    confirmation_body: 'You can confirm your account through the link below:'
+    confirmation_welcome: "Welcome %{username}!"
+
+    hello: "Hello %{username}!"
+
+    password_change_body: "We're contacting you to notify you that your password has been changed."
+
+    password_reset_body: "If you didn't request this, please ignore this email: your password won't change until you access the link above and create a new one."
+    password_reset_link: 'Change my password'
+    password_reset_preamble: 'Someone has requested a link to change your password. You can do this through the link below.'
+
+    unlock_body: 'Click the link below to unlock your account:'
+    unlock_link: 'Unlock my account'
+    unlock_preamble: 'Your account has been locked due to an excessive number of unsuccessful sign in attempts.'
+
+
+  facebook:
+    connect: 'Connect with Facebook'
+    connected: 'Successfully connected your account with Facebook.'
+    disconnect: 'Disconnect from Facebook'
+    disconnected: 'Successfully disconnected your account from Facebook.'
+    email_invalid: 'This email has already been taken by a non-consumer account.'
+    email_optional: 'If you insert it you need to verify it'
+    failure: 'An error has occurred. Please try again.'
+    first_time: 'This is the first time you are logging in with a Facebook account.'
+    no_email: 'To disconnect from Facebook you must provide a valid email address.'
+    sign_in_existing: 'or sign in with an existing account:'
+    sign_in_existing_only: 'Your email is already taken by a non-consumer account. Please sign in with username and password.'
+    username: 'Choose a username'
+    title: 'Sign in with Facebook'
