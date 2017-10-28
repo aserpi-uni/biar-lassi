@@ -1,4 +1,9 @@
-# An end user of the website.
+# An end user that can post new +remarks+ and +comments+. # FIXME
+#
+# *Parameters:*
+# * +username+ [String]  user public identification
+# * +email+ [String]     user's email address
+# * others               See https://github.com/plataformatec/devise
 class Consumer < ApplicationRecord
   devise :database_authenticatable,
          :confirmable,

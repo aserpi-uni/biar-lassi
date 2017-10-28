@@ -1,9 +1,9 @@
 # Istruzioni per l'uso
-[![Build Status](https://travis-ci.org/aserpi/Tesi.svg?branch=feature/bootstrap)](https://travis-ci.org/aserpi/Tesi)
-[![Coverage Status](https://coveralls.io/repos/github/aserpi/Tesi/badge.svg?branch=feature/bootstrap)](https://coveralls.io/github/aserpi/Tesi?branch=feature/bootstrap)
+[![Build Status](https://travis-ci.org/aserpi/Tesi.svg?branch=development)](https://travis-ci.org/aserpi/Tesi)
+[![Coverage Status](https://coveralls.io/repos/github/aserpi/Tesi/badge.svg?branch=development)](https://coveralls.io/github/aserpi/Tesi?branch=development)
 
 Installazione:
-1. avviare il server PostgreSQ;
+1. avviare il server PostgreSQ_;
 2. creare un superuser con la password desiderata
 3. clonare la repository localmente
 4. apire un terminale e:

@@ -15,6 +15,7 @@ class Auth::Consumers::FacebookController < ApplicationController
     sign_in_and_redirect @consumer
   end
 
+
   # Removes the Facebook info from the +current_user+'s account.
   def disconnect
     authorize :facebook
@@ -24,6 +25,7 @@ class Auth::Consumers::FacebookController < ApplicationController
     flash[:success] = I18n.t(:disconnected, scope: [:facebook])
     redirect_to edit_registration_path(current_consumer)
   end
+
 
   # Creates a new account from the Facebook info and the parameters inserted through a form.
   # If the email is provided manually it must be confirmed before accessing the site.

@@ -1,22 +1,28 @@
+# Global helpers.
 module ApplicationHelper
+
+  # Converts Rails flash message types into Bootstrap message types.
   def bootstrap_class_for(flash_type)
     case flash_type
-      when 'success'
-        'alert-success' # Green
-      when 'error'
-        'alert-danger' # Red
-      when 'alert'
-        'alert-warning' # Yellow
-      when 'notice'
-        'alert-info' # Blue
-      else
-        flash_type.to_s
+    when 'success'
+      'alert-success' # Green
+    when 'error'
+      'alert-danger' # Red
+    when 'alert'
+      'alert-warning' # Yellow
+    when 'notice'
+      'alert-info' # Blue
+    else
+      flash_type.to_s
     end
   end
 
-  def gravatar_image_tag(string, size, avatar)
+  # Retrieves the Gravatar avatar for an user.
+  # If it is not present, fallbacks to an identicon.
+  # See https://gravatar.com/implement/images/
+  def gravatar_image_tag(string, size, description)
     html = <<-HTML
-    <img src="https://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(string)}?s=#{size}&d=identicon" alt="#{avatar}"></img>
+    <img src="https://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(string)}?s=#{size}&d=identicon" alt="#{description}"></img>
     HTML
 
     html.html_safe

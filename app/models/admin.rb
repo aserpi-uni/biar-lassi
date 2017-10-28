@@ -1,4 +1,10 @@
-# An admin of the website.
+# An admin that can edit every resource.
+# Only an Admin can create another admin. However, their profile is public.
+#
+# *Parameters:*
+# * +username+ [String]  user public identification
+# * +email+ [String]     user's email address
+# * others               See https://github.com/plataformatec/devise
 class Admin < ApplicationRecord
   devise :database_authenticatable,
          :lockable,
