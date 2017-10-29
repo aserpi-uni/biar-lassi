@@ -1,4 +1,4 @@
-<% provide :title, t(:new_resource_title, resource: @employee.class.name) %>
+<% provide :title, t(:resource_new, resource: @employee.class.name) %>
 
 <%= render partial: 'errors', locals: { resource: @employee } %>
 
@@ -6,7 +6,7 @@
   <div class="col-6 mx-auto" >
 
     <h2>
-      <%= t :new_resource_create, resource: @employee.class.name.downcase %>
+      <%= t :resource_create, resource: @employee.class.name.downcase %>
     </h2>
 
     <%= form_with model: @employee, local: true do |f| %>

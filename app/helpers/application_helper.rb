@@ -17,17 +17,6 @@ module ApplicationHelper
     end
   end
 
-  # Retrieves the Gravatar avatar for an user.
-  # If it is not present, fallbacks to an identicon.
-  # See https://gravatar.com/implement/images/
-  def gravatar_image_tag(string, size, description)
-    html = <<-HTML
-    <img src="https://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(string)}?s=#{size}&d=identicon" alt="#{description}"></img>
-    HTML
-
-    html.html_safe
-  end
-
 
   # Paths
   def edit_path(usr)

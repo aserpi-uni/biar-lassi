@@ -50,6 +50,10 @@ class Employee < ApplicationRecord
     employee
   end
 
+  def update_suffix
+    self.username = "#{username[/(^[^@]*)/]}@#{enterprise.username_suffix}"
+    save
+  end
 
   def to_param
     username

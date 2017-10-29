@@ -26,7 +26,9 @@ en:
 
   already_used: 'already used'
 
-  avatar: 'avatar'
+  avatar: 'Avatar'
+  avatar_operator: "Operator's avatar"
+  avatar_supervisor: "Supervisor's avatar"
 
   back: 'Back'
 
@@ -44,6 +46,10 @@ en:
   delete_account: 'Delete my account'
   delete_disclaimer: 'All your contents will remain on the platform. However, we will delete all your account informations, making tracing back to your identity impossible.'
 
+  description: 'Description'
+
+  edit: 'Edit'
+
   email: 'Email'
 
   employee: 'Employee'
@@ -59,11 +65,6 @@ en:
   irreversible: 'This action is irreversible.'
 
   name: 'Name'
-
-  new_resource: 'New resource'
-  new_resource_create: 'Create a new %{resource}'
-  new_resource_success: 'Successfully created a new %{resource}'
-  new_resource_title: 'New %{resource}'
 
   no_auth_methods: 'An email address or a Facebook account must be present'
   nonexistent: 'does not exist'
@@ -88,6 +89,12 @@ en:
 
   remember_me: 'Remember me'
 
+  resource_create: 'Create a new %{resource}'
+  resource_create_success: 'Successfully created a new %{resource}'
+  resource_edit: 'Edit %{name}'
+  resource_edit_success: 'Successfully edited %{name}'
+  resource_new: 'New %{resource}'
+
   role: 'Role'
 
   resend: 'Send'
@@ -110,6 +117,9 @@ en:
   unhappy: 'Unhappy?'
 
   username: 'Username'
+  username_edited:
+    one: '1 employee username have been updated'
+    other: '%{count} employee usernames have been updated'
   username_suffix: 'Username suffix'
 
   unlock_lost: "Didn't receive unlock instructions?"

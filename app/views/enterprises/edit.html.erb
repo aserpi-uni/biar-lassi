@@ -1,0 +1,79 @@
+<% provide :title, t(:resource_edit, name: @enterprise.name) %>
+
+<%= render partial: 'errors', locals: { resource: @enterprise } %>
+
+<div class="jumbotron align-items-center">
+  <div class="col-6 mx-auto" >
+
+    <h2>
+      <%= @enterprise.name %>
+    </h2>
+
+    <%= form_with model: @enterprise, method: :put, local: true do |f| %>
+      <% if current_admin %>
+        <%= render partial: 'application/forms/enterprise_name', locals: { form: f } %>
+
+        <%= render partial: 'application/forms/username_suffix', locals: { form: f } %>
+      <% end %>
+
+      <fieldset class="row align-items-center">
+        <%= fa_icon('image fw', class: 'col-1 mt-4') %>
+        <div class="form-group bmd-form-group col">
+          <%= f.text_field :avatar, class: 'form-control', id: :avatar %>
+          <%= label_tag :avatar, t(:avatar), class: 'bmd-label-floating'%>
+        </div>
+      </fieldset>
+
+      <fieldset class="row align-items-center">
+        <%= fa_icon('support fw', class: 'col-1 mt-4') %>
+        <div class="form-group bmd-form-group col">
+          <%= f.text_field :avatar_operator, class: 'form-control', id: :avatar_operator %>
+          <%= label_tag :avatar_operator, t(:avatar_operator), class: 'bmd-label-floating'%>
+        </div>
+      </fieldset>
+
+      <fieldset class="row align-items-center">
+        <%= fa_icon('user-circle fw', class: 'col-1 mt-4') %>
+        <div class="form-group bmd-form-group col">
+          <%= f.text_field :avatar_supervisor, class: 'form-control', id: :avatar_supervisor %>
+          <%= label_tag :avatar_supervisor, t(:avatar_supervisor), class: 'bmd-label-floating'%>
+        </div>
+      </fieldset>
+
+      <fieldset class="row align-items-center">
+        <%= fa_icon('align-left fw', class: 'col-1 mt-4') %>
+        <div class="form-group bmd-form-group col">
+          <%= f.text_area :description, class: 'form-control', id: :description %>
+          <%= label_tag :description, t(:description), class: 'bmd-label-floating'%>
+        </div>
+      </fieldset>
+
+      <fieldset class="row align-items-center">
+        <%= fa_icon('history fw', class: 'col-1 mt-4') %>
+        <div class="form-group bmd-form-group col">
+          <%= f.number_field :founded, class: 'form-control', id: :founded, step: 1.0 %>
+          <%= label_tag :founded, t(:founded), class: 'bmd-label-floating'%>
+        </div>
+      </fieldset>
+
+      <fieldset class="row align-items-center">
+        <%= fa_icon('building fw', class: 'col-1 mt-4') %>
+        <div class="form-group bmd-form-group col">
+          <%= f.text_field :headquarters, class: 'form-control', id: :headquarters %>
+          <%= label_tag :headquarters, t(:headquarters), class: 'bmd-label-floating'%>
+        </div>
+      </fieldset>
+
+      <fieldset class="row align-items-center">
+        <%= fa_icon('laptop fw', class: 'col-1 mt-4') %>
+        <div class="form-group bmd-form-group col">
+          <%= f.text_field :website, class: 'form-control', id: :website %>
+          <%= label_tag :website, t(:website), class: 'bmd-label-floating'%>
+        </div>
+      </fieldset>
+
+      <%= render partial: 'application/forms/submit', locals: { form: f, locale: :save } %>
+    <% end %>
+
+  </div> <!-- col-6 -->
+</div> <!-- jumbotron -->

@@ -17,7 +17,7 @@ class EmployeesController < ApplicationController
     @employee = Employee.create_new(params)
     return render :new unless @employee.save
 
-    flash[:success] = I18n.t(:new_resource_success, resource: I18n.t(:employee).downcase)
+    flash[:success] = I18n.t(:resource_create_success, resource: I18n.t(:employee).downcase)
     redirect_to employee_path @employee
   end
 

@@ -6,11 +6,12 @@ class EnterprisePolicy
     @enterprise = enterprise
   end
 
-  def new?
+  def create?
     @user.is_a? Admin
   end
 
-  def create?
-    @user.is_a? Admin
+  def update?
+    @user.is_a?(Admin) ||
+      (@user.is_a?(Employee) && @user.enterprise == @enterprise && @user.supervisor?)
   end
 end
