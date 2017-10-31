@@ -26,10 +26,10 @@ class Enterprise < ApplicationRecord
   validates :founded, numericality: { greater_than_or_equal_to: -4000, less_than_or_equal_to: 2500 }, allow_blank: true
 
   validates :name, format: { with: /\A[\w\s?!-]{3,64}\z/, message: 'is invalid' }, reserved_name: true,
-                   uniqueness: { case_sensitive: false }, on: :create
+                   uniqueness: { case_sensitive: false }
 
   validates :username_suffix, format: { with: /\A[\w\s?!-]{3,32}\z/, message: 'is invalid' }, reserved_name: true,
-                              uniqueness: { case_sensitive: false }, on: :create
+                              uniqueness: { case_sensitive: false }
 
   has_many :employees
 

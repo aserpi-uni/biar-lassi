@@ -7,8 +7,7 @@ class EmployeePolicy < ApplicationPolicy
   end
 
   def new?
-    @user.is_a?(Admin) ||
-      (@user.is_a?(Employee) && @user.supervisor?)
+    create?
   end
 
   def create?

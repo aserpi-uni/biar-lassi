@@ -4,7 +4,7 @@ class EnterprisesController < ApplicationController
   end
 
   def new
-    authorize Enterprise, :create?
+    authorize Enterprise
     @enterprise = Enterprise.new
   end
 
@@ -21,10 +21,9 @@ class EnterprisesController < ApplicationController
 
   def edit
     @enterprise = Enterprise.find_by(name: params[:name])
-    authorize @enterprise, :update?
+    authorize @enterprise
   end
 
-  # TODO: tests
   def update
     @enterprise = Enterprise.find_by(name: params[:name])
     authorize @enterprise

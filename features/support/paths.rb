@@ -13,8 +13,11 @@ module NavigationHelpers
     when /^(Admin|Consumer|Employee) (.*)'s profile page$/
       "/auth/#{Regexp.last_match(1).downcase.pluralize}/#{Regexp.last_match(2)}"
 
-    when /^(new|edit) (Employee|Enterprise)$/
-      "/#{Regexp.last_match(2).downcase.pluralize}/#{Regexp.last_match(1)}"
+    when /^new (Employee|Enterprise)$/
+      "/#{Regexp.last_match(1).downcase.pluralize}/new"
+
+    when/^edit (Admin|Employee|Enterprise) "(.*)"$/
+      "/#{Regexp.last_match(1).downcase.pluralize}/#{Regexp.last_match(2)}/edit"
 
     else
       begin
