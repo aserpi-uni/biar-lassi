@@ -79,9 +79,9 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">
-          <%= t :close %>
+          <%= t :cancel %>
         </button>
-        <%= button_to t(:delete), registration_path(resource_name), method: :delete, class: 'btn btn-danger', form_class: 'form-delete' %>
+        <%= button_to t(:confirm), registration_path(resource_name), method: :delete, class: 'btn btn-danger', form_class: 'form-delete' %>
       </div>
     </div>
   </div>

@@ -54,7 +54,6 @@ class Consumer < ApplicationRecord
 
 
   # Locks a Consumer out of his account with no possibility of recover.
-  # TODO: test
   def lock
     self.email = nil
     self.locked_at = Time.now

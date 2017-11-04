@@ -32,9 +32,13 @@ en:
 
   back: 'Back'
 
+  cancel: 'Cancel'
+
   change: 'Change'
 
   close: 'Close'
+
+  confirm: 'Confirm'
 
   confirmation_lost: "Didn't receive confirmation instructions?"
   confirmation_waiting: 'Currently waiting confirmation for: %{resource}'
