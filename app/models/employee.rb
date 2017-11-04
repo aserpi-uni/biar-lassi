@@ -20,13 +20,13 @@ class Employee < ApplicationRecord
 
 
 
-  validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i, message: 'is invalid' },
+  validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i, message: I18n.t(:field_invalid) },
                     user_uniqueness: true
 
   validates :password, confirmation: true, length: { in: 8..128 }, on: :create
   validates :password, confirmation: true, length: { in: 8..128 }, allow_blank: true, on: :update
 
-  validates :username, format: { with: /\A\w{5,32}@\w{1,32}\z/, message: 'is invalid' }, reserved_name: true,
+  validates :username, format: { with: /\A\w{5,32}@\w{1,32}\z/, message: I18n.t(:field_invalid) }, reserved_name: true,
                        uniqueness: { case_sensitive: false }, on: :create
 
   enum role: { supervisor: 0, operator: 1 }
@@ -35,7 +35,7 @@ class Employee < ApplicationRecord
 
 
   # Create a new Employee from +create+ action parameters.
-  def self.create_new(params)
+  def self.from_params(params)
     employee = Employee.new
     employee.email = params[:email]
     if (employee.enterprise = Enterprise.find_by(name: params[:enterprise]))

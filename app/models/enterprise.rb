@@ -17,18 +17,18 @@
 # * +has_many+ [Employee]         employees that work for the enterprise
 class Enterprise < ApplicationRecord
 
-  validates :avatar, format: { with: URI.regexp, message: 'is invalid' }, allow_blank: true
+  validates :avatar, format: { with: URI.regexp, message: I18n.t(:field_invalid) }, allow_blank: true
 
-  validates :avatar_operator, format: { with: URI.regexp, message: 'is invalid' }, allow_blank: true
+  validates :avatar_operator, format: { with: URI.regexp, message: I18n.t(:field_invalid) }, allow_blank: true
 
-  validates :avatar_supervisor, format: { with: URI.regexp, message: 'is invalid' }, allow_blank: true
+  validates :avatar_supervisor, format: { with: URI.regexp, message: I18n.t(:field_invalid) }, allow_blank: true
 
   validates :founded, numericality: { greater_than_or_equal_to: -4000, less_than_or_equal_to: 2500 }, allow_blank: true
 
-  validates :name, format: { with: /\A[\w\s?!-]{3,64}\z/, message: 'is invalid' }, reserved_name: true,
+  validates :name, format: { with: /\A[\w\s?!-]{3,64}\z/, message: I18n.t(:field_invalid) }, reserved_name: true,
                    uniqueness: { case_sensitive: false }
 
-  validates :username_suffix, format: { with: /\A[\w\s?!-]{3,32}\z/, message: 'is invalid' }, reserved_name: true,
+  validates :username_suffix, format: { with: /\A[\w\s?!-]{3,32}\z/, message: I18n.t(:field_invalid) }, reserved_name: true,
                               uniqueness: { case_sensitive: false }
 
   has_many :employees

@@ -4,15 +4,15 @@ Feature: Employee creation
   I want to register a new employee account.
 
   Scenario: Admin creates a Supervisor
-    Given I created an Admin account with username "admin" and email "admin@example.com"
-    And I login as an Admin with username "admin"
+    Given I created an Admin account with username "username" and email "admin@example.com"
+    And I login as an Admin with username "username@admin"
     And I created an Enterprise with name "enterprise" and username suffix "user_suffix"
     When I register an Employee account with username "employee", email "employee@example.com", role "Supervisor" and enterprise "enterprise"
     Then I should see a "employee@user_suffix" title
 
   Scenario: Admin tries to create an Operator with a nonexistent Enterprise
-    Given I created an Admin account with username "admin" and email "admin@example.com"
-    And I login as an Admin with username "admin"
+    Given I created an Admin account with username "username" and email "admin@example.com"
+    And I login as an Admin with username "username@admin"
     When I register an Employee account with username "employee", email "employee@example.com", role "Supervisor" and enterprise "enterprise"
     Then I should see a "username" input field
 
@@ -31,9 +31,9 @@ Feature: Employee creation
     Then I should not see a "username" input field
 
   Scenario: Admin tries to create an Employee with an already taken username
-    Given I created an Admin account with username "admin" and email "admin@example.com"
+    Given I created an Admin account with username "username" and email "admin@example.com"
     And I created an Enterprise with name "enterprise" and username suffix "nick_suffix"
-    And I login as an Admin with username "admin"
+    And I login as an Admin with username "username@admin"
     And I created an Employee account with username "employee", email "supervisor@example.com", role "supervisor" and enterprise "enterprise"
     And I register an Employee account with username "employee", email "supervisor@example.com", role "Supervisor" and enterprise "enterprise"
     Then I should see a "username" input field

@@ -58,6 +58,8 @@ en:
   enterprise: 'Enterprise'
   enterprise_settings: 'Enterprise settings'
 
+  field_invalid: 'is invalid'
+
   forbidden: 'You are not authorized to perform this action'
 
   incorrect_credentials: 'Incorrect username or password'

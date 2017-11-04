@@ -14,7 +14,7 @@ class EmployeesController < ApplicationController
     params = employee_params_create
     params[:enterprise] = current_employee.enterprise.name if current_employee
 
-    @employee = Employee.create_new(params)
+    @employee = Employee.from_params(params)
     return render :new unless @employee.save
 
     flash[:success] = I18n.t(:resource_create_success, resource: I18n.t(:employee).downcase)

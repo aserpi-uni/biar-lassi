@@ -27,9 +27,8 @@ Feature: Signing in as a consumer
     When I am on the "Consumer sign in" page
     Then I should see a "/auth/consumers/sign_out" link
 
-    # TODO: modificare username quando ci saranno gli admin
-  Scenario: Try to login even if already logged in as a Consumer
+  Scenario: Try to login even if already logged in as an Admin
     Given I created an Admin account with username "username" and email "email@example.com"
-    And I login as an Admin with username "username"
+    And I login as an Admin with username "username@admin"
     When I am on the "Consumer sign in" page
-    Then I should see a "/auth/consumers/sign_out" link
+    Then I should not see a "username" input field

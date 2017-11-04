@@ -4,8 +4,8 @@ Feature: Editing and Enterprise
   I want to be able to edit an Enterprise's name and username suffix.
 
   Background:
-    Given I created an Admin account with username "adminaccount" and email "admin@example.com"
-    And I login as an Admin with username "adminaccount"
+    Given I created an Admin account with username "username" and email "admin@example.com"
+    And I login as an Admin with username "username@admin"
     And I created an Enterprise with name "Enterprise" and username suffix "enter"
     And I created an Employee account with username "employee", email "supervisor@example.com", role "supervisor" and enterprise "Enterprise"
     And I am on the "edit" page for Enterprise "Enterprise"

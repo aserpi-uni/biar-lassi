@@ -8,9 +8,12 @@ When(/^I register an? (Admin|Consumer) with username "([^"]*)" and email "([^"]*
 end
 
 Given(/^I created (an Admin|a Consumer) account with username "([^"]*)" and email "([^"]*)"$/) do |klass, name, email|
-  if klass == 'an Admin' && !Admin.find_by(username: name)
-    admin = Admin.new(email: email, password: 'password', username: name)
-    admin.save!
+  if klass == 'an Admin'
+    name = "#{name}@admin"
+    unless Admin.find_by(username: name)
+      admin = Admin.new(email: email, password: 'password', username: name)
+      admin.save!
+    end
   elsif klass == 'a Consumer' && !Consumer.find_by(username: name)
     consumer = Consumer.new(email: email, password: 'password', username: name)
     consumer.skip_confirmation!
@@ -19,8 +22,8 @@ Given(/^I created (an Admin|a Consumer) account with username "([^"]*)" and emai
 end
 
 Given(/^I created an Employee account with username "([^"]*)", email "([^"]*)", role "(operator|supervisor)" and enterprise "([^"]*)"$/) do |username, email, role, enterprise|
-  Employee.create_new(username: username, email: email, role: role, password: 'password', password_confirmation: 'password',
-                      enterprise: enterprise).save!
+  Employee.from_params(username: username, email: email, role: role, password: 'password', password_confirmation: 'password',
+                       enterprise: enterprise).save!
 end
 
 When(/^I register an Employee account with username "([^"]*)", email "([^"]*)", role "(Operator|Supervisor)"( and enterprise "([^"]*)")?$/) do |username, email, role, enterprise|

@@ -3,11 +3,10 @@ Feature: Enterprise creation (as an Admin)
   In order to add an Enterprise in the framework
   I want to be able to create a new Enterprise resource and a related Supervisor employee.
 
-  # TODO: modificare username quando ci saranno gli admin
 
   Background:
     Given I created an Admin account with username "username" and email "admin@example.com"
-    And I login as an Admin with username "username"
+    And I login as an Admin with username "username@admin"
 
   Scenario: Successfully create an Enterprise
     When I create an Enterprise with name "enterprise" and username suffix "nick_suffix"

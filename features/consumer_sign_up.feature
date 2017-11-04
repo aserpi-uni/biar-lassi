@@ -31,7 +31,7 @@ Feature: Signing up as a consumer
     Then I should see a "username" input field
 
   Scenario: Try to create a new account with an email already taken
-    Given I created an Admin account with username "test@admin" and email "consumer_sign_up_fail@example.com"
+    Given I created an Admin account with username "username" and email "consumer_sign_up_fail@example.com"
     When I register a Consumer with username "consumer_sign_up_fail" and email "consumer_sign_up_fail@example.com"
     Then I should see a "username" input field
 
