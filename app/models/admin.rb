@@ -17,6 +17,9 @@ class Admin < ApplicationRecord
   validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i, message: I18n.t(:field_invalid) },
                     user_uniqueness: true
 
+  validates :password, confirmation: true, length: { in: 8..128 }, on: :create
+  validates :password, confirmation: true, length: { in: 8..128 }, allow_blank: true, on: :update
+
   validates :username, format: { with: /\A\w{5,32}@admin\z/, message: I18n.t(:field_invalid) }, reserved_name: true,
                        uniqueness: { case_sensitive: false }, on: :create
 

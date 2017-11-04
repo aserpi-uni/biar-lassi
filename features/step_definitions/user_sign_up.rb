@@ -1,12 +1,3 @@
-When(/^I register an? (Admin|Consumer) with username "([^"]*)" and email "([^"]*)"$/) do |klass, name, email|
-  visit path_to("#{klass} sign up")
-  fill_in 'username', with: name
-  fill_in 'email', with: email
-  fill_in 'password', with: 'password'
-  fill_in 'password_confirmation', with: 'password'
-  click_button 'Register'
-end
-
 Given(/^I created (an Admin|a Consumer) account with username "([^"]*)" and email "([^"]*)"$/) do |klass, name, email|
   if klass == 'an Admin'
     name = "#{name}@admin"
@@ -26,13 +17,34 @@ Given(/^I created an Employee account with username "([^"]*)", email "([^"]*)", 
                        enterprise: enterprise).save!
 end
 
+When(/^I register an Admin with username "([^"]*)" and email "([^"]*)"$/) do |name, email|
+  visit path_to('new Admin')
+  fill_register_form(name, email)
+  click_button 'Create'
+end
+
+
+When(/^I register a Consumer with username "([^"]*)" and email "([^"]*)"$/) do |name, email|
+  visit path_to('Consumer sign up')
+  fill_register_form(name, email)
+  click_button 'Register'
+end
+
 When(/^I register an Employee account with username "([^"]*)", email "([^"]*)", role "(Operator|Supervisor)"( and enterprise "([^"]*)")?$/) do |username, email, role, enterprise|
   visit path_to 'new Employee'
-  fill_in 'username', with: username
-  fill_in 'email', with: email
+  fill_register_form(username, email)
   select role, from: 'role'
   fill_in('enterprise', with: enterprise) unless enterprise.blank?
+  click_button 'Create'
+end
+
+
+
+private
+
+def fill_register_form(name, email)
+  fill_in 'username', with: name
+  fill_in 'email', with: email
   fill_in 'password', with: 'password'
   fill_in 'password_confirmation', with: 'password'
-  click_button 'Create'
 end

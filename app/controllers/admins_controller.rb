@@ -3,7 +3,6 @@ class AdminsController < ApplicationController
     @admin = Admin.find_by! username: params[:username]
   end
 
-  # TODO: test
   def new
     authorize Admin
     @admin = Admin.new
