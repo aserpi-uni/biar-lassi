@@ -21,7 +21,7 @@ module ApplicationHelper
   # Paths
   def edit_path(usr)
     if usr.is_a? Admin
-      root_path # TODO: creare edit_admin_path
+      edit_admin_path usr
     elsif usr.is_a? Consumer
       edit_consumer_registration_path
     elsif usr.is_a? Employee

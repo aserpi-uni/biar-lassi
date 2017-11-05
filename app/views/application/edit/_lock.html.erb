@@ -1,0 +1,11 @@
+<div class="my-5">
+  <h3>
+    <%= t(user == current_user ? :lock_account : :lock_account_other) %>
+  </h3>
+
+  <p>
+    <%= t(user == current_user ? :lock_disclaimer : :lock_disclaimer_other) %>
+  </p>
+
+  <%= button_to t(:lock), path, method: :delete, class: 'btn btn-danger btn-raised', form_class: 'form-delete'%>
+</div>

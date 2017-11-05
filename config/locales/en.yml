@@ -47,8 +47,11 @@ en:
 
   delete: 'Delete'
   deleted: 'Your account has been deleted'
+  deleted_other: 'The account has been deleted'
   delete_account: 'Delete my account'
+  delete_account_other: 'Delete the account'
   delete_disclaimer: 'All your contents will remain on the platform. However, we will delete all your account informations, making tracing back to your identity impossible.'
+  delete_disclaimer_other: 'All the contents will remain on the platform. However, we will delete all the account informations, making tracing back to the real identity impossible.'
 
   description: 'Description'
 
@@ -69,6 +72,13 @@ en:
   incorrect_credentials: 'Incorrect username or password'
 
   irreversible: 'This action is irreversible.'
+
+  lock: 'Lock'
+  lock_account: 'Lock my account'
+  lock_account_other: 'Lock the account'
+  lock_disclaimer: 'You will not be able to login anymore. Are you sure?'
+  lock_disclaimer_other: 'The user will not be able to login anymore. Are you sure?'
+  locked_success: '%{usr} has been locked'
 
   name: 'Name'
 
@@ -122,15 +132,19 @@ en:
 
   unhappy: 'Unhappy?'
 
+  unlock: 'Unlock'
+  unlock_account: 'Unlock the account'
+  unlock_disclaimer: 'The user will be able to login again. Are you sure?'
+  unlock_lost: "Didn't receive unlock instructions?"
+  unlock_resend: 'Resend unlock'
+  unlock_resend_instructions: 'Resend unlock instructions'
+  unlocked_success: '%{usr} has been unlocked'
+
   username: 'Username'
   username_edited:
     one: '1 employee username have been updated'
     other: '%{count} employee usernames have been updated'
   username_suffix: 'Username suffix'
-
-  unlock_lost: "Didn't receive unlock instructions?"
-  unlock_resend: 'Resend unlock'
-  unlock_resend_instructions: 'Resend unlock instructions'
 
   uservoice: 'Uservoice'
 

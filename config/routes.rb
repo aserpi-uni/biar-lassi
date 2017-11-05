@@ -14,6 +14,9 @@ Rails.application.routes.draw do
                                                              sessions: 'employees/sessions',
                                                              unlocks: 'employees/unlocks' }
 
+  delete '/admins/lock/:username', to: 'admins#lock', as: 'admin_lock'
+  post 'admins/unlock/:username', to: 'admins#unlock', as: 'admin_manual_unlock'
+
 
   resources :admins, param: :username
   resources :consumers, param: :username
