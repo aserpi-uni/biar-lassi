@@ -43,7 +43,14 @@ class AdminsController < ApplicationController
     @admin.locked_at = Time.now
 
     @admin.save validate: false
-    flash[:success] = I18n.t(@admin == current_admin ? :deleted : :deleted_other)
+
+    if @admin == current_admin
+      sign_out current_admin
+      flash[:success] = I18n.t(:deleted)
+    else
+      flash[:success] = I18n.t(:deleted_other)
+    end
+
     redirect_to root_path
   end
 

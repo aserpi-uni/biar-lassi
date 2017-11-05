@@ -2,7 +2,7 @@ Given(/^I created (an Admin|a Consumer) account with username "([^"]*)" and emai
   if klass == 'an Admin'
     name = "#{name}@admin"
     unless Admin.find_by(username: name)
-      admin = Admin.new(email: email, password: 'password', username: name)
+      admin = Admin.new(username: name, email: email, password: 'password')
       admin.save!
     end
   elsif klass == 'a Consumer' && !Consumer.find_by(username: name)
