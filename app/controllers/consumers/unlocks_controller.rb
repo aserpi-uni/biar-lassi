@@ -1,4 +1,4 @@
-class Employees::UnlocksController < Devise::UnlocksController
+class Consumers::UnlocksController < Devise::UnlocksController
   include Accessible
 
   before_action :authorize_user

@@ -10,10 +10,6 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
 
-  # TODO: create Devise controllers when not present
-  # TODO: include Accessible module in all Devise controllers
-
-
   protected
 
   # Permits the parameters needed by Devise controllers.

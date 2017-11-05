@@ -1,9 +1,19 @@
 Rails.application.routes.draw do
-  devise_for :admins, path_prefix: 'auth', controllers: { sessions: 'admins/sessions' }
+  devise_for :admins, path_prefix: 'auth', controllers: { passwords: 'admins/passwords',
+                                                          sessions: 'admins/sessions',
+                                                          unlocks: 'admins/unlocks' }
+
   devise_for :consumers, path_prefix: 'auth',
                          controllers: { omniauth_callbacks: 'consumers/omniauth_callbacks',
-                                        registrations: 'consumers/registrations', sessions: 'consumers/sessions' }
-  devise_for :employees, path_prefix: 'auth', controllers: { sessions: 'admins/sessions' }
+                                        passwords: 'consumers/passwords',
+                                        registrations: 'consumers/registrations',
+                                        sessions: 'consumers/sessions',
+                                        unlocks: 'consumers/unlocks' }
+
+  devise_for :employees, path_prefix: 'auth', controllers: { passwords: 'employees/passwords',
+                                                             sessions: 'employees/sessions',
+                                                             unlocks: 'employees/unlocks' }
+
 
   resources :admins, param: :username
   resources :consumers, param: :username
