@@ -34,13 +34,7 @@
         </fieldset>
       <% end %>
 
-      <fieldset class="row align-items-center">
-        <%= fa_icon('cogs fw', class: 'col-1 mt-4') %>
-        <div class="form-group bmd-form-group col" >
-          <%= f.select(:role, [%w(Operator operator), %w(Supervisor supervisor)], { } , { class: 'form-control', id: :role }) %>
-          <%= label_tag :role, t(:role), class: 'bmd-label-floating'%>
-        </div>
-      </fieldset>
+      <%= render partial: 'application/forms/role', locals: { form: f } %>
 
       <%= render partial: 'application/forms/password', locals: { form: f, min_length: 8 } %>
 

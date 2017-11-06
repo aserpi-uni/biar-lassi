@@ -21,10 +21,76 @@ class EmployeesController < ApplicationController
     redirect_to employee_path @employee
   end
 
+  def edit
+    @employee = Employee.find_by(username: params[:username])
+    authorize @employee
+  end
+
+  def update
+    @employee = Employee.find_by(username: params[:username])
+    authorize @employee
+
+    old_role = @employee.role
+    return render :edit unless @employee.update(employee_params_update)
+
+    if old_role == 'operator' && old_role != @employee.role
+      # TODO: redistribuire ogni ticket aperto ad altri operator
+    end
+
+    flash[:success] = I18n.t(:resource_edit_success, name: @employee.username)
+    redirect_to edit_employee_path(@employee)
+  end
+
+  def destroy
+    @employee = Employee.find_by(username: params[:username])
+    authorize @employee
+
+    @employee.email = nil
+    @employee.locked_at = Time.now
+
+    @employee.save validate: false
+
+    if @employee == current_employee
+      sign_out current_employee
+      flash[:success] = I18n.t(:deleted)
+    else
+      flash[:success] = I18n.t(:deleted_other)
+    end
+
+    redirect_to root_path
+  end
+
+  def lock
+    @employee = Employee.find_by(username: params[:username])
+    authorize @employee
+
+    @employee.update(locked_at: Time.now)
+    if @employee != current_employee
+      flash[:success] = I18n.t(:locked_success, usr: @employee.username)
+      redirect_to edit_employee_path(@employee)
+    else
+      redirect_to root_path
+    end
+  end
+
+  def unlock
+    @employee = Employee.find_by(username: params[:username])
+    authorize @employee
+
+    @employee.update(locked_at: nil)
+
+    flash[:success] = I18n.t(:unlocked_success, usr: @employee.username)
+    redirect_to edit_employee_path(@employee)
+  end
+
 
   private
 
   def employee_params_create
     params.require(:employee).permit(:username, :email, :role, :password, :password_confirmation, :enterprise)
+  end
+
+  def employee_params_update
+    params.require(:employee).permit(:email, :role, :password, :password_confirmation)
   end
 end

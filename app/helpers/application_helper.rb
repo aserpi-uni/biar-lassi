@@ -25,7 +25,7 @@ module ApplicationHelper
     elsif usr.is_a? Consumer
       edit_consumer_registration_path
     elsif usr.is_a? Employee
-      root_path # TODO: creare edit_employee_path
+      edit_employee_path usr
     end
   end
 
