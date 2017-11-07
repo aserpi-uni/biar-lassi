@@ -75,7 +75,9 @@
       <%= render partial: 'application/forms/submit', locals: { form: f, locale: :save } %>
     <% end %>
 
-    <!-- TODO: destroy -->
+    <% if current_admin %>
+        <%= render partial: 'application/edit/delete_resource', locals: {res: @enterprise, path: enterprise_path(@enterprise) } %>
+    <% end %>
 
   </div> <!-- col-6 -->
 </div> <!-- jumbotron -->

@@ -38,7 +38,7 @@ class Employee < ApplicationRecord
   def self.from_params(params)
     employee = Employee.new
     employee.email = params[:email]
-    if (employee.enterprise = Enterprise.find_by(name: params[:enterprise]))
+    if (employee.enterprise = Enterprise.find_by(name: params[:enterprise])) && employee.enterprise.active?
       employee.username = "#{params[:username]}@#{employee.enterprise.username_suffix}"
     else
       employee.username = "#{params[:username]}@no_enterprise"

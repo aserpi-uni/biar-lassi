@@ -18,3 +18,6 @@ Feature: Editing and Enterprise
     And he changes the "username_suffix" field to "enter_two"
     When he saves
     Then he should not see a "1 employee username" text
+
+  Scenario: Admin deletes an Enterprise
+    # TODO: when Product

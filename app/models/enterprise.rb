@@ -33,6 +33,13 @@ class Enterprise < ApplicationRecord
 
   has_many :employees
 
+  # Deletes all Employees and products
+  def soft_delete
+    enterprise.active = false
+    employees.each(&:lock)
+    # TODO: products
+  end
+
   def to_param
     name
   end

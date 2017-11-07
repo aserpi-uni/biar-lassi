@@ -35,12 +35,24 @@ class EnterprisesController < ApplicationController
     flash[:success] = I18n.t(:resource_edit_success, name: @enterprise.name)
 
     if old_suffix != @enterprise.username_suffix
-      employees = Employee.where(enterprise_id: @enterprise.id)
-      employees.find_each { |employee| employee.update_suffix }
+      employees = @enterprise.employees
+      employees.find_each(&:update_suffix)
       flash[:notice] = I18n.t(:username_edited, count: employees.count)
     end
 
     redirect_to edit_enterprise_path(@enterprise)
+  end
+
+  def destroy
+    @enterprise = Enterprise.find_by(name: params[:name])
+    authorize @enterprise
+
+    @enterprise.soft_delete
+
+    flash[:success] = I18n.t(:deleted_resource, res: @enterprise.class.name)
+    flash[:notice] =  I18n.t(:deleted_enterprise, empl: @enterprise.employees.count, pro: 0) # FIXME
+
+    redirect_to enterprise_path(@enterprise)
   end
 
 

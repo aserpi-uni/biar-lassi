@@ -35,7 +35,7 @@
       <% else %>
         <%= render partial: 'application/edit/lock', locals: { user: @employee, path: employee_lock_path(@employee) } %>
 
-        <%= render partial: 'application/edit/delete', locals: { user: @employee, path: employee_path(@employee) } %>
+        <%= render partial: 'application/edit/delete_account', locals: {user: @employee, path: employee_path(@employee) } %>
       <% end %>
     <% end %>
 
