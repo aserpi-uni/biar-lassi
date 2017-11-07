@@ -27,5 +27,5 @@ Feature: Employee creation
   Scenario: Admin tries to create an Employee with an already taken username
     Given an Employee has an account
     And an Admin is logged in
-    When he creates a new Employee with an username already taken
+    When he creates a new Employee with a username already taken
     Then he should see a "username" input field

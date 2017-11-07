@@ -22,7 +22,7 @@ When(/^a Consumer logs in with Facebook choosing a taken username$/) do
   click_button I18n.t(:sign_up)
 end
 
-When(/^(a Consumer|he) logs in with Facebook( with no email)?( registering an username)?( and an email)?$/) do |_useless, null_email, username, email|
+When(/^(a Consumer|he) logs in with Facebook( with no email)?( registering a username)?( and an email)?$/) do |_useless, null_email, username, email|
   OmniAuth.config.add_mock :facebook, info: { email: '' } if null_email
   visit path_to 'Consumer sign in'
   find(:xpath, '//a[@href="/auth/consumers/auth/facebook"]').click
@@ -45,14 +45,11 @@ end
 
 ## Success
 
-Given(/^(an?|the) (Admin|Consumer|Employee|Operator|Supervisor) is logged in$/) do |article, klass|
+Given(/^an? (Admin|Consumer|Employee|Operator|Supervisor) is logged in$/) do |klass|
   klass = klass.downcase
-  if article == 'an' || article == 'a'
-    instance_variable_set("@#{klass}", FactoryBot.create(klass))
-    instance_variable_get("@#{klass}").update(confirmed_at: Time.now) if klass == 'consumer'
-    instance_variable_set('@enterprise', instance_variable_get("@#{klass}").enterprise) if employee? klass
-  end
-  @current_user = instance_variable_get("@#{klass}")
+  @current_user = instance_variable_set("@#{klass}", FactoryBot.create(klass))
+  instance_variable_get("@#{klass}").update(confirmed_at: Time.now) if klass == 'consumer'
+  instance_variable_set('@enterprise', instance_variable_get("@#{klass}").enterprise) if employee? klass
   login_as @current_user, scope: (employee?(klass) ? :employee : klass)
 end
 

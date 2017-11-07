@@ -18,6 +18,6 @@ Feature: Signing in as a consumer (Facebook fail)
     Then he should not see a "username_select" input field
 
   @omniauth_test
-  Scenario: Try to login with Facebook using an username already taken
+  Scenario: Try to login with Facebook using a username already taken
     When a Consumer logs in with Facebook choosing a taken username
     Then he should see a "password_sign_in" input field

@@ -11,7 +11,7 @@
 <% end -%>
 
 <% if devise_mapping.omniauthable? %>
-    <%= link_to omniauth_authorize_path(:consumer, :facebook) do %>
-        <%= image_tag 'facebook-login.png', class: 'mt-3' %>
-    <% end %>
+  <%= link_to omniauth_authorize_path(:consumer, :facebook) do %>
+      <%= image_tag 'facebook-login.png', class: 'mt-3' %>
+  <% end %>
 <% end %>

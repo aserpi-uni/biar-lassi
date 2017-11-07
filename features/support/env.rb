@@ -70,8 +70,6 @@ Cucumber::Rails::Database.javascript_strategy = :truncation
 
 Before('@omniauth_test') do
   OmniAuth.config.test_mode = true
-  Capybara.default_host = 'http://example.com'
-
   OmniAuth.config.add_mock(:facebook, {:uid => '12345', :info => { :email => 'facebook@example.com' }})
 end
 

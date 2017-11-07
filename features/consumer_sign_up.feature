@@ -15,7 +15,7 @@ Feature: Signing up as a consumer
     When a Consumer registers an account with a wrong password confirmation
     Then he should see a "username" input field
 
-  Scenario: Try to create a new account with an username already taken
+  Scenario: Try to create a new account with a username already taken
     Given a Consumer has a confirmed account
     When a Consumer registers an account with a username already taken
     Then he should see a "username" input field

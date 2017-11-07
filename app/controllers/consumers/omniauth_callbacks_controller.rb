@@ -1,7 +1,6 @@
 # Groups all OmniAuth callbacks for the Consumer model.
 class Consumers::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
-
   # OmniAuth callback for Facebook
   def facebook
     authorize :facebook, :facebook?
@@ -40,7 +39,7 @@ class Consumers::OmniauthCallbacksController < Devise::OmniauthCallbacksControll
   private
 
 
-  # Signes in the user that has these Facebook credential.
+  # Signs in the user that has these Facebook credential.
   def already_signed_up(consumer)
     sign_in_and_redirect consumer, event: :authentication
     set_flash_message(:notice, :success, kind: 'Facebook') if is_navigational_format?

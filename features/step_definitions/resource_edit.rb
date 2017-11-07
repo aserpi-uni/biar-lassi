@@ -18,13 +18,13 @@ end
 
 ## Facebook
 
-When(/^he connects to Facebook$/) do
+When(/^he connects his account to Facebook$/) do
   visit settings_path_to @consumer
   find_link(I18n.t(:connect, scope: :facebook)).click
 end
 
-When(/^he disconnects from Facebook$/) do
-  visit settings_path_to @consumer
+When(/^he disconnects his account from Facebook$/) do
+  visit settings_path_to(@current_user)
   find_link(I18n.t(:disconnect, scope: :facebook)).click
 end
 

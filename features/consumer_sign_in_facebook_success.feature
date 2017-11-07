@@ -12,7 +12,7 @@ Feature: Signing in as a consumer (Facebook success)
 
   @omniauth_test
   Scenario: Create, sign out and login with a Facebook account
-    Given a Consumer logs in with Facebook registering an username
+    Given a Consumer logs in with Facebook registering a username
     And he signs out
     When a Consumer logs in with Facebook
     Then he should see a "Consumer sign out" link
@@ -26,11 +26,5 @@ Feature: Signing in as a consumer (Facebook success)
 
   @omniauth_test
   Scenario: Login with Facebook creating a new account (email inserted manually)
-    Given a Consumer logs in with Facebook with no email registering an username and an email
+    Given a Consumer logs in with Facebook with no email registering a username and an email
     Then he should see a "username" input field
-
-  @omniauth_test
-  Scenario: Login with Facebook creating a new account with no email
-    Given a Consumer logs in with Facebook with no email registering an username
-    When he is on his settings page
-    Then he should not see a "Facebook disconnect" link
