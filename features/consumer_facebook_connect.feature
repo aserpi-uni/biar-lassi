@@ -6,12 +6,7 @@ Feature: Connect to Facebook
   @omniauth_test
   Scenario: Connect a Consumer account with Facebook
     Given a Consumer is logged in
-    When he connects his account to Facebook
-    Then he should see a "Facebook disconnect" link
-
-  @omniauth_test
-  Scenario: Disconnect from Facebook
-    Given a Consumer logs in with Facebook registering a username
+    And he connects his account to Facebook
     When he disconnects his account from Facebook
     Then he should see a "Facebook connect" link
 

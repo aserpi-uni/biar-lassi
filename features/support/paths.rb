@@ -20,10 +20,10 @@ module NavigationHelpers
       "/#{Regexp.last_match(1).downcase.pluralize}/#{Regexp.last_match(2)}/edit"
 
     when /^Facebook connect$/
-      'auth/consumers/auth/facebook'
+      '/auth/consumers/auth/facebook'
 
     when /^Facebook disconnect$/
-      'auth/consumers/facebook/disconnect'
+      '/auth/consumers/facebook/disconnect'
 
     else
       begin

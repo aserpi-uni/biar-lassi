@@ -26,6 +26,7 @@ When(/^(a Consumer|he) logs in with Facebook( with no email)?( registering a use
   OmniAuth.config.add_mock :facebook, info: { email: '' } if null_email
   visit path_to 'Consumer sign in'
   find(:xpath, '//a[@href="/auth/consumers/auth/facebook"]').click
+  @current_user = Consumer.new
 
   if username
     fill_in 'username_select', with: 'facebook_manual'
@@ -33,6 +34,7 @@ When(/^(a Consumer|he) logs in with Facebook( with no email)?( registering a use
     fill_in 'password_confirmation_select', with: 'password'
     fill_in 'email_select', with: 'facebook@example.com' if email
     click_button I18n.t(:sign_up)
+    @current_user = Consumer.find_by(username: 'facebook_manual')
   end
 end
 
