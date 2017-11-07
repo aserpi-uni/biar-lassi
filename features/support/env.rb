@@ -12,6 +12,12 @@ require 'cucumber/rails'
 require 'capybara/poltergeist'
 Capybara.javascript_driver = :poltergeist
 
+World(FactoryBot::Syntax::Methods)
+FactoryBot.find_definitions
+
+World(Warden::Test::Helpers)
+Warden.test_mode!
+
 # Capybara defaults to CSS3 selectors rather than XPath.
 # If you'd prefer to use XPath, just uncomment this line and adjust any
 # selectors in your step definitions to use the XPath syntax.

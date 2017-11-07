@@ -4,19 +4,17 @@ Feature: Editing and Enterprise
   I want to be able to edit an Enterprise's name and username suffix.
 
   Background:
-    Given I created an Admin account with username "username" and email "admin@example.com"
-    And I login as an Admin with username "username@admin"
-    And I created an Enterprise with name "Enterprise" and username suffix "enter"
-    And I created an Employee account with username "employee", email "supervisor@example.com", role "supervisor" and enterprise "Enterprise"
-    And I am on the "edit" page for Enterprise "Enterprise"
+    Given an Admin is logged in
+    And an Employee has an account
+    And he is on the Enterprise's settings page
 
   Scenario: Admin successfully edits the username_suffix
-    Given I fill in "username_suffix" with "enter2"
-    When I press "Save"
-    Then I should see a "1 employee username" text
+    Given he changes the "username_suffix" field to "enter_two"
+    When he saves
+    Then he should see a "1 employee username" text
 
   Scenario: Admin tries to edit the username_suffix
-    Given I created an Enterprise with name "Enterprise2" and username suffix "enter2"
-    And I fill in "username_suffix" with "enter2"
-    When I press "Save"
-    Then I should not see a "1 employee username" text
+    Given a second Enterprise
+    And he changes the "username_suffix" field to "enter_two"
+    When he saves
+    Then he should not see a "1 employee username" text

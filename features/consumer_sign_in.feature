@@ -5,30 +5,30 @@ Feature: Signing in as a consumer
 
 
   Scenario: Log in with a pre-existing account
-    Given I created a Consumer account with username "username" and email "email@example.com"
-    When I login as a Consumer with username "username"
-    Then I should see a "/auth/consumers/sign_out" link
+    Given a Consumer has a confirmed account
+    When the Consumer logs in
+    Then he should see a "Consumer sign out" link
+
+  Scenario: Try to log in with an unconfirmed account
+    Given a Consumer has an account
+    When the Consumer logs in
+    Then he should not see a "Consumer sign out" link
 
   Scenario: Try to log in with a nonexistent account
-    When I login as a Consumer with username "nonexistent"
-    Then I should see a "username" input field
+    When a Consumer logs in with a nonexistent account
+    Then he should see a "username" input field
 
   Scenario: Try to log in with a wrong password
-    Given I created a Consumer account with username "username" and email "email@example.com"
-    And I am on the "Consumer sign in" page
-    And I fill in "username" with "username"
-    And I fill in "password" with "wrong_password"
-    When I press "Login"
-    Then I should see a "username" input field
+    Given a Consumer has a confirmed account
+    When the Consumer logs in with incorrect credentials
+    Then he should see a "username" input field
 
   Scenario: Try to login even if already logged in as a Consumer
-    Given I created a Consumer account with username "username" and email "email@example.com"
-    And I login as a Consumer with username "username"
-    When I am on the "Consumer sign in" page
-    Then I should see a "/auth/consumers/sign_out" link
+    Given a Consumer is logged in
+    When he is on the "Consumer sign in" page
+    Then he should not see a "username" input field
 
   Scenario: Try to login even if already logged in as an Admin
-    Given I created an Admin account with username "username" and email "email@example.com"
-    And I login as an Admin with username "username@admin"
-    When I am on the "Consumer sign in" page
-    Then I should not see a "username" input field
+    Given an Admin is logged in
+    When he is on the "Consumer sign in" page
+    Then he should not see a "username" input field

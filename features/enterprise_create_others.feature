@@ -4,11 +4,15 @@ Feature: Enterprise creation (as a non-Admin)
   I want to be able to create a new Enterprise resource and a related Supervisor employee.
 
   Scenario: Try to create an Enterprise as a Consumer
-    Given I created a Consumer account with username "username" and email "consumer@example.com"
-    And I login as a Consumer with username "username"
-    When I am on the "new Enterprise" page
-    Then I should not see a "name" input field
+    Given a Consumer is logged in
+    When he is on the "new Enterprise" page
+    Then he should not see a "name" input field
+
+  Scenario: Try to create an Enterprise as an Employee
+    Given an Employee is logged in
+    When he is on the "new Enterprise" page
+    Then he should not see a "name" input field
 
   Scenario: Try to create an Enterprise when not logged in
-    When I am on the "new Enterprise" page
-    Then I should not see a "name" input field
+    When he is on the "new Enterprise" page
+    Then he should not see a "name" input field

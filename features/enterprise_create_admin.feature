@@ -5,20 +5,19 @@ Feature: Enterprise creation (as an Admin)
 
 
   Background:
-    Given I created an Admin account with username "username" and email "admin@example.com"
-    And I login as an Admin with username "username@admin"
+    Given an Admin is logged in
 
   Scenario: Successfully create an Enterprise
-    When I create an Enterprise with name "enterprise" and username suffix "nick_suffix"
-    Then I should not see a "name" input field
+    When he creates a new Enterprise
+    Then he should not see a "name" input field
 
   Scenario: Try to create an Enterprise with an already taken name
-    Given I created an Enterprise with name "enterprise" and username suffix "nick_suffix"
-    When I create an Enterprise with name "enterprise" and username suffix "other_suffix"
-    Then I should see a "name" input field
+    Given an Enterprise
+    When the Admin creates a new Enterprise with a name already taken
+    Then he should see a "name" input field
 
 
   Scenario: Try to create an Enterprise with an already taken username suffix
-    Given I created an Enterprise with name "enterprise" and username suffix "nick_suffix"
-    When I create an Enterprise with name "other_enterprise" and username suffix "nick_suffix"
-    Then I should see a "name" input field
+    Given an Enterprise
+    When the Admin creates a new Enterprise with a username suffix already taken
+    Then he should see a "name" input field

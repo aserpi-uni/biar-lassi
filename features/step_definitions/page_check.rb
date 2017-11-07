@@ -1,4 +1,8 @@
-Then(/^I should( not)? see a "([^"]*)" input field( with value "([^*]*)")?$/) do |absent, field, value|
+Then(/^save page$/) do
+  save_page
+end
+
+Then(/^he should( not)? see a "([^"]*)" input field( with value "([^*]*)")?$/) do |absent, field, value|
   if value
     assert(page.has_css?("input[id=\"#{field}\"][value=\"#{value}\"]") == absent.blank?)
   else
@@ -6,18 +10,10 @@ Then(/^I should( not)? see a "([^"]*)" input field( with value "([^*]*)")?$/) do
   end
 end
 
-Then(/^I should( not)? see a "([^"]*)" link$/) do |absent, field|
-  assert(page.has_css?("a[href=\"#{field}\"]") == absent.blank?)
+Then(/^he should( not)? see a "([^"]*)" link$/) do |absent, field|
+  assert(page.has_css?("a[href=\"#{path_to field}\"]") == absent.blank?)
 end
 
-Then(/^I should( not)? see a "([^"]*)" text$/) do |absent, field|
-  assert(page.has_text?(field) == absent.blank?)
-end
-
-Then(/^I should( not)? see a "([^"]*)" title$/) do |absent, field|
-  assert(page.has_title?(field) == absent.blank?)
-end
-
-When(/^I save the current page$/) do
-  save_page
+Then(/^he should( not)? see a "([^"]*)" text$/) do |absent, string|
+  assert(page.has_text?(string) == absent.blank?)
 end

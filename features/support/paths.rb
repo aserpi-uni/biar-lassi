@@ -4,20 +4,26 @@ module NavigationHelpers
     when /^home$/
       '/'
 
-    when /^Consumer settings$/
-      '/auth/consumers/edit'
-
-    when /^(Admin|Consumer|Employee) sign (in|up)$/
-    "/auth/#{Regexp.last_match(1).downcase.pluralize}/sign_#{Regexp.last_match(2)}"
+    when /^(Admin|Consumer|Employee) sign (in|out|up)$/
+      "/auth/#{Regexp.last_match(1).downcase.pluralize}/sign_#{Regexp.last_match(2)}"
 
     when /^(Admin|Consumer|Employee) (.*)'s profile page$/
       "/auth/#{Regexp.last_match(1).downcase.pluralize}/#{Regexp.last_match(2)}"
 
-    when /^new (Admin|Employee|Enterprise)$/
+    when /^new (Admin|Enterprise)$/
       "/#{Regexp.last_match(1).downcase.pluralize}/new"
 
-    when/^edit (Admin|Employee|Enterprise) "(.*)"$/
+    when /^new (Employee|Operator|Supervisor)$/
+      '/employees/new'
+
+    when /^edit (Admin|Employee|Enterprise) "(.*)"$/
       "/#{Regexp.last_match(1).downcase.pluralize}/#{Regexp.last_match(2)}/edit"
+
+    when /^Facebook connect$/
+      'auth/consumers/auth/facebook'
+
+    when /^Facebook disconnect$/
+      'auth/consumers/facebook/disconnect'
 
     else
       begin
@@ -27,6 +33,16 @@ module NavigationHelpers
       rescue Object => e
         raise "Can't find mapping from \\\"#{page_name}\\\" to a path.\\nNow, go and add a mapping in #{__FILE__}"
       end
+    end
+  end
+
+  def settings_path_to(res)
+    if res.is_a?(Admin) || res.is_a?(Employee)
+      "/#{res.class.name.downcase.pluralize}/#{res.username}/edit"
+    elsif res.is_a? Consumer
+      '/auth/consumers/edit'
+    elsif res.is_a? Enterprise
+      "/enterprises/#{res.name}/edit"
     end
   end
 end
