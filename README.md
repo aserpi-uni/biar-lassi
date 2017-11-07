@@ -1,6 +1,6 @@
 # Istruzioni per l'uso
-[![Build Status](https://travis-ci.org/aserpi/Tesi.svg?branch=feature/edit_resources)](https://travis-ci.org/aserpi/Tesi)
-[![Coverage Status](https://coveralls.io/repos/github/aserpi/Tesi/badge.svg?branch=feature/edit_resources)](https://coveralls.io/github/aserpi/Tesi?branch=feature/edit_resources)
+[![Build Status](https://travis-ci.org/aserpi/Tesi.svg?branch=development)](https://travis-ci.org/aserpi/Tesi)
+[![Coverage Status](https://coveralls.io/repos/github/aserpi/Tesi/badge.svg?branch=development)](https://coveralls.io/github/aserpi/Tesi?branch=development)
 
 Installazione:
 1. avviare il server PostgreSQL;
