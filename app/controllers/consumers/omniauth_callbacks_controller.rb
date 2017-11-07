@@ -46,13 +46,11 @@ class Consumers::OmniauthCallbacksController < Devise::OmniauthCallbacksControll
   end
 
 
-  # :nocov:
   # Updates the current account with these Facebook credentials.
   def connect_current(auth)
     current_consumer.connect_facebook(auth)
     flash[:success] = I18n.t(:connected, scope: [:facebook])
     redirect_to edit_registration_path(current_user)
   end
-  # :nocov:
 
 end
