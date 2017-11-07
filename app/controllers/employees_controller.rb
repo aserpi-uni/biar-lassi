@@ -45,10 +45,7 @@ class EmployeesController < ApplicationController
     @employee = Employee.find_by(username: params[:username])
     authorize @employee
 
-    @employee.email = nil
-    @employee.locked_at = Time.now
-
-    @employee.save validate: false
+    @employee.lock
 
     if @employee == current_employee
       sign_out current_employee

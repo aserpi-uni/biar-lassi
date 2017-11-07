@@ -59,7 +59,7 @@ class Consumer < ApplicationRecord
     self.locked_at = Time.now
     self.provider = nil
     self.uid = nil
-    save
+    save validate: false
   end
 
 

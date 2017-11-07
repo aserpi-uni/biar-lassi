@@ -55,7 +55,7 @@ Given(/^an? (Admin|Consumer|Employee|Operator|Supervisor) is logged in$/) do |kl
   login_as @current_user, scope: (employee?(klass) ? :employee : klass)
 end
 
-When(/^the (Admin|Consumer|Employee) logs in$/) do |klass|
+When(/^the (Admin|Consumer|Employee|Operator|Supervisor) logs in$/) do |klass|
   @current_user = instance_variable_get("@#{klass.downcase}")
   manual_login klass, @current_user.username, 'password'
 end

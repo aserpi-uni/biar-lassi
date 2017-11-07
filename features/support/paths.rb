@@ -4,8 +4,11 @@ module NavigationHelpers
     when /^home$/
       '/'
 
-    when /^(Admin|Consumer|Employee) sign (in|out|up)$/
+    when /^(Admin|Consumer) sign (in|out|up)$/
       "/auth/#{Regexp.last_match(1).downcase.pluralize}/sign_#{Regexp.last_match(2)}"
+
+    when /^(Employee|Operator|Supervisor) sign (in|out)$/
+      "/auth/employees/sign_#{Regexp.last_match(2)}"
 
     when /^(Admin|Consumer|Employee) (.*)'s profile page$/
       "/auth/#{Regexp.last_match(1).downcase.pluralize}/#{Regexp.last_match(2)}"

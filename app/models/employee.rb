@@ -50,6 +50,16 @@ class Employee < ApplicationRecord
     employee
   end
 
+
+  # Locks an Employee out of his account with no possibility of recover.
+  def lock
+    self.email = nil
+    self.locked_at = Time.now
+    save validate: false
+  end
+
+
+  # Updates the Employee's suffix with the newest one
   def update_suffix
     self.username = "#{username[/(^[^@]*)/]}@#{enterprise.username_suffix}"
     save
