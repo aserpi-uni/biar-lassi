@@ -12,6 +12,8 @@
 # *Associations:*
 # * +belongs_to+ [Enterprise]  enterprise for which they work
 class Employee < ApplicationRecord
+  include UserState
+
   devise :database_authenticatable,
          :lockable,
          :recoverable,
@@ -54,13 +56,9 @@ class Employee < ApplicationRecord
   end
 
 
-  # Locks an Employee out of his account with no possibility of recover.
-  def lock
-    self.email = nil
-    self.locked_at = Time.now
-    save validate: false
+  def reallocate_tickets
+    # TODO: redistribuire ogni ticket aperto ad altri operator
   end
-
 
   # Updates the Employee's suffix with the newest one
   def update_suffix

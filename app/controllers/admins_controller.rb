@@ -1,31 +1,34 @@
 class AdminsController < ApplicationController
+
   def show
     @admin = Admin.find_by! username: params[:username]
   end
+
 
   def new
     authorize Admin
     @admin = Admin.new
   end
 
+
   def create
     authorize Admin
     params = admin_params_create
-    pwd = Devise.friendly_token(20)
 
-    @admin = Admin.create(username: "#{params[:username]}@admin", email: params[:email],
-                          password: pwd, password_confirmation: pwd)
-    return render :new unless @admin.valid?
+    @admin = Admin.from_params(params)
+    return render :new unless @admin.save
 
-    flash[:success] = I18n.t(:resource_create_success, resource: I18n.t(:admin).downcase)
     UserMailer.new_email(@admin).deliver_later
+    flash[:success] = I18n.t(:resource_create_success, resource: I18n.t(:admin).downcase)
     redirect_to admin_path @admin
   end
+
 
   def edit
     @admin = Admin.find_by(username: params[:username])
     authorize @admin
   end
+
 
   def update
     @admin = Admin.find_by(username: params[:username])
@@ -37,14 +40,12 @@ class AdminsController < ApplicationController
     redirect_to edit_admin_path(@admin)
   end
 
+
   def destroy
     @admin = Admin.find_by(username: params[:username])
     authorize @admin
 
-    @admin.email = nil
-    @admin.locked_at = Time.now
-
-    @admin.save validate: false
+    @admin.soft_delete
 
     if @admin == current_admin
       sign_out current_admin
@@ -56,11 +57,13 @@ class AdminsController < ApplicationController
     redirect_to root_path
   end
 
+
   def lock
     @admin = Admin.find_by(username: params[:username])
     authorize @admin
 
-    @admin.update(locked_at: Time.now)
+    @admin.soft_lock
+
     if @admin != current_admin
       flash[:success] = I18n.t(:locked_success, usr: @admin.username)
       redirect_to edit_admin_path(@admin)
@@ -69,15 +72,17 @@ class AdminsController < ApplicationController
     end
   end
 
+
   def unlock
     @admin = Admin.find_by(username: params[:username])
     authorize @admin
 
-    @admin.update(locked_at: nil)
+    @admin.soft_unlock
 
     flash[:success] = I18n.t(:unlocked_success, usr: @admin.username)
     redirect_to edit_admin_path(@admin)
   end
+
 
 
   private

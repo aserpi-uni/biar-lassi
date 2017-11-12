@@ -39,6 +39,6 @@ class EmployeePolicy < ApplicationPolicy
       (@user.is_a?(Employee) &&
         @user.enterprise == @employee.enterprise &&
         @employee.supervisor? &&
-        @user != @admin)
+        @user != @employee)
   end
 end

@@ -5,6 +5,8 @@
 # * +email+ [String]     user's email address
 # * others               See https://github.com/plataformatec/devise
 class Consumer < ApplicationRecord
+  include UserState
+
   devise :database_authenticatable,
          :confirmable,
          :lockable,
@@ -46,20 +48,22 @@ class Consumer < ApplicationRecord
 
 
   # Connects a Consumer with Facebook
-  def connect_facebook(auth)
+  def facebook_connect(auth)
     self.provider = auth[:provider]
     self.uid = auth[:uid]
     save
   end
 
-
-  # Locks a Consumer out of his account with no possibility of recover.
-  def lock
-    self.email = nil
-    self.locked_at = Time.now
+  def facebook_disconnect
     self.provider = nil
     self.uid = nil
-    save validate: false
+    save
+  end
+
+  def soft_delete
+    self.provider = nil
+    self.uid = nil
+    super
   end
 
 

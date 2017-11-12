@@ -1,12 +1,15 @@
 class EnterprisesController < ApplicationController
+
   def show
     @enterprise = Enterprise.find_by! name: params[:name]
   end
+
 
   def new
     authorize Enterprise
     @enterprise = Enterprise.new
   end
+
 
   def create
     authorize Enterprise
@@ -19,20 +22,19 @@ class EnterprisesController < ApplicationController
     redirect_to new_employee_path
   end
 
+
   def edit
     @enterprise = Enterprise.find_by(name: params[:name])
     authorize @enterprise
   end
+
 
   def update
     @enterprise = Enterprise.find_by(name: params[:name])
     authorize @enterprise
 
     old_suffix = @enterprise.username_suffix
-
     return render :edit unless @enterprise.update(enterprise_params_update)
-
-    flash[:success] = I18n.t(:resource_edit_success, name: @enterprise.name)
 
     if old_suffix != @enterprise.username_suffix
       employees = @enterprise.employees
@@ -40,6 +42,7 @@ class EnterprisesController < ApplicationController
       flash[:notice] = I18n.t(:username_edited, count: employees.count)
     end
 
+    flash[:success] = I18n.t(:resource_edit_success, name: @enterprise.name)
     redirect_to edit_enterprise_path(@enterprise)
   end
 
@@ -54,6 +57,7 @@ class EnterprisesController < ApplicationController
 
     redirect_to enterprise_path(@enterprise)
   end
+
 
 
   private

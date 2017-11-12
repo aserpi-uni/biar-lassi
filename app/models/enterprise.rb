@@ -36,7 +36,7 @@ class Enterprise < ApplicationRecord
   # Deletes all Employees and products
   def soft_delete
     enterprise.active = false
-    employees.each(&:lock)
+    employees.each(&:soft_delete)
     # TODO: products
   end
 
