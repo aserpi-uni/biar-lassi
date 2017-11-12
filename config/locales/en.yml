@@ -189,3 +189,9 @@ en:
     sign_in_existing_only: 'Your email is already taken by a non-consumer account. Please sign in with username and password.'
     username: 'Choose a username'
     title: 'Sign in with Facebook'
+
+  user_mailer:
+    new_email:
+      subject: 'New account'
+      greetings: 'Hello there, %{user}!'
+      body: 'In order to access the site you need to recover your password here: %{link}'

@@ -14,10 +14,6 @@
 
       <%= render partial: 'application/forms/email', locals: { form: f } %>
 
-      <%= render partial: 'application/forms/password', locals: { form: f, min_length: 8 } %>
-
-      <%= render partial: 'application/forms/password_confirmation', locals: { form: f } %>
-
       <%= render partial: 'application/forms/submit', locals: { form: f, locale: :create } %>
 
     <% end %> <!-- form -->

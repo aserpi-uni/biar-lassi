@@ -17,6 +17,7 @@ class EmployeesController < ApplicationController
     @employee = Employee.from_params(params)
     return render :new unless @employee.save
 
+    UserMailer.new_email(@employee).deliver_later
     flash[:success] = I18n.t(:resource_create_success, resource: I18n.t(:employee).downcase)
     redirect_to employee_path @employee
   end
@@ -84,7 +85,7 @@ class EmployeesController < ApplicationController
   private
 
   def employee_params_create
-    params.require(:employee).permit(:username, :email, :role, :password, :password_confirmation, :enterprise)
+    params.require(:employee).permit(:username, :email, :role, :enterprise)
   end
 
   def employee_params_update

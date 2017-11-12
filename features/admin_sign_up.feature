@@ -10,10 +10,6 @@ Feature: Admin sign up
     When he creates a new Admin
     Then he should not see a "username" input field
 
-  Scenario: Try to create a new account with a wrong password confirmation
-    When he creates a new Admin with wrong password confirmation
-    Then he should see a "username" input field
-
   Scenario: Try to create a new account with a username already taken
     When he creates a new Admin with a username already taken
     Then he should see a "username" input field

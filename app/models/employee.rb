@@ -37,6 +37,8 @@ class Employee < ApplicationRecord
   # Create a new Employee from +create+ action parameters.
   def self.from_params(params)
     employee = Employee.new
+    pwd = Devise.friendly_token(20)
+
     employee.email = params[:email]
     if (employee.enterprise = Enterprise.find_by(name: params[:enterprise])) && employee.enterprise.active?
       employee.username = "#{params[:username]}@#{employee.enterprise.username_suffix}"
@@ -44,8 +46,9 @@ class Employee < ApplicationRecord
       employee.username = "#{params[:username]}@no_enterprise"
     end
     employee.role = params[:role]
-    employee.password = params[:password]
-    employee.password_confirmation = params[:password_confirmation]
+
+    employee.password = pwd
+    employee.password_confirmation = pwd
 
     employee
   end

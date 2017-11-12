@@ -45,7 +45,7 @@ end
 
 Given(/^a Consumer registers an account$/) do
   visit path_to('Consumer sign up')
-  fill_register_form('consumer_one', 'consumer_email_one@example.com')
+  fill_consumer_register_form('consumer_one', 'consumer_email_one@example.com')
   click_button I18n.t(:sign_up)
 end
 
@@ -54,9 +54,9 @@ Given(/^a Consumer registers an account with an? (email|username) already taken(
   usr = klass ? instance_variable_get("@#{klass.downcase}") : @consumer
 
   if attr == 'username'
-    fill_register_form(usr.username, 'consumer_username_taken@example.com')
+    fill_consumer_register_form(usr.username, 'consumer_username_taken@example.com')
   elsif attr == 'email'
-    fill_register_form('consumer_email_taken', usr.email)
+    fill_consumer_register_form('consumer_email_taken', usr.email)
   end
 
   click_button I18n.t(:sign_up)
@@ -64,20 +64,20 @@ end
 
 Given(/^a Consumer registers an account with a password too short$/) do
   visit path_to('Consumer sign up')
-  fill_register_form('consumer_one', 'consumer_email_one@example.com', pwd: 'pwd', pwd_confirm: 'pwd')
+  fill_consumer_register_form('consumer_one', 'consumer_email_one@example.com', pwd: 'pwd', pwd_confirm: 'pwd')
   click_button I18n.t(:sign_up)
 end
 
 Given(/^a Consumer registers an account with a wrong password confirmation$/) do
   visit path_to('Consumer sign up')
-  fill_register_form('consumer_one', 'consumer_email_one@example.com', pwd_confirm: 'wrong_pwd')
+  fill_consumer_register_form('consumer_one', 'consumer_email_one@example.com', pwd_confirm: 'wrong_pwd')
   click_button I18n.t(:sign_up)
 end
 
 When(/^a Consumer registers an account with an? (incorrect|reserved) username$/) do |err|
   visit path_to('Consumer sign up')
   name = err == 'incorrect' ? 'consumer@something' : ENV['RESERVED_NAMES'].tr('"', '').split.sample
-  fill_register_form(name, 'consumer_email_one@example.com')
+  fill_consumer_register_form(name, 'consumer_email_one@example.com')
   click_button I18n.t(:sign_up)
 end
 
@@ -93,13 +93,13 @@ def create_wrong_admin_or_employee(klass, field, value)
   click_button I18n.t(:create)
 end
 
-def employee?(str)
-  %w(employee operator supervisor).include? str
-end
-
-def fill_register_form(name, email, pwd: 'password', pwd_confirm: 'password')
-  fill_in 'username', with: name
-  fill_in 'email', with: email
+def fill_consumer_register_form(name, email, pwd: 'password', pwd_confirm: pwd)
+  fill_register_form(name, email)
   fill_in 'password', with: pwd
   fill_in 'password_confirmation', with: pwd_confirm
+end
+
+def fill_register_form(name, email)
+  fill_in 'username', with: name
+  fill_in 'email', with: email
 end
