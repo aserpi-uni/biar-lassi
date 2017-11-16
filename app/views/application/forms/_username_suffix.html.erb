@@ -1,0 +1,7 @@
+<fieldset class="row align-items-center">
+  <%= fa_icon('at fw', class: 'col-1 mt-4') %>
+  <div class="form-group bmd-form-group col">
+    <%= form.text_field :username_suffix, class: 'form-control', id: :username_suffix %>
+    <%= label_tag :username_suffix, t(:username_suffix), class: 'bmd-label-floating'%>
+  </div>
+</fieldset>

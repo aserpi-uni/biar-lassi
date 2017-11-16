@@ -4,14 +4,17 @@ class Auth::Consumers::FacebookController < ApplicationController
   # Connects a Facebook account with an existing account when a user logs in.
   def connect_existing
     authorize :facebook
+
     @consumer = Consumer.find_by username: params[:username]
     if @consumer.nil? || !@consumer.valid_password?(params[:password])
       flash.now[:alert] = t :incorrect_credentials
       render :connect and return
     end
-    @consumer.connect_facebook(session['devise.facebook_data'])
-    flash[:success] = I18n.t(:connected, scope: [:facebook])
+
+    @consumer.facebook_connect(session['devise.facebook_data'])
     session.delete 'devise.facebook_data'
+
+    flash[:success] = I18n.t(:connected, scope: [:facebook])
     sign_in_and_redirect @consumer
   end
 
@@ -19,9 +22,9 @@ class Auth::Consumers::FacebookController < ApplicationController
   # Removes the Facebook info from the +current_user+'s account.
   def disconnect
     authorize :facebook
-    current_consumer.provider = nil
-    current_consumer.uid = nil
-    current_consumer.save
+
+    current_consumer.facebook_disconnect
+
     flash[:success] = I18n.t(:disconnected, scope: [:facebook])
     redirect_to edit_registration_path(current_consumer)
   end
@@ -36,8 +39,8 @@ class Auth::Consumers::FacebookController < ApplicationController
                                        params[:password_confirmation])
     @consumer.save or
       return render :connect
-
     session.delete 'devise.facebook_data'
+
     flash[:success] = I18n.t :connected, scope: [:facebook]
     sign_in_and_redirect @consumer
   end

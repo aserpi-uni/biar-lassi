@@ -1,4 +1,8 @@
 class Employees::UnlocksController < Devise::UnlocksController
+  include Accessible
+
+  before_action :authorize_user
+
   # GET /resource/unlock/new
   # def new
   #   super

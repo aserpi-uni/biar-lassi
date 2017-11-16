@@ -1,4 +1,8 @@
 class Admins::PasswordsController < Devise::PasswordsController
+  include Accessible
+
+  before_action :authorize_user
+
   # GET /resource/password/new
   # def new
   #   super
