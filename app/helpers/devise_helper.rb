@@ -1,6 +1,5 @@
 # Helper for Devise controllers.
 module DeviseHelper
-
   # Overrides default Devise error message formatting.
   def devise_error_messages!
     return '' if resource.errors.empty?
@@ -20,5 +19,4 @@ module DeviseHelper
 
     html.html_safe
   end
-
 end

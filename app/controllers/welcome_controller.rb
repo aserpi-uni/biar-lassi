@@ -2,14 +2,12 @@ class WelcomeController < ApplicationController
   include Accessible
 
   before_action :authorize_user
-  #TODO: rivedere un po' tutto
 
-  def index
-  end
+  # TODO: rivedere un po' tutto
 
-  def consumer
-  end
+  def index; end
 
-  def enterprise
-  end
+  def consumer; end
+
+  def enterprise; end
 end

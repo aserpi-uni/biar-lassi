@@ -9,7 +9,6 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
 
-
   protected
 
   # Permits the parameters needed by Devise controllers.
@@ -18,7 +17,6 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
     devise_parameter_sanitizer.permit :account_update, keys: added_attrs
   end
-
 
   # Returns the current user.
   def current_user
@@ -36,7 +34,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-
   private
 
   # Redirects the user after a _Pundit_ nay.
@@ -45,5 +42,4 @@ class ApplicationController < ActionController::Base
     response.headers['Status-Code'] = '403'
     redirect_to root_path
   end
-
 end

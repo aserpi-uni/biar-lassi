@@ -16,6 +16,7 @@
 # *Associations:*
 # * +has_many+ [Employee]         employees that work for the enterprise
 class Enterprise < ApplicationRecord
+  has_many :employees
 
   validates :avatar, format: { with: URI.regexp, message: I18n.t(:field_invalid) }, allow_blank: true
 
@@ -28,10 +29,20 @@ class Enterprise < ApplicationRecord
   validates :name, format: { with: /\A[\w\s?!-]{3,64}\z/, message: I18n.t(:field_invalid) }, reserved_name: true,
                    uniqueness: { case_sensitive: false }
 
-  validates :username_suffix, format: { with: /\A[\w\s?!-]{3,32}\z/, message: I18n.t(:field_invalid) }, reserved_name: true,
-                              uniqueness: { case_sensitive: false }
+  validates :username_suffix, format: { with: /\A[\w\s?!-]{3,32}\z/, message: I18n.t(:field_invalid) },
+                              reserved_name: true, uniqueness: { case_sensitive: false }
 
-  has_many :employees
+  def update(attributes)
+    old_suffix = username_suffix
+    return false unless super(attributes)
+
+    if old_suffix != username_suffix
+      employees.find_each(&:update_suffix)
+      employees.count
+    else
+      0
+    end
+  end
 
   # Deletes all Employees and products
   def soft_delete

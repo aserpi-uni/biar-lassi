@@ -1,6 +1,5 @@
 # Global helpers.
 module ApplicationHelper
-
   # Converts Rails flash message types into Bootstrap message types.
   def bootstrap_class_for(flash_type)
     case flash_type
@@ -17,8 +16,8 @@ module ApplicationHelper
     end
   end
 
-
   # Paths
+
   def edit_path(usr)
     if usr.is_a? Admin
       edit_admin_path usr
