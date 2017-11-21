@@ -1,3 +1,5 @@
+# :nocov:
+
 class Consumers::UnlocksController < Devise::UnlocksController
   include Accessible
 
@@ -30,3 +32,5 @@ class Consumers::UnlocksController < Devise::UnlocksController
   #   super(resource)
   # end
 end
+
+# :nocov:
