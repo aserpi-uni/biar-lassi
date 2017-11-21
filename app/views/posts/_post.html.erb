@@ -1,0 +1,10 @@
+// partial for showing a single post
+
+<li id="post-<%= post.id %>">
+  <%= link_to gravatar_for(post.consumer), post.consumer %>
+  <span class="consumer"><%= link_to post.consumer.name, post.consumer %></span>
+  <span class="content"><%= post.content %></span>
+  <span class="timestamp">
+    Posted <%= time_ago_in_words(post.created_at) %> ago.
+  </span>
+</li>
