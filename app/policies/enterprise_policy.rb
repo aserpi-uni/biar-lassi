@@ -7,10 +7,26 @@ class EnterprisePolicy
   end
 
   def new?
-    @user.is_a? Admin
+    create?
   end
 
   def create?
+    @user.is_a? Admin
+  end
+
+  def edit?
+    update?
+  end
+
+  def update?
+    @user.is_a?(Admin) ||
+      (@user.is_a?(Employee) &&
+        @user.enterprise == @enterprise &&
+        @user.supervisor?) &&
+      @enterprise.active?
+  end
+
+  def destroy?
     @user.is_a? Admin
   end
 end

@@ -1,7 +1,7 @@
 class Consumers::RegistrationsController < Devise::RegistrationsController
   include Accessible
 
-  before_action :authorize_user, only: [:create, :new]
+  before_action :authorize_user, only: [:new, :create]
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
@@ -28,7 +28,7 @@ class Consumers::RegistrationsController < Devise::RegistrationsController
   # Soft deletes the +current_consumer+.
   # Method: DELETE
   def destroy
-    current_consumer.lock
+    current_consumer.soft_delete
     sign_out current_consumer
     flash[:success] = I18n.t(:deleted)
     redirect_to root_path

@@ -26,13 +26,19 @@ en:
 
   already_used: 'already used'
 
-  avatar: 'avatar'
+  avatar: 'Avatar'
+  avatar_operator: "Operator's avatar"
+  avatar_supervisor: "Supervisor's avatar"
 
   back: 'Back'
+
+  cancel: 'Cancel'
 
   change: 'Change'
 
   close: 'Close'
+
+  confirm: 'Confirm'
 
   confirmation_lost: "Didn't receive confirmation instructions?"
   confirmation_waiting: 'Currently waiting confirmation for: %{resource}'
@@ -40,9 +46,20 @@ en:
   create: 'Create'
 
   delete: 'Delete'
-  deleted: 'Your account has been deleted'
   delete_account: 'Delete my account'
-  delete_disclaimer: 'All your contents will remain on the platform. However, we will delete all your account informations, making tracing back to your identity impossible.'
+  delete_account_other: 'Delete the account'
+  delete_account_disclaimer: 'All your contents will remain on the platform. However, we will delete all your account informations, making tracing back to your identity impossible.'
+  delete_account_disclaimer_other: 'All the contents will remain on the platform. However, we will delete all the account informations, making tracing back to the real identity impossible.'
+  delete_resource: 'Delete the %{res}'
+  delete_resource_disclaimer: 'All existing the contents will remail on the platform. However, no new contents can be created.'
+  deleted: 'Your account has been deleted'
+  deleted_other: 'The account has been deleted'
+  deleted_resource: 'The %{res} has been deleted'
+  deleted_enterprise: '%{empl} employees and %{pro} products has been deleted'
+
+  description: 'Description'
+
+  edit: 'Edit'
 
   email: 'Email'
 
@@ -52,18 +69,22 @@ en:
   enterprise: 'Enterprise'
   enterprise_settings: 'Enterprise settings'
 
+  field_invalid: 'is invalid'
+
   forbidden: 'You are not authorized to perform this action'
 
   incorrect_credentials: 'Incorrect username or password'
 
   irreversible: 'This action is irreversible.'
 
-  name: 'Name'
+  lock: 'Lock'
+  lock_account: 'Lock my account'
+  lock_account_other: 'Lock the account'
+  lock_disclaimer: 'You will not be able to login anymore. Are you sure?'
+  lock_disclaimer_other: 'The user will not be able to login anymore. Are you sure?'
+  locked_success: '%{usr} has been locked'
 
-  new_resource: 'New resource'
-  new_resource_create: 'Create a new %{resource}'
-  new_resource_success: 'Successfully created a new %{resource}'
-  new_resource_title: 'New %{resource}'
+  name: 'Name'
 
   no_auth_methods: 'An email address or a Facebook account must be present'
   nonexistent: 'does not exist'
@@ -88,6 +109,12 @@ en:
 
   remember_me: 'Remember me'
 
+  resource_create: 'Create a new %{resource}'
+  resource_create_success: 'Successfully created a new %{resource}'
+  resource_edit: 'Edit %{name}'
+  resource_edit_success: 'Successfully edited %{name}'
+  resource_new: 'New %{resource}'
+
   role: 'Role'
 
   resend: 'Send'
@@ -109,12 +136,19 @@ en:
 
   unhappy: 'Unhappy?'
 
-  username: 'Username'
-  username_suffix: 'Username suffix'
-
+  unlock: 'Unlock'
+  unlock_account: 'Unlock the account'
+  unlock_disclaimer: 'The user will be able to login again. Are you sure?'
   unlock_lost: "Didn't receive unlock instructions?"
   unlock_resend: 'Resend unlock'
   unlock_resend_instructions: 'Resend unlock instructions'
+  unlocked_success: '%{usr} has been unlocked'
+
+  username: 'Username'
+  username_edited:
+    one: '1 employee username have been updated'
+    other: '%{count} employee usernames have been updated'
+  username_suffix: 'Username suffix'
 
   uservoice: 'Uservoice'
 
@@ -155,3 +189,9 @@ en:
     sign_in_existing_only: 'Your email is already taken by a non-consumer account. Please sign in with username and password.'
     username: 'Choose a username'
     title: 'Sign in with Facebook'
+
+  user_mailer:
+    new_email:
+      subject: 'New account'
+      greetings: 'Hello there, %{user}!'
+      body: 'In order to access the site you need to recover your password here: %{link}'

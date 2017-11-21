@@ -1,5 +1,12 @@
-# An end user of the website.
+# An end user that can post new +remarks+ and +comments+. # FIXME
+#
+# *Parameters:*
+# * +username+ [String]  user public identification
+# * +email+ [String]     user's email address
+# * others               See https://github.com/plataformatec/devise
 class Consumer < ApplicationRecord
+  include UserState
+
   devise :database_authenticatable,
          :confirmable,
          :lockable,
@@ -11,13 +18,13 @@ class Consumer < ApplicationRecord
 
 
 
-  validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i, message: 'is invalid' },
+  validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i, message: I18n.t(:field_invalid) },
                     user_uniqueness: true, allow_blank: true, consumer_authentication: true
 
   validates :password, confirmation: true, length: { in: 8..128 }, on: :create
   validates :password, confirmation: true, length: { in: 8..128 }, allow_blank: true, on: :update
 
-  validates :username, format: { with: /\A\w{5,32}\z/, message: 'is invalid' }, reserved_name: true,
+  validates :username, format: { with: /\A\w{5,32}\z/, message: I18n.t(:field_invalid) }, reserved_name: true,
                        uniqueness: { case_sensitive: false }, on: :create
 
 
@@ -41,20 +48,22 @@ class Consumer < ApplicationRecord
 
 
   # Connects a Consumer with Facebook
-  def connect_facebook(auth)
+  def facebook_connect(auth)
     self.provider = auth[:provider]
     self.uid = auth[:uid]
     save
   end
 
-
-  # Locks a Consumer out of his account with no possibility of recover.
-  def lock
-    self.email = nil
-    self.locked_at = Time.now
+  def facebook_disconnect
     self.provider = nil
     self.uid = nil
     save
+  end
+
+  def soft_delete
+    self.provider = nil
+    self.uid = nil
+    super
   end
 
 

@@ -1,9 +1,25 @@
 Rails.application.routes.draw do
-  devise_for :admins, path_prefix: 'auth', controllers: { sessions: 'admins/sessions' }
+  devise_for :admins, path_prefix: 'auth', controllers: { passwords: 'admins/passwords',
+                                                          sessions: 'admins/sessions',
+                                                          unlocks: 'admins/unlocks' }
+
   devise_for :consumers, path_prefix: 'auth',
                          controllers: { omniauth_callbacks: 'consumers/omniauth_callbacks',
-                                        registrations: 'consumers/registrations', sessions: 'consumers/sessions' }
-  devise_for :employees, path_prefix: 'auth', controllers: { sessions: 'admins/sessions' }
+                                        passwords: 'consumers/passwords',
+                                        registrations: 'consumers/registrations',
+                                        sessions: 'consumers/sessions',
+                                        unlocks: 'consumers/unlocks' }
+
+  devise_for :employees, path_prefix: 'auth', controllers: { passwords: 'employees/passwords',
+                                                             sessions: 'employees/sessions',
+                                                             unlocks: 'employees/unlocks' }
+
+  delete 'admins/lock/:username', to: 'admins#lock', as: 'admin_lock'
+  post 'admins/unlock/:username', to: 'admins#unlock', as: 'admin_manual_unlock'
+
+  delete 'employees/lock/:username', to: 'employees#lock', as: 'employee_lock'
+  post 'employees/unlock/:username', to: 'employees#unlock', as: 'employee_manual_unlock'
+
 
   resources :admins, param: :username
   resources :consumers, param: :username

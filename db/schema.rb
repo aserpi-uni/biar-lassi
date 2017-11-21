@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171024145256) do
+ActiveRecord::Schema.define(version: 20171107233020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,14 +98,14 @@ ActiveRecord::Schema.define(version: 20171024145256) do
     t.text "username_suffix"
     t.text "description"
     t.text "headquarters"
-    t.date "founded"
     t.text "website"
     t.text "avatar"
-    t.text "icon"
     t.text "avatar_operator"
     t.text "avatar_supervisor"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "founded"
+    t.boolean "active", default: true
     t.index ["name"], name: "index_enterprises_on_name", unique: true
   end
 

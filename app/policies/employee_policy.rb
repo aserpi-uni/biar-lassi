@@ -7,12 +7,38 @@ class EmployeePolicy < ApplicationPolicy
   end
 
   def new?
-    @user.is_a?(Admin) ||
-      (@user.is_a?(Employee) && @user.supervisor?)
+    create?
   end
 
   def create?
     @user.is_a?(Admin) ||
       (@user.is_a?(Employee) && @user.supervisor?)
+  end
+
+  def edit?
+    update?
+  end
+
+  def update?
+    @user.is_a?(Admin) ||
+      (@user.is_a?(Employee) && @user.enterprise == @employee.enterprise && @employee.supervisor?)
+  end
+
+  def destroy?
+    @user.is_a?(Admin) ||
+      (@user.is_a?(Employee) && @user.enterprise == @employee.enterprise && @employee.supervisor?)
+  end
+
+  def lock?
+    @user.is_a?(Admin) ||
+      (@user.is_a?(Employee) && @user.enterprise == @employee.enterprise && @employee.supervisor?)
+  end
+
+  def unlock?
+    @user.is_a?(Admin) ||
+      (@user.is_a?(Employee) &&
+        @user.enterprise == @employee.enterprise &&
+        @employee.supervisor? &&
+        @user != @employee)
   end
 end

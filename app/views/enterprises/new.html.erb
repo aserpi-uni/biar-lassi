@@ -1,4 +1,4 @@
-<% provide :title, t(:new_resource_title, resource: @enterprise.class.name) %>
+<% provide :title, t(:resource_new, resource: @enterprise.class.name) %>
 
 <%= render partial: 'errors', locals: { resource: @enterprise } %>
 
@@ -6,30 +6,15 @@
   <div class="col-6 mx-auto" >
 
     <h2>
-      <%= t :new_resource_create, resource: @enterprise.class.name.downcase %>
+      <%= t :resource_create, resource: @enterprise.class.name.downcase %>
     </h2>
 
     <%= form_with model: @enterprise, local: true do |f| %>
-      <fieldset class="row align-items-center">
-        <%= fa_icon('briefcase fw', class: 'col-1 mt-4') %>
-        <div class="form-group bmd-form-group col">
-          <%= f.text_field :name, class: 'form-control', id: :name %>
-          <%= label_tag :name, t(:name), class: 'bmd-label-floating'%>
-        </div>
-      </fieldset>
+      <%= render partial: 'application/forms/enterprise_name', locals: { form: f } %>
 
-      <fieldset class="row align-items-center">
-        <%= fa_icon('at fw', class: 'col-1 mt-4') %>
-        <div class="form-group bmd-form-group col">
-          <%= f.text_field :username_suffix, class: 'form-control', id: :username_suffix %>
-          <%= label_tag :username_suffix, t(:username_suffix), class: 'bmd-label-floating'%>
-        </div>
-      </fieldset>
+      <%= render partial: 'application/forms/username_suffix', locals: { form: f } %>
 
-      <div class="actions">
-        <%= f.submit t(:create), class: 'btn btn-primary btn-raised mt-3' %>
-      </div>
-
+      <%= render partial: 'application/forms/submit', locals: { form: f, locale: :create} %>
     <% end %>
 
   </div> <!-- col-6 -->

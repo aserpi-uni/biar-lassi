@@ -1,8 +1,16 @@
-Given(/^I am on the "([^"]*)" page$/) do |arg|
+## Normal pages
+
+Given(/^he is on the "([^"]*)" page$/) do |arg|
   visit path_to(arg)
 end
 
 
-When(/^I click on the "([^"]*)" link$/) do |arg|
-  find(:xpath, "//a[@href=\"#{arg}\"]").click
+## Settings page
+
+Given(/^he is on his settings page$/) do
+  visit settings_path_to @current_user
+end
+
+Given(/^he is on the (.*)'s settings page$/) do |klass|
+  visit settings_path_to instance_variable_get "@#{klass.parameterize.underscore}"
 end

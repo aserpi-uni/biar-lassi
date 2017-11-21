@@ -5,5 +5,5 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-super_admin = Admin.new(username: 'SuperAdmin', password: ENV['SUPER_PASSWORD'], email: ENV['SUPER_EMAIL'])
+super_admin = Admin.new(username: 'Super@admin', password: ENV['SUPER_PASSWORD'], email: ENV['SUPER_EMAIL'])
 super_admin.save!
