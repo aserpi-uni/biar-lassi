@@ -1,0 +1,9 @@
+plugins:
+  bundler-audit:
+    enabled: true
+  coffeelint:
+    enabled: true
+  rubocop:
+    enabled: true
+  scss-lint:
+    enabled: true

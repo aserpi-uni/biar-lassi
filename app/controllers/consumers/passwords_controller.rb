@@ -1,3 +1,5 @@
+# :nocov:
+
 class Consumers::PasswordsController < Devise::PasswordsController
   include Accessible
 
@@ -34,3 +36,5 @@ class Consumers::PasswordsController < Devise::PasswordsController
   #   super(resource_name)
   # end
 end
+
+# :nocov:
