@@ -20,7 +20,8 @@ class Employee < ApplicationRecord
          :timeoutable,
          :trackable
 
-  validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i, message: I18n.t(:field_invalid) },
+  validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i,
+                              message: I18n.t(:field_invalid) },
                     user_uniqueness: true
 
   validates :password, confirmation: true, length: { in: 8..128 }, on: :create

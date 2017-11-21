@@ -20,7 +20,6 @@ Rails.application.routes.draw do
   delete 'employees/lock/:username', to: 'employees#lock', as: 'employee_lock'
   post 'employees/unlock/:username', to: 'employees#unlock', as: 'employee_manual_unlock'
 
-
   resources :admins, param: :username
   resources :consumers, param: :username
   resources :employees, param: :username

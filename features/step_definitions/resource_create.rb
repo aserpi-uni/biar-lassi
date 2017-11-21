@@ -4,7 +4,7 @@ Given(/^an?( second)? Enterprise$/) do |sec|
   @enterprise = FactoryBot.create "#{'second_' if sec}enterprise"
 end
 
-When(/^(he|the Admin) creates a new Enterprise( with a (.*) already taken)?$/) do |useless, field|
+When(/^(he|the Admin) creates a new Enterprise( with a (.*) already taken)?$/) do |_useless, field|
   visit path_to('new Enterprise')
   fill_in 'name', with: 'Enterprise_two'
   fill_in 'username_suffix', with: 'enter_two'

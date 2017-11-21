@@ -8,7 +8,6 @@ When(/^the (Admin|Consumer|Employee) logs in with incorrect credentials$/) do |k
   manual_login klass, instance_variable_get("@#{klass.downcase}").username, 'wrong_password'
 end
 
-
 ## Facebook
 
 When(/^a Consumer logs in with Facebook choosing a taken username$/) do
@@ -44,7 +43,6 @@ When(/^he connects to a pre-existent account( with incorrect credentials)?$/) do
   click_button I18n.t(:sign_in)
 end
 
-
 ## Success
 
 Given(/^an? (Admin|Consumer|Employee|Operator|Supervisor) is logged in$/) do |klass|
@@ -63,8 +61,6 @@ end
 When(/^he signs out$/) do
   logout
 end
-
-
 
 private
 
