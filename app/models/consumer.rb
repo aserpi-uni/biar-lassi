@@ -16,6 +16,8 @@ class Consumer < ApplicationRecord
          :trackable,
          :omniauthable, omniauth_providers: [:facebook]
 
+  has_many :posts, dependent: :destroy
+
 
 
   validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i, message: I18n.t(:field_invalid) },
@@ -45,6 +47,8 @@ class Consumer < ApplicationRecord
 
     consumer
   end
+
+
 
 
   # Connects a Consumer with Facebook

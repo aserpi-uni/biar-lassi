@@ -1,8 +1,11 @@
 // partial for showing a single post
 
 <li id="post-<%= post.id %>">
-  <%= link_to gravatar_for(post.consumer), post.consumer %>
-  <span class="consumer"><%= link_to post.consumer.name, post.consumer %></span>
+   <%= link_to user_path(current_user) do%>
+      <%= render partial: 'application/avatar', locals: {size:23} %>
+      <%= post.consumer %>
+  # <%end%>
+  <span class="consumer"><%= link_to post.consumer.username, post.consumer %></span>
   <span class="content"><%= post.content %></span>
   <span class="timestamp">
     Posted <%= time_ago_in_words(post.created_at) %> ago.
