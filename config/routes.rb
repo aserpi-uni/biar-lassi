@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  get 'user_static_page/home'
+
+  get 'user_static_page/help'
+
+
   devise_for :admins, path_prefix: 'auth', controllers: { passwords: 'admins/passwords',
                                                           sessions: 'admins/sessions',
                                                           unlocks: 'admins/unlocks' }
@@ -37,5 +42,7 @@ Rails.application.routes.draw do
   get '/welcome/consumer', as: :consumer_root
   get '/welcome/enterprise', as: :employee_root
 
-  root to: 'welcome#index'
+
+
+  root 'welcome#index'
 end
