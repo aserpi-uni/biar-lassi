@@ -5,9 +5,11 @@ class WelcomeController < ApplicationController
   #TODO: rivedere un po' tutto
 
   def index
+    @post = current_user.posts.build if logged_in?
   end
 
   def consumer
+    @post = current_user.posts.build if logged_in?
   end
 
   def enterprise

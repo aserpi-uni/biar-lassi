@@ -4,6 +4,10 @@
       <%= current_user.username %>
   <% end %>
   <div class="dropdown-menu">
+    <%= link_to root_path, class: 'dropdown-item' do %>
+        <%= fa_icon 'home fw', class: 'mr-2' %>
+        <%= "Homepage" %>
+    <%end%>
     <%= link_to user_path(current_user), class: 'dropdown-item' do %>
         <%= fa_icon 'user fw', class: 'mr-2' %>
         <%= t(:profile) %>

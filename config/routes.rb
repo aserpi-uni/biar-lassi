@@ -27,6 +27,8 @@ Rails.application.routes.draw do
 
   resources :enterprises, param: :name
 
+  resources :posts, only: [:create, :destroy]
+
   post 'auth/consumers/facebook/connect_existing'
   delete 'auth/consumers/facebook/disconnect'
   post 'auth/consumers/facebook/select_username'

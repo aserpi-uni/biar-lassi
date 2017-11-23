@@ -1,10 +1,6 @@
-// partial for showing a single post
 
 <li id="post-<%= post.id %>">
-   <%= link_to user_path(current_user) do%>
-      <%= render partial: 'application/avatar', locals: {size:23} %>
-      <%= post.consumer %>
-  # <%end%>
+  <%= render partial: 'application/avatar', locals: {size:30} %>
   <span class="consumer"><%= link_to post.consumer.username, post.consumer %></span>
   <span class="content"><%= post.content %></span>
   <span class="timestamp">
