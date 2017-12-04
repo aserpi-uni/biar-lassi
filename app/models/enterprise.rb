@@ -31,7 +31,9 @@ class Enterprise < ApplicationRecord
   validates :username_suffix, format: { with: /\A[\w\s?!-]{3,32}\z/, message: I18n.t(:field_invalid) }, reserved_name: true,
                               uniqueness: { case_sensitive: false }
 
-  has_many :employees
+  has_many :employees, dependent: :destroy
+  has_many :products, dependent: :destroy
+
 
   # Deletes all Employees and products
   def soft_delete

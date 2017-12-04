@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
-  get 'user_static_page/home'
 
-  get 'user_static_page/help'
 
 
   devise_for :admins, path_prefix: 'auth', controllers: { passwords: 'admins/passwords',
@@ -34,13 +32,25 @@ Rails.application.routes.draw do
 
   resources :posts, only: [:create, :destroy]
 
+  resources :problem_threads do
+    resources :comments
+  end
+
+
   post 'auth/consumers/facebook/connect_existing'
   delete 'auth/consumers/facebook/disconnect'
   post 'auth/consumers/facebook/select_username'
 
+  get 'user_static_page/home'
+
+  get 'user_static_page/help'
+
   get '/welcome/enterprise', as: :admin_root
   get '/welcome/consumer', as: :consumer_root
   get '/welcome/enterprise', as: :employee_root
+
+
+
 
 
 
