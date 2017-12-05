@@ -18,7 +18,6 @@ class Consumer < ApplicationRecord
 
   has_many :posts, dependent: :destroy
   has_many :problem_threads
-  has_many :comments, as: :user
 
 
 

@@ -35,7 +35,8 @@ class Employee < ApplicationRecord
 
   belongs_to :enterprise
 
-  has_many :comments, as: :user
+
+
 
 
   # Create a new Employee from +create+ action parameters.
