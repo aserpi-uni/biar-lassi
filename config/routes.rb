@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
 
 
+  resources :problem_threads
+  resources :products
   devise_for :admins, path_prefix: 'auth', controllers: { passwords: 'admins/passwords',
                                                           sessions: 'admins/sessions',
                                                           unlocks: 'admins/unlocks' }

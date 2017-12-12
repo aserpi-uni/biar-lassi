@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @problem_thread.title %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @problem_thread.content %>
+</p>
+
+<%= link_to 'Edit', edit_problem_thread_path(@problem_thread) %> |
+<%= link_to 'Back', problem_threads_path %>

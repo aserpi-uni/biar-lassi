@@ -1,0 +1,2 @@
+class ProblemThread < ApplicationRecord
+end

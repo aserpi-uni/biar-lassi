@@ -35,6 +35,7 @@ class Enterprise < ApplicationRecord
   has_many :products, dependent: :destroy
 
 
+
   # Deletes all Employees and products
   def soft_delete
     enterprise.active = false
