@@ -1,5 +1,6 @@
 class ProblemThreadsController < ApplicationController
   before_action :set_problem_thread, only: [:show, :edit, :update, :destroy]
+  before_action :set_product
 
   # GET /problem_threads
   # GET /problem_threads.json
@@ -25,11 +26,12 @@ class ProblemThreadsController < ApplicationController
   # POST /problem_threads.json
   def create
     @problem_thread = ProblemThread.new(problem_thread_params)
+    @problem_thread.product = @product
 
     respond_to do |format|
       if @problem_thread.save
-        format.html { redirect_to @problem_thread, notice: 'Problem thread was successfully created.' }
-        format.json { render :show, status: :created, location: @problem_thread }
+        format.html { redirect_to product_problem_thread_path(@product, @problem_thread), notice: 'Problem thread was successfully created.' }
+        format.json { render :show, status: :created, location: product_problem_thread_path(@product, @problem_thread) }
       else
         format.html { render :new }
         format.json { render json: @problem_thread.errors, status: :unprocessable_entity }
@@ -42,8 +44,8 @@ class ProblemThreadsController < ApplicationController
   def update
     respond_to do |format|
       if @problem_thread.update(problem_thread_params)
-        format.html { redirect_to @problem_thread, notice: 'Problem thread was successfully updated.' }
-        format.json { render :show, status: :ok, location: @problem_thread }
+        format.html { redirect_to product_problem_thread_path(@product, @problem_thread), notice: 'Problem thread was successfully updated.' }
+        format.json { render :show, status: :ok, location: product_problem_thread_path(@product, @problem_thread) }
       else
         format.html { render :edit }
         format.json { render json: @problem_thread.errors, status: :unprocessable_entity }
@@ -56,7 +58,7 @@ class ProblemThreadsController < ApplicationController
   def destroy
     @problem_thread.destroy
     respond_to do |format|
-      format.html { redirect_to problem_threads_url, notice: 'Problem thread was successfully destroyed.' }
+      format.html { redirect_to product_problem_threads_url, notice: 'Problem thread was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -70,5 +72,9 @@ class ProblemThreadsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def problem_thread_params
       params.require(:problem_thread).permit(:title, :content)
+    end
+
+    def set_product
+      @product = Product.find(params[:product_id])
     end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171212160750) do
+ActiveRecord::Schema.define(version: 20171212163648) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -123,6 +123,8 @@ ActiveRecord::Schema.define(version: 20171212160750) do
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "product_id"
+    t.index ["product_id"], name: "index_problem_threads_on_product_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -137,5 +139,6 @@ ActiveRecord::Schema.define(version: 20171212160750) do
 
   add_foreign_key "employees", "enterprises"
   add_foreign_key "posts", "consumers"
+  add_foreign_key "problem_threads", "products"
   add_foreign_key "products", "enterprises"
 end

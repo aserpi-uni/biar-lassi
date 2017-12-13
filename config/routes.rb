@@ -2,8 +2,10 @@ Rails.application.routes.draw do
 
 
 
-  resources :problem_threads
-  resources :products
+  #resources :problem_threads
+  resources :products do
+    resources :problem_threads
+  end
   devise_for :admins, path_prefix: 'auth', controllers: { passwords: 'admins/passwords',
                                                           sessions: 'admins/sessions',
                                                           unlocks: 'admins/unlocks' }
@@ -34,9 +36,7 @@ Rails.application.routes.draw do
 
   resources :posts, only: [:create, :destroy]
 
-  resources :problem_threads do
-    resources :comments
-  end
+
 
 
   post 'auth/consumers/facebook/connect_existing'

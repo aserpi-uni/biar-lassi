@@ -1,4 +1,4 @@
-<%= form_with(model: problem_thread, local: true) do |form| %>
+<%= form_for([@product, @problem_thread]) do |form| %>
   <% if problem_thread.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(problem_thread.errors.count, "error") %> prohibited this problem_thread from being saved:</h2>
