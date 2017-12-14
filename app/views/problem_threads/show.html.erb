@@ -17,11 +17,8 @@
 
 <p>
   <strong>Product concerned:</strong>
-<p><%= link_to @problem_thread.product.enterprise.name, @problem_thread.product.enterprise%>
+<%= link_to @problem_thread.product.enterprise.name, @problem_thread.product.enterprise%>
   <%= link_to @problem_thread.product.model, @problem_thread.product%>
-</p>
-
-
 <p>
   <small>Posted <%= time_ago_in_words(@problem_thread.created_at) %> ago.</small>
 </p>
@@ -31,10 +28,11 @@
 
 <div class="col-md-8">
   <% if @problem_thread.comments.any? %>
-      <h3>Posts (<%= @problem_thread.comments.count %>)</h3>
+      <h3>Comments (<%= @problem_thread.comments.count %>)</h3>
       <ol class="comments">
         <%= render @comments %>
       </ol>
+      <%= will_paginate @comments%>
   <% end %>
 </div>
 
