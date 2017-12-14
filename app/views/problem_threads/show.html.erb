@@ -16,11 +16,20 @@
 </p>
 
 <p>
-  <strong>Product concerned:</strong>
+  <strong>Brand:</strong>:</strong>
 <%= link_to @problem_thread.product.enterprise.name, @problem_thread.product.enterprise%>
+</p>
+<p>
+  <strong>Model:</strong>:</strong>
   <%= link_to @problem_thread.product.model, @problem_thread.product%>
+</p>
 <p>
   <small>Posted <%= time_ago_in_words(@problem_thread.created_at) %> ago.</small>
+</p>
+
+<p>
+  <strong>Referent:</strong>
+  <%= link_to @problem_thread.employee.username, @problem_thread.employee%>
 </p>
 
 <%= link_to 'Edit', edit_product_problem_thread_path(@product,@problem_thread) %> |

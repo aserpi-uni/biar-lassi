@@ -1,6 +1,7 @@
 class ProblemThreadsController < ApplicationController
   before_action :set_problem_thread, only: [:show, :edit, :update, :destroy]
   before_action :set_product
+  before_action :set_employee
   before_action :logged_in_user, only: [:create, :destroy]
   before_action :is_consumer?, only: [:create]
   before_action :correct_user, only:[:destroy]
@@ -35,6 +36,7 @@ class ProblemThreadsController < ApplicationController
     @problem_thread = ProblemThread.new(problem_thread_params)
     @problem_thread.product = @product
     @problem_thread.consumer = current_user if current_user
+    @problem_thread.employee = @employee
 
     respond_to do |format|
       if @problem_thread.save
@@ -99,9 +101,14 @@ class ProblemThreadsController < ApplicationController
       @product = Product.find(params[:product_id])
     end
 
+    def set_employee
+      @employee = Employee.where(enterprise: @product.enterprise).order('RANDOM()').first
+    end
+
   def correct_user
     @problem_thread = current_user.problem_threads.find_by(id: params[:id])
     redirect_to product_problem_threads_url, notice:"You're not the owner of the thread"  if @problem_thread.nil?
   end
+
 
 end

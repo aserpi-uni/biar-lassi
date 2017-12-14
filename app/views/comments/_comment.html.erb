@@ -1,3 +1,12 @@
-<p>
-  <%= comment.content %>
-</p>
+
+
+<li id="comment-<%= comment.id %>">
+  <%= render partial: 'application/avatar', locals: {size:15} %>
+  <%= link_to comment.commentable.username, comment.commentable %>
+  <p><%= comment.content %></p>
+  <p>
+  <small>
+    Posted <%= time_ago_in_words(comment.created_at) %> ago.
+  </small>
+  </p>
+</li>

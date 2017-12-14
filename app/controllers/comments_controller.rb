@@ -18,8 +18,9 @@ class CommentsController < ApplicationController
   # POST /comments.json
   def create
     @comment = @problem_thread.comments.build(comment_params)
-    @comment.commentable_type = current_user.class
-    @comment.commentable_id = current_user.id
+    #@comment.commentable_type = current_user.class
+    #@comment.commentable_id = current_user.id
+    @comment.commentable = current_user
 
       if @comment.save
         redirect_to product_problem_thread_path(@problem_thread.product, @problem_thread)
