@@ -2,10 +2,8 @@ Rails.application.routes.draw do
 
 
 
-  #resources :problem_threads
-  resources :products do
-    resources :problem_threads
-  end
+
+
   devise_for :admins, path_prefix: 'auth', controllers: { passwords: 'admins/passwords',
                                                           sessions: 'admins/sessions',
                                                           unlocks: 'admins/unlocks' }
@@ -35,6 +33,14 @@ Rails.application.routes.draw do
   resources :enterprises, param: :name
 
   resources :posts, only: [:create, :destroy]
+
+  resources :products do
+    resources :problem_threads do
+      resources :comments
+        end
+  end
+
+
 
 
 

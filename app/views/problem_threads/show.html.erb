@@ -10,5 +10,35 @@
   <%= @problem_thread.content %>
 </p>
 
+<p>
+  <strong>Written by:</strong>
+  <%= link_to @problem_thread.consumer.username, @problem_thread.consumer%>
+</p>
+
+<p>
+  <strong>Product concerned:</strong>
+<p><%= link_to @problem_thread.product.enterprise.name, @problem_thread.product.enterprise%>
+  <%= link_to @problem_thread.product.model, @problem_thread.product%>
+</p>
+
+
+<p>
+  <small>Posted <%= time_ago_in_words(@problem_thread.created_at) %> ago.</small>
+</p>
+
 <%= link_to 'Edit', edit_product_problem_thread_path(@product,@problem_thread) %> |
 <%= link_to 'Back', product_path(@product) %>
+
+<div class="col-md-8">
+  <% if @problem_thread.comments.any? %>
+      <h3>Posts (<%= @problem_thread.comments.count %>)</h3>
+      <ol class="comments">
+        <%= render @comments %>
+      </ol>
+  <% end %>
+</div>
+
+
+<%= render 'comments/form'%>
+
+

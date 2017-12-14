@@ -1,6 +1,9 @@
 class ProblemThreadsController < ApplicationController
   before_action :set_problem_thread, only: [:show, :edit, :update, :destroy]
   before_action :set_product
+  before_action :logged_in?
+  before_action :is_consumer?
+
 
   # GET /problem_threads
   # GET /problem_threads.json
@@ -11,6 +14,8 @@ class ProblemThreadsController < ApplicationController
   # GET /problem_threads/1
   # GET /problem_threads/1.json
   def show
+    @comment = @problem_thread.comments.build
+    @comments = @problem_thread.comments.paginate(page: params[:page])
   end
 
   # GET /problem_threads/new
@@ -27,6 +32,7 @@ class ProblemThreadsController < ApplicationController
   def create
     @problem_thread = ProblemThread.new(problem_thread_params)
     @problem_thread.product = @product
+    @problem_thread.consumer = current_user if current_user
 
     respond_to do |format|
       if @problem_thread.save
@@ -69,6 +75,19 @@ class ProblemThreadsController < ApplicationController
       @problem_thread = ProblemThread.find(params[:id])
     end
 
+    def is_consumer?
+      not_consumer unless current_user.is_a?Consumer
+    end
+
+    def not_consumer
+      if logged_in?
+        flash[:error] = "You don't have required permissions. Only consumers can make this action"
+      else
+        flash[:error] = "You're not logged in. Please log in or register."
+      end
+      redirect_to @product
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def problem_thread_params
       params.require(:problem_thread).permit(:title, :content)
@@ -77,4 +96,5 @@ class ProblemThreadsController < ApplicationController
     def set_product
       @product = Product.find(params[:product_id])
     end
+
 end

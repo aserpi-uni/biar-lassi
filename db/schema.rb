@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171212163648) do
+ActiveRecord::Schema.define(version: 20171214035951) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,14 @@ ActiveRecord::Schema.define(version: 20171212163648) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_admins_on_unlock_token", unique: true
     t.index ["username"], name: "index_admins_on_username", unique: true
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "problem_thread_id"
+    t.index ["problem_thread_id"], name: "index_comments_on_problem_thread_id"
   end
 
   create_table "consumers", force: :cascade do |t|
@@ -124,6 +132,8 @@ ActiveRecord::Schema.define(version: 20171212163648) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "product_id"
+    t.bigint "consumer_id"
+    t.index ["consumer_id"], name: "index_problem_threads_on_consumer_id"
     t.index ["product_id"], name: "index_problem_threads_on_product_id"
   end
 
@@ -137,8 +147,10 @@ ActiveRecord::Schema.define(version: 20171212163648) do
     t.index ["enterprise_id"], name: "index_products_on_enterprise_id"
   end
 
+  add_foreign_key "comments", "problem_threads"
   add_foreign_key "employees", "enterprises"
   add_foreign_key "posts", "consumers"
+  add_foreign_key "problem_threads", "consumers"
   add_foreign_key "problem_threads", "products"
   add_foreign_key "products", "enterprises"
 end

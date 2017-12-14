@@ -17,6 +17,8 @@ class Consumer < ApplicationRecord
          :omniauthable, omniauth_providers: [:facebook]
 
   has_many :posts, dependent: :destroy
+  has_many :problem_threads, dependent: :destroy
+  #has_many :comments, as: :commentable
 
 
 
