@@ -1,6 +1,8 @@
 class CommentsController < ApplicationController
+  before_action :logged_in_user, only:[:create, :destroy]
   before_action :set_comment, only: [:edit, :update, :destroy]
   before_action :set_problem_thread
+  #before_action :set_correct_commentable
 
 
   # GET /comments/new
@@ -16,14 +18,15 @@ class CommentsController < ApplicationController
   # POST /comments.json
   def create
     @comment = @problem_thread.comments.build(comment_params)
-
+    @comment.commentable_type = current_user.class
+    @comment.commentable_id = current_user.id
 
       if @comment.save
         redirect_to product_problem_thread_path(@problem_thread.product, @problem_thread)
         flash[:success] = 'Comment successfully created!'
       else
         redirect_to product_problem_thread_path(@problem_thread.product, @problem_thread)
-        flash[:success] = 'Comment successfully created!'
+        flash[:success] = 'Comment NOT created!'
 
       end
 
@@ -67,4 +70,6 @@ class CommentsController < ApplicationController
     def set_problem_thread
       @problem_thread = ProblemThread.find(params[:problem_thread_id])
     end
+
+
 end

@@ -1,8 +1,10 @@
 class ProblemThreadsController < ApplicationController
   before_action :set_problem_thread, only: [:show, :edit, :update, :destroy]
   before_action :set_product
-  before_action :logged_in?
-  before_action :is_consumer?
+  before_action :logged_in_user, only: [:create, :destroy]
+  before_action :is_consumer?, only: [:create]
+  before_action :correct_user, only:[:destroy]
+
 
 
   # GET /problem_threads
@@ -96,5 +98,10 @@ class ProblemThreadsController < ApplicationController
     def set_product
       @product = Product.find(params[:product_id])
     end
+
+  def correct_user
+    @problem_thread = current_user.problem_threads.find_by(id: params[:id])
+    redirect_to product_problem_threads_url, notice:"You're not the owner of the thread"  if @problem_thread.nil?
+  end
 
 end

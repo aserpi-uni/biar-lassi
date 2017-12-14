@@ -18,7 +18,7 @@ class Consumer < ApplicationRecord
 
   has_many :posts, dependent: :destroy
   has_many :problem_threads, dependent: :destroy
-  #has_many :comments, as: :commentable
+  has_many :comments, as: :commentable
 
 
 

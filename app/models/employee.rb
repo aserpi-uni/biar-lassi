@@ -34,7 +34,7 @@ class Employee < ApplicationRecord
   enum role: { supervisor: 0, operator: 1 }
 
   belongs_to :enterprise
-  #has_many :comments, as: :commentable
+  has_many :comments, as: :commentable
 
 
 
