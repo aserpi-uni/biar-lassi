@@ -1,5 +1,7 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_user, only: [:create, :edit, :destroy]
+  before_action :check_supervisor?, only: [:create, :edit, :destroy]
   before_action :find_enterprise
 
   # GET /products
@@ -11,6 +13,8 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.json
   def show
+    @problem_thread = @product.problem_threads.build
+    @problem_threads = @product.problem_threads.paginate(page: params[:page])
   end
 
   # GET /products/new
@@ -80,6 +84,23 @@ class ProductsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
       params.require(:product).permit(:model, :description, :production_year)
+    end
+
+    def check_employee
+      not_permitted unless current_user.is_a?Employee
+    end
+
+    def check_supervisor?
+      if current_user.is_a?Employee
+        not_permitted unless current_user.role == "supervisor"
+      else
+        not_permitted
+      end
+    end
+
+    def not_permitted
+      flash[:error] = "You don't have required permissions"
+      redirect_to products_path
     end
 
     def find_enterprise

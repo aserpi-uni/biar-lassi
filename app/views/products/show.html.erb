@@ -24,5 +24,14 @@
 <%= link_to 'Back', products_path %> |
 <%= link_to 'Post a problem thread', new_product_problem_thread_path(@product)%>
 
+<div class="col-md-8">
+  <% if @product.problem_threads.any? %>
+      <h3>Problem threads (<%= @product.problem_threads.count %>)</h3>
+      <ol class="problem_thread">
+        <%= render @problem_threads %>
+      </ol>
+  <% end %>
+</div>
+
 
 

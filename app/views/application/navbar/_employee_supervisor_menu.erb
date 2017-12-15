@@ -8,6 +8,10 @@
         <%= fa_icon 'plus fw', class: 'mr-2' %>
         <%= t(:employee_new) %>
     <% end %>
+    <%= link_to new_product_path, class: 'dropdown-item' do %>
+        <%= fa_icon 'plus fw', class: 'mr-2' %>
+        <%= "Add new product" %>
+    <% end %>
     <%= link_to edit_enterprise_path(current_employee.enterprise), class: 'dropdown-item' do %>
               <span class="col" style="padding-left:0;padding-right:0">
                 <%= fa_icon 'briefcase fw' %>

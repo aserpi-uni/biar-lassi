@@ -10,9 +10,9 @@ class ProblemThreadsController < ApplicationController
 
   # GET /problem_threads
   # GET /problem_threads.json
-  def index
-    @problem_threads = ProblemThread.all
-  end
+  #def index
+   # @problem_threads = ProblemThread.all
+  #end
 
   # GET /problem_threads/1
   # GET /problem_threads/1.json
@@ -33,8 +33,8 @@ class ProblemThreadsController < ApplicationController
   # POST /problem_threads
   # POST /problem_threads.json
   def create
-    @problem_thread = ProblemThread.new(problem_thread_params)
-    @problem_thread.product = @product
+    @problem_thread = @product.problem_threads.build(problem_thread_params)
+    #@problem_thread.product = @product
     @problem_thread.consumer = current_user if current_user
     @problem_thread.employee = @employee
 
