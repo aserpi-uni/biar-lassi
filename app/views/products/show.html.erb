@@ -1,24 +1,47 @@
-<%= image_tag @product.image.url(:medium)%>
+<div class = "panel panel-default">
+  <div class = "panel-body">
+    <div class = "row">
+      <div class = "col-md-4">
+        <%= image_tag @product.image.url(:medium)%>
+        <div class = "table-responsive">
+          <table class = "table">
+            <tbody>
+              <tr>
+                <td><strong>Brand:</strong></td>
+                <td><%= @product.enterprise.name %></td>
+              </tr>
+              <tr>
+                <td><strong>Model:</strong></td>
+                <td><%= @product.model %></td>
+              </tr>
+              <tr>
+                <td><strong>Description:</strong></td>
+                <td><%= @product.description %></td>
+              </tr>
+              <tr>
+                <td><strong>Production year:</strong></td>
+                <td><%= @product.production_year %></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class = "col-md-7 col-md-offset-1">
+        <div class="col-md-8">
+          <% if @product.problem_threads.any? %>
+              <%= link_to 'Post a problem thread', new_product_problem_thread_path(@product), class: "btn btn-danger"%>
+              <h3>Problem threads (<%= @product.problem_threads.count %>)</h3>
+              <ol class="problem_threads">
+                <%= render @problem_threads %>
+              </ol>
+              <% will_paginate @problem_threads%>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<p>
-  <strong>Brand:</strong>
-  <%= @product.enterprise.name %>
-</p>
-
-<p>
-  <strong>Model:</strong>
-  <%= @product.model %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @product.description %>
-</p>
-
-<p>
-  <strong>Production year:</strong>
-  <%= @product.production_year %>
-</p>
 
 <%= link_to 'Edit', edit_product_path(@product) %> |
 <%= link_to 'Back', products_path %> |

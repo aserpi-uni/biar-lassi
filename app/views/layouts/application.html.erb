@@ -10,11 +10,13 @@
 
     <body>
       <%= render partial: 'navbar' %>
+      <div class = "container">
 
-      <%= render partial: 'flash_messages' %>
+        <%= render partial: 'flash_messages' %>
 
-      <div class="container mt-3">
-        <%= yield %>
+        <div class="container mt-3">
+          <%= yield %>
+        </div>
       </div>
     </body>
 

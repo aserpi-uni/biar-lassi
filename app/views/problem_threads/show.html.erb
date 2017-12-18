@@ -1,9 +1,9 @@
 <p id="notice"><%= notice %></p>
 
-<p>
+<div class = "problem_thread_title">
   <strong>Title:</strong>
   <%= @problem_thread.title %>
-</p>
+</div>
 
 <p>
   <strong>Content:</strong>
@@ -11,7 +11,7 @@
 </p>
 
 <p>
-  <strong>Written by:</strong>
+  <strong>Posted by:</strong>
   <%= link_to @problem_thread.consumer.username, @problem_thread.consumer%>
 </p>
 

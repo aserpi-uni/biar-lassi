@@ -1,14 +1,14 @@
 <li id="problem thread-<%= problem_thread.id %>">
   <small>
-  <%= link_to problem_thread.consumer.username, problem_thread.consumer %>
+  Posted by: <%= link_to problem_thread.consumer.username, problem_thread.consumer %>
   </small>
-  <p>
+  <div class = "problem_thread_title">
     <strong>Title:</strong>
     <%= link_to problem_thread.title, product_problem_thread_path(problem_thread.product, problem_thread) %>
-  </p>
-  <p>
+  </div>
+  <div class = "timestamp">
     <small>
       Posted <%= time_ago_in_words(problem_thread.created_at) %> ago.
     </small>
-  </p>
+  </div>
 </li>
