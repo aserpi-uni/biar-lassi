@@ -64,6 +64,8 @@ gem 'faker', '1.4.2'
 gem 'will_paginate', '3.1.5'
 gem 'bootstrap-will_paginate', '0.0.10'
 
+gem 'paperclip', '~> 5.1'
+
 group :test do
   gem 'coveralls', require: false
   gem 'cucumber-rails', require: false
