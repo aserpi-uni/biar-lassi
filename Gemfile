@@ -66,6 +66,8 @@ gem 'bootstrap-will_paginate', '0.0.10'
 
 gem 'paperclip', '~> 5.1'
 
+gem 'searchkick', '~> 2.4'
+
 group :test do
   gem 'coveralls', require: false
   gem 'cucumber-rails', require: false

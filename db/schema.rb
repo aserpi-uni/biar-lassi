@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171216143617) do
+ActiveRecord::Schema.define(version: 20171219155522) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20171216143617) do
     t.bigint "problem_thread_id"
     t.string "commentable_type"
     t.bigint "commentable_id"
+    t.boolean "solution"
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
     t.index ["problem_thread_id"], name: "index_comments_on_problem_thread_id"
   end

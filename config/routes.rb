@@ -35,6 +35,9 @@ Rails.application.routes.draw do
   resources :posts, only: [:create, :destroy]
 
   resources :products do
+    collection do
+      get 'search'
+    end
     resources :problem_threads do
       resources :comments
         end

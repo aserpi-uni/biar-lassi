@@ -21,6 +21,7 @@ class CommentsController < ApplicationController
     #@comment.commentable_type = current_user.class
     #@comment.commentable_id = current_user.id
     @comment.commentable = current_user
+    @comment.solution = false
 
       if @comment.save
         redirect_to product_problem_thread_path(@problem_thread.product, @problem_thread)
@@ -32,6 +33,7 @@ class CommentsController < ApplicationController
       end
 
   end
+
 
   # PATCH/PUT /comments/1
   # PATCH/PUT /comments/1.json
