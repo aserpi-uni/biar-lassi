@@ -27,6 +27,9 @@ class CommentsController < ApplicationController
         if @comment.commentable == @problem_thread.consumer
           ReferentNotifierMailer.send_referent_notify(@problem_thread.employee, @problem_thread, @problem_thread.product).deliver
         end
+        if @comment.commentable == @problem_thread.employee
+          ConsumerNotifierMailer.send_consumer_notify(@problem_thread.consumer, @problem_thread, @problem_thread.product).deliver
+        end
         redirect_to product_problem_thread_path(@problem_thread.product, @problem_thread)
         flash[:success] = 'Comment successfully created!'
       else
