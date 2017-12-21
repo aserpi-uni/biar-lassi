@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+<h1>Have a good day, <%= @referent.username %>!</h1>
+<p>The owner of the problem thread in object has just replied with a comment! </p>
+<p>Here's the link = <%= link_to @thread.title, product_problem_thread_url(@product, @thread) %></p>
+</body>
+</html>

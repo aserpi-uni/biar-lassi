@@ -40,6 +40,7 @@ class ProblemThreadsController < ApplicationController
 
     respond_to do |format|
       if @problem_thread.save
+        ReferentNotifierMailer.new_referent_notify(@employee, @problem_thread, @product).deliver
         format.html { redirect_to product_problem_thread_path(@product, @problem_thread), notice: 'Problem thread was successfully created.' }
         format.json { render :show, status: :created, location: product_problem_thread_path(@product, @problem_thread) }
       else
