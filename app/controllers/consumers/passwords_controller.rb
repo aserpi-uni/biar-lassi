@@ -1,4 +1,6 @@
-class Consumer::PasswordsController < Devise::PasswordsController
+# :nocov:
+
+class Consumers::PasswordsController < Devise::PasswordsController
   include Accessible
 
   before_action :authorize_user
@@ -34,3 +36,5 @@ class Consumer::PasswordsController < Devise::PasswordsController
   #   super(resource_name)
   # end
 end
+
+# :nocov:

@@ -1,19 +1,16 @@
 class AdminsController < ApplicationController
-
   def show
     @admin = Admin.find_by! username: params[:username]
   end
-
 
   def new
     authorize Admin
     @admin = Admin.new
   end
 
-
   def create
     authorize Admin
-    params = admin_params_create
+    params = params_create
 
     @admin = Admin.from_params(params)
     return render :new unless @admin.save
@@ -23,23 +20,20 @@ class AdminsController < ApplicationController
     redirect_to admin_path @admin
   end
 
-
   def edit
     @admin = Admin.find_by(username: params[:username])
     authorize @admin
   end
 
-
   def update
     @admin = Admin.find_by(username: params[:username])
     authorize @admin
 
-    return render :edit unless @admin.update(admin_params_update)
+    return render :edit unless @admin.update(params_update)
 
     flash[:success] = I18n.t(:resource_edit_success, name: @admin.username)
     redirect_to edit_admin_path(@admin)
   end
-
 
   def destroy
     @admin = Admin.find_by(username: params[:username])
@@ -57,7 +51,6 @@ class AdminsController < ApplicationController
     redirect_to root_path
   end
 
-
   def lock
     @admin = Admin.find_by(username: params[:username])
     authorize @admin
@@ -72,7 +65,6 @@ class AdminsController < ApplicationController
     end
   end
 
-
   def unlock
     @admin = Admin.find_by(username: params[:username])
     authorize @admin
@@ -83,15 +75,13 @@ class AdminsController < ApplicationController
     redirect_to edit_admin_path(@admin)
   end
 
-
-
   private
 
-  def admin_params_create
+  def params_create
     params.require(:admin).permit(:username, :email)
   end
 
-  def admin_params_update
+  def params_update
     params.require(:admin).permit(:email, :password, :password_confirmation)
   end
 end

@@ -108,7 +108,8 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 11
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = '50cbd9eb2d23b786ee998d36c35286922a3728fb2710201d52515bd2757178ba9cf291c0d9af0a3a73f2cf896ad5526f8ebc73381389f40f7c8183490b2adf54'
+  # config.pepper = '50cbd9eb2d23b786ee998d36c35286922a3728fb2710201d52515bd2757178b' \
+  #                 'a9cf291c0d9af0a3a73f2cf896ad5526f8ebc73381389f40f7c8183490b2adf54'
 
   # Send a notification email when the user's password is changed
   # config.send_password_change_notification = false
@@ -247,8 +248,11 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_SECRET'], scope: 'public_profile,email',
-                  display: 'popup', callback_url: "http://#{ENV['HOST']}/auth/consumers/auth/facebook/callback"
+  config.omniauth :facebook,
+                  ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_SECRET'],
+                  scope: 'public_profile,email', display: 'popup',
+                  callback_url: "#{'http://' if ENV['RAILS_ENV'] != 'production'}" \
+                                "#{ENV['HOST']}/auth/consumers/auth/facebook/callback"
 
   OmniAuth.config.logger = Rails.logger
 

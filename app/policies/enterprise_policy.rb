@@ -22,8 +22,7 @@ class EnterprisePolicy
     @user.is_a?(Admin) ||
       (@user.is_a?(Employee) &&
         @user.enterprise == @enterprise &&
-        @user.supervisor?) &&
-      @enterprise.active?
+        @user.supervisor?)
   end
 
   def destroy?

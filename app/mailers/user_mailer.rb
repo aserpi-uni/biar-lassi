@@ -1,3 +1,4 @@
+# Mailer for operations on users.
 class UserMailer < ApplicationMailer
   default from: 'no-reply@tesi.com'
 

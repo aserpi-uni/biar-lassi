@@ -14,9 +14,8 @@ class Admin < ApplicationRecord
          :timeoutable,
          :trackable
 
-
-
-  validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i, message: I18n.t(:field_invalid) },
+  validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i,
+                              message: I18n.t(:field_invalid) },
                     user_uniqueness: true
 
   validates :password, confirmation: true, length: { in: 8..128 }, on: :create
@@ -24,8 +23,6 @@ class Admin < ApplicationRecord
 
   validates :username, format: { with: /\A\w{5,32}@admin\z/, message: I18n.t(:field_invalid) }, reserved_name: true,
                        uniqueness: { case_sensitive: false }, on: :create
-
-
 
   # Create a new Admin from +create+ action parameters.
   def self.from_params(params)
@@ -39,7 +36,6 @@ class Admin < ApplicationRecord
 
     admin
   end
-
 
   def to_param
     username

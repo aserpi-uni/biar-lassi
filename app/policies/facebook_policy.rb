@@ -1,7 +1,7 @@
 class FacebookPolicy < Struct.new(:user, :facebook)
   attr_reader :user
 
-  def initialize(user, facebook)
+  def initialize(user, _facebook)
     @user = user
   end
 
@@ -22,5 +22,4 @@ class FacebookPolicy < Struct.new(:user, :facebook)
   def select_username?
     !@user
   end
-
 end
