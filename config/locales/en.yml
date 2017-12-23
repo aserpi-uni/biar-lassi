@@ -103,6 +103,8 @@ en:
   password_reset: 'Reset password'
   password_reset_send: 'Send me reset password instructions'
 
+  product: 'Product'
+
   profile: 'Profile'
 
   or: 'or'
@@ -111,6 +113,7 @@ en:
 
   resource_create: 'Create a new %{resource}'
   resource_create_success: 'Successfully created a new %{resource}'
+  resource_destroy_success: 'Successfully destroyed %{resource}'
   resource_edit: 'Edit %{name}'
   resource_edit_success: 'Successfully edited %{name}'
   resource_new: 'New %{resource}'

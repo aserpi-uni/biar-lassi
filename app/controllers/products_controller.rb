@@ -1,121 +1,67 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :edit, :update, :destroy]
-  before_action :logged_in_user, only: [:create, :edit, :destroy]
-  before_action :check_supervisor?, only: [:create, :edit, :destroy]
-  before_action :find_enterprise
+  before_action :set_product, only: %i[show edit update destroy]
 
-  # GET /products
-  # GET /products.json
-
-  def search
-    if params[:search].present?
-      @products = Product.search(params[:search], fields: [:model])
-    else
-      @products = Product.all
-    end
-  end
   def index
-    @products = Product.all
+    @products = policy_scope(Product).order(:model).page(params[:page])
   end
 
-  # GET /products/1
-  # GET /products/1.json
   def show
     @problem_thread = @product.problem_threads.build
-    @problem_threads = @product.problem_threads.paginate(page: params[:page])
+    @problem_threads = @product.problem_threads.page(params[:page])
   end
 
-  # GET /products/new
   def new
-    @product = @enterprise.products.build
+    authorize Product
+    @product = current_employee.enterprise.products.build
   end
 
-  # GET /products/1/edit
-  def edit
-  end
-
-  # POST /products
-  # POST /products.json
   def create
-    if @enterprise == nil
-      flash[:error] = "You don't have required permissions"
-      if !logged_in?
-        redirect_to root
-      else
-        redirect_to current_user
-      end
+    authorize Product
+
+    @product = current_employee.enterprise.products.build(product_params)
+    if @product.save
+      flash[:success] = I18n.t(:resource_create_success, resource: I18n.t(:product).downcase)
+      redirect_to @product
     else
-    @product = @enterprise.products.build(product_params)
-
-    respond_to do |format|
-      if @product.save
-        format.html { redirect_to @product, notice: 'Product was successfully created.' }
-        format.json { render :show, status: :created, location: @product }
-      else
-        format.html { render :new }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
-      end
-    end
+      render :new
     end
   end
 
-  # PATCH/PUT /products/1
-  # PATCH/PUT /products/1.json
+  def edit
+  authorize @product
+  end
+
   def update
-    respond_to do |format|
-      if @product.update(product_params)
-        format.html { redirect_to @product, notice: 'Product was successfully updated.' }
-        format.json { render :show, status: :ok, location: @product }
-      else
-        format.html { render :edit }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
-      end
+    authorize @product
+    if @product.update(product_params)
+      flash[:success] = I18n.t(:resource_edit_success, name: "#{@product.enterprise.name} #{@product.model}")
+      redirect_to @product
+    else
+      render :edit
     end
   end
 
-  # DELETE /products/1
-  # DELETE /products/1.json
   def destroy
+    authorize @product
     @product.destroy
-    respond_to do |format|
-      format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+
+    flash[:success] = I18n.t(:resource_destroy_success, name: "#{@product.enterprise.name} #{@product.model}")
+    redirect_to products_url
+  end
+
+  def search
+    @products = policy_scope(Product).search(params[:search], fields: [:model], page: params[:page])
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_product
-      @product = Product.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def product_params
-      params.require(:product).permit(:model, :description, :production_year, :image)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_product
+    @product = Product.find(params[:id])
+  end
 
-    def check_employee
-      not_permitted unless current_user.is_a?Employee
-    end
-
-    def check_supervisor?
-      if current_user.is_a?Employee
-        not_permitted unless current_user.role == "supervisor"
-      else
-        not_permitted
-      end
-    end
-
-    def not_permitted
-      flash[:error] = "You don't have required permissions"
-      redirect_to products_path
-    end
-
-    def find_enterprise
-      if current_user.is_a?Employee
-        @enterprise = current_user.enterprise
-      else
-        @enterprise = nil
-      end
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def product_params
+    params.require(:product).permit(:model, :description, :production_year, :image)
+  end
 end
