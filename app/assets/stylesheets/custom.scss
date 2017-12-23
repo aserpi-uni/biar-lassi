@@ -54,3 +54,8 @@ span.picture {
     border: 0;
   }
 }
+
+.navbar-form-custom {
+  background-image: linear-gradient(to top, #009688 2px, rgba(0, 150, 136, 0) 2px), linear-gradient(to top, rgba(255, 255, 255, 0.67) 1px, transparent 1px);
+  color: #e1e1e1 !important;
+}

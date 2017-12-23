@@ -9,7 +9,7 @@ class ProductsController < ApplicationController
 
   def search
     if params[:search].present?
-      @products = Product.search(params[:search])
+      @products = Product.search(params[:search], fields: [:model])
     else
       @products = Product.all
     end
