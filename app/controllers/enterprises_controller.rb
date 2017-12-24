@@ -1,15 +1,12 @@
 class EnterprisesController < ApplicationController
-
   def show
     @enterprise = Enterprise.find_by! name: params[:name]
   end
-
 
   def new
     authorize Enterprise
     @enterprise = Enterprise.new
   end
-
 
   def create
     authorize Enterprise
@@ -22,12 +19,10 @@ class EnterprisesController < ApplicationController
     redirect_to new_employee_path
   end
 
-
   def edit
     @enterprise = Enterprise.find_by(name: params[:name])
     authorize @enterprise
   end
-
 
   def update
     @enterprise = Enterprise.find_by(name: params[:name])
@@ -53,7 +48,7 @@ class EnterprisesController < ApplicationController
     @enterprise.soft_delete
 
     flash[:success] = I18n.t(:deleted_resource, res: @enterprise.class.name)
-    flash[:notice] =  I18n.t(:deleted_enterprise, empl: @enterprise.employees.count, pro: 0) # FIXME
+    flash[:notice] =  I18n.t(:deleted_enterprise, empl: @enterprise.employees.count, pro: @enterprise.products.count)
 
     redirect_to enterprise_path(@enterprise)
   end

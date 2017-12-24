@@ -122,10 +122,14 @@ en:
 
   resource_create: 'Create a new %{resource}'
   resource_create_success: 'Successfully created a new %{resource}'
-  resource_destroy_success: 'Successfully destroyed %{name}'
+  resource_destroy_success: 'Successfully deleted %{name}'
   resource_edit: 'Edit %{name}'
   resource_edit_success: 'Successfully edited %{name}'
   resource_new: 'New %{resource}'
+  resource_restore: 'Restore %{res}'
+  resource_restored: 'Successfully restored %{name}'
+
+  restore: 'Restore'
 
   results_for_search: '%{resource} matching search "%{string}"'
   results_no: 'No results'

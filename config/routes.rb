@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   resources :posts, only: [:create, :destroy]
 
   resources :products do
+    delete 'restore', on: :member
     collection do
       get 'search'
     end

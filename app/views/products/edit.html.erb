@@ -12,6 +12,13 @@
 
     <%= render partial: 'form', locals: { submit: :save } %>
 
-    <%= render partial: 'application/edit/delete_resource', locals: { res: @product, path: product_path(@product) }  %>
+    <% if @product.active %>
+      <%= render partial: 'application/edit/delete_resource', locals: { res: @product, path: product_path(@product) }  %>
+    <% elsif @product.enterprise.active %>
+      <h3>
+        <%= t :restore_resource, res: t(:product).downcase %>
+        <%= button_to t(:restore), restore_product_path(@product), method: :delete, class: 'btn btn-danger btn-raised', form_class: 'form-delete'%>
+      </h3>
+    <% end %>
   </div> <!-- col-6 -->
 </div> <!-- jumbotron -->

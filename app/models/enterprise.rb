@@ -34,13 +34,13 @@ class Enterprise < ApplicationRecord
   has_many :employees, dependent: :destroy
   has_many :products, dependent: :destroy
 
-
-
   # Deletes all Employees and products
   def soft_delete
-    enterprise.active = false
+    self.active = false
+    save
+
     employees.each(&:soft_delete)
-    # TODO: products
+    products.each(&:soft_delete)
   end
 
   def to_param

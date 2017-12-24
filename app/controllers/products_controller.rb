@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: %i[show edit update destroy]
+  before_action :set_product, only: %i[show edit update destroy restore]
 
   def index
     @products = policy_scope(Product).order(:model).page(params[:page])
@@ -43,10 +43,18 @@ class ProductsController < ApplicationController
 
   def destroy
     authorize @product
-    @product.destroy
+    @product.soft_delete
 
-    flash[:success] = I18n.t(:resource_destroy_success, name: "#{@product.enterprise.name} #{@product.model}")
+    flash[:success] = I18n.t(:deleted_resource, res: I18n.t(:product))
     redirect_to products_url
+  end
+
+  def restore
+    authorize @product
+    @product.soft_restore
+
+    flash[:success] = I18n.t(:resource_restored, name: "#{@product.enterprise.name} #{@product.model}")
+    redirect_to edit_product_path(@product)
   end
 
   def search

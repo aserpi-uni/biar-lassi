@@ -38,7 +38,7 @@
         <%= t :problem_threads_header, number: @product.problem_threads.count %>
       </h3>
 
-      <% if current_consumer %>
+      <% if current_consumer %> <!-- TODO: policy(ProblemThread).create? -->
         <%= button_to I18n.t(:resource_new, resource: I18n.t(:problem_thread)), new_product_problem_thread_path(@product), method: :get, class: 'btn btn-primary btn-raised ml-2' %>
       <% end %>
     </div>

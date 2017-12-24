@@ -27,6 +27,10 @@ class ProductPolicy < ApplicationPolicy
     update?
   end
 
+  def restore?
+    update? && @product.enterprise.active?
+  end
+
   class Scope < Scope
     def resolve
       if user.is_a? Employee
