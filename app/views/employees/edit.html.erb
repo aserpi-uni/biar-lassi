@@ -1,6 +1,5 @@
 <% provide :title, @employee == current_employee ? t(:settings) : t(:resource_edit, name: @employee.username) %>
 
-
 <div class="jumbotron align-items-center">
   <div class="col-6 mx-auto" >
     <h3>
@@ -38,6 +37,5 @@
         <%= render partial: 'application/edit/delete_account', locals: {user: @employee, path: employee_path(@employee) } %>
       <% end %>
     <% end %>
-
   </div> <!-- col-6 -->
 </div> <!-- jumbotron -->

@@ -4,7 +4,6 @@
 
 <div class="jumbotron align-items-center">
   <div class="col-6 mx-auto" >
-
     <h2>
       <%= @enterprise.name %>
     </h2>
@@ -78,6 +77,5 @@
     <% if current_admin %>
         <%= render partial: 'application/edit/delete_resource', locals: {res: @enterprise, path: enterprise_path(@enterprise) } %>
     <% end %>
-
   </div> <!-- col-6 -->
 </div> <!-- jumbotron -->

@@ -6,7 +6,6 @@
 
 <div class="jumbotron align-items-center">
   <div class="col-6 mx-auto" >
-
     <h2>
       <%= name %>
     </h2>
@@ -14,6 +13,5 @@
     <%= render partial: 'form' %>
 
     <%= render partial: 'application/edit/delete_resource', locals: { res: @product, path: product_path(@product) }  %>
-
   </div> <!-- col-6 -->
 </div> <!-- jumbotron -->

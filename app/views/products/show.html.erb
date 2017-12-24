@@ -10,9 +10,9 @@
     <div class="row">
       <div class="col-md-3">
         <%= image_tag @product.image.url(:medium), class: 'mb-3' %>
+
         <% if current_employee %>
-          <%= button_to I18n.t(:resource_edit, name: I18n.t(:product)), edit_product_path(@product), \
-                        method: :get, class: 'btn btn-primary btn-raised' %>
+          <%= button_to I18n.t(:resource_edit, name: I18n.t(:product)), edit_product_path(@product), method: :get, class: 'btn btn-primary btn-raised' %>
         <% end %>
       </div>
 
@@ -20,9 +20,11 @@
         <small>
           <%= t(:since, year: @product.production_year) %>
         </small>
+
         <div>
           <%= @product.description %>
         </div>
+
         <%= link_to I18n.t(:product_same_enterprise), products_enterprise_path(@product.enterprise) %>
       </div>
     </div>
@@ -35,15 +37,16 @@
       <h3>
         <%= t :problem_threads_header, number: @product.problem_threads.count %>
       </h3>
+
       <% if current_consumer %>
-        <%= button_to I18n.t(:resource_new, resource: I18n.t(:problem_thread)), new_product_problem_thread_path(@product), \
-                      method: :get, class: 'btn btn-primary btn-raised ml-2' %>
+        <%= button_to I18n.t(:resource_new, resource: I18n.t(:problem_thread)), new_product_problem_thread_path(@product), method: :get, class: 'btn btn-primary btn-raised ml-2' %>
       <% end %>
     </div>
 
     <ol class="problem_threads">
       <%= render @problem_threads %>
     </ol>
+
     <% will_paginate @problem_threads%>
   <% end %>
 </div>
