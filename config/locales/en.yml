@@ -73,6 +73,8 @@ en:
 
   forbidden: 'You are not authorized to perform this action'
 
+  image: 'Image'
+
   incorrect_credentials: 'Incorrect username or password'
 
   irreversible: 'This action is irreversible.'
@@ -83,6 +85,8 @@ en:
   lock_disclaimer: 'You will not be able to login anymore. Are you sure?'
   lock_disclaimer_other: 'The user will not be able to login anymore. Are you sure?'
   locked_success: '%{usr} has been locked'
+
+  model: 'Model'
 
   name: 'Name'
 
@@ -103,7 +107,13 @@ en:
   password_reset: 'Reset password'
   password_reset_send: 'Send me reset password instructions'
 
+  problem_thread: 'Problem thread'
+  problem_threads_header: 'Problem threads (%{number})'
+
   product: 'Product'
+  products_by: 'Products by '
+  product_same_enterprise: 'Products from the same enterprise'
+  production_year: 'Production year'
 
   profile: 'Profile'
 
@@ -113,10 +123,13 @@ en:
 
   resource_create: 'Create a new %{resource}'
   resource_create_success: 'Successfully created a new %{resource}'
-  resource_destroy_success: 'Successfully destroyed %{resource}'
+  resource_destroy_success: 'Successfully destroyed %{name}'
   resource_edit: 'Edit %{name}'
   resource_edit_success: 'Successfully edited %{name}'
   resource_new: 'New %{resource}'
+
+  results_for_search: '%{resource} matching search "%{string}"'
+  results_no: 'No results'
 
   role: 'Role'
 
@@ -134,6 +147,8 @@ en:
   sign_in_omniauth: "Login with %{provider}"
   sign_out: 'Logout'
   sign_up: 'Register'
+
+  since: 'Since %{year}'
 
   sure: 'Are you sure?'
 

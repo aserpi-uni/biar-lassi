@@ -51,6 +51,7 @@ class ProductsController < ApplicationController
 
   def search
     @products = policy_scope(Product).search(params[:search], fields: [:model], page: params[:page])
+    @search = params[:search]
   end
 
   private

@@ -1,6 +1,19 @@
-<h1>Editing Product</h1>
+<% name = "#{@product.enterprise.name} #{@product.model}" %>
 
-<%= render 'form', product: @product %>
+<% provide :title, t(:resource_edit, name: name) %>
 
-<%= link_to 'Show', @product %> |
-<%= link_to 'Back', products_path %>
+<%= render partial: 'errors', locals: { resource: @product } %>
+
+<div class="jumbotron align-items-center">
+  <div class="col-6 mx-auto" >
+
+    <h2>
+      <%= name %>
+    </h2>
+
+    <%= render partial: 'form' %>
+
+    <%= render partial: 'application/edit/delete_resource', locals: { res: @product, path: product_path(@product) }  %>
+
+  </div> <!-- col-6 -->
+</div> <!-- jumbotron -->

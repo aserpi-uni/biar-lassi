@@ -1,5 +1,14 @@
-<h1>New Product</h1>
+<% provide :title, t(:resource_new, resource: :product) %>
 
-<%= render 'form', product: @product %>
+<%= render partial: 'errors', locals: { resource: @product } %>
 
-<%= link_to 'Back', products_path %>
+<div class="jumbotron align-items-center">
+  <div class="col-6 mx-auto" >
+
+    <h2>
+      <%= t(:resource_create, resource: I18n.t(:product).downcase) %>
+    </h2>
+
+    <%= render partial: 'form' %>
+  </div>
+</div>

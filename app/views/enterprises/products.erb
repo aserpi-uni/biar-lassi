@@ -1,0 +1,14 @@
+<% provide :title, t(:products_by, enterprise: @enterprise.name) %>
+
+<h2>
+  <%= t(:products_by) %>
+  <%= link_to @enterprise.name, enterprise_path(@enterprise) %>
+</h2>
+
+<%= render partial: 'products/list' %>
+
+<% if @products.empty? %>
+  <h3>
+    <%= t(:results_no) %>
+  </h3>
+<% end %>

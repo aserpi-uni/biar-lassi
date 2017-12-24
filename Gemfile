@@ -62,7 +62,7 @@ gem 'pundit'
 gem 'bcrypt', '3.1.11'
 gem 'faker', '1.4.2'
 gem 'will_paginate', '3.1.5'
-gem 'bootstrap-will_paginate', '0.0.10'
+gem 'bootstrap-will_paginate', '>= 1.0'
 
 gem 'paperclip', '~> 5.1'
 

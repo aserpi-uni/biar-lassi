@@ -58,7 +58,10 @@ class EnterprisesController < ApplicationController
     redirect_to enterprise_path(@enterprise)
   end
 
-
+  def products
+    @enterprise = Enterprise.find_by(name: params[:name])
+    @products = @enterprise.products.order(:model).page(params[:page])
+  end
 
   private
 

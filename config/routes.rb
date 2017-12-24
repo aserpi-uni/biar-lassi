@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
 
-
-
-
-
   devise_for :admins, path_prefix: 'auth', controllers: { passwords: 'admins/passwords',
                                                           sessions: 'admins/sessions',
                                                           unlocks: 'admins/unlocks' }
@@ -30,7 +26,9 @@ Rails.application.routes.draw do
   resources :consumers, param: :username
   resources :employees, param: :username
 
-  resources :enterprises, param: :name
+  resources :enterprises, param: :name do
+    get 'products', on: :member
+  end
 
   resources :posts, only: [:create, :destroy]
 
