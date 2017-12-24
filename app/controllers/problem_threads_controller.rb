@@ -74,6 +74,13 @@ class ProblemThreadsController < ApplicationController
     end
   end
 
+  def followers
+    @title = "Followers"
+    @problem_thread  = ProblemThread.find(params[:id])
+    @consumers = @problem_thread.followers.paginate(page: params[:page])
+    render 'show_follow'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_problem_thread

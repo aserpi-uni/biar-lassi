@@ -21,6 +21,29 @@ class Consumer < ApplicationRecord
   has_many :comments, as: :commentable
 
 
+  # following charasteristics and functions
+
+  has_many :active_relationships, class_name: "Relationship",
+                                  foreign_key: "follower_id",
+                                  dependent: :destroy
+
+  has_many :following, through: :active_relationships, source: :followed
+
+  def follow(problem_thread)
+    active_relationships.create(followed_id: problem_thread.id)
+  end
+
+  def unfollow(problem_thread)
+    active_relationships.find_by(followed_id: problem_thread.id).destroy
+  end
+
+  def follow? (problem_thread)
+    following.include?(problem_thread)
+  end
+
+
+
+
 
 
 

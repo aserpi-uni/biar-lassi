@@ -1,7 +1,7 @@
 
 
 <li id="comment-<%= comment.id %>">
-  <%= render partial: 'application/avatar', locals: {size:15} %>
+  <% #render partial: 'application/avatar', locals: {size:15} %>
   <%= link_to comment.commentable.username, comment.commentable %>
   <p><%= comment.content %></p>
   <p>

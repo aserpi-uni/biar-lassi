@@ -27,7 +27,11 @@ Rails.application.routes.draw do
 
 
   resources :admins, param: :username
-  resources :consumers, param: :username
+  resources :consumers, param: :username do
+    member do
+      get :following
+    end
+  end
   resources :employees, param: :username
 
   resources :enterprises, param: :name
@@ -39,9 +43,15 @@ Rails.application.routes.draw do
       get 'search'
     end
     resources :problem_threads do
+      member do
+        get :followers
+      end
       resources :comments
         end
   end
+
+
+  resources :relationships, only: [:create, :destroy]
 
 
 

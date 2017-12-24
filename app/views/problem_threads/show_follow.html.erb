@@ -1,0 +1,28 @@
+<% provide(:title, @title) %>
+<div class="row">
+  <aside class="col-md-4">
+    <section class="problem_thread_info">
+      <h1><%= @problem_thread.title %></h1>
+      <span><b>Comments:</b> <%= @problem_thread.comments.count %></span>
+    </section>
+    <section class="stats">
+      <%= render 'stats' %>
+      <% if @consumers.any? %>
+          <div class="user_avatars">
+            <% @consumers.each do |consumer| %>
+                <%= link_to gravatar_for(consumer, size: 30), consumer %>
+            <% end %>
+          </div>
+      <% end %>
+    </section>
+  </aside>
+  <div class="col-md-8">
+    <h3><%= @title %></h3>
+    <% if @consumers.any? %>
+        <ul class="users follow">
+          <%= render @consumers %>
+        </ul>
+        <%= will_paginate %>
+    <% end %>
+  </div>
+</div>

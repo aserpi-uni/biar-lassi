@@ -2,6 +2,8 @@ class EnterprisesController < ApplicationController
 
   def show
     @enterprise = Enterprise.find_by! name: params[:name]
+    @product = @enterprise.products.build
+    @products = @enterprise.products.paginate(page: params[:page])
   end
 
 

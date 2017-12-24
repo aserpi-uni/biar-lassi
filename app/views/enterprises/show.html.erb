@@ -5,3 +5,31 @@
 <% if current_admin %>
   <%= link_to t(:edit), edit_enterprise_path(@enterprise) %>
 <% end %>
+
+div class="col-md-8">
+<% if @enterprise.products.any? %>
+    <h3>Products (<%= @enterprise.products.count %>)</h3>
+    <div class = "row">
+      <% @enterprise.products.each do |product|%>
+          <div class = "col-sm-6 col-md-3">
+            <div class = "img-thumbnail">
+              <%=link_to (image_tag product.image.url(:medium), class: "image"), product%>
+              <div class="caption">
+                <h3>
+                  <%=link_to product.enterprise.name, product.enterprise%>
+                  <%=link_to product.model, product%>
+                </h3>
+                <p>
+                  <tr>
+                    <td><%= link_to 'Show', product %></td>
+                    <td><%= link_to 'Edit', '#' %></td>
+                    <td><%= link_to 'Destroy', '#'%></td>
+                  </tr>
+                </p>
+              </div>
+            </div>
+          </div>
+      <%end%>
+    </div>
+<% end %>
+</div>

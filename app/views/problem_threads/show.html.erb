@@ -35,7 +35,12 @@
 <%= link_to 'Edit', edit_product_problem_thread_path(@product,@problem_thread) %> |
 <%= link_to 'Back', product_path(@product) %>
 
+<section class="stats">
+  <%= render 'stats' %>
+</section>
+
 <div class="col-md-8">
+  <%= render 'follow_form' if logged_in?%>
   <% if @problem_thread.comments.any? %>
       <h3>Comments (<%= @problem_thread.comments.count %>)</h3>
       <ol class="comments">

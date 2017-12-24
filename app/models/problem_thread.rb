@@ -8,4 +8,12 @@ class ProblemThread < ApplicationRecord
   validates :employee_id, presence: true
   validates :title, presence: true
   validates :content, presence: true, length: {maximum: 260}
+
+
+  has_many :passive_relationships, class_name: "Relationship",
+           foreign_key: "followed_id",
+           dependent: :destroy
+
+  has_many :followers, through: :passive_relationships, source: :follower
+
 end
