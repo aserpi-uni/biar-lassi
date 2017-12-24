@@ -3,20 +3,23 @@
       <%= fa_icon 'bolt fw' %>
       <%= t :actions %>
   <% end %>
+
   <div class="dropdown-menu dropdown-menu-right">
     <%= link_to new_employee_path, class: 'dropdown-item' do %>
-        <%= fa_icon 'plus fw', class: 'mr-2' %>
-        <%= t(:employee_new) %>
+      <%= fa_icon 'user-plus fw', class: 'mr-2' %>
+      <%= t(:resource_new, resource: I18n.t(:employee).downcase)  %>
     <% end %>
+
     <%= link_to new_product_path, class: 'dropdown-item' do %>
-        <%= fa_icon 'plus fw', class: 'mr-2' %>
-        <%= "Add new product" %>
+      <%= fa_icon 'plus-square fw', class: 'mr-2' %>
+      <%= t(:resource_new, resource: I18n.t(:product).downcase) %>
     <% end %>
+
     <%= link_to edit_enterprise_path(current_employee.enterprise), class: 'dropdown-item' do %>
-              <span class="col" style="padding-left:0;padding-right:0">
-                <%= fa_icon 'briefcase fw' %>
-                <%= t(:enterprise_settings) %>
-              </span>
+       <span class="col" style="padding-left:0;padding-right:0">
+         <%= fa_icon 'briefcase fw' %>
+         <%= t(:enterprise_settings) %>
+       </span>
     <% end %>
   </div>
 </li>

@@ -10,7 +10,7 @@
       <%= name %>
     </h2>
 
-    <%= render partial: 'form' %>
+    <%= render partial: 'form', locals: { submit: :save } %>
 
     <%= render partial: 'application/edit/delete_resource', locals: { res: @product, path: product_path(@product) }  %>
   </div> <!-- col-6 -->

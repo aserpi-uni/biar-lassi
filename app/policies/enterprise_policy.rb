@@ -23,7 +23,7 @@ class EnterprisePolicy
       (@user.is_a?(Employee) &&
         @user.enterprise == @enterprise &&
         @user.supervisor?) &&
-      @enterprise.active? # TODO
+      @enterprise.active?
   end
 
   def destroy?
