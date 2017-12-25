@@ -1,6 +1,5 @@
 # Groups all OmniAuth callbacks for the Consumer model.
 class Consumers::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-
   # OmniAuth callback for Facebook
   def facebook
     authorize :facebook, :facebook?
@@ -25,7 +24,6 @@ class Consumers::OmniauthCallbacksController < Devise::OmniauthCallbacksControll
     end
   end
 
-
   # :nocov:
   # Redirects the user when an error occurs.
   def failure
@@ -33,8 +31,6 @@ class Consumers::OmniauthCallbacksController < Devise::OmniauthCallbacksControll
     redirect_to root_path
   end
   # :nocov:
-
-
 
   private
 
@@ -44,7 +40,6 @@ class Consumers::OmniauthCallbacksController < Devise::OmniauthCallbacksControll
     set_flash_message(:notice, :success, kind: 'Facebook') if is_navigational_format?
   end
 
-
   # Updates the current account with these Facebook credentials.
   def connect_current(auth)
     current_consumer.facebook_connect(auth)
@@ -52,5 +47,4 @@ class Consumers::OmniauthCallbacksController < Devise::OmniauthCallbacksControll
     flash[:success] = I18n.t(:connected, scope: [:facebook])
     redirect_to edit_registration_path(current_user)
   end
-
 end

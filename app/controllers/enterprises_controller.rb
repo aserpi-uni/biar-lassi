@@ -11,7 +11,7 @@ class EnterprisesController < ApplicationController
   def create
     authorize Enterprise
 
-    @enterprise = Enterprise.new(enterprise_params_create)
+    @enterprise = Enterprise.new(params_create)
     return render new_enterprise_path unless @enterprise.save
 
     flash[:success] = I18n.t(:resource_create_success, resource: I18n.t(:enterprise).downcase)
@@ -28,15 +28,9 @@ class EnterprisesController < ApplicationController
     @enterprise = Enterprise.find_by(name: params[:name])
     authorize @enterprise
 
-    old_suffix = @enterprise.username_suffix
-    return render :edit unless @enterprise.update(enterprise_params_update)
+    return render :edit unless (res = @enterprise.update(params_update))
 
-    if old_suffix != @enterprise.username_suffix
-      employees = @enterprise.employees
-      employees.find_each(&:update_suffix)
-      flash[:notice] = I18n.t(:username_edited, count: employees.count)
-    end
-
+    flash[:notice] = I18n.t(:username_edited, count: res) unless res.zero?
     flash[:success] = I18n.t(:resource_edit_success, name: @enterprise.name)
     redirect_to edit_enterprise_path(@enterprise)
   end
@@ -60,13 +54,14 @@ class EnterprisesController < ApplicationController
 
   private
 
-  def enterprise_params_create
+  def params_create
     params.require(:enterprise).permit(:name, :username_suffix)
   end
 
-  def enterprise_params_update
+  def params_update
     if current_admin
-      params.require(:enterprise).permit(:avatar, :description, :founded, :headquarters, :name, :username_suffix, :website)
+      params.require(:enterprise).permit(:avatar, :description, :founded, :headquarters, :name, :username_suffix,
+                                         :website)
     else
       params.require(:enterprise).permit(:avatar, :description, :founded, :headquarters, :website)
     end

@@ -1,9 +1,7 @@
 class EmployeesController < ApplicationController
-
   def show
     @employee = Employee.find_by! username: params[:username]
   end
-
 
   def new
     authorize Employee
@@ -12,11 +10,9 @@ class EmployeesController < ApplicationController
     @employee.enterprise = Enterprise.find_by(name: session['enterprise.created']) if session.key? 'enterprise.created'
   end
 
-
   def create
     authorize Employee
-    params = employee_params_create
-    params[:enterprise] = current_employee.enterprise.name if current_employee
+    params = params_create
 
     @employee = Employee.from_params(params)
     return render :new unless @employee.save
@@ -26,28 +22,20 @@ class EmployeesController < ApplicationController
     redirect_to employee_path @employee
   end
 
-
   def edit
     @employee = Employee.find_by(username: params[:username])
     authorize @employee
   end
 
-
   def update
     @employee = Employee.find_by(username: params[:username])
     authorize @employee
 
-    old_role = @employee.role
-    return render :edit unless @employee.update(employee_params_update)
-
-    if old_role == 'operator' && old_role != @employee.role
-      @employee.reallocate_tickets
-    end
+    return render :edit unless @employee.update(params_update)
 
     flash[:success] = I18n.t(:resource_edit_success, name: @employee.username)
     redirect_to edit_employee_path(@employee)
   end
-
 
   def destroy
     @employee = Employee.find_by(username: params[:username])
@@ -65,7 +53,6 @@ class EmployeesController < ApplicationController
     redirect_to root_path
   end
 
-
   def lock
     @employee = Employee.find_by(username: params[:username])
     authorize @employee
@@ -80,7 +67,6 @@ class EmployeesController < ApplicationController
     end
   end
 
-
   def unlock
     @employee = Employee.find_by(username: params[:username])
     authorize @employee
@@ -91,15 +77,16 @@ class EmployeesController < ApplicationController
     redirect_to edit_employee_path(@employee)
   end
 
-
-
   private
 
-  def employee_params_create
-    params.require(:employee).permit(:username, :email, :role, :enterprise)
+  def params_create
+    p = params.require(:employee).permit(:username, :email, :role, :enterprise)
+    p[:enterprise] = current_employee.enterprise.name if current_employee
+
+    p
   end
 
-  def employee_params_update
+  def params_update
     params.require(:employee).permit(:email, :role, :password, :password_confirmation)
   end
 end

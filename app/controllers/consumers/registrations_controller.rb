@@ -26,7 +26,6 @@ class Consumers::RegistrationsController < Devise::RegistrationsController
   # end
 
   # Soft deletes the +current_consumer+.
-  # Method: DELETE
   def destroy
     current_consumer.soft_delete
     sign_out current_consumer

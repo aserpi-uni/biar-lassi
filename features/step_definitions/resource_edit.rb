@@ -4,7 +4,6 @@ When(/^he changes the "([^"]*)" field to "([^"]*)"$/) do |field, value|
   fill_in field, with: value
 end
 
-
 ## Buttons
 
 When(/^he presses "([^"]*)"$/) do |arg|
@@ -14,7 +13,6 @@ end
 When(/^he saves$/) do
   click_button I18n.t(:save)
 end
-
 
 ## Facebook
 
@@ -27,7 +25,6 @@ When(/^he disconnects his account from Facebook$/) do
   visit settings_path_to(@current_user)
   find_link(I18n.t(:disconnect, scope: :facebook)).click
 end
-
 
 ## State
 

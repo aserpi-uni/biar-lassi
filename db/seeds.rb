@@ -11,5 +11,5 @@ super_admin.save!
 consumers = Consumer.order(:created_at).take(1)
 50.times do
   content = Faker::Lorem.sentence(5)
-  consumers.each{|consumer|consumer.posts.create!(content: content)}
+  consumers.each { |consumer| consumer.posts.create!(content: content) }
 end

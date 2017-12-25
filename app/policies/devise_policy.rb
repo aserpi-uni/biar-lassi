@@ -2,7 +2,7 @@
 class DevisePolicy < Struct.new(:user, :devise)
   attr_reader :user
 
-  def initialize(user, devise)
+  def initialize(user, _devise)
     @user = user
   end
 

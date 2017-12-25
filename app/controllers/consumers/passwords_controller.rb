@@ -1,4 +1,4 @@
-class Consumer::PasswordsController < Devise::PasswordsController
+class Consumers::PasswordsController < Devise::PasswordsController
   include Accessible
 
   before_action :authorize_user
