@@ -35,12 +35,11 @@
   </aside>
   <div class="col-md-8">
 
-    <% if @consumer.posts.any? %>
-        <h3>Posts (<%= @consumer.posts.count %>)</h3>
-        <ol class="posts">
-          <%= render @posts %>
-        </ol>
-        <%= will_paginate @posts %>
+    <% if @consumer.comments.any? %>
+        <h3>Comments (<%= @consumer.comments.count %>)</h3>
+        <ul class="feed">
+          <%= render 'feed' %>
+        </ul>
     <% end %>
   </div>
 </div>

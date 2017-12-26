@@ -7,13 +7,7 @@
     </section>
     <section class="stats">
       <%= render 'stats' %>
-      <% if @consumers.any? %>
-          <div class="user_avatars">
-            <% @consumers.each do |consumer| %>
-                <%= link_to gravatar_for(consumer, size: 30), consumer %>
-            <% end %>
-          </div>
-      <% end %>
+
     </section>
   </aside>
   <div class="col-md-8">
@@ -22,7 +16,7 @@
         <ul class="users follow">
           <%= render @consumers %>
         </ul>
-        <%= will_paginate %>
+        
     <% end %>
   </div>
 </div>

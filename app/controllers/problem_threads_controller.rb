@@ -1,5 +1,5 @@
 class ProblemThreadsController < ApplicationController
-  before_action :set_problem_thread, only: [:show, :edit, :update, :destroy]
+  before_action :set_problem_thread, only: [:show, :edit, :update, :destroy, :followers]
   before_action :set_product
   before_action :set_employee
   before_action :logged_in_user, only: [:create, :destroy]
@@ -40,6 +40,7 @@ class ProblemThreadsController < ApplicationController
 
     respond_to do |format|
       if @problem_thread.save
+        @problem_thread.consumer.follow(@problem_thread)
         ReferentNotifierMailer.new_referent_notify(@employee, @problem_thread, @product).deliver
         format.html { redirect_to product_problem_thread_path(@product, @problem_thread), notice: 'Problem thread was successfully created.' }
         format.json { render :show, status: :created, location: product_problem_thread_path(@product, @problem_thread) }
@@ -76,7 +77,7 @@ class ProblemThreadsController < ApplicationController
 
   def followers
     @title = "Followers"
-    @problem_thread  = ProblemThread.find(params[:id])
+    #@problem_thread  = ProblemThread.find(params[:id])
     @consumers = @problem_thread.followers.paginate(page: params[:page])
     render 'show_follow'
   end

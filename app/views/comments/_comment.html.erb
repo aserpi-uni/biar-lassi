@@ -1,8 +1,14 @@
 
-
 <li id="comment-<%= comment.id %>">
   <% #render partial: 'application/avatar', locals: {size:15} %>
-  <%= link_to comment.commentable.username, comment.commentable %>
+
+    <p>
+      Titolo thread:
+      <%= link_to comment.problem_thread.title, product_problem_thread_path(comment.problem_thread.product, comment.problem_thread)%>
+    </p>
+
+
+    <%= link_to comment.commentable.username, comment.commentable %>
   <p><%= comment.content %></p>
   <p>
   <small>

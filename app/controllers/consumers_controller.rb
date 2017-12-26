@@ -6,7 +6,8 @@ class ConsumersController < ApplicationController
   def show
     #@consumer = Consumer.find_by! username: params[:username]
     #@post = current_user.posts.build if logged_in?
-    @posts = @consumer.posts.paginate(page: params[:page])
+    #@posts = @consumer.posts.paginate(page: params[:page])
+    @feed_items = @consumer.feed.paginate(page: params[:page]).order(created_at: :desc)
   end
 
   def following

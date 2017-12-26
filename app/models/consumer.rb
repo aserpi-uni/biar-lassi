@@ -29,6 +29,12 @@ class Consumer < ApplicationRecord
 
   has_many :following, through: :active_relationships, source: :followed
 
+  def feed
+    #following_ids = "SELECT followed_id from relationships WHERE follower_id = commentable_id"
+    Comment.where("problem_thread_id in (?) OR commentable_id = ? AND commentable_type = ?", following_ids, id, Consumer)
+    #Comment.where("problem_thread_id in (?)", following_ids)
+  end
+
   def follow(problem_thread)
     active_relationships.create(followed_id: problem_thread.id)
   end

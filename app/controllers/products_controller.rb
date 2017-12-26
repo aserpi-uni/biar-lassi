@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   before_action :logged_in_user, only: [:create, :edit, :destroy]
-  before_action :check_supervisor?, only: [:create, :edit, :destroy]
+  before_action :check_supervisor?, only: [:new, :create, :edit, :destroy]
   before_action :find_enterprise
 
   # GET /products
