@@ -110,9 +110,10 @@ en:
   problem_threads_header: 'Problem threads (%{number})'
 
   product: 'Product'
-  products_by: 'Products by '
   product_same_enterprise: 'Products from the same enterprise'
   production_year: 'Production year'
+  products_by: 'Products by '
+  products_header: 'Products (%{number})'
 
   profile: 'Profile'
 

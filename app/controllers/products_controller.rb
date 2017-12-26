@@ -18,7 +18,7 @@ class ProductsController < ApplicationController
   def create
     authorize Product
 
-    @product = current_employee.enterprise.products.build(product_params)
+    @product = current_employee.enterprise.products.build(params_create)
     if @product.save
       flash[:success] = I18n.t(:resource_create_success, resource: I18n.t(:product).downcase)
       redirect_to @product
@@ -33,7 +33,7 @@ class ProductsController < ApplicationController
 
   def update
     authorize @product
-    if @product.update(product_params)
+    if @product.update(params_create)
       flash[:success] = I18n.t(:resource_edit_success, name: "#{@product.enterprise.name} #{@product.model}")
       redirect_to @product
     else
@@ -70,7 +70,14 @@ class ProductsController < ApplicationController
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
-  def product_params
+  def params_create
+    p = params.require(:product).permit(:model, :description, :production_year, :image)
+    p[:active] = true
+
+    p
+  end
+
+  def params_update
     params.require(:product).permit(:model, :description, :production_year, :image)
   end
 end
