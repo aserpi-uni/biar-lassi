@@ -20,6 +20,32 @@ class Consumer < ApplicationRecord
   has_many :problem_threads, dependent: :destroy
   has_many :comments, as: :commentable
 
+  # following charasteristics and functions
+
+  has_many :active_relationships, class_name: "Relationship",
+                                  foreign_key: "follower_id",
+                                  dependent: :destroy
+
+  has_many :following, through: :active_relationships, source: :followed
+
+  def feed
+    following_ids = "SELECT followed_id from relationships WHERE follower_id = :consumer_id"
+    Comment.where("problem_thread_id in (#{following_ids}) OR commentable_id = :consumer_id AND commentable_type = :consumer", consumer_id: id, consumer: Consumer)
+    #Comment.where("problem_thread_id in (?)", following_ids)
+  end
+
+  def follow(problem_thread)
+    active_relationships.create(followed_id: problem_thread.id)
+  end
+
+  def unfollow(problem_thread)
+    active_relationships.find_by(followed_id: problem_thread.id).destroy
+  end
+
+  def follow? (problem_thread)
+    following.include?(problem_thread)
+  end
+
   validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i,
                               message: I18n.t(:field_invalid) },
                     user_uniqueness: true, allow_blank: true, consumer_authentication: true

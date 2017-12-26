@@ -14,7 +14,9 @@ Rails.application.routes.draw do
                                         registrations: 'consumers/registrations',
                                         sessions: 'consumers/sessions',
                                         unlocks: 'consumers/unlocks' }
-  resources :consumers, param: :username
+  resources :consumers, param: :username do
+    get :following, on: :member
+  end
   post 'auth/consumers/facebook/connect_existing'
   delete 'auth/consumers/facebook/disconnect'
   post 'auth/consumers/facebook/select_username'
@@ -41,9 +43,15 @@ Rails.application.routes.draw do
     get 'search', on: :collection
 
     resources :problem_threads do
+      member do
+        get :followers
+      end
       resources :comments
     end
   end
+  
+  # Relationship
+  resources :relationships, only: [:create, :destroy]
 
   # Static pages
   get 'user_static_page/home'
