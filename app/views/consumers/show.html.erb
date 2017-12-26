@@ -35,13 +35,14 @@
   </aside>
   <div class="col-md-8">
 
-    <% if @consumer.comments.any? %>
-        <h3>Comments (<%= @consumer.comments.count %>)</h3>
+    <% if @consumer.feed.any? %>
+
         <ul class="feed">
           <%= render 'feed' %>
         </ul>
+
     <% end %>
   </div>
 </div>
-<%= debug @consumer %>
+
 

@@ -30,8 +30,8 @@ class Consumer < ApplicationRecord
   has_many :following, through: :active_relationships, source: :followed
 
   def feed
-    #following_ids = "SELECT followed_id from relationships WHERE follower_id = commentable_id"
-    Comment.where("problem_thread_id in (?) OR commentable_id = ? AND commentable_type = ?", following_ids, id, Consumer)
+    following_ids = "SELECT followed_id from relationships WHERE follower_id = :consumer_id"
+    Comment.where("problem_thread_id in (#{following_ids}) OR commentable_id = :consumer_id AND commentable_type = :consumer", consumer_id: id, consumer: Consumer)
     #Comment.where("problem_thread_id in (?)", following_ids)
   end
 
