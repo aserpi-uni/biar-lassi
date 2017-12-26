@@ -1,16 +1,14 @@
 <div class = "row">
   <% @products.each do |product|%>
-    <div class="col-sm-6 col-md-3 mb-5">
-      <div class="img-thumbnail">
-        <%=link_to (image_tag product.image.url(:medium), class: 'image'), product %>
-        <div class="caption">
-          <h3>
-            <%=link_to product.enterprise.name, product.enterprise%>
-            <%=link_to product.model, product%>
-          </h3>
-        </div>
+    <span class="border border-primary col-sm-6 col-md-3 mx-2 mb-5">
+        <%=link_to((image_tag product.image_url(:small), class: 'image col-12 mx-auto'), product) if product.image %>
+      <div class="caption col-12">
+        <h3 class="col-12">
+          <%=link_to product.enterprise.name, product.enterprise%>
+          <%=link_to product.model, product%>
+        </h3>
       </div>
-    </div>
+      </span>
   <%end%>
 </div>
 

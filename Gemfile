@@ -69,8 +69,11 @@ gem 'will_paginate', '3.1.5'
 
 # Utility
 gem 'faker', '1.4.2'
-gem 'paperclip', '~> 5.1'
+gem 'image_processing'
+gem 'mini_magick'
 gem 'searchkick', '~> 2.4'
+gem 'shrine'
+gem 'shrine-cloudinary'
 
 group :test do
   # JavaScript
