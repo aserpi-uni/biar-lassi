@@ -28,6 +28,14 @@ end
 
 ## State
 
+When(/^he deletes the( second)? (Enterprise|Product)$/) do |sec, res|
+  klass = "#{'second_' if sec}#{res.downcase}"
+  visit settings_path_to(instance_variable_get("@#{klass}"))
+  click_button I18n.t(:delete)
+  click_button I18n.t(:confirm)
+  instance_variable_set("@#{klass}", nil)
+end
+
 When(/^he deletes ((his)|the (.*)) account$/) do |usr|
   if usr == 'his'
     visit settings_path_to(@current_user)

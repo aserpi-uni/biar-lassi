@@ -1,4 +1,4 @@
-Feature: Edit an employee
+Feature: Update an employee
 
   Scenario: An Admin changes the email address of an Operator
     Given an Operator has an account

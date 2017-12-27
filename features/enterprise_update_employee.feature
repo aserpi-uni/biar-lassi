@@ -1,7 +1,7 @@
-Feature: Editing and Enterprise
+Feature: Editing an Enterprise
   As a Supervisor
   In order to better represent my Enterprise
-  I want to be able to edit my organization's public information
+  I want to be able to update my organization's public information
 
   Scenario: Supervisor changes the website
     Given a Supervisor is logged in

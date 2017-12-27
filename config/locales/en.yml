@@ -55,7 +55,7 @@ en:
   deleted: 'Your account has been deleted'
   deleted_other: 'The account has been deleted'
   deleted_resource: 'The %{res} has been deleted'
-  deleted_enterprise: '%{empl} employees and %{pro} products has been deleted'
+  deleted_enterprise: '%{empl} employees and %{pro} products have been deleted'
 
   description: 'Description'
 

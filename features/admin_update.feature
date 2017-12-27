@@ -1,4 +1,4 @@
-Feature: Edit an admin
+Feature: Update an admin
 
   Background:
     Given an Admin is logged in

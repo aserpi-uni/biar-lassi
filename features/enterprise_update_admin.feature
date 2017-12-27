@@ -1,7 +1,7 @@
-Feature: Editing and Enterprise
+Feature: Editing an Enterprise
   As a Admin
   In order to track changes in real world
-  I want to be able to edit an Enterprise's name and username suffix.
+  I want to be able to update an Enterprise's name and username suffix.
 
   Background:
     Given an Admin is logged in
@@ -20,4 +20,7 @@ Feature: Editing and Enterprise
     Then he should not see a "1 employee username" text
 
   Scenario: Admin deletes an Enterprise
-    # TODO: when Product
+    Given a Product
+    When he deletes the Enterprise
+    Then he should see a "1 employees" text
+    And he should see a "1 products" text
