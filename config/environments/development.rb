@@ -54,7 +54,4 @@ Rails.application.configure do
 
   # Mailer
   config.action_mailer.default_url_options = { host: ENV['HOST'] }
-
-  # Paperclip
-  Paperclip.options[:command_path] = '/usr/local/bin/convert'
 end

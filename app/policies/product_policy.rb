@@ -6,16 +6,8 @@ class ProductPolicy < ApplicationPolicy
     @product = product
   end
 
-  def new?
-    create?
-  end
-
   def create?
     @user.is_a?(Employee) && @user.supervisor?
-  end
-
-  def edit?
-    update?
   end
 
   def update?
@@ -33,7 +25,7 @@ class ProductPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      if user.is_a? Employee
+      if @user.is_a? Employee
         scope.where(enterprise: user.enterprise)
       else
         scope.all

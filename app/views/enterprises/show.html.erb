@@ -2,7 +2,7 @@
 
 <%= debug @enterprise %>
 
-<% if current_admin %>
+<% if policy(@enterprise).update? %>
   <%= link_to t(:edit), edit_enterprise_path(@enterprise) %>
 <% end %>
 

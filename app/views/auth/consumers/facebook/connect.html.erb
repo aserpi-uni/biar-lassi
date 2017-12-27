@@ -1,8 +1,7 @@
 <% provide :title, t(:title, scope: [:facebook]) %>
 
-<% unless @consumer.nil? %>
-  <%= render partial: 'errors', locals: { resource: @consumer } %>
-<% end %>
+<%= render(partial: 'errors', locals: { resource: @consumer }) unless @consumer.nil? %>
+
 
 <div class="jumbotron align-items-center">
   <div class="col-6 mx-auto" >
