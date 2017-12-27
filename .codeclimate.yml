@@ -14,4 +14,4 @@ exclude_patterns:
   - 'lib/assets/'
   - 'lib/tasks/'
   - 'scripts/cucumber'
-  - 'tests/'
+  - 'test/'

@@ -49,7 +49,7 @@ Rails.application.routes.draw do
       resources :comments
     end
   end
-  
+
   # Relationship
   resources :relationships, only: [:create, :destroy]
 

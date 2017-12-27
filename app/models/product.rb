@@ -1,5 +1,17 @@
+# The representation of an Enterprise's product.
+# Only Supervisors can create one, but Admins can update their fields.
+# *Parameters:*
+# * +active+ [Boolean]            it is possible to create new resources with the product
+# * +description+ [String]        description of the product
+# * +model+ [String]              name of the product
+# * +production_year+ [Integer]   when the manufacture of the product started
+#
+# *Associations:*
+# * +belongs_to+ [Enterprise]       the manufacturer
 class Product < ApplicationRecord
-  include ImageUploader::Attachment.new(:image) # TODO: missing image
+  include ImageUploader::Attachment.new(:image)
+  # TODO: missing image
+  # TODO: delete image
   searchkick
 
   belongs_to :enterprise
@@ -7,13 +19,13 @@ class Product < ApplicationRecord
 
   validates :model, product_uniqueness: true
 
-  # Blocks the products but not current problem threads
+  # Locks the products but not current problem threads
   def soft_delete
     self.active = false
     save
   end
 
-  # Unblocks the product
+  # Unlocks the product
   def soft_restore
     self.active = true
     save
