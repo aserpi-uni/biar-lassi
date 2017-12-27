@@ -1,12 +1,10 @@
 <% provide :title, t(:title, scope: [:facebook]) %>
 
-<% unless @consumer.nil? %>
-  <%= render partial: 'errors', locals: { resource: @consumer } %>
-<% end %>
+<%= render(partial: 'errors', locals: { resource: @consumer }) unless @consumer.nil? %>
+
 
 <div class="jumbotron align-items-center">
   <div class="col-6 mx-auto" >
-
     <h2>
       <%= t(:sign_up) %>
     </h2>
@@ -15,7 +13,6 @@
       <p>
         <%= t(:sign_in_existing_only, scope: [:facebook]) %>
       </p>
-
     <% else %>
       <p>
         <%= t(:first_time, scope: [:facebook]) %>
@@ -56,8 +53,6 @@
 
         <%= render partial: 'application/forms/submit', locals: { form: f, locale: :sign_in } %>
       <% end %> <!-- connect_existing form -->
-
     <% end %> <!-- if block email_taken -->
-
   </div> <!-- col-6 -->
 </div> <!-- jumbotron -->

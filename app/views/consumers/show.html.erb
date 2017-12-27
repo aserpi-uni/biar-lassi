@@ -1,4 +1,48 @@
 <% provide :title, @consumer.username %>
 
-<%= debug @consumer %>
+<%-# post editing form part -%>
+
+<% if false %>
+
+<% if logged_in? %>
+    <div class="row">
+      <aside class="col-md-4">
+        <section class="user_info">
+          <%= render 'shared/user_info' %>
+        </section>
+        <section class="post_form">
+          <%= render 'shared/post_form' %>
+        </section>
+      </aside>
+    </div>
+    <%end%>
+<%end%>
+
+<%-# posts dedicated part -%>
+<div class="row">
+  <aside class="col-md-4">
+    <section class="user_info">
+      <h1>
+
+        <%= render partial: 'application/avatar', locals: {size:50} %>
+
+        <%= @consumer.username %>
+      </h1>
+    </section>
+    <section class="user_stats">
+      <%=render 'stats'%>
+    </section>
+  </aside>
+  <div class="col-md-8">
+
+    <% if @consumer.feed.any? %>
+
+        <ul class="feed">
+          <%= render 'feed' %>
+        </ul>
+
+    <% end %>
+  </div>
+</div>
+
 

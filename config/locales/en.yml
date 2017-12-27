@@ -55,7 +55,7 @@ en:
   deleted: 'Your account has been deleted'
   deleted_other: 'The account has been deleted'
   deleted_resource: 'The %{res} has been deleted'
-  deleted_enterprise: '%{empl} employees and %{pro} products has been deleted'
+  deleted_enterprise: '%{empl} employees and %{pro} products have been deleted'
 
   description: 'Description'
 
@@ -64,7 +64,6 @@ en:
   email: 'Email'
 
   employee: 'Employee'
-  employee_new: 'New employee'
 
   enterprise: 'Enterprise'
   enterprise_settings: 'Enterprise settings'
@@ -72,6 +71,8 @@ en:
   field_invalid: 'is invalid'
 
   forbidden: 'You are not authorized to perform this action'
+
+  image: 'Image'
 
   incorrect_credentials: 'Incorrect username or password'
 
@@ -83,6 +84,8 @@ en:
   lock_disclaimer: 'You will not be able to login anymore. Are you sure?'
   lock_disclaimer_other: 'The user will not be able to login anymore. Are you sure?'
   locked_success: '%{usr} has been locked'
+
+  model: 'Model'
 
   name: 'Name'
 
@@ -103,6 +106,15 @@ en:
   password_reset: 'Reset password'
   password_reset_send: 'Send me reset password instructions'
 
+  problem_thread: 'Problem thread'
+  problem_threads_header: 'Problem threads (%{number})'
+
+  product: 'Product'
+  product_same_enterprise: 'Products from the same enterprise'
+  production_year: 'Production year'
+  products_by: 'Products by '
+  products_header: 'Products (%{number})'
+
   profile: 'Profile'
 
   or: 'or'
@@ -111,9 +123,17 @@ en:
 
   resource_create: 'Create a new %{resource}'
   resource_create_success: 'Successfully created a new %{resource}'
+  resource_destroy_success: 'Successfully deleted %{name}'
   resource_edit: 'Edit %{name}'
   resource_edit_success: 'Successfully edited %{name}'
   resource_new: 'New %{resource}'
+  resource_restore: 'Restore %{res}'
+  resource_restored: 'Successfully restored %{name}'
+
+  restore: 'Restore'
+
+  results_for_search: '%{resource} matching search "%{string}"'
+  results_no: 'No results'
 
   role: 'Role'
 
@@ -121,6 +141,8 @@ en:
   resend_confirmation: 'Resend confirmation instructions'
 
   save: 'Save'
+
+  search: 'Search'
 
   send: 'Send'
 
@@ -131,6 +153,8 @@ en:
   sign_in_omniauth: "Login with %{provider}"
   sign_out: 'Logout'
   sign_up: 'Register'
+
+  since: 'Since %{year}'
 
   sure: 'Are you sure?'
 

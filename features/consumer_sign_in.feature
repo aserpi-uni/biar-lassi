@@ -3,7 +3,6 @@ Feature: Signing in as a consumer
   as a Consumer
   I want to sign in with a pre-existing account or Facebook
 
-
   Scenario: Log in with a pre-existing account
     Given a Consumer has a confirmed account
     When the Consumer logs in

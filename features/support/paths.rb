@@ -13,7 +13,7 @@ module NavigationHelpers
     when /^(Admin|Consumer|Employee) (.*)'s profile page$/
       "/auth/#{Regexp.last_match(1).downcase.pluralize}/#{Regexp.last_match(2)}"
 
-    when /^new (Admin|Enterprise)$/
+    when /^new (Admin|Enterprise|Product)$/
       "/#{Regexp.last_match(1).downcase.pluralize}/new"
 
     when /^new (Employee|Operator|Supervisor)$/
@@ -33,7 +33,7 @@ module NavigationHelpers
         page_name =~ /(.*)/
         path_components = Regexp.last_match(1).split(/\s+/)
         send(path_components.push('path').join('_').to_sym)
-      rescue Object => e
+      rescue Object => _e
         raise "Can't find mapping from \\\"#{page_name}\\\" to a path.\\nNow, go and add a mapping in #{__FILE__}"
       end
     end
@@ -46,6 +46,8 @@ module NavigationHelpers
       '/auth/consumers/edit'
     elsif res.is_a? Enterprise
       "/enterprises/#{res.name}/edit"
+    elsif res.is_a? Product
+      "/products/#{res.id}/edit"
     end
   end
 end

@@ -12,8 +12,15 @@
     </button>
 
     <div id="navbarNavDropdown" class="navbar-collapse collapse">
-      <ul class="navbar-nav ml-auto">
+      <ul class="navbar-nav mr-auto">
+        <!-- FIXME -->
+        <%= form_with url: search_products_path, method: :get, local: true, class: 'form-inline my-2 my-lg-0', role: 'search' do |f| %>
+          <%= f.text_field :search, class: 'form-control mr-sm-2 navbar-form-custom', placeholder: t(:search) %>
+          <%= f.submit t(:search), name: nil, class: 'btn btn-outline-primary my-2 my-sm-0' %>
+        <%end%>
+      </ul>
 
+      <ul class="navbar-nav ml-auto">
         <% if current_user.nil? %>
           <%= render partial: 'application/navbar/no_user' %>
         <% else %>

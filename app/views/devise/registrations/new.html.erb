@@ -4,7 +4,6 @@
 
 <div class="jumbotron align-items-center">
   <div class="col-6 mx-auto" >
-
     <h2>
       <%= t :sign_up %>
     </h2>
@@ -19,10 +18,8 @@
       <%= render partial: 'application/forms/password_confirmation', locals: { form: f } %>
 
       <%= render partial: 'application/forms/submit', locals: { form: f, locale: :sign_up } %>
-
     <% end %> <!-- form -->
 
     <%= render 'devise/shared/links' %>
-
   </div> <!-- col-6 -->
 </div> <!-- jumbotron -->

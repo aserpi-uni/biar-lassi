@@ -247,8 +247,9 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_SECRET'], scope: 'public_profile,email',
-                  display: 'popup', callback_url: "http://#{ENV['HOST']}/auth/consumers/auth/facebook/callback"
+  config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_SECRET'],
+                  scope: 'public_profile,email', display: 'popup',
+                  callback_url: "http://#{ENV['HOST']}/auth/consumers/auth/facebook/callback"
 
   OmniAuth.config.logger = Rails.logger
 

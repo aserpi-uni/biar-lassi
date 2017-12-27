@@ -2,6 +2,12 @@
 
 <%= debug @enterprise %>
 
-<% if current_admin %>
+<% if policy(@enterprise).update? %>
   <%= link_to t(:edit), edit_enterprise_path(@enterprise) %>
 <% end %>
+
+<h3>
+  <%= t(:products_header, number: @enterprise.products.count) %>
+</h3>
+
+<%= render partial: 'products/list', locals: { products: @enterprise.products } %>

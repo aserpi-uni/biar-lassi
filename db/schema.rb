@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171107233020) do
+ActiveRecord::Schema.define(version: 20171226142029) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,18 @@ ActiveRecord::Schema.define(version: 20171107233020) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_admins_on_unlock_token", unique: true
     t.index ["username"], name: "index_admins_on_username", unique: true
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "problem_thread_id"
+    t.string "commentable_type"
+    t.bigint "commentable_id"
+    t.boolean "solution"
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
+    t.index ["problem_thread_id"], name: "index_comments_on_problem_thread_id"
   end
 
   create_table "consumers", force: :cascade do |t|
@@ -109,5 +121,55 @@ ActiveRecord::Schema.define(version: 20171107233020) do
     t.index ["name"], name: "index_enterprises_on_name", unique: true
   end
 
+  create_table "posts", force: :cascade do |t|
+    t.text "content"
+    t.bigint "consumer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["consumer_id", "created_at"], name: "index_posts_on_consumer_id_and_created_at"
+    t.index ["consumer_id"], name: "index_posts_on_consumer_id"
+  end
+
+  create_table "problem_threads", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "product_id"
+    t.bigint "consumer_id"
+    t.bigint "employee_id"
+    t.index ["consumer_id"], name: "index_problem_threads_on_consumer_id"
+    t.index ["employee_id"], name: "index_problem_threads_on_employee_id"
+    t.index ["product_id"], name: "index_problem_threads_on_product_id"
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "model"
+    t.text "description"
+    t.integer "production_year"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "enterprise_id"
+    t.boolean "active"
+    t.string "image_data"
+    t.index ["enterprise_id"], name: "index_products_on_enterprise_id"
+  end
+
+  create_table "relationships", force: :cascade do |t|
+    t.integer "follower_id"
+    t.integer "followed_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["followed_id"], name: "index_relationships_on_followed_id"
+    t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
+    t.index ["follower_id"], name: "index_relationships_on_follower_id"
+  end
+
+  add_foreign_key "comments", "problem_threads"
   add_foreign_key "employees", "enterprises"
+  add_foreign_key "posts", "consumers"
+  add_foreign_key "problem_threads", "consumers"
+  add_foreign_key "problem_threads", "employees"
+  add_foreign_key "problem_threads", "products"
+  add_foreign_key "products", "enterprises"
 end

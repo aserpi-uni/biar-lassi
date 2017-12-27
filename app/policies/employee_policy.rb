@@ -6,17 +6,9 @@ class EmployeePolicy < ApplicationPolicy
     @employee = employee
   end
 
-  def new?
-    create?
-  end
-
   def create?
     @user.is_a?(Admin) ||
       (@user.is_a?(Employee) && @user.supervisor?)
-  end
-
-  def edit?
-    update?
   end
 
   def update?
@@ -35,10 +27,6 @@ class EmployeePolicy < ApplicationPolicy
   end
 
   def unlock?
-    @user.is_a?(Admin) ||
-      (@user.is_a?(Employee) &&
-        @user.enterprise == @employee.enterprise &&
-        @employee.supervisor? &&
-        @user != @employee)
+    lock? && @user != @employee
   end
 end

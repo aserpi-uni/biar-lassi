@@ -4,7 +4,6 @@
 
 <div class="jumbotron align-items-center">
   <div class="col-6 mx-auto" >
-
     <h2>
       <%= t :resource_create, resource: @admin.class.name.downcase %>
     </h2>
@@ -15,8 +14,6 @@
       <%= render partial: 'application/forms/email', locals: { form: f } %>
 
       <%= render partial: 'application/forms/submit', locals: { form: f, locale: :create } %>
-
     <% end %> <!-- form -->
-
   </div> <!-- col-6 -->
 </div> <!-- jumbotron -->

@@ -1,12 +1,13 @@
 language: ruby
 cache: bundler
 rvm:
-- 2.4.0
+  - 2.4.0
 services:
-- postgresql
+  - postgresql
+  - elasticsearch
 before_script:
-- bundle install
-- RAILS_ENV='test' bundle exec rake db:setup
+  - bundle install
+  - RAILS_ENV='test' bundle exec rake db:setup
 script: bundle exec cucumber
 after_failure: cat log/test.log
 notifications:

@@ -1,4 +1,4 @@
-class EnterprisePolicy
+class EnterprisePolicy < ApplicationPolicy
   attr_reader :user, :enterprise
 
   def initialize(user, enterprise)
@@ -6,16 +6,8 @@ class EnterprisePolicy
     @enterprise = enterprise
   end
 
-  def new?
-    create?
-  end
-
   def create?
     @user.is_a? Admin
-  end
-
-  def edit?
-    update?
   end
 
   def update?
@@ -23,7 +15,7 @@ class EnterprisePolicy
       (@user.is_a?(Employee) &&
         @user.enterprise == @enterprise &&
         @user.supervisor?) &&
-      @enterprise.active?
+        @enterprise.active?
   end
 
   def destroy?

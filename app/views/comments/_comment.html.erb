@@ -1,0 +1,18 @@
+
+<li id="comment-<%= comment.id %>">
+  <% #render partial: 'application/avatar', locals: {size:15} %>
+
+    <p>
+      RE:
+      <%= link_to comment.problem_thread.title, product_problem_thread_path(comment.problem_thread.product, comment.problem_thread)%>
+    </p>
+
+
+    <%= link_to comment.commentable.username, comment.commentable %>:
+  <p><%= comment.content %></p>
+  <p>
+  <small>
+    Posted <%= time_ago_in_words(comment.created_at) %> ago.
+  </small>
+  </p>
+</li>

@@ -6,16 +6,8 @@ class AdminPolicy < ApplicationPolicy
     @admin = admin
   end
 
-  def new?
-    create?
-  end
-
   def create?
     @user.is_a? Admin
-  end
-
-  def edit?
-    update?
   end
 
   def update?
@@ -31,6 +23,6 @@ class AdminPolicy < ApplicationPolicy
   end
 
   def unlock?
-    @user.is_a?(Admin) && @user != @admin
+    lock? && @user != @admin
   end
 end

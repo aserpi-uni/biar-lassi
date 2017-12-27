@@ -20,9 +20,8 @@ class Employee < ApplicationRecord
          :timeoutable,
          :trackable
 
-
-
-  validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i, message: I18n.t(:field_invalid) },
+  validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i,
+                              message: I18n.t(:field_invalid) },
                     user_uniqueness: true
 
   validates :password, confirmation: true, length: { in: 8..128 }, on: :create
@@ -34,27 +33,33 @@ class Employee < ApplicationRecord
   enum role: { supervisor: 0, operator: 1 }
 
   belongs_to :enterprise
-
+  has_many :problem_threads
+  has_many :comments, as: :commentable
 
   # Create a new Employee from +create+ action parameters.
   def self.from_params(params)
     employee = Employee.new
-    pwd = Devise.friendly_token(20)
+    params[:password] = params[:password_confirmation] = Devise.friendly_token(20)
 
-    employee.email = params[:email]
-    if (employee.enterprise = Enterprise.find_by(name: params[:enterprise])) && employee.enterprise.active?
-      employee.username = "#{params[:username]}@#{employee.enterprise.username_suffix}"
+    if (params[:enterprise] = Enterprise.find_by(name: params[:enterprise])) && params[:enterprise].active?
+      params[:username] = "#{params[:username]}@#{params[:enterprise].username_suffix}"
     else
-      employee.username = "#{params[:username]}@no_enterprise"
+      params[:username] = "#{params[:username]}@no_enterprise"
     end
-    employee.role = params[:role]
 
-    employee.password = pwd
-    employee.password_confirmation = pwd
+    employee.assign_attributes(params)
 
     employee
   end
 
+  def update(attributes)
+    old_role = role
+    res = super attributes
+
+    reallocate_tickets if res && old_role == 'operator' && role != 'operator'
+
+    res
+  end
 
   def reallocate_tickets
     # TODO: redistribuire ogni ticket aperto ad altri operator

@@ -10,7 +10,6 @@ Given(/^an? (.*) has (a confirmed|an) account$/) do |klass, confirmed|
   @enterprise = instance_variable_get("@#{klass}").enterprise if employee? klass
 end
 
-
 ## Admin and Employee create
 
 When(/^he creates a new (Admin|Employee|Operator|Supervisor)$/) do |res|
@@ -25,7 +24,8 @@ When(/^he creates a new (Admin|Employee|Operator|Supervisor)$/) do |res|
 end
 
 When(/^he creates a new (Admin|Employee) with an? (.*) already taken$/) do |klass, field|
-  create_wrong_admin_or_employee klass, field, instance_variable_get("@#{klass.downcase}").send(field.parameterize.underscore)
+  create_wrong_admin_or_employee klass, field,
+                                 instance_variable_get("@#{klass.downcase}").send(field.parameterize.underscore)
 end
 
 When(/^he creates a new (Admin|Employee) with wrong (.*)$/) do |klass, field|
@@ -39,7 +39,6 @@ When(/^he creates a new Employee with a nonexistent Enterprise$/) do
   fill_in :enterprise, with: 'nonexistent'
   click_button I18n.t(:create)
 end
-
 
 ## Consumer sign up
 
@@ -64,7 +63,8 @@ end
 
 Given(/^a Consumer registers an account with a password too short$/) do
   visit path_to('Consumer sign up')
-  fill_consumer_register_form('consumer_one', 'consumer_email_one@example.com', pwd: 'pwd', pwd_confirm: 'pwd')
+  fill_consumer_register_form('consumer_one', 'consumer_email_one@example.com', pwd: 'pwd',
+                                                                                pwd_confirm: 'pwd')
   click_button I18n.t(:sign_up)
 end
 
@@ -80,8 +80,6 @@ When(/^a Consumer registers an account with an? (incorrect|reserved) username$/)
   fill_consumer_register_form(name, 'consumer_email_one@example.com')
   click_button I18n.t(:sign_up)
 end
-
-
 
 private
 

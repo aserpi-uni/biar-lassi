@@ -9,16 +9,14 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
 
-
   protected
 
   # Permits the parameters needed by Devise controllers.
   def configure_permitted_parameters
-    added_attrs = [:username, :email, :password, :password_confirmation]
+    added_attrs = %i[username email password password_confirmation]
     devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
     devise_parameter_sanitizer.permit :account_update, keys: added_attrs
   end
-
 
   # Returns the current user.
   def current_user
@@ -36,7 +34,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-
   private
 
   # Redirects the user after a _Pundit_ nay.
@@ -46,4 +43,17 @@ class ApplicationController < ActionController::Base
     redirect_to root_path
   end
 
+  def logged_in_user
+    unless logged_in?
+      # store_location //funzione per ricordare la posizione precedente all'errore
+      flash[:error] = 'Please log in'
+      redirect_to root_path
+    end
+  end
+
+  helper_method :logged_in?
+
+  def logged_in?
+    current_user != NIL
+  end
 end

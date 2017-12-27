@@ -1,11 +1,11 @@
 <% provide :title, @admin == current_admin ? t(:settings) : t(:resource_edit, name: @admin.username) %>
 
-
 <div class="jumbotron align-items-center">
   <div class="col-6 mx-auto" >
     <h3>
       <%= t :settings %>
     </h3>
+
     <%= form_with model: @admin, html: { method: :put }, local: true do |f| %>
       <%= render partial: 'application/forms/username', locals: { form: f, disabled: true} %>
 
@@ -28,6 +28,5 @@
         <%= render partial: 'application/edit/delete_account', locals: {user: @admin, path: admin_path(@admin) } %>
       <% end %>
     <% end %>
-
   </div> <!-- col-6 -->
 </div> <!-- jumbotron -->

@@ -1,6 +1,7 @@
 # Istruzioni per l'uso
-[![Build Status](https://travis-ci.org/aserpi/Tesi.svg?branch=development)](https://travis-ci.org/aserpi/Tesi)
-[![Coverage Status](https://coveralls.io/repos/github/aserpi/Tesi/badge.svg?branch=development)](https://coveralls.io/github/aserpi/Tesi?branch=development)
+[![Build Status](https://travis-ci.org/aserpi/Tesi.svg?branch=posts)](https://travis-ci.org/aserpi/Tesi)
+[![Coverage Status](https://coveralls.io/repos/github/aserpi/Tesi/badge.svg?branch=posts)](https://coveralls.io/github/aserpi/Tesi?branch=posts)
+[![Maintainability](https://api.codeclimate.com/v1/badges/beab3c583232e7da96d9/maintainability)](https://codeclimate.com/github/aserpi/Tesi/maintainability)
 
 Installazione:
 1. avviare il server PostgreSQL;
@@ -21,14 +22,10 @@ Per avviare il server attraverso Intellij IDEA o RubyMine è necessario creare l
    * impostare le variabili d'ambiente:
        * `DB_PASSWORD` con la password impostata precedentemente
        * `DB_USER` con l'username impostato precedentemente
-       * `DEVISE_SECRET` con la key usata da Devise (necessaria solo per avviare il server in
-       modalità `production`)
        * `FACEBOOK_APP_ID` con l'id fornito da Facebook
        * `FACEBOOK_SECRET` con il token fornito da Facebook
        * `HOST` con l'host del server
        * `RESERVED_NAMES` con tutti gli username riservati dal sistema
-       * `SECRET_KEY_BASE` con la chiave base (necessaria solo per avviare il server in modalità
-       `production`)
        * `SENDGRID_APIKEY` con il token fornito da SendGrid
 Se si vuole utilizzare la riga di comando è necessario caricare tutte le variabili d'ambiente
 manualmente.

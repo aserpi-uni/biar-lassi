@@ -1,0 +1,35 @@
+<%= form_with model: @product, local: true do |f| %>
+  <fieldset class="row align-items-center">
+    <%= fa_icon('hashtag fw', class: 'col-1 mt-4') %>
+    <div class="form-group bmd-form-group col" >
+      <%= f.text_field :model,  class: 'form-control', id: :model %>
+      <%= label_tag :model, t(:model), class: 'bmd-label-floating'%>
+    </div>
+  </fieldset>
+
+  <fieldset class="row align-items-center">
+    <%= fa_icon('comment-o fw', class: 'col-1 mt-4') %>
+    <div class="form-group bmd-form-group col" >
+      <%= f.text_area :descritpion,  class: 'form-control', id: :descritpion %>
+      <%= label_tag :description, t(:description), class: 'bmd-label-floating'%>
+    </div>
+  </fieldset>
+
+  <fieldset class="row align-items-center">
+    <%= fa_icon('calendar fw', class: 'col-1 mt-4') %>
+    <div class="form-group bmd-form-group col" >
+      <%= f.number_field :production_year,  class: 'form-control', id: :production_year %>
+      <%= label_tag :production_year, t(:production_year), class: 'bmd-label-floating'%>
+    </div>
+  </fieldset>
+
+  <fieldset class="row align-items-center">
+    <%= fa_icon('image fw', class: 'col-1 mt-4') %>
+    <div class="form-group bmd-form-group col" >
+      <%= f.file_field :image,  class: 'form-control-file', id: :image %>
+      <%= label_tag :image, t(:image), class: 'bmd-label-static' %>
+    </div>
+  </fieldset>
+
+  <%= render partial: 'application/forms/submit', locals: { form: f, locale: submit } %>
+<% end %>
