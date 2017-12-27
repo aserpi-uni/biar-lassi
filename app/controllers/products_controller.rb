@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[show edit update destroy restore]
 
+  # TODO: test
   def index
     @products = policy_scope(Product).order(:model).page(params[:page])
   end
@@ -33,7 +34,7 @@ class ProductsController < ApplicationController
 
   def update
     authorize @product
-    if @product.update(params_create)
+    if @product.update(params_update)
       flash[:success] = I18n.t(:resource_edit_success, name: "#{@product.enterprise.name} #{@product.model}")
       redirect_to edit_product_path(@product)
     else
@@ -41,6 +42,7 @@ class ProductsController < ApplicationController
     end
   end
 
+  # TODO: test
   def destroy
     authorize @product
     @product.soft_delete
@@ -49,6 +51,7 @@ class ProductsController < ApplicationController
     redirect_to products_url
   end
 
+  # TODO: test
   def restore
     authorize @product
     @product.soft_restore
@@ -57,6 +60,7 @@ class ProductsController < ApplicationController
     redirect_to edit_product_path(@product)
   end
 
+  # TODO: test
   def search
     @products = policy_scope(Product).search(params[:search], fields: [:model], page: params[:page])
     @search = params[:search]
