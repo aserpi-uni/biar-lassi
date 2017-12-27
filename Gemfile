@@ -85,6 +85,6 @@ group :test do
   gem 'factory_bot_rails'
 
   # Test coverage
-  gem 'coveralls', require: false
+  gem 'coveralls', '>= 0.8', require: false
   gem 'simplecov', require: false
 end
