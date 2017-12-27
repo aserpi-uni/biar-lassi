@@ -7,3 +7,11 @@ plugins:
     enabled: true
   scss-lint:
     enabled: true
+
+exclude_patterns:
+  - 'bin/'
+  - 'db/'
+  - 'lib/assets/'
+  - 'lib/tasks/'
+  - 'scripts/cucumber'
+  - 'tests/'
