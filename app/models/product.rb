@@ -10,14 +10,20 @@
 # * +belongs_to+ [Enterprise]       the manufacturer
 class Product < ApplicationRecord
   include ImageUploader::Attachment.new(:image)
-  # TODO: missing image
-  # TODO: delete image
   searchkick
 
   belongs_to :enterprise
   has_many :problem_threads, dependent: :destroy
 
   validates :model, product_uniqueness: true
+
+  def update(attributes)
+    old_image = image
+    return false unless super(attributes)
+
+    old_image.delete(:all) if old_image && old_image != image
+    true
+  end
 
   # Locks the products but not current problem threads
   def soft_delete

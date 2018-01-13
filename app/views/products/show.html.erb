@@ -9,7 +9,7 @@
   <div class="panel-body">
     <div class="row">
       <div class="col-md-3">
-        <%= image_tag(@product.image_url(:medium), class: 'col-12 pl-0 mb-3 mt-1') if @product.image %>
+        <%= image_tag(@product.image_url(:medium), class: 'col-12 pl-0 mb-3 mt-1') %>
 
         <% if policy(@product).update? %>
           <%= button_to I18n.t(:resource_edit, name: I18n.t(:product)), edit_product_path(@product), method: :get, class: 'btn btn-primary btn-raised' %>

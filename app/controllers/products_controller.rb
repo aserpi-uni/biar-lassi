@@ -36,7 +36,7 @@ class ProductsController < ApplicationController
     authorize @product
     if @product.update(params_update)
       flash[:success] = I18n.t(:resource_edit_success, name: "#{@product.enterprise.name} #{@product.model}")
-      redirect_to edit_product_path(@product)
+      redirect_to @product
     else
       render :edit
     end
