@@ -38,7 +38,10 @@ class Enterprise < ApplicationRecord
 
   def update(attributes)
     old_suffix = username_suffix
+    old_name = name
     return false unless super(attributes)
+
+    products.find_each(&:reindex_async) if old_name != name
 
     if old_suffix != username_suffix
       employees.find_each(&:update_suffix)

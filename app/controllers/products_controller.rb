@@ -62,7 +62,10 @@ class ProductsController < ApplicationController
 
   # TODO: test
   def search
-    @products = policy_scope(Product).search(params[:search], fields: [:model], page: params[:page])
+    @products = policy_scope(Product).search(params[:search],
+                                             fields: ['enterprise^10', :model], operator: :or,
+                                             order: { _score: :desc },
+                                             page: params[:page])
     @search = params[:search]
   end
 
