@@ -16,26 +16,18 @@
       <% end %>
 
       <fieldset class="row align-items-center">
-        <%= fa_icon('image fw', class: 'col-1 mt-4') %>
-        <div class="form-group bmd-form-group col">
-          <%= f.text_field :avatar, class: 'form-control', id: :avatar %>
-          <%= label_tag :avatar, t(:avatar), class: 'bmd-label-floating'%>
-        </div>
-      </fieldset>
-
-      <fieldset class="row align-items-center">
         <%= fa_icon('support fw', class: 'col-1 mt-4') %>
-        <div class="form-group bmd-form-group col">
-          <%= f.text_field :avatar_operator, class: 'form-control', id: :avatar_operator %>
-          <%= label_tag :avatar_operator, t(:avatar_operator), class: 'bmd-label-floating'%>
+        <div class="form-group bmd-form-group col" >
+          <%= f.file_field :avatar_operator,  class: 'form-control-file', id: :avatar_operator %>
+          <%= label_tag :avatar_operator, t(:avatar_operator), class: 'bmd-label-static' %>
         </div>
       </fieldset>
 
       <fieldset class="row align-items-center">
         <%= fa_icon('user-circle fw', class: 'col-1 mt-4') %>
-        <div class="form-group bmd-form-group col">
-          <%= f.text_field :avatar_supervisor, class: 'form-control', id: :avatar_supervisor %>
-          <%= label_tag :avatar_supervisor, t(:avatar_supervisor), class: 'bmd-label-floating'%>
+        <div class="form-group bmd-form-group col" >
+          <%= f.file_field :avatar_supervisor,  class: 'form-control-file', id: :avatar_supervisor %>
+          <%= label_tag :avatar_supervisor, t(:avatar_supervisor), class: 'bmd-label-static' %>
         </div>
       </fieldset>
 
@@ -60,6 +52,14 @@
         <div class="form-group bmd-form-group col">
           <%= f.text_field :headquarters, class: 'form-control', id: :headquarters %>
           <%= label_tag :headquarters, t(:headquarters), class: 'bmd-label-floating'%>
+        </div>
+      </fieldset>
+
+      <fieldset class="row align-items-center">
+        <%= fa_icon('image fw', class: 'col-1 mt-4') %>
+        <div class="form-group bmd-form-group col" >
+          <%= f.file_field :image,  class: 'form-control-file', id: :image %>
+          <%= label_tag :image, t(:image), class: 'bmd-label-static' %>
         </div>
       </fieldset>
 

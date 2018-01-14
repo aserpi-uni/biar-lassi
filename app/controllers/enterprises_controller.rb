@@ -62,10 +62,11 @@ class EnterprisesController < ApplicationController
 
   def params_update
     if current_admin
-      params.require(:enterprise).permit(:avatar, :description, :founded, :headquarters, :name, :username_suffix,
-                                         :website)
+      params.require(:enterprise).permit(:avatar_operator, :avatar_supervisor, :description, :founded, :headquarters,
+                                         :image, :name, :username_suffix, :website)
     else
-      params.require(:enterprise).permit(:avatar, :description, :founded, :headquarters, :website)
+      params.require(:enterprise).permit(:avatar_operator, :avatar_supervisor, :description, :founded, :headquarters,
+                                         :image, :website)
     end
   end
 end
