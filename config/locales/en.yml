@@ -1,28 +1,9 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
 en:
   actions: 'Actions'
 
-  admin: 'Admin'
+  admin:
+    one: 'admin'
+    other: 'admins'
 
   already_used: 'already used'
 
@@ -63,14 +44,22 @@ en:
 
   email: 'Email'
 
-  employee: 'Employee'
+  employee:
+    one: 'employee'
+    other: 'employees'
 
-  enterprise: 'Enterprise'
+  enterprise:
+    one: 'enterprise'
+    other: 'enterprises'
   enterprise_settings: 'Enterprise settings'
 
   field_invalid: 'is invalid'
 
   forbidden: 'You are not authorized to perform this action'
+
+  founded: 'Founded'
+
+  headquarters: 'Headquarters'
 
   image: 'Image'
 
@@ -109,11 +98,16 @@ en:
   problem_thread: 'Problem thread'
   problem_threads_header: 'Problem threads (%{number})'
 
-  product: 'Product'
+  product:
+    one: 'product'
+    other: 'products'
   product_same_enterprise: 'Products from the same enterprise'
   production_year: 'Production year'
   products_by: 'Products by '
-  products_header: 'Products (%{number})'
+  products_header:
+    zero: 'Products'
+    one: '1 product'
+    other: '%{count} products'
 
   profile: 'Profile'
 
@@ -132,7 +126,9 @@ en:
 
   restore: 'Restore'
 
-  results_for_search: '%{resource} matching search "%{string}"'
+  results_for_search:
+    one: '1 %{resource} matching search "%{string}"'
+    other: '%{count} %{resource} matching search "%{string}"'
   results_no: 'No results'
 
   role: 'Role'
@@ -179,6 +175,8 @@ en:
   validation_failed:
     one: "1 error prohibited this %{resource} from being saved:"
     other: "%{count} errors prohibited this %{resource} from being saved:"
+
+  website: 'Website'
 
 
   devise_email:

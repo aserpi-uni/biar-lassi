@@ -1,6 +1,9 @@
 class EnterprisesController < ApplicationController
+  before_action :set_enterprise, only: %i[show edit update destroy products]
+
   def show
-    @enterprise = Enterprise.find_by! name: params[:name]
+    authorize @enterprise
+
     @products = @enterprise.products.page(params[:page])
   end
 
@@ -15,18 +18,16 @@ class EnterprisesController < ApplicationController
     @enterprise = Enterprise.new(params_create)
     return render new_enterprise_path unless @enterprise.save
 
-    flash[:success] = I18n.t(:resource_create_success, resource: I18n.t(:enterprise).downcase)
+    flash[:success] = I18n.t(:resource_create_success, resource: I18n.t(:enterprise, count: 1))
     session['enterprise.created'] = @enterprise.name
     redirect_to new_employee_path
   end
 
   def edit
-    @enterprise = Enterprise.find_by(name: params[:name])
     authorize @enterprise
   end
 
   def update
-    @enterprise = Enterprise.find_by(name: params[:name])
     authorize @enterprise
 
     return render :edit unless (res = @enterprise.update(params_update))
@@ -37,12 +38,11 @@ class EnterprisesController < ApplicationController
   end
 
   def destroy
-    @enterprise = Enterprise.find_by(name: params[:name])
     authorize @enterprise
 
     @enterprise.soft_delete
 
-    flash[:success] = I18n.t(:deleted_resource, res: @enterprise.class.name)
+    flash[:success] = I18n.t(:deleted_resource, res: t(:enterprise, count: 1))
     flash[:notice] =  I18n.t(:deleted_enterprise, empl: @enterprise.employees.count, pro: @enterprise.products.count)
 
     redirect_to enterprise_path(@enterprise)
@@ -50,7 +50,6 @@ class EnterprisesController < ApplicationController
 
   # TODO: test
   def products
-    @enterprise = Enterprise.find_by(name: params[:name])
     @products = @enterprise.products.order(:model).page(params[:page])
   end
 
@@ -68,5 +67,9 @@ class EnterprisesController < ApplicationController
       params.require(:enterprise).permit(:avatar_operator, :avatar_supervisor, :description, :founded, :headquarters,
                                          :image, :website)
     end
+  end
+
+  def set_enterprise
+    @enterprise = Enterprise.find_by!(name: params[:name])
   end
 end

@@ -7,7 +7,7 @@
 <% end %>
 
 <h3>
-  <%= t(:products_header, number: @enterprise.products.count) %>
+  <%= t(:products_header, count: @enterprise.products.count) %>
 </h3>
 
-<%= render partial: 'products/list', locals: { products: @enterprise.products } %>
+<%= render partial: 'products/list' %>

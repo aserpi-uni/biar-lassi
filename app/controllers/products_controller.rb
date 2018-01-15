@@ -21,7 +21,7 @@ class ProductsController < ApplicationController
 
     @product = current_employee.enterprise.products.build(params_create)
     if @product.save
-      flash[:success] = I18n.t(:resource_create_success, resource: I18n.t(:product).downcase)
+      flash[:success] = I18n.t(:resource_create_success, resource: I18n.t(:product, count: 1))
       redirect_to @product
     else
       render :new
@@ -47,7 +47,7 @@ class ProductsController < ApplicationController
     authorize @product
     @product.soft_delete
 
-    flash[:success] = I18n.t(:deleted_resource, res: I18n.t(:product))
+    flash[:success] = I18n.t(:deleted_resource, res: I18n.t(:product, count: 1))
     redirect_to products_url
   end
 

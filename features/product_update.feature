@@ -8,7 +8,8 @@ Feature: Update a Product
   Scenario: Supervisor updates a Product
     Given he changes the "model" field to "Model_two"
     When he saves
-    Then he should see a "model" input field with value "Model_two"
+    And save page
+    Then he should see a "Model_two" text
 
   Scenario: Supervisor tries to update a Product with a model already taken
     Given a second Product

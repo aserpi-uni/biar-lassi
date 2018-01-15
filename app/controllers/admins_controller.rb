@@ -1,7 +1,7 @@
 class AdminsController < ApplicationController
-  def show
-    @admin = Admin.find_by! username: params[:username]
-  end
+  before_action :set_admin, only: %i[show edit update destroy lock unlock]
+
+  def show; end
 
   def new
     authorize Admin
@@ -16,17 +16,15 @@ class AdminsController < ApplicationController
     return render :new unless @admin.save
 
     UserMailer.new_email(@admin).deliver_later
-    flash[:success] = I18n.t(:resource_create_success, resource: I18n.t(:admin).downcase)
+    flash[:success] = I18n.t(:resource_create_success, resource: I18n.t(:admin, count: 1))
     redirect_to admin_path @admin
   end
 
   def edit
-    @admin = Admin.find_by(username: params[:username])
     authorize @admin
   end
 
   def update
-    @admin = Admin.find_by(username: params[:username])
     authorize @admin
 
     return render :edit unless @admin.update(params_update)
@@ -36,7 +34,6 @@ class AdminsController < ApplicationController
   end
 
   def destroy
-    @admin = Admin.find_by(username: params[:username])
     authorize @admin
 
     @admin.soft_delete
@@ -52,7 +49,6 @@ class AdminsController < ApplicationController
   end
 
   def lock
-    @admin = Admin.find_by(username: params[:username])
     authorize @admin
 
     @admin.soft_lock
@@ -66,7 +62,6 @@ class AdminsController < ApplicationController
   end
 
   def unlock
-    @admin = Admin.find_by(username: params[:username])
     authorize @admin
 
     @admin.soft_unlock
@@ -83,5 +78,9 @@ class AdminsController < ApplicationController
 
   def params_update
     params.require(:admin).permit(:email, :password, :password_confirmation)
+  end
+
+  def set_admin
+    @admin = Admin.find_by!(username: params[:username])
   end
 end

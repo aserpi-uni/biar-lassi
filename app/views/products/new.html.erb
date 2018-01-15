@@ -1,11 +1,11 @@
-<% provide :title, t(:resource_new, resource: :product) %>
+<% provide :title, t(:resource_new, resource: t(:product, count: 1)) %>
 
 <%= render partial: 'errors', locals: { resource: @product } %>
 
 <div class="jumbotron align-items-center">
   <div class="col-6 mx-auto" >
     <h2>
-      <%= t(:resource_create, resource: I18n.t(:product).downcase) %>
+      <%= t(:resource_create, resource: t(:product, count: 1)) %>
     </h2>
 
     <%= render partial: 'form', locals: { submit: :create } %>

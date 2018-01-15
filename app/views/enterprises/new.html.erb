@@ -1,17 +1,17 @@
-<% provide :title, t(:resource_new, resource: @enterprise.class.name) %>
+<% provide :title, t(:resource_new, resource: t(:enterprise, count: 1)) %>
 
 <%= render partial: 'errors', locals: { resource: @enterprise } %>
 
 <div class="jumbotron align-items-center">
   <div class="col-6 mx-auto" >
     <h2>
-      <%= t :resource_create, resource: @enterprise.class.name.downcase %>
+      <%= t :resource_create, resource: t(:enterprise, count: 1) %>
     </h2>
 
     <%= form_with model: @enterprise, local: true do |f| %>
-      <%= render partial: 'application/forms/enterprise_name', locals: { form: f } %>
+      <%= render partial: 'enterprises/forms/name', locals: {form: f } %>
 
-      <%= render partial: 'application/forms/username_suffix', locals: { form: f } %>
+      <%= render partial: 'enterprises/forms/username_suffix', locals: { form: f } %>
 
       <%= render partial: 'application/forms/submit', locals: { form: f, locale: :create} %>
     <% end %>

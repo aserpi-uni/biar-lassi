@@ -4,7 +4,7 @@
 
     <div class="col">
       <h5>
-        <%= t(:validation_failed, resource: resource.class.name, count: resource.errors.count) %>
+        <%= t(:validation_failed, resource: t(resource.class.name.downcase, count: 1), count: resource.errors.count) %>
       </h5>
       <ul>
         <% resource.errors.full_messages.each do |msg| %>

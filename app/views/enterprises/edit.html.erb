@@ -10,9 +10,9 @@
 
     <%= form_with model: @enterprise, method: :put, local: true do |f| %>
       <% if current_admin %>
-        <%= render partial: 'application/forms/enterprise_name', locals: { form: f } %>
+        <%= render partial: 'enterprises/forms/name', locals: { form: f } %>
 
-        <%= render partial: 'application/forms/username_suffix', locals: { form: f } %>
+        <%= render partial: 'enterprises/forms/username_suffix', locals: { form: f } %>
       <% end %>
 
       <fieldset class="row align-items-center">
@@ -75,7 +75,7 @@
     <% end %>
 
     <% if current_admin %>
-        <%= render partial: 'application/edit/delete_resource', locals: {res: @enterprise, path: enterprise_path(@enterprise) } %>
+        <%= render partial: 'application/edit/delete_resource', locals: {resource: @enterprise, path: enterprise_path(@enterprise) } %>
     <% end %>
   </div> <!-- col-6 -->
 </div> <!-- jumbotron -->

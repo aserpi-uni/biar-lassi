@@ -1,6 +1,6 @@
 <div class="my-5">
   <h3>
-    <%= t :delete_resource, res: res.class.name %>
+    <%= t :delete_resource, res: t(resource.class.name.downcase, count: 1) %>
   </h3>
 
   <p>

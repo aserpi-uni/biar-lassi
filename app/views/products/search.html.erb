@@ -1,13 +1,7 @@
 <% provide :title, @search %>
 
 <h1>
-  <%= t(:results_for_search, resource: I18n.t(:product).pluralize, string: @search) %>
+  <%= t(:results_for_search, count: @products.count, resource: t(:product, count: @products.count), string: @search) %>
 </h1>
 
 <%= render partial: 'list' %>
-
-<% if @products.empty? %>
-  <h3>
-    <%= t(:results_no) %>
-  </h3>
-<% end %>

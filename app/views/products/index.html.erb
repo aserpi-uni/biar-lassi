@@ -1,7 +1,7 @@
-<% provide :title, t(:product).pluralize %>
+<% provide :title, t(:product, count: 500).capitalize %>
 
 <h1>
-  <%= t(:product).pluralize %>
+  <%= t(:product, count: 500).capitalize %>
 </h1>
 
 <%= render partial: 'list' %>

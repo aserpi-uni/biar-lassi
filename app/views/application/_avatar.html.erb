@@ -1,4 +1,5 @@
 <% description ||= t(:avatar).downcase %>
+
 <% if current_employee && !current_employee.enterprise.send("avatar_#{current_employee.role}").blank? %>
     <%= image_tag current_employee.enterprise.send("avatar_#{current_employee.role}_url", :small), alt: description, height: size, width: size %>
 <% else %>

@@ -1,6 +1,8 @@
 class EmployeesController < ApplicationController
+  before_action :set_employee, only: %i[show edit update destroy lock unlock]
+
   def show
-    @employee = Employee.find_by! username: params[:username]
+    authorize @employee
   end
 
   def new
@@ -18,17 +20,15 @@ class EmployeesController < ApplicationController
     return render :new unless @employee.save
 
     UserMailer.new_email(@employee).deliver_later
-    flash[:success] = I18n.t(:resource_create_success, resource: I18n.t(:employee).downcase)
+    flash[:success] = I18n.t(:resource_create_success, resource: I18n.t(:employee, count: 1))
     redirect_to employee_path @employee
   end
 
   def edit
-    @employee = Employee.find_by(username: params[:username])
     authorize @employee
   end
 
   def update
-    @employee = Employee.find_by(username: params[:username])
     authorize @employee
 
     return render :edit unless @employee.update(params_update)
@@ -38,7 +38,6 @@ class EmployeesController < ApplicationController
   end
 
   def destroy
-    @employee = Employee.find_by(username: params[:username])
     authorize @employee
 
     @employee.soft_delete
@@ -54,7 +53,6 @@ class EmployeesController < ApplicationController
   end
 
   def lock
-    @employee = Employee.find_by(username: params[:username])
     authorize @employee
 
     @employee.soft_lock
@@ -68,7 +66,6 @@ class EmployeesController < ApplicationController
   end
 
   def unlock
-    @employee = Employee.find_by(username: params[:username])
     authorize @employee
 
     @employee.soft_lock
@@ -88,5 +85,9 @@ class EmployeesController < ApplicationController
 
   def params_update
     params.require(:employee).permit(:email, :role, :password, :password_confirmation)
+  end
+
+  def set_employee
+    @employee = Employee.find_by!(username: params[:username])
   end
 end

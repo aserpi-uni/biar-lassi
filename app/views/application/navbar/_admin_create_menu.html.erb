@@ -16,7 +16,7 @@
     <%= link_to new_enterprise_path, class: 'dropdown-item' do %>
       <span class="col" style="padding-left:0;padding-right:0">
         <%= fa_icon 'briefcase fw' %>
-        <%= t(:enterprise) %>
+        <%= t(:enterprise, count: 1).capitalize %>
       </span>
     <% end %>
   </div>
