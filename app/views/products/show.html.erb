@@ -18,7 +18,7 @@
 
       <div class = "col-md-7">
         <small>
-          <%= t(:since, year: @product.production_year) %>
+          <%= t(:since, year: @product.production_year) if @product.production_year %>
         </small>
 
         <div>

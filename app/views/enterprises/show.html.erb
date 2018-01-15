@@ -1,13 +1,48 @@
 <% provide :title, @enterprise.name %>
 
-<%= debug @enterprise %>
+<h2>
+  <%= @enterprise.name %>
+</h2>
 
-<% if policy(@enterprise).update? %>
-  <%= link_to t(:edit), edit_enterprise_path(@enterprise) %>
-<% end %>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-3">
+        <%= image_tag(@enterprise.image_url(:medium), class: 'col-12 pl-0 mb-3 mt-1') %>
 
-<h3>
-  <%= t(:products_header, count: @enterprise.products.count) %>
-</h3>
+        <% if policy(@enterprise).update? %>
+          <%= button_to t(:resource_edit, name: t(:enterprise, count: 1)), edit_enterprise_path(@enterprise), method: :get, class: 'btn btn-primary btn-raised' %>
+        <% end %>
+      </div>
+
+      <div class = "col-md-7">
+        <small>
+          <%= t(:founded_in, year: @enterprise.founded) if @enterprise.founded %>
+          <br>
+          <%= t(:headquarters_in, loc: @enterprise.headquarters) if @enterprise.headquarters %>
+        </small>
+
+        <div>
+          <%= @enterprise.description %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <h3>
+    <%= t(:products_header, count: @enterprise.products.count) %>
+  </h3>
+  <div class="col text-right">
+    <h3>
+      <%= link_to products_enterprise_path(@enterprise) do %>
+        <%= fa_icon 'fw navicon' %>
+        <%= t(:view_all) %>
+      <% end %>
+    </h3>
+  </div>
+</div>
+
 
 <%= render partial: 'products/list' %>
