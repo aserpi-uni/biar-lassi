@@ -4,4 +4,4 @@
   <%= Product.model_name.human(count: 500).capitalize %>
 </h1>
 
-<%= render partial: 'list' %>
+<%= render partial: 'list', locals: { products: @products } %>

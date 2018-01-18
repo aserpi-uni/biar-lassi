@@ -1,7 +1,7 @@
 <% provide :title, @search %>
 
 <h1>
-  <%= t(:results_for_search, count: @products.count, resource: Product..model_name.human(count: @products.count), string: @search) %>
+  <%= t(:results_for_search, count: @products.count, resource: Product.model_name.human(count: @products.count), string: @search) %>
 </h1>
 
-<%= render partial: 'list' %>
+<%= render partial: 'list', locals: { products: @products } %>

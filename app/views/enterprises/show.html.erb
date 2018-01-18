@@ -45,4 +45,4 @@
 </div>
 
 
-<%= render partial: 'products/list' %>
+<%= render partial: 'products/list', locals: { paginate: false, products: @enterprise.products.order(:model).take(10) } %>

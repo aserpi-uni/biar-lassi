@@ -5,4 +5,4 @@
   <%= link_to @enterprise.name, enterprise_path(@enterprise) %>
 </h2>
 
-<%= render partial: 'products/list' %>
+<%= render partial: 'products/list', locals: { products: @enterprise.products.order(:model).page(params[:page]) }  %>

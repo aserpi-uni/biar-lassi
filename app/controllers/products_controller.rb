@@ -7,8 +7,7 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @problem_thread = @product.problem_threads.build
-    @problem_threads = @product.problem_threads.page(params[:page])
+    authorize @product
   end
 
   def new

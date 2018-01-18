@@ -3,8 +3,6 @@ class EnterprisesController < ApplicationController
 
   def show
     authorize @enterprise
-
-    @products = @enterprise.products.order(:model).paginate(page: params[:page], per_page: 5)
   end
 
   def new
@@ -49,9 +47,7 @@ class EnterprisesController < ApplicationController
   end
 
   # TODO: test
-  def products
-    @products = @enterprise.products.order(:model).page(params[:page])
-  end
+  def products; end
 
   private
 

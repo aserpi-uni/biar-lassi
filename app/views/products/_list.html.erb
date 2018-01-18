@@ -1,5 +1,7 @@
+<% paginate = true if paginate.nil?%>
+
 <div class = "row">
-  <% @products.each do |product|%>
+  <% products.each do |product|%>
     <span class="border border-primary col-sm-6 col-md-3 mx-2 mb-5">
         <%=link_to((image_tag product.image_url(:small), class: 'image col-12 mx-auto my-2'), product) %>
       <div class="caption col-12">
@@ -12,9 +14,11 @@
   <%end%>
 </div>
 
-<%= will_paginate @products, renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer %>
+<% if paginate %>
+  <%= will_paginate(products, renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer) %>
+<% end %>
 
-<% if @products.empty? %>
+<% if products.empty? %>
   <h3>
     <%= t(:results_no) %>
   </h3>
