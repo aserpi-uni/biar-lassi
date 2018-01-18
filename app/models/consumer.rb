@@ -1,9 +1,14 @@
-# An end user that can post new +remarks+ and +comments+. # FIXME
+# An end user.
 #
 # *Parameters:*
 # * +username+ [String]  user public identification
 # * +email+ [String]     user's email address
 # * others               See https://github.com/plataformatec/devise
+#
+# *Associations:*
+# * +has_many+ [Comment]          comments posted by the consumer
+# * +has_many+ [Post]             posts posted by the consumer
+# * +has_many+ [ProblemThread]    problem threads opened by the consumer
 class Consumer < ApplicationRecord
   include UserState
 
@@ -46,15 +51,14 @@ class Consumer < ApplicationRecord
     following.include?(problem_thread)
   end
 
-  validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i,
-                              message: I18n.t(:field_invalid) },
-                    user_uniqueness: true, allow_blank: true, consumer_authentication: true
+  validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i }, allow_blank: true,
+                    consumer_authentication: true, user_uniqueness: true
 
   validates :password, confirmation: true, length: { in: 8..128 }, on: :create
   validates :password, confirmation: true, length: { in: 8..128 }, allow_blank: true, on: :update
 
-  validates :username, format: { with: /\A\w{5,32}\z/, message: I18n.t(:field_invalid) }, reserved_name: true,
-                       uniqueness: { case_sensitive: false }, on: :create
+  validates :username, format: { with: /\A\w{5,32}\z/ }, reserved_name: true, uniqueness: { case_sensitive: false },
+                       on: :create
 
   # Creates a new Consumer from an OmniAuth response and info inserted by the user.
   def self.from_omniauth(auth, params)

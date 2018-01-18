@@ -14,14 +14,12 @@ class Admin < ApplicationRecord
          :timeoutable,
          :trackable
 
-  validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i,
-                              message: I18n.t(:field_invalid) },
-                    user_uniqueness: true
+  validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i }, user_uniqueness: true
 
   validates :password, confirmation: true, length: { in: 8..128 }, on: :create
   validates :password, confirmation: true, length: { in: 8..128 }, allow_blank: true, on: :update
 
-  validates :username, format: { with: /\A\w{5,32}@admin\z/, message: I18n.t(:field_invalid) }, reserved_name: true,
+  validates :username, format: { with: /\A\w{5,32}@admin\z/ }, reserved_name: true,
                        uniqueness: { case_sensitive: false }, on: :create
 
   # Create a new Admin from +create+ action parameters.

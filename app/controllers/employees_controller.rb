@@ -20,7 +20,7 @@ class EmployeesController < ApplicationController
     return render :new unless @employee.save
 
     UserMailer.new_email(@employee).deliver_later
-    flash[:success] = I18n.t(:resource_create_success, resource: I18n.t(:employee, count: 1))
+    flash[:success] = I18n.t(:resource_create_success, resource: Employee.model_name.human)
     redirect_to employee_path @employee
   end
 

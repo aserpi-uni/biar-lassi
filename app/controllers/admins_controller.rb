@@ -16,7 +16,7 @@ class AdminsController < ApplicationController
     return render :new unless @admin.save
 
     UserMailer.new_email(@admin).deliver_later
-    flash[:success] = I18n.t(:resource_create_success, resource: I18n.t(:admin, count: 1))
+    flash[:success] = I18n.t(:resource_create_success, resource: Admin.model_name.human)
     redirect_to admin_path @admin
   end
 

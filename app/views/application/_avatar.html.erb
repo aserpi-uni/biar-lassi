@@ -1,8 +1,9 @@
 <% description ||= t(:avatar).downcase %>
+<% user ||= current_user %>
 
-<% if current_employee && !current_employee.enterprise.send("avatar_#{current_employee.role}").blank? %>
-    <%= image_tag current_employee.enterprise.send("avatar_#{current_employee.role}_url", :small), alt: description, height: size, width: size %>
+<% if user.is_a?(Employee) && !user.enterprise.send("avatar_#{user.role}").blank? %>
+    <%= image_tag user.enterprise.send("avatar_#{user.role}_url", :small), alt: description, height: size, width: size %>
 <% else %>
-    <%= image_tag "https://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(current_user.email.blank? ? current_user.username : current_user.email)}?s=#{size}&d=identicon",
+    <%= image_tag "https://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(user.email.blank? ? user.username : user.email)}?s=#{size}&d=identicon",
                   alt: description %>
 <% end %>

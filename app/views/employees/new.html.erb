@@ -28,7 +28,7 @@
             <!-- after a failed validation, restore the Enterprise name -->
             <%= f.text_field :enterprise, class: 'form-control', id: :enterprise,
                              value: ((@employee.nil? || @employee.enterprise.nil?) ? nil : @employee.enterprise.name) %>
-            <%= label_tag :enterprise, t(:enterprise, count: 1).capitalize, class: 'bmd-label-floating'%>
+            <%= label_tag :enterprise, Enterprise.model_name.human.capitalize, class: 'bmd-label-floating'%>
           </div>
         </fieldset>
       <% end %>

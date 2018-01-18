@@ -1,7 +1,7 @@
-<% provide :title, t(:product, count: 500).capitalize %>
+<% provide :title, Product.model_name.human(count: 500).capitalize %>
 
 <h1>
-  <%= t(:product, count: 500).capitalize %>
+  <%= Product.model_name.human(count: 500).capitalize %>
 </h1>
 
 <%= render partial: 'list' %>

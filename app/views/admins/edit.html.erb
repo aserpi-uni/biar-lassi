@@ -1,5 +1,7 @@
 <% provide :title, @admin == current_admin ? t(:settings) : t(:resource_edit, name: @admin.username) %>
 
+<%= render partial: 'errors', locals: { resource: @admin } %>
+
 <div class="jumbotron align-items-center">
   <div class="col-6 mx-auto" >
     <h3>

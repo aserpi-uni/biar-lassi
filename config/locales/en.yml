@@ -1,10 +1,6 @@
 en:
   actions: 'Actions'
 
-  admin:
-    one: 'admin'
-    other: 'admins'
-
   already_used: 'already used'
 
   avatar: 'Avatar'
@@ -44,13 +40,6 @@ en:
 
   email: 'Email'
 
-  employee:
-    one: 'employee'
-    other: 'employees'
-
-  enterprise:
-    one: 'enterprise'
-    other: 'enterprises'
   enterprise_settings: 'Enterprise settings'
 
   field_invalid: 'is invalid'
@@ -100,9 +89,6 @@ en:
   problem_thread: 'Problem thread'
   problem_threads_header: 'Problem threads (%{number})'
 
-  product:
-    one: 'product'
-    other: 'products'
   product_same_enterprise: 'Products from the same enterprise'
   production_year: 'Production year'
   products_by: 'Products by '
@@ -182,6 +168,31 @@ en:
 
   website: 'Website'
 
+
+  activerecord:
+    models:
+      admin:
+        one: 'admin'
+        other: 'admins'
+      consumer:
+        one: 'consumer'
+        other: 'consumers'
+      employee:
+        one: 'employee'
+        other: 'employees'
+      enterprise:
+        one: 'enterprise'
+        other: 'enterprises'
+      product:
+          one: 'product'
+          other: 'products'
+
+    errors:
+      messages:
+        blank: 'is required'
+        confirmation: 'does not match %{attribute}'
+        invalid: 'is invalid'
+        taken: 'is already taken'
 
   devise_email:
     confirmation_link: 'Confirm my account'

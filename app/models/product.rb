@@ -8,7 +8,8 @@
 # * +production_year+ [Integer]   when the manufacture of the product started
 #
 # *Associations:*
-# * +belongs_to+ [Enterprise]       the manufacturer
+# * +belongs_to+ [Enterprise]     the manufacturer
+# * +has_many+ [ProblemThread]    problem threads for the product
 class Product < ApplicationRecord
   include ImageUploader::Attachment.new(:image)
   searchkick callbacks: :async

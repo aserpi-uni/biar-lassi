@@ -12,7 +12,7 @@
         <%= image_tag(@product.image_url(:medium), class: 'col-12 pl-0 mb-3 mt-1') %>
 
         <% if policy(@product).update? %>
-          <%= button_to t(:resource_edit, name: t(:product, count: 1)), edit_product_path(@product), method: :get, class: 'btn btn-primary btn-raised' %>
+          <%= button_to t(:resource_edit, name: Product.model_name.human), edit_product_path(@product), method: :get, class: 'btn btn-primary btn-raised' %>
         <% end %>
       </div>
 

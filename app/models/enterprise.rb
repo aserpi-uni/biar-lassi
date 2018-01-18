@@ -14,7 +14,8 @@
 # * +website+ [String]                        enterprise's website
 #
 # *Associations:*
-# * +has_many+ [Employee]         employees that work for the enterprise
+# * +has_many+ [Employee]   employees that work for the enterprise
+# * +has_many+ [Product]    products of the enterprise
 class Enterprise < ApplicationRecord
   include AvatarUploader::Attachment.new(:avatar_operator)
   include AvatarUploader::Attachment.new(:avatar_supervisor)
@@ -22,11 +23,10 @@ class Enterprise < ApplicationRecord
 
   validates :founded, numericality: { greater_than_or_equal_to: -4000, less_than_or_equal_to: 2500 }, allow_blank: true
 
-  validates :name, format: { with: /\A[\w\s?!-]{3,64}\z/, message: I18n.t(:field_invalid) }, reserved_name: true,
-                   uniqueness: { case_sensitive: false }
+  validates :name, format: { with: /\A[\w\s?!-]{3,64}\z/ }, reserved_name: true, uniqueness: { case_sensitive: false }
 
-  validates :username_suffix, format: { with: /\A[\w\s?!-]{3,32}\z/, message: I18n.t(:field_invalid) },
-                              reserved_name: true, uniqueness: { case_sensitive: false }
+  validates :username_suffix, format: { with: /\A[\w\s?!-]{3,32}\z/ }, reserved_name: true,
+                              uniqueness: { case_sensitive: false }
 
   has_many :employees, dependent: :destroy
   has_many :products, dependent: :destroy
@@ -42,7 +42,7 @@ class Enterprise < ApplicationRecord
 
     return false unless super(attributes)
 
-    # delete_images old_images
+    delete_images old_images
 
     products.find_each(&:reindex_async) if old_name != name
 

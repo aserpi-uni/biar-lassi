@@ -1,11 +1,11 @@
-<% provide :title, t(:resource_new, resource: t(:enterprise, count: 1)) %>
+<% provide :title, t(:resource_new, resource: Enterprise.model_name.human) %>
 
 <%= render partial: 'errors', locals: { resource: @enterprise } %>
 
 <div class="jumbotron align-items-center">
   <div class="col-6 mx-auto" >
     <h2>
-      <%= t :resource_create, resource: t(:enterprise, count: 1) %>
+      <%= t :resource_create, resource: Enterprise.model_name.human %>
     </h2>
 
     <%= form_with model: @enterprise, local: true do |f| %>

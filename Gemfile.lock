@@ -331,7 +331,7 @@ DEPENDENCIES
   devise
   factory_bot_rails
   faker (= 1.4.2)
-  font-awesome-rails
+  font-awesome-rails (< 5)
   image_processing
   jbuilder (>= 2.5)
   jquery-rails

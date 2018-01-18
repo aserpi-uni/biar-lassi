@@ -64,7 +64,7 @@ gem 'pundit'
 # UI
 gem 'bootstrap', '~> 4.0.0.beta2.1'
 gem 'bootstrap-will_paginate', '>= 1.0'
-gem 'font-awesome-rails'
+gem 'font-awesome-rails', '< 5'
 gem 'will_paginate', '3.1.5'
 
 # Utility

@@ -11,7 +11,7 @@
         <%= image_tag(@enterprise.image_url(:medium), class: 'col-12 pl-0 mb-3 mt-1') %>
 
         <% if policy(@enterprise).update? %>
-          <%= button_to t(:resource_edit, name: t(:enterprise, count: 1)), edit_enterprise_path(@enterprise), method: :get, class: 'btn btn-primary btn-raised' %>
+          <%= button_to t(:resource_edit, name: Enterprise.model_name.human), edit_enterprise_path(@enterprise), method: :get, class: 'btn btn-primary btn-raised' %>
         <% end %>
       </div>
 

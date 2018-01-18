@@ -18,7 +18,7 @@ class EnterprisesController < ApplicationController
     @enterprise = Enterprise.new(params_create)
     return render new_enterprise_path unless @enterprise.save
 
-    flash[:success] = I18n.t(:resource_create_success, resource: I18n.t(:enterprise, count: 1))
+    flash[:success] = I18n.t(:resource_create_success, resource: Enterprise.model_name.human)
     session['enterprise.created'] = @enterprise.name
     redirect_to new_employee_path
   end
@@ -42,7 +42,7 @@ class EnterprisesController < ApplicationController
 
     @enterprise.soft_delete
 
-    flash[:success] = I18n.t(:deleted_resource, res: t(:enterprise, count: 1))
+    flash[:success] = I18n.t(:deleted_resource, res: Enterprise.model_name.human)
     flash[:notice] =  I18n.t(:deleted_enterprise, empl: @enterprise.employees.count, pro: @enterprise.products.count)
 
     redirect_to enterprise_path(@enterprise)
