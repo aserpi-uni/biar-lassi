@@ -67,6 +67,8 @@ en:
 
   model: 'Model'
 
+  must_be_active: 'must be active'
+
   name: 'Name'
 
   no_auth_methods: 'An email address or a Facebook account must be present'
