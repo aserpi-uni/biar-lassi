@@ -13,7 +13,7 @@
     <%= render partial: 'form', locals: { submit: :save } %>
 
     <% if @product.active %>
-      <%= render partial: 'application/edit/delete_resource', locals: { res: @product, path: product_path(@product) }  %>
+      <%= render partial: 'application/edit/delete_resource', locals: { resource: @product, path: product_path(@product) }  %>
     <% elsif @product.enterprise.active %>
       <h3>
         <%= t :resource_restore, res: Product.model_name.human %>

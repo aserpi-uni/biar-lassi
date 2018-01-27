@@ -38,7 +38,7 @@ Rails.application.routes.draw do
   resources :posts, only: %i[create destroy]
 
   # Product
-  resources :products do
+  resources :products, except: [:index] do
     delete 'restore', on: :member
     get 'search', on: :collection
 

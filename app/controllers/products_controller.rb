@@ -1,11 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[show edit update destroy restore]
 
-  # TODO: test
-  def index
-    @products = policy_scope(Product).order(:model).page(params[:page])
-  end
-
   def show
     authorize @product
   end

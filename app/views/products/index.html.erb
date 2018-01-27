@@ -1,7 +1,0 @@
-<% provide :title, Product.model_name.human(count: 500).capitalize %>
-
-<h1>
-  <%= Product.model_name.human(count: 500).capitalize %>
-</h1>
-
-<%= render partial: 'list', locals: { products: @products } %>
