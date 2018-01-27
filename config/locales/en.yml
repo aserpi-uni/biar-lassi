@@ -93,7 +93,7 @@ en:
 
   product_same_enterprise: 'Products from the same enterprise'
   production_year: 'Production year'
-  products_by: 'Products by '
+  products_by: 'Products by'
   products_header:
     zero: 'Products'
     one: '1 product'

@@ -1,48 +1,40 @@
 <% provide :title, @enterprise.name %>
 
-<h2>
-  <%= @enterprise.name %>
-</h2>
+<div class="jumbotron py-2">
+  <div class="row">
+    <h2>
+      <%= @enterprise.name %>
+    </h2>
+    <% if policy(@enterprise).update? %>
+      <%= button_to t(:resource_edit, name: Enterprise.model_name.human), edit_enterprise_path(@enterprise), method: :get, class: 'btn btn-primary btn-raised ml-2' %>
+    <% end %>
+  </div>
 
-<div class="panel panel-default">
-  <div class="panel-body">
-    <div class="row">
-      <div class="col-md-3">
-        <%= image_tag(@enterprise.image_url(:medium), class: 'col-12 pl-0 mb-3 mt-1') %>
-
-        <% if policy(@enterprise).update? %>
-          <%= button_to t(:resource_edit, name: Enterprise.model_name.human), edit_enterprise_path(@enterprise), method: :get, class: 'btn btn-primary btn-raised' %>
-        <% end %>
-      </div>
-
-      <div class = "col-md-7">
-        <small>
-          <%= t(:founded_in, year: @enterprise.founded) if @enterprise.founded %>
-          <br>
-          <%= t(:headquarters_in, loc: @enterprise.headquarters) if @enterprise.headquarters %>
-        </small>
-
-        <div>
-          <%= @enterprise.description %>
-        </div>
-      </div>
+  <div class="row media mt-1">
+    <%= image_tag @enterprise.image_url(:small), class: 'd-flex align-self-start', width: 250 %>
+    <div class="media-body ml-3">
+      <%= simple_format(@enterprise.description) %>
+      <% if @enterprise.website %>
+        <%= t(:website_visit) %>
+        <%= link_to @enterprise.name, @enterprise.website %>
+      <% end  %>
+      <small>
+        <br>
+        <%= t(:since, year: @enterprise.founded) if @enterprise.founded %>
+        <br>
+        <%= t(:headquarters_in, loc: @enterprise.headquarters) if @enterprise.headquarters %>
+      </small>
     </div>
   </div>
 </div>
 
-<div class="row">
-  <h3>
-    <%= t(:products_header, count: @enterprise.products.count) %>
-  </h3>
-  <div class="col text-right">
+<div class="jumbotron py-2">
+  <div class="row">
     <h3>
-      <%= link_to products_enterprise_path(@enterprise) do %>
-        <%= fa_icon 'fw navicon' %>
-        <%= t(:view_all) %>
-      <% end %>
+      <%= t(:products_header, count: @enterprise.products.count) %>
     </h3>
+    <%= button_to t(:view_all), products_enterprise_path(@enterprise), method: :get, class: 'btn btn-info' %>
   </div>
+
+  <%= render partial: 'products/list', locals: { paginate: false, products: @enterprise.products.order(:model).take(6) } %>
 </div>
-
-
-<%= render partial: 'products/list', locals: { paginate: false, products: @enterprise.products.order(:model).take(10) } %>

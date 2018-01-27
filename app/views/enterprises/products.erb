@@ -1,8 +1,10 @@
-<% provide :title, t(:products_by, enterprise: @enterprise.name) %>
+<% provide :title, "#{t(:products_by)} #{@enterprise.name}" %>
 
-<h2>
-  <%= t(:products_by) %>
-  <%= link_to @enterprise.name, enterprise_path(@enterprise) %>
-</h2>
+<div class="jumbotron py-4">
+  <h2 class="mb-3">
+    <%= t(:products_by) %>
+    <%= link_to @enterprise.name, enterprise_path(@enterprise) %>
+  </h2>
 
-<%= render partial: 'products/list', locals: { products: @enterprise.products.order(:model).page(params[:page]) }  %>
+  <%= render partial: 'products/list', locals: { products: @enterprise.products.order(:model).page(params[:page]) }  %>
+</div>
