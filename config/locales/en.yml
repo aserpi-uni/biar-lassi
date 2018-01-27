@@ -1,7 +1,11 @@
 en:
   actions: 'Actions'
 
+  ago: '%{time} ago'
+
   already_used: 'already used'
+
+  at: 'at %{time} (%{ago})'
 
   avatar: 'Avatar'
   avatar_operator: "Operator's avatar"
@@ -14,6 +18,11 @@ en:
   change: 'Change'
 
   close: 'Close'
+
+  comments_header:
+    zero: 'No comments'
+    one: '1 comment'
+    other: '%{count} comments'
 
   confirm: 'Confirm'
 
@@ -43,6 +52,8 @@ en:
   enterprise_settings: 'Enterprise settings'
 
   field_invalid: 'is invalid'
+
+  follow: 'Follow'
 
   forbidden: 'You are not authorized to perform this action'
 
@@ -88,8 +99,13 @@ en:
   password_reset: 'Reset password'
   password_reset_send: 'Send me reset password instructions'
 
-  problem_thread: 'Problem thread'
-  problem_threads_header: 'Problem threads (%{number})'
+  posted_by: 'Posted by'
+
+  problem_threads_header:
+    zero: 'No active problem threads'
+    one: '1 active problem thread'
+    other: '%{count} active problem threads'
+  problem_threads_of: 'Problem threads of'
 
   product_same_enterprise: 'Products from the same enterprise'
   production_year: 'Production year'
@@ -102,6 +118,8 @@ en:
   profile: 'Profile'
 
   or: 'or'
+
+  referent: 'Referent'
 
   remember_me: 'Remember me'
 
@@ -143,6 +161,10 @@ en:
   since: 'Since %{year}'
 
   sure: 'Are you sure?'
+
+  title: 'Title'
+
+  unfollow: 'Unfollow'
 
   unhappy: 'Unhappy?'
 
@@ -186,10 +208,12 @@ en:
       enterprise:
         one: 'enterprise'
         other: 'enterprises'
+      problem_thread:
+        one: 'problem thread'
+        other: 'problem threads'
       product:
           one: 'product'
           other: 'products'
-
     errors:
       messages:
         blank: 'is required'

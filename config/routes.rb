@@ -42,16 +42,15 @@ Rails.application.routes.draw do
     delete 'restore', on: :member
     get 'search', on: :collection
 
-    resources :problem_threads do
-      member do
-        get :followers
-      end
+    # Problem thread
+    resources :problem_threads, shallow: true do
+      post :follow, on: :member
       resources :comments
     end
   end
 
   # Relationship
-  resources :relationships, only: [:create, :destroy]
+  resources :relationships, only: %i[create destroy]
 
   # Static pages
   get 'user_static_page/home'

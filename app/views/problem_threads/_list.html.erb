@@ -1,0 +1,40 @@
+<% format_zero = true if format_zero.nil? %>
+<% paginate = true if paginate.nil?%>
+
+<div class = "row">
+  <table class="table">
+    <% problem_threads.each do |thread|%>
+      <tr>
+        <td>
+          <div class="ml-2">
+            <div class="row">
+              <%=link_to thread do %>
+                <h5>
+                  <%= thread.title %>
+                </h5>
+              <% end %>
+            </div>
+            <div class="row mb-1">
+              <%= thread.content[0..25] %>
+            </div>
+            <div class="row">
+              <small>
+                <%= t(:ago, time: time_ago_in_words(thread.created_at)) %>
+              </small>
+            </div>
+          </div>
+        </td>
+      </tr>
+    <%end%>
+  </table>
+</div>
+
+<% if paginate %>
+  <%= will_paginate(problem_threads, renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer) %>
+<% end %>
+
+<% if problem_threads.empty? && format_zero %>
+  <h3>
+    <%= t(:results_no) %>
+  </h3>
+<% end %>

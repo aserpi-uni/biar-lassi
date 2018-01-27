@@ -1,28 +1,30 @@
-<p id="notice"><%= notice %></p>
+<% provide :title, "#{t(:problem_threads_of)} #{@product.model}" %>
 
-<h1>Problem Threads</h1>
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">
+    <%= link_to @product.enterprise.name, enterprise_path(@product.enterprise) %>
+  </li>
+  <li class="breadcrumb-item">
+    <%= link_to t(Product.model_name.human(count: 500).capitalize), products_enterprise_path(@product.enterprise) %>
+  </li>
+  <li class="breadcrumb-item">
+    <%= link_to @product.model, product_path(@product) %>
+  </li>
+  <li class="breadcrumb-item active">
+    <%= ProblemThread.model_name.human(count: 500).capitalize %>
+  </li>
+</ol>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Content</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @problem_threads.each do |problem_thread| %>
-      <tr>
-        <td><%= problem_thread.title %></td>
-        <td><%= problem_thread.content %></td>
-        <td><%=# link_to 'Show', problem_thread %></td>
-        <td><%=# link_to 'Edit', edit_product_problem_thread_path(problem_thread) %></td>
-        <td><%=# link_to 'Destroy', problem_thread, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<div class="jumbotron py-4">
+  <div class="row">
+    <h2 class="mb-3">
+      <%= t(:problem_threads_of) %>
+      <%= link_to @product.model, product_path(@product) %>
+    </h2>
+    <% if policy(ProblemThread).create? %>
+      <%= button_to t(:resource_new, resource: ProblemThread.model_name.human), new_product_problem_thread_path(@product), method: :get, class: 'btn btn-primary btn-raised ml-2' %>
     <% end %>
-  </tbody>
-</table>
+  </div>
 
-
-<%= link_to 'New Problem Thread', new_product_problem_thread_path %>
+  <%= render partial: 'list', locals: { problem_threads: @product.problem_threads.order(:created_at).page(params[:page]) } %>
+</div>

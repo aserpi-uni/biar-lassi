@@ -40,14 +40,14 @@ class Consumer < ApplicationRecord
   end
 
   def follow(problem_thread)
-    active_relationships.create(followed_id: problem_thread.id)
+    Relationship.create(followed: problem_thread, follower: self)
   end
 
   def unfollow(problem_thread)
     active_relationships.find_by(followed_id: problem_thread.id).destroy
   end
 
-  def follow? (problem_thread)
+  def follow?(problem_thread)
     following.include?(problem_thread)
   end
 
