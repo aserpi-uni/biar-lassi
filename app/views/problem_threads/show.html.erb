@@ -1,35 +1,10 @@
 <% provide :title, @problem_thread.title %>
 
 <ol class="breadcrumb">
-  <li class="breadcrumb-item">
-    <%= link_to @problem_thread.product.enterprise.name, enterprise_path(@problem_thread.product.enterprise) %>
-  </li>
-  <li class="breadcrumb-item">
-    <%= link_to t(Product.model_name.human(count: 500).capitalize), products_enterprise_path(@problem_thread.product.enterprise) %>
-  </li>
-  <li class="breadcrumb-item">
-    <%= link_to @problem_thread.product.model, product_path(@problem_thread.product) %>
-  </li>
-  <li class="breadcrumb-item">
-    <%= link_to ProblemThread.model_name.human(count: 500).capitalize, product_problem_threads_path(@problem_thread.product) %>
-  </li>
-  <li class="breadcrumb-item active">
-    <%= @problem_thread.title %>
-  </li>
-</ol>
+  <%= render partial: 'breadcrumbs', locals: { problem_thread: @problem_thread } %>
 
-<div class="jumbotron py-2">
-  <div class="row">
-    <h3>
-      <%= @problem_thread.title %>
-    </h3>
-    <div class="ml-4">
-      <%= render(partial: 'follow') if policy(@problem_thread).follow? %>
-    </div>
-    <% if policy(@problem_thread).update? %>
-      <%= button_to t(:edit), edit_problem_thread_path(@problem_thread), method: :get, class: 'btn btn-primary btn-raised' %>
-    <% end %>
-  </div>
+  <%= render partial: 'application/breadcrumbs/problem_thread', locals: { active: true, problem_thread: @problem_thread} %>
+</ol>
 
   <div class="row">
     <%= @problem_thread.content %>

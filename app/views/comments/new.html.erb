@@ -1,0 +1,7 @@
+<% provide :title, t(:resource_new, resource: Comment.model_name.human) %>
+
+<ol class="breadcrumb">
+  <%= render partial: 'breadcrumbs', locals: { comment: @comment } %>
+
+  <%= render partial: 'application/breadcrumbs/finale', locals: { string: t(:resource_new, resource: Comment.model_name.human) } %>
+</ol>

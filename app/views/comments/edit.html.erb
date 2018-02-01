@@ -1,0 +1,12 @@
+<% provide :title, t(:resource_edit, name: Comment.model_name.human) %>
+
+<%= render partial: 'errors', locals: { resource: @comment } %>
+
+<ol class="breadcrumb">
+  <%= render partial: 'breadcrumbs', locals: { comment: @comment } %>
+
+  <%= render partial: 'application/breadcrumbs/comment', locals: { comment: @comment } %>
+
+  <%= render partial: 'application/breadcrumbs/finale', locals: { string: t(:edit) } %>
+</ol>
+

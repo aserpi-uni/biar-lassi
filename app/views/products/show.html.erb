@@ -1,15 +1,9 @@
 <% provide :title, "#{@product.enterprise.name} #{@product.model}" %>
 
 <ol class="breadcrumb">
-  <li class="breadcrumb-item">
-    <%= link_to @product.enterprise.name, enterprise_path(@product.enterprise) %>
-  </li>
-  <li class="breadcrumb-item">
-    <%= link_to t(Product.model_name.human(count: 500).capitalize), products_enterprise_path(@product.enterprise) %>
-  </li>
-  <li class="breadcrumb-item active">
-    <%= @product.model %>
-  </li>
+  <%= render partial: 'breadcrumbs', locals: { product: @product} %>
+
+  <%= render partial: 'application/breadcrumbs/product', locals: { product: @product } %>
 </ol>
 
 <div class="jumbotron py-2">
