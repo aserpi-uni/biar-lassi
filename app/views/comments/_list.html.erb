@@ -1,0 +1,39 @@
+<% paginate = true if paginate.nil?%>
+
+<% comments.each do |comment| %>
+  <a name="<%= "comments/#{comment.id}" %>"></a>
+    <div class="jumbotron jumbotron-fluid row px-3 py-2" style="background-color: whitesmoke">
+      <div class="col-sm-auto align-self-center"> <!-- votecell -->
+        <% if comment.solution %>
+          <h3 class="row justify-content-center">
+            <%= fa_icon 'check', style: 'color: green' %>
+          </h3>
+        <% end %>
+      </div>
+
+      <div class="col ml-4"> <!-- answercell -->
+        <div class="row">
+          <%= simple_format(comment.content) %>
+        </div>
+        <div class="row align-items-center justify-content-end">
+          <% if policy(comment).mark? %>
+            <% if comment.solution %>
+              <%= button_to t(:solution_unmark), mark_comment_path(comment), class: 'btn btn-danger btn-raised mr-4 my-0', form_class: 'form-delete' %>
+            <% else %>
+              <%= button_to t(:solution_mark), mark_comment_path(comment), class: 'btn btn-primary btn-raised mr-4 my-0', form_class: 'form-delete' %>
+            <% end %>
+          <% end %>
+
+          <% if policy(comment).update? %>
+            <%= button_to t(:edit), edit_comment_path(comment), method: :get, class: 'btn btn-primary btn-raised mr-4 my-0', form_class: 'form-delete' %>
+          <% end %>
+
+          <%= render partial: 'application/posted_at', locals: { time: comment.created_at, user: comment.author } %>
+        </div>
+      </div>
+    </div>
+<% end %>
+
+<% if paginate %>
+  <%= will_paginate(comments, renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer) %>
+<% end %>

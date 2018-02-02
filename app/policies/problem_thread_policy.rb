@@ -20,12 +20,13 @@ class ProblemThreadPolicy < ApplicationPolicy
   end
 
   def update?
-    @user.is_a?(Admin)
+    @user.is_a?(Admin) ||
+      @user == @problem_thread.author
   end
 
   def destroy?
     @user.is_a?(Admin) ||
-      @user == @problem_thread.consumer ||
+      @user == @problem_thread.author ||
       @user == @problem_thread.employee
   end
 
@@ -33,12 +34,6 @@ class ProblemThreadPolicy < ApplicationPolicy
     @user.is_a?(Consumer)
   end
 
-  # def reopen?
-  #   @problem_thread.product.active? &&
-  #     (@user.is_a?(Admin) ||
-  #       @user == @problem_thread.consumer ||
-  #       (@user.is_a?(Employee) && @user.enterprise == @problem_thread.product.enterprise))
-  # end
 
   def permitted_attributes
     %i[content title]

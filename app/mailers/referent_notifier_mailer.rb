@@ -1,27 +1,23 @@
 class ReferentNotifierMailer < ApplicationMailer
   default from: 'no-reply@tesi.com'
 
-  def new_referent_notify(referent, thread, product)
-    @referent = referent
-    @thread = thread
-    @product = product
-    mail( :to => @referent.email,
-          :subject => 'New problem thread assigned regarding product: '+ @product.model + ';title: ' + @thread.title )
+  def comment_created(comment)
+    @comment = comment
+    mail subject: I18n.t('referent_notifier_mailer.comment_created.subject'), to: @comment.problem_thread.employee.email
   end
 
-  def send_referent_notify(referent, thread, product)
-    @referent = referent
-    @thread = thread
-    @product = product
-    mail( :to => @referent.email,
-          :subject => 'Reply from owner of problem thread (product: '+ @product.model + ') titled:' + @thread.title )
+  def problem_thread_created(problem_thread)
+    @problem_thread = problem_thread
+    mail subject: I18n.t('referent_notifier_mailer.problem_thread_created.subject'), to: @problem_thread.employee.email
   end
 
-  def solution_found_notify(referent, thread, product)
-    @referent = referent
-    @thread = thread
-    @product = product
-    mail( :to => @referent.email,
-          :subject => 'Solution found to problem thread titled:' + @thread.title )
+  def problem_thread_updated(problem_thread)
+    @problem_thread = problem_thread
+    mail subject: I18n.t('referent_notifier_mailer.problem_thread_updated.subject'), to: @problem_thread.employee.email
+  end
+
+  def new_solution(comment)
+    @comment = comment
+    mail subject: I18n.t('referent_notifier_mailer.new_solution.subject'), to: @comment.problem_thread.employee.email
   end
 end

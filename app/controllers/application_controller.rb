@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :not_authorized
 
   helper_method :current_user
+  helper_method :comment_path
   helper_method :user_path
 
   protected
@@ -17,6 +18,11 @@ class ApplicationController < ActionController::Base
     added_attrs = %i[username email password password_confirmation]
     devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
     devise_parameter_sanitizer.permit :account_update, keys: added_attrs
+  end
+
+  # Path of a comment
+  def comment_path(comment)
+    "/problem_threads/#{comment.problem_thread.id}#comments/#{comment.id}"
   end
 
   # Returns the current user.

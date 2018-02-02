@@ -3,7 +3,10 @@ en:
 
   ago: '%{time} ago'
 
+  already_commented: 'You have already commented this resource'
   already_used: 'already used'
+
+  answered: 'Answered'
 
   at: 'at %{time} (%{ago})'
 
@@ -69,6 +72,8 @@ en:
 
   irreversible: 'This action is irreversible.'
 
+  last_update: 'Last update %{time}'
+
   lock: 'Lock'
   lock_account: 'Lock my account'
   lock_account_other: 'Lock the account'
@@ -99,6 +104,7 @@ en:
   password_reset: 'Reset password'
   password_reset_send: 'Send me reset password instructions'
 
+  posted: 'Posted %{time}'
   posted_by: 'Posted by'
 
   problem_threads_header:
@@ -122,6 +128,8 @@ en:
   referent: 'Referent'
 
   remember_me: 'Remember me'
+
+  remove: 'Remove'
 
   resource_create: 'Create a new %{resource}'
   resource_create_success: 'Successfully created a new %{resource}'
@@ -159,6 +167,11 @@ en:
   sign_up: 'Register'
 
   since: 'Since %{year}'
+
+  solution_mark: 'Mark as solution'
+  solution_marked: 'Comment marked as solution'
+  solution_unmark: 'Unmark as solution '
+  solution_unmarked: 'Comment unmarked as solution '
 
   sure: 'Are you sure?'
 
@@ -199,6 +212,9 @@ en:
       admin:
         one: 'admin'
         other: 'admins'
+      comment:
+        one: 'comment'
+        other: 'comments'
       consumer:
         one: 'consumer'
         other: 'consumers'
@@ -253,6 +269,34 @@ en:
     sign_in_existing_only: 'Your email is already taken by a non-consumer account. Please sign in with username and password.'
     username: 'Choose a username'
     title: 'Sign in with Facebook'
+
+  consumer_notifier_mailer:
+    comment_created:
+      body: 'A comment to the problem thread "%{problem_thread}" has been posted, you can see it here: %{link}'
+      greetings: 'New developments, %{user}!'
+      subject: 'New comment'
+    new_solution:
+      body: 'The problem thread "%{problem_thread}" has a new solution, you can find it here: %{link}"'
+      greetings: 'Good news, %{user}!'
+      subject: 'New solution for problem thread'
+
+  referent_notifier_mailer:
+    comment_created:
+      body: 'A comment to the problem thread "%{problem_thread}" has been posted, you can see it here: %{link}'
+      greetings: 'New developments, %{user}!'
+      subject: 'New comment'
+    new_solution:
+      body: 'The problem thread "%{problem_thread}" has a new solution, you can find it here: %{link}"'
+      greetings: 'Good news, %{user}!'
+      subject: 'New solution for problem thread'
+    problem_thread_created:
+      body: 'A new problem thread has been placed under your responsibility, you can see it here: %{link}'
+      greetings: 'New assignment, %{user}!'
+      subject: 'New problem thread'
+    problem_thread_updated:
+      body: 'The problem thread "%{problem_thread}" has been updated, you can see it here: %{link}'
+      greetings: 'New developments, %{user}!'
+      subject: 'Problem thread updated'
 
   user_mailer:
     new_email:

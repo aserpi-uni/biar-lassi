@@ -1,11 +1,15 @@
 class ConsumerNotifierMailer < ApplicationMailer
   default from: 'no-reply@tesi.com'
 
-  def send_consumer_notify(consumer, thread, product)
+  def comment_created(comment, consumer)
+    @comment = comment
     @consumer = consumer
-    @thread = thread
-    @product = product
-    mail( :to => @consumer.email,
-          :subject => 'Referent reply to problem thread regarding product: '+ @product.model + ';title: ' + @thread.title )
+    mail subject: I18n.t('consumer_notifier_mailer.comment_created.subject'), to: @consumer.email
+  end
+
+  def new_solution(comment, consumer)
+    @comment = comment
+    @consumer = consumer
+    mail subject: I18n.t('consumer_notifier_mailer.new_solution.subject'), to: @consumer.email
   end
 end

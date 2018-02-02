@@ -6,8 +6,8 @@
 # * others               See https://github.com/plataformatec/devise
 #
 # *Associations:*
-# * +has_many+ [Comment]          comments posted by the consumer
 # * +has_many+ [Post]             posts posted by the consumer
+# * +has_many+ [Comment]          comments posted by the user
 # * +has_many+ [ProblemThread]    problem threads opened by the consumer
 class Consumer < ApplicationRecord
   include UserState
@@ -23,33 +23,7 @@ class Consumer < ApplicationRecord
 
   has_many :posts, dependent: :destroy
   has_many :problem_threads, dependent: :destroy
-  has_many :comments, as: :commentable
-
-  # following charasteristics and functions
-
-  has_many :active_relationships, class_name: "Relationship",
-                                  foreign_key: "follower_id",
-                                  dependent: :destroy
-
-  has_many :following, through: :active_relationships, source: :followed
-
-  def feed
-    following_ids = "SELECT followed_id from relationships WHERE follower_id = :consumer_id"
-    Comment.where("problem_thread_id in (#{following_ids}) OR commentable_id = :consumer_id AND commentable_type = :consumer", consumer_id: id, consumer: Consumer)
-    #Comment.where("problem_thread_id in (?)", following_ids)
-  end
-
-  def follow(problem_thread)
-    Relationship.create(followed: problem_thread, follower: self)
-  end
-
-  def unfollow(problem_thread)
-    active_relationships.find_by(followed_id: problem_thread.id).destroy
-  end
-
-  def follow?(problem_thread)
-    following.include?(problem_thread)
-  end
+  has_many :comments, as: :author, dependent: :destroy
 
   validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i }, allow_blank: true,
                     consumer_authentication: true, user_uniqueness: true
@@ -97,5 +71,28 @@ class Consumer < ApplicationRecord
 
   def to_param
     username
+  end
+
+  # TODO
+
+  has_many :active_relationships, class_name: 'Relationship', foreign_key: 'follower_id', dependent: :destroy
+  has_many :following, through: :active_relationships, source: :followed
+
+  def feed
+    following_ids = 'SELECT followed_id from relationships WHERE follower_id = :consumer_id'
+    Comment.where("problem_thread_id in (#{following_ids}) OR commentable_id = :consumer_id AND commentable_type = :consumer", consumer_id: id, consumer: Consumer)
+    #Comment.where("problem_thread_id in (?)", following_ids)
+  end
+
+  def follow(problem_thread)
+    Relationship.create(followed: problem_thread, follower: self)
+  end
+
+  def unfollow(problem_thread)
+    active_relationships.find_by(followed_id: problem_thread.id).destroy
+  end
+
+  def follow?(problem_thread)
+    following.include?(problem_thread)
   end
 end

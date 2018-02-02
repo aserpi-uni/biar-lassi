@@ -22,6 +22,12 @@ class Employee < ApplicationRecord
          :timeoutable,
          :trackable
 
+  enum role: { supervisor: 0, operator: 1 }
+
+  belongs_to :enterprise
+
+  has_many :comments, as: :author, dependent: :destroy
+  has_many :problem_threads
   validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i }, user_uniqueness: true
 
   validates :enterprise, active: true
@@ -31,12 +37,6 @@ class Employee < ApplicationRecord
 
   validates :username, format: { with: /\A\w{5,32}@\w{1,32}\z/ }, reserved_name: true,
                        uniqueness: { case_sensitive: false }, on: :create
-
-  enum role: { supervisor: 0, operator: 1 }
-
-  belongs_to :enterprise
-  has_many :problem_threads
-  has_many :comments, as: :commentable
 
   # Create a new Employee from +create+ action parameters.
   def self.from_params(params)
@@ -66,6 +66,19 @@ class Employee < ApplicationRecord
 
   def reallocate_tickets
     # TODO: redistribuire ogni ticket aperto ad altri operator
+  end
+
+  def same_enterprise?(resource)
+    if resource.is_a? DownVote
+      resource = resource.downable
+    elsif resource.is_a? UpVote
+      resource = resource.uppable
+    end
+    return resource.problem_thread.product.enterprise == enterprise if resource.is_a?(Comment)
+    return resource.product.enterprise == enterprise if resource.is_a?(ProblemThread)
+    return resource.enterprise == enterprise if resource.is_a?(Product)
+    return resource == enterprise if resource.is_a?(Enterprise)
+    false
   end
 
   # Updates the Employee's suffix with the newest one

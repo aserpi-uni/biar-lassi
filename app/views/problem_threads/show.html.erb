@@ -6,26 +6,47 @@
   <%= render partial: 'application/breadcrumbs/problem_thread', locals: { active: true, problem_thread: @problem_thread} %>
 </ol>
 
-  <div class="row">
-    <%= @problem_thread.content %>
+<div class="jumbotron row mx-0 py-2">
+  <div class="col-sm-auto pl-0 mr-2">
   </div>
 
-  <div class="row mt-2">
-    <div class="col pl-0">
-      <%= t(:posted_by) %>
-      <%= link_to consumer_path(@problem_thread.consumer), class: 'ml-1' do %>
-        <%= render partial: 'application/avatar', locals: { user: @problem_thread.consumer, size: 23 } %>
-        <%= @problem_thread.consumer.username %>
+  <div class="col">
+    <div class="row">
+      <h3>
+        <%= @problem_thread.title %>
+      </h3>
+      <div class="ml-4">
+        <%= render(partial: 'follow') if policy(@problem_thread).follow? %>
+      </div>
+      <% if policy(@problem_thread).update? %>
+        <%= button_to t(:edit), edit_problem_thread_path(@problem_thread), method: :get, class: 'btn btn-primary btn-raised ml-4' %>
       <% end %>
-      <%= t(:at, time: @problem_thread.created_at.to_formatted_s(:long),
-                 ago: t(:ago, time: time_ago_in_words(@problem_thread.created_at))) %>
     </div>
-    <div class="col">
-      <%= t(:referent) %>
-      <%= link_to employee_path(@problem_thread.employee), class: 'ml-1' do %>
-        <%= render partial: 'application/avatar', locals: { user: @problem_thread.employee, size: 23 } %>
-        <%= @problem_thread.employee.username %>
-      <% end %>
+
+    <div class="row">
+      <%= @problem_thread.content %>
+    </div>
+
+    <% if @problem_thread.updated_at != @problem_thread.updated_at %>
+      <small class="row">
+        <%= t(:last_update, time: @problem_thread.updated_at.to_s(:long)) %>
+      </small>
+    <% end %>
+
+    <div class="row justify-content-end">
+      <div class="col-3">
+        <em class="row">
+          <%= t(:referent) %>
+        </em>
+        <div class="row">
+          <%= link_to user_path(@problem_thread.employee) do %>
+            <%= render partial: 'application/avatar', locals: { user: @problem_thread.employee, size: 23 } %>
+            <%= @problem_thread.employee.username %>
+          <% end %>
+        </div>
+      </div>
+
+      <%= render partial: 'application/posted_at', locals: { time: @problem_thread.created_at, user: @problem_thread.author } %>
     </div>
   </div>
 </div>
@@ -33,13 +54,9 @@
 <div class="jumbotron py-2">
   <h3 class="row">
     <%= t(:comments_header, count: @problem_thread.comments.count) %>
+    <% if policy(@problem_thread.comments.new).new? %>
+      <%= button_to t(:resource_new, resource: Comment.model_name.human), new_problem_thread_comment_path(@problem_thread), method: :get, class: 'btn btn-primary btn-raised ml-3' %>
+    <% end %>
   </h3>
-
-  <% if @comments %>
-    <%= render(@comments) %>
-
-    <%= will_paginate(@comments, renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer) %>
-  <% end %>
+  <%= render partial: 'comments/list', locals: { comments: @problem_thread.comments.order(:solution, :votes, :created_at).page(params[:page]), format_zero: false } %>
 </div>
-
-<!--%= render 'comments/form' %-->

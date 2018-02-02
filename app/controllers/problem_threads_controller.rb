@@ -69,7 +69,7 @@ class ProblemThreadsController < ApplicationController
 
     p[:consumer] = current_consumer
     # TODO: p[:employee] = Employee.get_up(@problem_thread.product)
-    p[:employee] = Employee.where(enterprise: @product.enterprise).first
+    p[:employee] = Employee.where(enterprise: @product.enterprise, role: :operator).first
     p[:product] = @product
 
     p

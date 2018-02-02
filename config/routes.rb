@@ -45,7 +45,11 @@ Rails.application.routes.draw do
     # Problem thread
     resources :problem_threads, shallow: true do
       post :follow, on: :member
-      resources :comments
+
+      # Comment
+      resources :comments, shallow: true, except: %i[index destroy] do
+        post :mark, on: :member
+      end
     end
   end
 

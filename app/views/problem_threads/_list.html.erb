@@ -11,11 +11,17 @@
               <%=link_to thread do %>
                 <h5>
                   <%= thread.title %>
+
+                  <% unless thread.comments.where(solution: true).empty? %>
+                    <span class="badge badge-success">
+                      <%= t(:answered) %>
+                    </span>
+                  <% end %>
                 </h5>
               <% end %>
             </div>
             <div class="row mb-1">
-              <%= thread.content[0..25] %>
+              <%= thread.content %>
             </div>
             <div class="row">
               <small>
