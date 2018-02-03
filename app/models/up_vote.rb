@@ -1,3 +1,8 @@
+# Upvote for a resource
+#
+# *Associations:*
+# * +belongs_to+ [Uppable polymorphic]    resource that has been voted
+# * +belongs_to+ [Upper polymorphic]     user that voted
 class UpVote < ApplicationRecord
   after_create :increment_votes, :remove_down_vote
   after_destroy :decrement_votes

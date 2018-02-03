@@ -5,11 +5,11 @@
 # * +title+ [String]      title of the thread
 #
 # *Associations:*
-# * +belongs_to+ [Consumer]     the consumer that posted the thread
-# * +belongs_to+ [Employee]     the operator in charge of assisting the consumer
-# * +belongs_to+ [Product]      the product which the consumer has a problem
-# * +has_many+ [Comment]        comments to the problem thread
-# * +has_many+ [Relationship]   a relationship between the thread and a consumer
+# * +belongs_to+ [Consumer as Author]   the consumer that posted the thread
+# * +belongs_to+ [Employee]             the operator in charge of assisting the consumer
+# * +belongs_to+ [Product]              the product which the consumer has a problem
+# * +has_many+ [Comment]                comments to the problem thread
+# * +has_many+ [Relationship]           a relationship between the thread and a consumer
 class ProblemThread < ApplicationRecord
   after_create :follow_poster, :notify_referent_new
   after_update :notify_referent_update

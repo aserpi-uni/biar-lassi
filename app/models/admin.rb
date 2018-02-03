@@ -5,6 +5,10 @@
 # * +username+ [String]  user public identification
 # * +email+ [String]     user's email address
 # * others               See https://github.com/plataformatec/devise
+#
+# *Associations:*
+# * +has_many+ [DownVote]         negative votes posted by the user
+# * +has_many+ [UpVote]           positive votes posted by the user
 class Admin < ApplicationRecord
   include UserState
 
@@ -13,6 +17,9 @@ class Admin < ApplicationRecord
          :recoverable,
          :timeoutable,
          :trackable
+
+  has_many :up_votes, as: :uppable, dependent: :destroy
+  has_many :down_votes, as: :downable, dependent: :destroy
 
   validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i }, user_uniqueness: true
 

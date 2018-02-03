@@ -7,12 +7,15 @@
 # *Parameters:*
 # * +username+ [String]   user public identification
 # * +email+ [String]      user's email address
+# * +role+ [Type]         employee's role in his enterprise
 # * others                See https://github.com/plataformatec/devise
 #
 # *Associations:*
 # * +belongs_to+ [Enterprise]     enterprise for which they work
 # * +has_many+ [Comment]          comments posted by the employee
+# * +has_many+ [DownVote]         negative votes posted by the user
 # * +has_many+ [ProblemThread]    problem threads assigned to the employee (only if it is an operator)
+# * +has_many+ [UpVote]           positive votes posted by the user
 class Employee < ApplicationRecord
   include UserState
 

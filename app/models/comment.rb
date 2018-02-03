@@ -1,3 +1,15 @@
+# Answer to a problem thread.
+#
+# *Parameters:*
+# * +content+ [String]      content of the answer
+# * +votes+ [Integer]       algebraic sum of the votes of the problem thread
+# * +solution+ [Boolean]    indicates if the comments is a solution for the problem thread
+#
+# *Associations:*
+# * +belongs_to+ [Author polymorphic]    author of the comment
+# * +belongs_to+ [ProblemThread]         problem thread which the comment answers
+# * +has_many+ [DownVote]                downvotes for the comment
+# * +has_many+ [UpVote]                  upvotes for the comment
 class Comment < ApplicationRecord
   after_create :notify
 
