@@ -1,52 +1,59 @@
 <% provide :title, "#{@product.enterprise.name} #{@product.model}" %>
 
-<h2>
-  <%= link_to @product.enterprise.name, enterprise_path(@product.enterprise) %>
-  <%= @product.model %>
-</h2>
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">
+    <%= link_to @product.enterprise.name, enterprise_path(@product.enterprise) %>
+  </li>
+  <li class="breadcrumb-item">
+    <%= link_to t(Product.model_name.human(count: 500).capitalize), products_enterprise_path(@product.enterprise) %>
+  </li>
+  <li class="breadcrumb-item active">
+    <%= @product.model %>
+  </li>
+</ol>
 
-<div class="panel panel-default">
-  <div class="panel-body">
-    <div class="row">
-      <div class="col-md-3">
-        <%= image_tag(@product.image_url(:medium), class: 'col-12 pl-0 mb-3 mt-1') if @product.image %>
+<div class="jumbotron py-2">
+  <div class="row">
+    <h2>
+      <%= @product.enterprise.name %>
+      <%= @product.model %>
+    </h2>
+    <% if policy(@product).update? %>
+      <%= button_to t(:resource_edit, name: Product.model_name.human), edit_product_path(@product), method: :get, class: 'btn btn-primary btn-raised ml-2' %>
+    <% end %>
+  </div>
 
-        <% if policy(@product).update? %>
-          <%= button_to I18n.t(:resource_edit, name: I18n.t(:product)), edit_product_path(@product), method: :get, class: 'btn btn-primary btn-raised' %>
-        <% end %>
-      </div>
-
-      <div class = "col-md-7">
-        <small>
-          <%= t(:since, year: @product.production_year) %>
-        </small>
-
-        <div>
-          <%= @product.description %>
-        </div>
-
-        <%= link_to I18n.t(:product_same_enterprise), products_enterprise_path(@product.enterprise) %>
-      </div>
+  <div class="row media mt-1">
+    <%= image_tag @product.image_url(:small), class: 'd-flex align-self-start', width: 250 %>
+    <div class="media-body ml-3">
+      <%= simple_format(@product.description) %>
+      <small>
+        <%= t(:since, year: @product.production_year) if @product.production_year %>
+      </small>
     </div>
   </div>
 </div>
 
-<div class="col-md-8">
-  <% if @product.problem_threads.any? %>
+<div class="row mx-0">
+  <div class="jumbotron col-5 py-2"> <!-- Problem threads -->
     <div class="row">
       <h3>
-        <%= t :problem_threads_header, number: @product.problem_threads.count %>
+        <%= t(:problem_threads_header, count: @product.problem_threads.count) %>
       </h3>
-
-      <% if current_consumer %> <!-- TODO: policy(ProblemThread).create? -->
-        <%= button_to I18n.t(:resource_new, resource: I18n.t(:problem_thread)), new_product_problem_thread_path(@product), method: :get, class: 'btn btn-primary btn-raised ml-2' %>
+      <% unless @product.problem_threads.count.zero? %>
+        <%= button_to t(:view_all), product_problem_threads_path(@product), method: :get, class: 'btn btn-info' %>
       <% end %>
     </div>
 
-    <ol class="problem_threads">
-      <%= render @problem_threads %>
-    </ol>
+    <!-- TODO: search -->
 
-    <% will_paginate @problem_threads%>
-  <% end %>
+    <%= render partial: 'problem_threads/list', locals: { format_zero: false, paginate: false,
+                                                          problem_threads: @product.problem_threads.order(:id).take(10) } %>
+
+    <% if policy(ProblemThread).create? %>
+      <%= button_to t(:resource_new, resource: ProblemThread.model_name.human), new_product_problem_thread_path(@product), method: :get, class: 'btn btn-primary btn-raised ml-2' %>
+    <% end %>
+  </div>
 </div>
+
+

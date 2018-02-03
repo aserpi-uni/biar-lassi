@@ -6,6 +6,11 @@ class EnterprisePolicy < ApplicationPolicy
     @enterprise = enterprise
   end
 
+  def show?
+    !@user.is_a?(Employee) ||
+      @user.enterprise == @enterprise
+  end
+
   def create?
     @user.is_a? Admin
   end

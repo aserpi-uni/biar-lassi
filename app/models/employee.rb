@@ -5,12 +5,14 @@
 # * *Supervisor*:  a chief, is responsible of the enterprise and its employees
 #
 # *Parameters:*
-# * +username+ [String]  user public identification
-# * +email+ [String]     user's email address
-# * others               See https://github.com/plataformatec/devise
+# * +username+ [String]   user public identification
+# * +email+ [String]      user's email address
+# * others                See https://github.com/plataformatec/devise
 #
 # *Associations:*
-# * +belongs_to+ [Enterprise]  enterprise for which they work
+# * +belongs_to+ [Enterprise]     enterprise for which they work
+# * +has_many+ [Comment]          comments posted by the employee
+# * +has_many+ [ProblemThread]    problem threads assigned to the employee (only if it is an operator)
 class Employee < ApplicationRecord
   include UserState
 
@@ -20,14 +22,14 @@ class Employee < ApplicationRecord
          :timeoutable,
          :trackable
 
-  validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i,
-                              message: I18n.t(:field_invalid) },
-                    user_uniqueness: true
+  validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i }, user_uniqueness: true
+
+  validates :enterprise, active: true
 
   validates :password, confirmation: true, length: { in: 8..128 }, on: :create
   validates :password, confirmation: true, length: { in: 8..128 }, allow_blank: true, on: :update
 
-  validates :username, format: { with: /\A\w{5,32}@\w{1,32}\z/, message: I18n.t(:field_invalid) }, reserved_name: true,
+  validates :username, format: { with: /\A\w{5,32}@\w{1,32}\z/ }, reserved_name: true,
                        uniqueness: { case_sensitive: false }, on: :create
 
   enum role: { supervisor: 0, operator: 1 }
@@ -39,13 +41,14 @@ class Employee < ApplicationRecord
   # Create a new Employee from +create+ action parameters.
   def self.from_params(params)
     employee = Employee.new
-    params[:password] = params[:password_confirmation] = Devise.friendly_token(20)
 
-    if (params[:enterprise] = Enterprise.find_by(name: params[:enterprise])) && params[:enterprise].active?
-      params[:username] = "#{params[:username]}@#{params[:enterprise].username_suffix}"
-    else
-      params[:username] = "#{params[:username]}@no_enterprise"
-    end
+    params[:enterprise] = Enterprise.where(name: params[:enterprise]).first
+    params[:password] = params[:password_confirmation] = Devise.friendly_token(20)
+    params[:username] = "#{params[:username]}@#{if params[:enterprise]&.active
+                                                  params[:enterprise]&.username_suffix
+                                                else
+                                                  'invalid_enterprise'
+                                                end}"
 
     employee.assign_attributes(params)
 

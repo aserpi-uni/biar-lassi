@@ -1,13 +1,9 @@
 <% provide :title, @search %>
 
-<h1>
-  <%= t(:results_for_search, resource: I18n.t(:product).pluralize, string: @search) %>
-</h1>
+<div class="jumbotron py-4">
+  <h2 class="mb-3">
+    <%= t(:results_for_search, count: @products.count, resource: Product.model_name.human(count: @products.count), string: @search) %>
+  </h2>
 
-<%= render partial: 'list' %>
-
-<% if @products.empty? %>
-  <h3>
-    <%= t(:results_no) %>
-  </h3>
-<% end %>
+  <%= render partial: 'list', locals: { products: @products } %>
+</div>

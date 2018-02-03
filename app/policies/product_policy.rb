@@ -6,6 +6,11 @@ class ProductPolicy < ApplicationPolicy
     @product = product
   end
 
+  def show?
+    !@user.is_a?(Employee) ||
+      @user.enterprise == @product.enterprise
+  end
+
   def create?
     @user.is_a?(Employee) && @user.supervisor?
   end

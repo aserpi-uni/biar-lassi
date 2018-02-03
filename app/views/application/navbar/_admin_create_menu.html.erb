@@ -6,17 +6,17 @@
   <div class="dropdown-menu dropdown-menu-right">
     <%= link_to new_admin_path, class: 'dropdown-item' do %>
         <%= fa_icon 'bolt fw', class: 'mr-2' %>
-        <%= t(:admin) %>
+        <%= Admin.model_name.human.capitalize %>
     <% end %>
     <%= link_to new_employee_path, class: 'dropdown-item' do %>
         <%= fa_icon 'users fw', class: 'mr-2' %>
-        <%= t(:employee) %>
+        <%= Employee.model_name.human.capitalize %>
     <% end %>
     <div class="dropdown-divider"></div>
     <%= link_to new_enterprise_path, class: 'dropdown-item' do %>
       <span class="col" style="padding-left:0;padding-right:0">
         <%= fa_icon 'briefcase fw' %>
-        <%= t(:enterprise) %>
+        <%= Enterprise.model_name.human.capitalize %>
       </span>
     <% end %>
   </div>

@@ -1,5 +1,7 @@
 <% provide :title, @employee == current_employee ? t(:settings) : t(:resource_edit, name: @employee.username) %>
 
+<%= render partial: 'errors', locals: { resource: @employee } %>
+
 <div class="jumbotron align-items-center">
   <div class="col-6 mx-auto" >
     <h3>
@@ -12,7 +14,7 @@
         <%= fa_icon('briefcase fw', class: 'col-1 mt-4') %>
         <div class="form-group bmd-form-group col">
           <%= f.text_field :enterprise, class: 'form-control', id: :enterprise, disabled: true, value: @employee.enterprise.name %>
-          <%= label_tag :enterprise, t(:enterprise), class: 'bmd-label-floating'%>
+          <%= label_tag :enterprise, Enterprise.model_name.human.capitalize, class: 'bmd-label-floating'%>
         </div>
       </fieldset>
 

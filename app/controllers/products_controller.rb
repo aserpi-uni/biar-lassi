@@ -1,14 +1,8 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[show edit update destroy restore]
 
-  # TODO: test
-  def index
-    @products = policy_scope(Product).order(:model).page(params[:page])
-  end
-
   def show
-    @problem_thread = @product.problem_threads.build
-    @problem_threads = @product.problem_threads.page(params[:page])
+    authorize @product
   end
 
   def new
@@ -21,7 +15,7 @@ class ProductsController < ApplicationController
 
     @product = current_employee.enterprise.products.build(params_create)
     if @product.save
-      flash[:success] = I18n.t(:resource_create_success, resource: I18n.t(:product).downcase)
+      flash[:success] = I18n.t(:resource_create_success, resource: Product.model_name.human)
       redirect_to @product
     else
       render :new
@@ -36,7 +30,7 @@ class ProductsController < ApplicationController
     authorize @product
     if @product.update(params_update)
       flash[:success] = I18n.t(:resource_edit_success, name: "#{@product.enterprise.name} #{@product.model}")
-      redirect_to edit_product_path(@product)
+      redirect_to @product
     else
       render :edit
     end
@@ -47,7 +41,7 @@ class ProductsController < ApplicationController
     authorize @product
     @product.soft_delete
 
-    flash[:success] = I18n.t(:deleted_resource, res: I18n.t(:product))
+    flash[:success] = I18n.t(:deleted_resource, res: Product.model_name.human)
     redirect_to products_url
   end
 
@@ -62,7 +56,10 @@ class ProductsController < ApplicationController
 
   # TODO: test
   def search
-    @products = policy_scope(Product).search(params[:search], fields: [:model], page: params[:page])
+    @products = policy_scope(Product).search(params[:search],
+                                             fields: ['enterprise^10', :model], operator: :or,
+                                             order: { _score: :desc },
+                                             page: params[:page])
     @search = params[:search]
   end
 

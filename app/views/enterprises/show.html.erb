@@ -1,13 +1,40 @@
 <% provide :title, @enterprise.name %>
 
-<%= debug @enterprise %>
+<div class="jumbotron py-2">
+  <div class="row">
+    <h2>
+      <%= @enterprise.name %>
+    </h2>
+    <% if policy(@enterprise).update? %>
+      <%= button_to t(:resource_edit, name: Enterprise.model_name.human), edit_enterprise_path(@enterprise), method: :get, class: 'btn btn-primary btn-raised ml-2' %>
+    <% end %>
+  </div>
 
-<% if policy(@enterprise).update? %>
-  <%= link_to t(:edit), edit_enterprise_path(@enterprise) %>
-<% end %>
+  <div class="row media mt-1">
+    <%= image_tag @enterprise.image_url(:small), class: 'd-flex align-self-start', width: 250 %>
+    <div class="media-body ml-3">
+      <%= simple_format(@enterprise.description) %>
+      <% if @enterprise.website %>
+        <%= t(:website_visit) %>
+        <%= link_to @enterprise.name, @enterprise.website %>
+      <% end  %>
+      <small>
+        <br>
+        <%= t(:since, year: @enterprise.founded) if @enterprise.founded %>
+        <br>
+        <%= t(:headquarters_in, loc: @enterprise.headquarters) if @enterprise.headquarters %>
+      </small>
+    </div>
+  </div>
+</div>
 
-<h3>
-  <%= t(:products_header, number: @enterprise.products.count) %>
-</h3>
+<div class="jumbotron py-2">
+  <div class="row">
+    <h3>
+      <%= t(:products_header, count: @enterprise.products.count) %>
+    </h3>
+    <%= button_to t(:view_all), products_enterprise_path(@enterprise), method: :get, class: 'btn btn-info' %>
+  </div>
 
-<%= render partial: 'products/list', locals: { products: @enterprise.products } %>
+  <%= render partial: 'products/list', locals: { paginate: false, products: @enterprise.products.order(:model).take(6) } %>
+</div>

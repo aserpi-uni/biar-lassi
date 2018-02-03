@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   post 'employees/unlock/:username', to: 'employees#unlock', as: 'employee_manual_unlock'
 
   # Enterprise
-  resources :enterprises, param: :name do
+  resources :enterprises, param: :name, except: [:index] do
     get 'products', on: :member
   end
 
@@ -38,7 +38,7 @@ Rails.application.routes.draw do
   resources :posts, only: %i[create destroy]
 
   # Product
-  resources :products do
+  resources :products, except: [:index] do
     delete 'restore', on: :member
     get 'search', on: :collection
 
