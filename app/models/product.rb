@@ -34,6 +34,10 @@ class Product < ApplicationRecord
     }
   end
 
+  def assign_operator_problem_thread
+    Employee.where(enterprise: enterprise, locked_at: nil, role: :operator).order('RANDOM()').first
+  end
+
   # Locks the products but not current problem threads
   def soft_delete
     self.active = false

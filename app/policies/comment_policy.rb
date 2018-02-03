@@ -8,17 +8,19 @@ class CommentPolicy < ApplicationPolicy
 
   def new?
     ((@user.is_a?(Consumer) && @user != @comment.problem_thread.author) || referent?(@user, @comment)) &&
+      @comment.problem_thread.product.active &&
       !@comment.problem_thread.comments.collect(&:author).include?(@user)
   end
 
   def create?
     (@comment.problem_thread.comments.count { |c| c.author == @user } == 1) &&
+      @comment.problem_thread.product.active &&
       ((@user.is_a?(Consumer) && @user != @comment.problem_thread.author) || referent?(@user, @comment))
   end
 
   def update?
-    @user.is_a?(Admin) ||
-      @user == @comment.author
+    (@user.is_a?(Admin) || @user == @comment.author) &&
+      @comment.problem_thread.product.active
   end
 
   def down?
@@ -33,7 +35,8 @@ class CommentPolicy < ApplicationPolicy
   end
 
   def mark?
-    (@user == @comment.problem_thread.author) || referent?(@user, @comment)
+    ((@user == @comment.problem_thread.author) || referent?(@user, @comment)) &&
+      @comment.problem_thread.product.active
   end
 
   def up?

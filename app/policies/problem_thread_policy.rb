@@ -16,18 +16,12 @@ class ProblemThreadPolicy < ApplicationPolicy
   end
 
   def create?
-    @user.is_a?(Consumer)
+    @user.is_a?(Consumer) && @problem_thread.product.active
   end
 
   def update?
-    @user.is_a?(Admin) ||
-      @user == @problem_thread.author
-  end
-
-  def destroy?
-    @user.is_a?(Admin) ||
-      @user == @problem_thread.author ||
-      @user == @problem_thread.employee
+    (@user.is_a?(Admin) || @user == @problem_thread.author) &&
+      @problem_thread.product.active
   end
 
   def follow?

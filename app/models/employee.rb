@@ -68,7 +68,14 @@ class Employee < ApplicationRecord
   end
 
   def reallocate_tickets
-    # TODO: redistribuire ogni ticket aperto ad altri operator
+    problem_threads.each do |thread|
+      thread.update(employee: thread.product.assign_operator_problem_thread)
+    end
+  end
+
+  def soft_delete
+    super
+    reallocate_tickets
   end
 
   def same_enterprise?(resource)

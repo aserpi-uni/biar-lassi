@@ -42,7 +42,7 @@ class ProductsController < ApplicationController
     @product.soft_delete
 
     flash[:success] = I18n.t(:deleted_resource, res: Product.model_name.human)
-    redirect_to products_url
+    redirect_to product_path(@product)
   end
 
   # TODO: test

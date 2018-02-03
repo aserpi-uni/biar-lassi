@@ -72,6 +72,8 @@ en:
 
   image: 'Image'
 
+  inactive: 'Inactive'
+
   incorrect_credentials: 'Incorrect username or password'
 
   irreversible: 'This action is irreversible.'

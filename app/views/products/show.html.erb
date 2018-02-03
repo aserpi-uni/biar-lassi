@@ -8,12 +8,15 @@
 
 <div class="jumbotron py-2">
   <div class="row">
-    <h2>
+    <h2 class="row align-items-center">
       <%= @product.enterprise.name %>
       <%= @product.model %>
+      <% unless @product.active %>
+        <%= render partial: 'application/inactive_badge' %>
+      <% end %>
     </h2>
     <% if policy(@product).update? %>
-      <%= button_to t(:resource_edit, name: Product.model_name.human), edit_product_path(@product), method: :get, class: 'btn btn-primary btn-raised ml-2' %>
+      <%= button_to t(:resource_edit, name: Product.model_name.human), edit_product_path(@product), method: :get, class: 'btn btn-primary btn-raised ml-4', form_class: 'form-delete' %>
     <% end %>
   </div>
 
@@ -44,7 +47,7 @@
     <%= render partial: 'problem_threads/list', locals: { format_zero: false, paginate: false,
                                                           problem_threads: @product.problem_threads.order(:id).take(10) } %>
 
-    <% if policy(ProblemThread).create? %>
+    <% if policy(@product.problem_threads.build).create? %>
       <%= button_to t(:resource_new, resource: ProblemThread.model_name.human), new_product_problem_thread_path(@product), method: :get, class: 'btn btn-primary btn-raised ml-2' %>
     <% end %>
   </div>

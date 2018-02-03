@@ -83,8 +83,7 @@ class ProblemThreadsController < ApplicationController
     p = permitted_attributes(@product.problem_threads.build)
 
     p[:author] = current_consumer
-    # TODO: p[:employee] = Employee.get_up(@problem_thread.product)
-    p[:employee] = Employee.where(enterprise: @product.enterprise, role: :operator).first
+    p[:employee] = @product.assign_operator_problem_thread
     p[:product] = @product
 
     p
