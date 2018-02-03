@@ -212,8 +212,8 @@ en:
         one: 'problem thread'
         other: 'problem threads'
       product:
-          one: 'product'
-          other: 'products'
+        one: 'product'
+        other: 'products'
     errors:
       messages:
         blank: 'is required'
@@ -256,6 +256,6 @@ en:
 
   user_mailer:
     new_email:
-      subject: 'New account'
       greetings: 'Hello there, %{user}!'
       body: 'In order to access the site you need to recover your password here: %{link}'
+      subject: 'New account'

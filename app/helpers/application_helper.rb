@@ -28,13 +28,5 @@ module ApplicationHelper
     end
   end
 
-  def user_path(usr)
-    if usr.is_a? Admin
-      admin_path current_admin
-    elsif usr.is_a? Consumer
-      consumer_path current_consumer
-    elsif usr.is_a? Employee
-      employee_path current_employee
-    end
   end
 end

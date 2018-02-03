@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :not_authorized
 
   helper_method :current_user
+  helper_method :user_path
 
   protected
 
@@ -41,19 +42,5 @@ class ApplicationController < ActionController::Base
     flash[:error] = I18n.t :forbidden
     response.headers['Status-Code'] = '403'
     redirect_to root_path
-  end
-
-  def logged_in_user
-    unless logged_in?
-      # store_location //funzione per ricordare la posizione precedente all'errore
-      flash[:error] = 'Please log in'
-      redirect_to root_path
-    end
-  end
-
-  helper_method :logged_in?
-
-  def logged_in?
-    current_user != NIL
   end
 end
