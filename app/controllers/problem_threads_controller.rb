@@ -1,5 +1,5 @@
 class ProblemThreadsController < ApplicationController
-  before_action :set_problem_thread, only: %i[show edit update destroy follow]
+  before_action :set_problem_thread, only: %i[show edit update destroy down down_votes follow up]
   before_action :set_product, only: %i[index new create]
 
   def index
@@ -50,6 +50,14 @@ class ProblemThreadsController < ApplicationController
     redirect_to product_problem_threads_url
   end
 
+  def down
+    authorize @problem_thread
+  end
+
+  def down_votes
+    authorize @problem_thread
+  end
+
   def follow
     authorize @problem_thread
 
@@ -60,6 +68,13 @@ class ProblemThreadsController < ApplicationController
     end
 
     render :show
+  end
+
+  def up
+    authorize @problem_thread
+    @problem_thread.up_votes.build(upper: current_user)
+    @problem_thread.save
+    redirect_to problem_thread_path(@problem_thread)
   end
 
   private

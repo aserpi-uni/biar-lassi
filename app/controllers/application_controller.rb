@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   helper_method :comment_path
   helper_method :user_path
+  helper_method :vote_resource_path
 
   protected
 
@@ -39,6 +40,10 @@ class ApplicationController < ActionController::Base
     elsif user.is_a? Employee
       employee_path user
     end
+  end
+
+  def vote_resource_path(resource)
+    send("up_#{resource.class.name.underscore}_path", resource)
   end
 
   private

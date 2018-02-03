@@ -34,6 +34,21 @@ class ProblemThreadPolicy < ApplicationPolicy
     @user.is_a?(Consumer)
   end
 
+  def down?
+    (@user.is_a?(Consumer) || (@user.is_a?(Employee) && @user.same_enterprise?(@problem_thread))) &&
+      @user != @problem_thread.author &&
+      !@problem_thread.down_votes.map(&:downer).include?(@user)
+  end
+
+  def down_votes?
+    show?
+  end
+
+  def up?
+    (@user.is_a?(Consumer) || (@user.is_a?(Employee) && @user.same_enterprise?(@problem_thread))) &&
+      @user != @problem_thread.author &&
+      !@problem_thread.up_votes.map(&:upper).include?(@user)
+  end
 
   def permitted_attributes
     %i[content title]

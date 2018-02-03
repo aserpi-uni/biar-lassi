@@ -27,7 +27,10 @@ class Employee < ApplicationRecord
   belongs_to :enterprise
 
   has_many :comments, as: :author, dependent: :destroy
+  has_many :down_votes, as: :downer, dependent: :destroy
   has_many :problem_threads
+  has_many :up_votes, as: :upper, dependent: :destroy
+
   validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i }, user_uniqueness: true
 
   validates :enterprise, active: true

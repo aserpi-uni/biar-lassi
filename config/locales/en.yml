@@ -48,6 +48,10 @@ en:
 
   description: 'Description'
 
+  downvote: 'Downvote'
+  downvote_reason: 'Explain the reasons behind your negative vote.'
+  downvotes_for: 'Downvotes for the %{resource_type}'
+
   edit: 'Edit'
 
   email: 'Email'
@@ -218,6 +222,9 @@ en:
       consumer:
         one: 'consumer'
         other: 'consumers'
+      down_vote:
+        one: 'downvote'
+        other: 'downvotes'
       employee:
         one: 'employee'
         other: 'employees'
@@ -230,6 +237,9 @@ en:
       product:
         one: 'product'
         other: 'products'
+      up_vote:
+        one: 'vote up'
+        other: 'votes up'
     errors:
       messages:
         blank: 'is required'

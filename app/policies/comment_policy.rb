@@ -21,8 +21,30 @@ class CommentPolicy < ApplicationPolicy
       @user == @comment.author
   end
 
+  def down?
+    @user &&
+      Pundit.policy(@user, @comment.problem_thread).show? &&
+      @user != @comment.author &&
+      !@comment.down_votes.map(&:downer).include?(@user)
+  end
+
+  def down_votes?
+    Pundit.policy(@user, @comment.problem_thread).show?
+  end
+
   def mark?
     (@user == @comment.problem_thread.author) || referent?(@user, @comment)
+  end
+
+  def up?
+    @user &&
+      Pundit.policy(@user, @comment.problem_thread).show? &&
+      @user != @comment.author &&
+      !@comment.up_votes.map(&:upper).include?(@user)
+  end
+
+  def permitted_attributes
+    %i[content]
   end
 
   private

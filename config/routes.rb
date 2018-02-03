@@ -44,14 +44,23 @@ Rails.application.routes.draw do
 
     # Problem thread
     resources :problem_threads, shallow: true do
+      get :down, on: :member
+      get :down_votes, on: :member
+      post :up, on: :member
       post :follow, on: :member
 
       # Comment
       resources :comments, shallow: true, except: %i[index destroy] do
+        get :down, on: :member
+        get :down_votes, on: :member
         post :mark, on: :member
+        post :up, on: :member
       end
     end
   end
+
+  resources :up_votes, only: %i[destroy]
+  resources :down_votes, only: %i[create destroy]
 
   # Relationship
   resources :relationships, only: %i[create destroy]

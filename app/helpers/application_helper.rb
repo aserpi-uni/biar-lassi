@@ -28,5 +28,11 @@ module ApplicationHelper
     end
   end
 
+  def down_resource_path(resource)
+    send("down_#{resource.class.name.underscore}_path", resource)
+  end
+
+  def downs_resource_path(resource)
+    send("down_votes_#{resource.class.name.underscore}_path", resource)
   end
 end

@@ -8,7 +8,9 @@
 # *Associations:*
 # * +has_many+ [Post]             posts posted by the consumer
 # * +has_many+ [Comment]          comments posted by the user
+# * +has_many+ [DownVote]         negative votes posted by the user
 # * +has_many+ [ProblemThread]    problem threads opened by the consumer
+# * +has_many+ [UpVote]           positive votes posted by the user
 class Consumer < ApplicationRecord
   include UserState
 
@@ -24,6 +26,8 @@ class Consumer < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :problem_threads, dependent: :destroy
   has_many :comments, as: :author, dependent: :destroy
+  has_many :down_votes, as: :downer, dependent: :destroy
+  has_many :up_votes, as: :upper, dependent: :destroy
 
   validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i }, allow_blank: true,
                     consumer_authentication: true, user_uniqueness: true

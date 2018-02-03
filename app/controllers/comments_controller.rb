@@ -34,8 +34,13 @@ class CommentsController < ApplicationController
     end
   end
 
+  def down
+    authorize @comment
   end
 
+  def down_votes
+    authorize @comment
+  end
 
   def mark
     authorize @comment
@@ -54,6 +59,11 @@ class CommentsController < ApplicationController
     redirect_to comment_path(@comment)
   end
 
+  def up
+    authorize @comment
+    @comment.up_votes.build(upper: current_user)
+    @comment.save
+    redirect_to comment_path(@comment)
   end
 
   private
