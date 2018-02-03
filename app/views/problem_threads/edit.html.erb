@@ -1,6 +1,27 @@
-<h1>Editing Problem Thread</h1>
+<% provide :title, t(:resource_edit, name: ProblemThread.model_name.human) %>
 
-<%= render 'form', problem_thread: @problem_thread %>
+<%= render partial: 'errors', locals: { resource: @problem_thread } %>
 
-<%= link_to 'Show', @problem_thread %> |
-<%= link_to 'Back', problem_threads_path %>
+<ol class="breadcrumb">
+  <%= render partial: 'breadcrumbs', locals: { problem_thread: @problem_thread } %>
+
+  <%= render partial: 'application/breadcrumbs/problem_thread', locals: { problem_thread: @problem_thread} %>
+
+  <%= render partial: 'application/breadcrumbs/finale', locals: { string: t(:edit) } %>
+</ol>
+
+<div class="jumbotron align-items-center">
+  <div class="col-6 mx-auto" >
+    <h2>
+      <%= t :resource_edit, name: ProblemThread.model_name.human %>
+    </h2>
+
+    <%= form_with model: @problem_thread, metod: :put, local: true do |f| %>
+      <%= render partial: 'application/forms/title', locals: { form: f } %>
+
+      <%= render partial: 'application/forms/content', locals: { form: f, } %>
+
+      <%= render partial: 'application/forms/submit', locals: { form: f, locale: :save } %>
+    <% end %>
+  </div> <!-- col-6 -->
+</div> <!-- jumbotron -->

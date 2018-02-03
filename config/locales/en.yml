@@ -1,7 +1,14 @@
 en:
   actions: 'Actions'
 
+  ago: '%{time} ago'
+
+  already_commented: 'You have already commented this resource'
   already_used: 'already used'
+
+  answered: 'Answered'
+
+  at: 'at %{time} (%{ago})'
 
   avatar: 'Avatar'
   avatar_operator: "Operator's avatar"
@@ -14,6 +21,11 @@ en:
   change: 'Change'
 
   close: 'Close'
+
+  comments_header:
+    zero: 'No comments'
+    one: '1 comment'
+    other: '%{count} comments'
 
   confirm: 'Confirm'
 
@@ -36,6 +48,10 @@ en:
 
   description: 'Description'
 
+  downvote: 'Downvote'
+  downvote_reason: 'Explain the reasons behind your negative vote.'
+  downvotes_for: 'Downvotes for the %{resource_type}'
+
   edit: 'Edit'
 
   email: 'Email'
@@ -43,6 +59,8 @@ en:
   enterprise_settings: 'Enterprise settings'
 
   field_invalid: 'is invalid'
+
+  follow: 'Follow'
 
   forbidden: 'You are not authorized to perform this action'
 
@@ -54,9 +72,13 @@ en:
 
   image: 'Image'
 
+  inactive: 'Inactive'
+
   incorrect_credentials: 'Incorrect username or password'
 
   irreversible: 'This action is irreversible.'
+
+  last_update: 'Last update %{time}'
 
   lock: 'Lock'
   lock_account: 'Lock my account'
@@ -88,8 +110,14 @@ en:
   password_reset: 'Reset password'
   password_reset_send: 'Send me reset password instructions'
 
-  problem_thread: 'Problem thread'
-  problem_threads_header: 'Problem threads (%{number})'
+  posted: 'Posted %{time}'
+  posted_by: 'Posted by'
+
+  problem_threads_header:
+    zero: 'No active problem threads'
+    one: '1 active problem thread'
+    other: '%{count} active problem threads'
+  problem_threads_of: 'Problem threads of'
 
   product_same_enterprise: 'Products from the same enterprise'
   production_year: 'Production year'
@@ -103,7 +131,11 @@ en:
 
   or: 'or'
 
+  referent: 'Referent'
+
   remember_me: 'Remember me'
+
+  remove: 'Remove'
 
   resource_create: 'Create a new %{resource}'
   resource_create_success: 'Successfully created a new %{resource}'
@@ -142,7 +174,16 @@ en:
 
   since: 'Since %{year}'
 
+  solution_mark: 'Mark as solution'
+  solution_marked: 'Comment marked as solution'
+  solution_unmark: 'Unmark as solution '
+  solution_unmarked: 'Comment unmarked as solution '
+
   sure: 'Are you sure?'
+
+  title: 'Title'
+
+  unfollow: 'Unfollow'
 
   unhappy: 'Unhappy?'
 
@@ -177,19 +218,30 @@ en:
       admin:
         one: 'admin'
         other: 'admins'
+      comment:
+        one: 'comment'
+        other: 'comments'
       consumer:
         one: 'consumer'
         other: 'consumers'
+      down_vote:
+        one: 'downvote'
+        other: 'downvotes'
       employee:
         one: 'employee'
         other: 'employees'
       enterprise:
         one: 'enterprise'
         other: 'enterprises'
+      problem_thread:
+        one: 'problem thread'
+        other: 'problem threads'
       product:
-          one: 'product'
-          other: 'products'
-
+        one: 'product'
+        other: 'products'
+      up_vote:
+        one: 'vote up'
+        other: 'votes up'
     errors:
       messages:
         blank: 'is required'
@@ -230,8 +282,36 @@ en:
     username: 'Choose a username'
     title: 'Sign in with Facebook'
 
+  consumer_notifier_mailer:
+    comment_created:
+      body: 'A comment to the problem thread "%{problem_thread}" has been posted, you can see it here: %{link}'
+      greetings: 'New developments, %{user}!'
+      subject: 'New comment'
+    new_solution:
+      body: 'The problem thread "%{problem_thread}" has a new solution, you can find it here: %{link}"'
+      greetings: 'Good news, %{user}!'
+      subject: 'New solution for problem thread'
+
+  referent_notifier_mailer:
+    comment_created:
+      body: 'A comment to the problem thread "%{problem_thread}" has been posted, you can see it here: %{link}'
+      greetings: 'New developments, %{user}!'
+      subject: 'New comment'
+    new_solution:
+      body: 'The problem thread "%{problem_thread}" has a new solution, you can find it here: %{link}"'
+      greetings: 'Good news, %{user}!'
+      subject: 'New solution for problem thread'
+    problem_thread_created:
+      body: 'A new problem thread has been placed under your responsibility, you can see it here: %{link}'
+      greetings: 'New assignment, %{user}!'
+      subject: 'New problem thread'
+    problem_thread_updated:
+      body: 'The problem thread "%{problem_thread}" has been updated, you can see it here: %{link}'
+      greetings: 'New developments, %{user}!'
+      subject: 'Problem thread updated'
+
   user_mailer:
     new_email:
-      subject: 'New account'
       greetings: 'Hello there, %{user}!'
       body: 'In order to access the site you need to recover your password here: %{link}'
+      subject: 'New account'

@@ -1,0 +1,19 @@
+<% provide :title, t(:resource_new, resource: Comment.model_name.human) %>
+
+<%= render partial: 'errors', locals: { resource: @comment } %>
+
+<ol class="breadcrumb">
+  <%= render partial: 'breadcrumbs', locals: { comment: @comment } %>
+
+  <%= render partial: 'application/breadcrumbs/finale', locals: { string: t(:resource_new, resource: Comment.model_name.human) } %>
+</ol>
+
+<div class="jumbotron align-items-center">
+  <div class="col-6 mx-auto" >
+    <h2>
+      <%= t(:resource_create, resource: Comment.model_name.human) %>
+    </h2>
+
+    <%= render partial: 'form', locals: { submit: :create } %>
+  </div>
+</div>

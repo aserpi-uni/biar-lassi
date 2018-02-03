@@ -7,12 +7,15 @@
 # *Parameters:*
 # * +username+ [String]   user public identification
 # * +email+ [String]      user's email address
+# * +role+ [Type]         employee's role in his enterprise
 # * others                See https://github.com/plataformatec/devise
 #
 # *Associations:*
 # * +belongs_to+ [Enterprise]     enterprise for which they work
 # * +has_many+ [Comment]          comments posted by the employee
+# * +has_many+ [DownVote]         negative votes posted by the user
 # * +has_many+ [ProblemThread]    problem threads assigned to the employee (only if it is an operator)
+# * +has_many+ [UpVote]           positive votes posted by the user
 class Employee < ApplicationRecord
   include UserState
 
@@ -21,6 +24,15 @@ class Employee < ApplicationRecord
          :recoverable,
          :timeoutable,
          :trackable
+
+  enum role: { supervisor: 0, operator: 1 }
+
+  belongs_to :enterprise
+
+  has_many :comments, as: :author, dependent: :destroy
+  has_many :down_votes, as: :downer, dependent: :destroy
+  has_many :problem_threads
+  has_many :up_votes, as: :upper, dependent: :destroy
 
   validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i }, user_uniqueness: true
 
@@ -31,12 +43,6 @@ class Employee < ApplicationRecord
 
   validates :username, format: { with: /\A\w{5,32}@\w{1,32}\z/ }, reserved_name: true,
                        uniqueness: { case_sensitive: false }, on: :create
-
-  enum role: { supervisor: 0, operator: 1 }
-
-  belongs_to :enterprise
-  has_many :problem_threads
-  has_many :comments, as: :commentable
 
   # Create a new Employee from +create+ action parameters.
   def self.from_params(params)
@@ -65,7 +71,27 @@ class Employee < ApplicationRecord
   end
 
   def reallocate_tickets
-    # TODO: redistribuire ogni ticket aperto ad altri operator
+    problem_threads.each do |thread|
+      thread.update(employee: thread.product.assign_operator_problem_thread)
+    end
+  end
+
+  def soft_delete
+    super
+    reallocate_tickets
+  end
+
+  def same_enterprise?(resource)
+    if resource.is_a? DownVote
+      resource = resource.downable
+    elsif resource.is_a? UpVote
+      resource = resource.uppable
+    end
+    return resource.problem_thread.product.enterprise == enterprise if resource.is_a?(Comment)
+    return resource.product.enterprise == enterprise if resource.is_a?(ProblemThread)
+    return resource.enterprise == enterprise if resource.is_a?(Product)
+    return resource == enterprise if resource.is_a?(Enterprise)
+    false
   end
 
   # Updates the Employee's suffix with the newest one

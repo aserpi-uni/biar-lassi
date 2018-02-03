@@ -4,6 +4,14 @@
 
 <%= render partial: 'errors', locals: { resource: @product } %>
 
+<ol class="breadcrumb">
+  <%= render partial:'breadcrumbs', locals: { product: @product} %>
+
+  <%= render partial:'application/breadcrumbs/product', locals: { product: @product} %>
+
+  <%= render partial: 'application/breadcrumbs/finale', locals: { string: t(:edit)} %>
+</ol>
+
 <div class="jumbotron align-items-center">
   <div class="col-6 mx-auto" >
     <h2>

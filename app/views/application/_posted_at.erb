@@ -1,0 +1,11 @@
+<div class="col-3">
+  <em class="row">
+    <%= t(:posted, time: time.to_formatted_s(:long)) %>
+  </em>
+  <div class="row">
+    <%= link_to user_path(user) do %>
+      <%= render partial: 'application/avatar', locals: { user: user, size: 23 } %>
+      <%= user.username %>
+    <% end %>
+  </div>
+</div>

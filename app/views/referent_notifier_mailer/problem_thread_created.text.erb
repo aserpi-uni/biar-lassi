@@ -1,0 +1,3 @@
+<%= t('.greetings', user: @problem_thread.employee.username.split('@')[0]) %>
+
+<%= t('.body', link: problem_thread_url(@problem_thread), problem_thread: @problem_thread.title).html_safe %>

@@ -1,9 +1,0 @@
-<% if current_user.is_a?Consumer%>
-    <div id="follow_form">
-    <%if current_user.following.include?(@problem_thread)%>
-        <%=render 'unfollow'%>
-      <%else%>
-        <%= render 'follow'%>
-        <%end%>
-    </div>
-<%end%>

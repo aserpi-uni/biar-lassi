@@ -15,6 +15,7 @@ class Product < ApplicationRecord
   searchkick callbacks: :async
 
   belongs_to :enterprise
+
   has_many :problem_threads, dependent: :destroy
 
   validates :model, product_uniqueness: true
@@ -32,6 +33,10 @@ class Product < ApplicationRecord
       model: model,
       enterprise: enterprise.name
     }
+  end
+
+  def assign_operator_problem_thread
+    Employee.where(enterprise: enterprise, locked_at: nil, role: :operator).order('RANDOM()').first
   end
 
   # Locks the products but not current problem threads

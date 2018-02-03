@@ -34,24 +34,33 @@ Rails.application.routes.draw do
     get 'products', on: :member
   end
 
-  # Post
-  resources :posts, only: %i[create destroy]
-
   # Product
   resources :products, except: [:index] do
     delete 'restore', on: :member
     get 'search', on: :collection
 
-    resources :problem_threads do
-      member do
-        get :followers
+    # Problem thread
+    resources :problem_threads, shallow: true do
+      get :down, on: :member
+      get :down_votes, on: :member
+      post :up, on: :member
+      post :follow, on: :member
+
+      # Comment
+      resources :comments, shallow: true, except: %i[index destroy] do
+        get :down, on: :member
+        get :down_votes, on: :member
+        post :mark, on: :member
+        post :up, on: :member
       end
-      resources :comments
     end
   end
 
+  resources :up_votes, only: %i[destroy]
+  resources :down_votes, only: %i[create destroy]
+
   # Relationship
-  resources :relationships, only: [:create, :destroy]
+  resources :relationships, only: %i[create destroy]
 
   # Static pages
   get 'user_static_page/home'

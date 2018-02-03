@@ -1,0 +1,11 @@
+<% active = false if active.nil? %>
+
+<% if active %>
+  <li class="breadcrumb-item active">
+    <%= t(Product.model_name.human(count: 500).capitalize) %>
+  </li>
+<% else %>
+  <li class="breadcrumb-item">
+    <%= link_to t(Product.model_name.human(count: 500).capitalize), products_enterprise_path(enterprise) %>
+  </li>
+<% end %>

@@ -8,6 +8,9 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :not_authorized
 
   helper_method :current_user
+  helper_method :comment_path
+  helper_method :user_path
+  helper_method :vote_resource_path
 
   protected
 
@@ -16,6 +19,11 @@ class ApplicationController < ActionController::Base
     added_attrs = %i[username email password password_confirmation]
     devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
     devise_parameter_sanitizer.permit :account_update, keys: added_attrs
+  end
+
+  # Path of a comment
+  def comment_path(comment)
+    "/problem_threads/#{comment.problem_thread.id}#comments/#{comment.id}"
   end
 
   # Returns the current user.
@@ -34,6 +42,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def vote_resource_path(resource)
+    send("up_#{resource.class.name.underscore}_path", resource)
+  end
+
   private
 
   # Redirects the user after a _Pundit_ nay.
@@ -41,19 +53,5 @@ class ApplicationController < ActionController::Base
     flash[:error] = I18n.t :forbidden
     response.headers['Status-Code'] = '403'
     redirect_to root_path
-  end
-
-  def logged_in_user
-    unless logged_in?
-      # store_location //funzione per ricordare la posizione precedente all'errore
-      flash[:error] = 'Please log in'
-      redirect_to root_path
-    end
-  end
-
-  helper_method :logged_in?
-
-  def logged_in?
-    current_user != NIL
   end
 end

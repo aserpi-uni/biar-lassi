@@ -28,13 +28,11 @@ module ApplicationHelper
     end
   end
 
-  def user_path(usr)
-    if usr.is_a? Admin
-      admin_path current_admin
-    elsif usr.is_a? Consumer
-      consumer_path current_consumer
-    elsif usr.is_a? Employee
-      employee_path current_employee
-    end
+  def down_resource_path(resource)
+    send("down_#{resource.class.name.underscore}_path", resource)
+  end
+
+  def downs_resource_path(resource)
+    send("down_votes_#{resource.class.name.underscore}_path", resource)
   end
 end

@@ -1,84 +1,90 @@
 class CommentsController < ApplicationController
-  before_action :logged_in_user, only:[:create, :destroy]
-  before_action :set_comment, only: [:edit, :update, :destroy]
-  before_action :set_problem_thread
-  #before_action :set_correct_commentable
+  before_action :set_comment, only: %i[edit update destroy down down_votes mark up]
+  before_action :set_problem_thread, only: %i[new create]
 
-
-  # GET /comments/new
   def new
-    @comment = @problem_thread.comments.build
+    @comment = @problem_thread.comments.new
+    authorize @comment
   end
 
-  # GET /comments/1/edit
-  def edit
-  end
-
-  # POST /comments
-  # POST /comments.json
   def create
-    @comment = @problem_thread.comments.build(comment_params)
-    #@comment.commentable_type = current_user.class
-    #@comment.commentable_id = current_user.id
-    @comment.commentable = current_user
-    @comment.solution = false
+    @comment = @problem_thread.comments.build(params_create)
+    authorize @comment
 
-      if @comment.save
-        if @comment.commentable == @problem_thread.consumer
-          ReferentNotifierMailer.send_referent_notify(@problem_thread.employee, @problem_thread, @problem_thread.product).deliver
-        end
-        if @comment.commentable == @problem_thread.employee
-          ConsumerNotifierMailer.send_consumer_notify(@problem_thread.consumer, @problem_thread, @problem_thread.product).deliver
-        end
-        redirect_to product_problem_thread_path(@problem_thread.product, @problem_thread)
-        flash[:success] = 'Comment successfully created!'
-      else
-        redirect_to product_problem_thread_path(@problem_thread.product, @problem_thread)
-        flash[:success] = 'Comment NOT created!'
-
-      end
-
+    if @comment.save
+      flash[:success] = I18n.t(:resource_create_success, resource: Comment.model_name.human)
+      redirect_to comment_path(@comment.id)
+    else
+      render :new
+    end
   end
 
+  def edit
+    authorize @comment
+  end
 
-  # PATCH/PUT /comments/1
-  # PATCH/PUT /comments/1.json
   def update
+    authorize @comment
 
-      if @comment.update(comment_params)
-        redirect_to product_problem_thread_path(@problem_thread.product, @problem_thread)
-        flash[:success] = 'Comment successfully updated!'
-      else
-        redirect_to product_problem_thread_path(@problem_thread.product, @problem_thread)
-        flash[:error] = 'Comment NOT updated'
-      end
-
+    if @comment.update(params_update)
+      flash[:success] = I18n.t(:resource_edit_success, name: Comment.model_name.human)
+      redirect_to comment_path(@comment)
+    else
+      render :edit
+    end
   end
 
-  # DELETE /comments/1
-  # DELETE /comments/1.json
-  def destroy
-    @comment.destroy
+  def down
+    authorize @comment
+  end
 
-      redirect_to product_problem_thread_path(@problem_thread.product, @problem_thread)
-      flash[:success] = 'Comment successfully destroyed!'
+  def down_votes
+    authorize @comment
+  end
 
+  def mark
+    authorize @comment
+    @comment.update(solution: !@comment.solution)
+
+    if @comment.solution
+      flash[:success] = I18n.t(:solution_marked)
+
+      @comment.problem_thread.followers.where.not(email: [nil, '']).each do |follower|
+        ConsumerNotifierMailer.new_solution(@comment, follower).deliver_later
+      end
+      ReferentNotifierMailer.new_solution(@comment).deliver_later
+    else
+      flash[:success] = I18n.t(:solution_unmarked)
+    end
+    redirect_to comment_path(@comment)
+  end
+
+  def up
+    authorize @comment
+    @comment.up_votes.build(upper: current_user)
+    @comment.save
+    redirect_to comment_path(@comment)
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_comment
-      @comment = Comment.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def comment_params
-      params.require(:comment).permit(:content)
-    end
+  def params_create
+    p = permitted_attributes(@problem_thread.comments.new)
+    p[:author] = current_user
+    p[:solution] = false
 
-    def set_problem_thread
-      @problem_thread = ProblemThread.find(params[:problem_thread_id])
-    end
+    p
+  end
 
+  def params_update
+    permitted_attributes(@comment)
+  end
 
+  def set_comment
+    @comment = Comment.find(params[:id])
+  end
+
+  def set_problem_thread
+    @problem_thread = ProblemThread.find(params[:problem_thread_id])
+  end
 end
