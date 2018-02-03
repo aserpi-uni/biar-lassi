@@ -6,7 +6,6 @@
 # * others               See https://github.com/plataformatec/devise
 #
 # *Associations:*
-# * +has_many+ [Post]             posts posted by the consumer
 # * +has_many+ [Comment]          comments posted by the user
 # * +has_many+ [DownVote]         negative votes posted by the user
 # * +has_many+ [ProblemThread]    problem threads opened by the consumer
@@ -23,7 +22,6 @@ class Consumer < ApplicationRecord
          :trackable,
          :omniauthable, omniauth_providers: [:facebook]
 
-  has_many :posts, dependent: :destroy
   has_many :problem_threads, dependent: :destroy
   has_many :comments, as: :author, dependent: :destroy
   has_many :down_votes, as: :downer, dependent: :destroy
@@ -83,8 +81,9 @@ class Consumer < ApplicationRecord
   has_many :following, through: :active_relationships, source: :followed
 
   def feed
-    following_ids = 'SELECT followed_id from relationships WHERE follower_id = :consumer_id'
-    Comment.where("problem_thread_id in (#{following_ids}) OR commentable_id = :consumer_id AND commentable_type = :consumer", consumer_id: id, consumer: Consumer)
+    Comment.none
+    #following_ids = 'SELECT followed_id from relationships WHERE follower_id = :consumer_id'
+    #Comment.where("problem_thread_id in (#{following_ids}) OR commentable_id = :consumer_id AND commentable_type = :consumer", consumer_id: id, consumer: Consumer)
     #Comment.where("problem_thread_id in (?)", following_ids)
   end
 

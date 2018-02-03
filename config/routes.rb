@@ -34,9 +34,6 @@ Rails.application.routes.draw do
     get 'products', on: :member
   end
 
-  # Post
-  resources :posts, only: %i[create destroy]
-
   # Product
   resources :products, except: [:index] do
     delete 'restore', on: :member
