@@ -22,9 +22,9 @@ class Consumer < ApplicationRecord
          :trackable,
          :omniauthable, omniauth_providers: [:facebook]
 
-  has_many :problem_threads, dependent: :destroy
   has_many :comments, as: :author, dependent: :destroy
   has_many :down_votes, as: :downer, dependent: :destroy
+  has_many :problem_threads, inverse_of: 'author'
   has_many :up_votes, as: :upper, dependent: :destroy
 
   validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i }, allow_blank: true,

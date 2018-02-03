@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180114174637) do
+ActiveRecord::Schema.define(version: 20180131092335) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,10 +42,11 @@ ActiveRecord::Schema.define(version: 20180114174637) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "problem_thread_id"
-    t.string "commentable_type"
-    t.bigint "commentable_id"
+    t.string "author_type"
+    t.bigint "author_id"
     t.boolean "solution"
-    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
+    t.integer "votes", default: 0
+    t.index ["author_type", "author_id"], name: "index_comments_on_author_type_and_author_id"
     t.index ["problem_thread_id"], name: "index_comments_on_problem_thread_id"
   end
 
@@ -78,6 +79,18 @@ ActiveRecord::Schema.define(version: 20180114174637) do
     t.index ["uid"], name: "index_consumers_on_uid"
     t.index ["unlock_token"], name: "index_consumers_on_unlock_token", unique: true
     t.index ["username"], name: "index_consumers_on_username", unique: true
+  end
+
+  create_table "down_votes", force: :cascade do |t|
+    t.string "downer_type"
+    t.bigint "downer_id"
+    t.string "downable_type"
+    t.bigint "downable_id"
+    t.text "reason"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["downable_type", "downable_id"], name: "index_down_votes_on_downable_type_and_downable_id"
+    t.index ["downer_type", "downer_id"], name: "index_down_votes_on_downer_type_and_downer_id"
   end
 
   create_table "employees", force: :cascade do |t|
@@ -121,24 +134,16 @@ ActiveRecord::Schema.define(version: 20180114174637) do
     t.index ["name"], name: "index_enterprises_on_name", unique: true
   end
 
-  create_table "posts", force: :cascade do |t|
-    t.text "content"
-    t.bigint "consumer_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["consumer_id", "created_at"], name: "index_posts_on_consumer_id_and_created_at"
-    t.index ["consumer_id"], name: "index_posts_on_consumer_id"
-  end
-
   create_table "problem_threads", force: :cascade do |t|
     t.string "title"
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "product_id"
-    t.bigint "consumer_id"
+    t.bigint "author_id"
     t.bigint "employee_id"
-    t.index ["consumer_id"], name: "index_problem_threads_on_consumer_id"
+    t.integer "votes", default: 0
+    t.index ["author_id"], name: "index_problem_threads_on_author_id"
     t.index ["employee_id"], name: "index_problem_threads_on_employee_id"
     t.index ["product_id"], name: "index_problem_threads_on_product_id"
   end
@@ -165,10 +170,18 @@ ActiveRecord::Schema.define(version: 20180114174637) do
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
   end
 
+  create_table "up_votes", force: :cascade do |t|
+    t.string "upper_type"
+    t.bigint "upper_id"
+    t.string "uppable_type"
+    t.bigint "uppable_id"
+    t.index ["uppable_type", "uppable_id"], name: "index_up_votes_on_uppable_type_and_uppable_id"
+    t.index ["upper_type", "upper_id"], name: "index_up_votes_on_upper_type_and_upper_id"
+  end
+
   add_foreign_key "comments", "problem_threads"
   add_foreign_key "employees", "enterprises"
-  add_foreign_key "posts", "consumers"
-  add_foreign_key "problem_threads", "consumers"
+  add_foreign_key "problem_threads", "consumers", column: "author_id"
   add_foreign_key "problem_threads", "employees"
   add_foreign_key "problem_threads", "products"
   add_foreign_key "products", "enterprises"

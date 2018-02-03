@@ -82,7 +82,7 @@ class ProblemThreadsController < ApplicationController
   def params_create
     p = permitted_attributes(@product.problem_threads.build)
 
-    p[:consumer] = current_consumer
+    p[:author] = current_consumer
     # TODO: p[:employee] = Employee.get_up(@problem_thread.product)
     p[:employee] = Employee.where(enterprise: @product.enterprise, role: :operator).first
     p[:product] = @product

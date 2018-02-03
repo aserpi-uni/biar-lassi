@@ -14,7 +14,7 @@ class ProblemThread < ApplicationRecord
   after_create :follow_poster, :notify_referent_new
   after_update :notify_referent_update
 
-  belongs_to :consumer
+  belongs_to :author, class_name: Consumer.name
   belongs_to :employee
   belongs_to :product
 
@@ -31,7 +31,7 @@ class ProblemThread < ApplicationRecord
   private
 
   def follow_poster
-    consumer.follow(self)
+    author.follow(self)
   end
 
   def notify_referent_new
