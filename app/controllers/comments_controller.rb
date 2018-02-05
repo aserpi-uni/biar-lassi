@@ -45,7 +45,8 @@ class CommentsController < ApplicationController
         end
         flash[:success] = 'Comment successfully created!'
       else
-        redirect_to product_problem_thread_path(@problem_thread.product, @problem_thread)
+        redirect_to product_problem_thread_path(@problem_thread.product, @problem_thread) if @domain.is_a?ProblemThread
+        redirect_to product_advice_thread_path(@advice_thread.product, @advice_thread) if @domain.is_a?AdviceThread
         flash[:error] = 'Comment NOT created!'
 
       end

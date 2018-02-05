@@ -41,6 +41,7 @@ class ProblemThreadsController < ApplicationController
     respond_to do |format|
       if @problem_thread.save
         @problem_thread.consumer.follow(@problem_thread)
+        @employee.increment(:assigned_problems, by = 1)
         ReferentNotifierMailer.new_referent_notify(@employee, @problem_thread, @product).deliver
         format.html { redirect_to product_problem_thread_path(@product, @problem_thread), notice: 'Problem thread was successfully created.' }
         format.json { render :show, status: :created, location: product_problem_thread_path(@product, @problem_thread) }
@@ -111,7 +112,7 @@ class ProblemThreadsController < ApplicationController
     end
 
     def set_employee
-      @employee = Employee.where(enterprise: @product.enterprise).order('RANDOM()').first
+      @employee = Employee.where(enterprise: @product.enterprise).order(:assigned_problems).first
     end
 
   def correct_user
