@@ -13,6 +13,7 @@
 class Comment < ApplicationRecord
   after_create :notify
 
+  belongs_to :domain, polymorphic: true
   belongs_to :author, polymorphic: true
   belongs_to :problem_thread
 

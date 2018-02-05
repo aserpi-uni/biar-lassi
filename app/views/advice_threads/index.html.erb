@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Advice Threads</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>Title</th>
+    <th>Content</th>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @advice_threads.each do |advice_thread| %>
+      <tr>
+        <td><%= advice_thread.title %></td>
+        <td><%= advice_thread.content %></td>
+        <td><%=# link_to 'Show', problem_thread %></td>
+        <td><%=# link_to 'Edit', edit_product_problem_thread_path(problem_thread) %></td>
+        <td><%=# link_to 'Destroy', problem_thread, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+
+<%= link_to 'New Problem Thread', new_product_problem_thread_path %>

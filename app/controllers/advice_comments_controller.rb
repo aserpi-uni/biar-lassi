@@ -1,0 +1,2 @@
+class AdviceCommentsController < ApplicationController
+end

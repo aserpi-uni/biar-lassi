@@ -1,0 +1,27 @@
+<%= form_for(@advice_thread, url: product_advice_threads_path(@product), html: {method: :post}) do |form| %>
+    <% if advice_thread.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(advice_thread.errors.count, "error") %> prohibited this problem_thread from being saved:</h2>
+
+          <ul>
+            <% advice_thread.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.label :title %>
+      <%= form.text_field :title, id: :advice_thread_title %>
+    </div>
+
+    <div class="field">
+      <%= form.label :content %>
+      <%= form.text_area :content, id: :advice_thread_content %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit %>
+    </div>
+<% end %>

@@ -18,7 +18,7 @@ class ProblemThread < ApplicationRecord
   belongs_to :employee
   belongs_to :product
 
-  has_many :comments, dependent: :destroy
+  has_many :comments, as: :domain, dependent: :destroy
   has_many :down_votes, as: :downable, dependent: :destroy
   has_many :up_votes, as: :uppable, dependent: :destroy
 

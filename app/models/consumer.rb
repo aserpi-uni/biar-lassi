@@ -22,6 +22,7 @@ class Consumer < ApplicationRecord
          :trackable,
          :omniauthable, omniauth_providers: [:facebook]
 
+  has_many :advice_threads, dependent: :destroy
   has_many :comments, as: :author, dependent: :destroy
   has_many :down_votes, as: :downer, dependent: :destroy
   has_many :problem_threads, inverse_of: 'author'

@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<div class = "advice_thread_title">
+  <strong>Title:</strong>
+  <%= @advice_thread.title %>
+</div>
+
+<p>
+  <strong>Content:</strong>
+  <%= @advice_thread.content %>
+</p>
+
+<p>
+  <strong>Posted by:</strong>
+  <%= link_to @advice_thread.consumer.username, @advice_thread.consumer%>
+</p>
+
+<p>
+  <strong>Brand:</strong>:
+  <%= link_to @advice_thread.product.enterprise.name, @advice_thread.product.enterprise%>
+</p>
+<p>
+  <strong>Model:</strong>:
+  <%= link_to @advice_thread.product.model, @advice_thread.product%>
+</p>
+<p>
+  <small>Posted <%= time_ago_in_words(@advice_thread.created_at) %> ago.</small>
+</p>
+
+
+<%= link_to 'Edit', edit_product_advice_thread_path(@product,@advice_thread) %> |
+<%= link_to 'Back', product_path(@product) %>
+
+
+
+<div class="col-md-8">
+  <% if @advice_thread.comments.any? %>
+      <h3>Comments (<%= @advice_thread.comments.count %>)</h3>
+      <ol class="comments">
+        <%= render @comments %>
+      </ol>
+      <%= will_paginate @comments%>
+  <% end %>
+</div>
+
+
+<%= render partial: 'comments/form', locals: {domain: @advice_thread}%>
+
+

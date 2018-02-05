@@ -52,3 +52,22 @@
     <% end %>
   </div>
 </div>
+<div class="col-md-8">
+  <% if @product.advice_threads.any? %>
+      <div class="row">
+        <h3>
+          <%= t :advice_threads_header, number: @product.advice_threads.count %>
+        </h3>
+
+        <% if current_consumer %> <!-- TODO: policy(ProblemThread).create? -->
+            <%= button_to I18n.t(:resource_new, resource: I18n.t(:problem_thread)), new_product_advice_thread_path(@product), method: :get, class: 'btn btn-primary btn-raised ml-2' %>
+        <% end %>
+      </div>
+
+      <ol class="advice_threads">
+        <%= render @advice_threads %>
+      </ol>
+
+      <% will_paginate @problem_threads%>
+  <% end %>
+</div>

@@ -1,5 +1,10 @@
-<%= form_with model: @comment, url: problem_thread_comments_url, local: true do |f| %>
-  <%= render partial: 'application/forms/content', locals: { form: f } %>
+<% if @comment.domain.is_a?(ProblemThread) %>
+  <%= form_with model: @comment, url: problem_thread_comments_url, local: true do |f| %>
+    <%= render partial: 'application/forms/content', locals: { form: f } %>
+  
+    <%= render partial: 'application/forms/submit', locals: { form: f, locale: :create } %>
+  <% end %>
+<% else %>
+  <!-- TODO -->
+<% end %>
 
-  <%= render partial: 'application/forms/submit', locals: { form: f, locale: :create } %>
-<% end %> <!-- form -->
