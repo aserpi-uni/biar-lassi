@@ -11,28 +11,17 @@
 # * +has_many+ [Comment]                comments to the problem thread
 # * +has_many+ [Relationship]           a relationship between the thread and a consumer
 class ProblemThread < ApplicationRecord
+  include Threadable
+
   after_create :follow_poster, :notify_referent_new
   after_update :notify_referent_update
 
-  belongs_to :author, class_name: Consumer.name
   belongs_to :employee
-  belongs_to :product
-
-  has_many :comments, as: :domain, dependent: :destroy
-  has_many :down_votes, as: :downable, dependent: :destroy
-  has_many :up_votes, as: :uppable, dependent: :destroy
 
   has_many :passive_relationships, class_name: 'Relationship', foreign_key: 'followed_id', dependent: :destroy
   has_many :followers, through: :passive_relationships, source: :follower
 
-  validates :content, length: { in: 8..260 }
-  validates :title, length: { in: 8..52 }
-
   private
-
-  def follow_poster
-    author.follow(self)
-  end
 
   def notify_referent_new
     ReferentNotifierMailer.problem_thread_created(self).deliver_later

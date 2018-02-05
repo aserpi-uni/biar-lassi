@@ -1,19 +1,19 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: %i[edit update destroy down down_votes mark up]
-  before_action :set_problem_thread, only: %i[new create]
+  before_action :set_domain, only: %i[new create]
 
   def new
-    @comment = @problem_thread.comments.new
+    @comment = @domain.comments.new
     authorize @comment
   end
 
   def create
-    @comment = @problem_thread.comments.build(params_create)
+    @comment = @domain.comments.build(params_create)
     authorize @comment
 
     if @comment.save
       flash[:success] = I18n.t(:resource_create_success, resource: Comment.model_name.human)
-      redirect_to comment_path(@comment.id)
+      redirect_to comment_path(@comment)
     else
       render :new
     end
@@ -49,7 +49,7 @@ class CommentsController < ApplicationController
     if @comment.solution
       flash[:success] = I18n.t(:solution_marked)
 
-      @comment.problem_thread.followers.where.not(email: [nil, '']).each do |follower|
+      @comment.domain.followers.where.not(email: [nil, '']).each do |follower|
         ConsumerNotifierMailer.new_solution(@comment, follower).deliver_later
       end
       ReferentNotifierMailer.new_solution(@comment).deliver_later
@@ -69,7 +69,7 @@ class CommentsController < ApplicationController
   private
 
   def params_create
-    p = permitted_attributes(@problem_thread.comments.new)
+    p = permitted_attributes(@domain.comments.new)
     p[:author] = current_user
     p[:solution] = false
 
@@ -84,7 +84,11 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
   end
 
-  def set_problem_thread
-    @problem_thread = ProblemThread.find(params[:problem_thread_id])
+  def set_domain
+    @domain = if params[:problem_thread_id]
+                ProblemThread.find(params[:problem_thread_id])
+              else
+                AdviceThread.find(params[:advice_thread_id])
+              end
   end
 end

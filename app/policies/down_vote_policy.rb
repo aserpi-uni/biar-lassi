@@ -9,7 +9,7 @@ class DownVotePolicy < ApplicationPolicy
   def create?
     (@user.is_a?(Consumer) || (@user.is_a?(Employee) && @user.same_enterprise?(@down.downable))) &&
       @user != @down.downable.author &&
-      !@down.downable.down_votes.map(&:downer).include?(@user)
+      @down.downable.down_votes.where(downer: @user).empty?
   end
 
   def destroy?

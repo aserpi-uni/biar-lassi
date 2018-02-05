@@ -63,5 +63,5 @@
     <% end %>
   </h3>
 
-  <%= render partial: 'comments/list', locals: { comments: @problem_thread.comments.order(:solution, :votes, :created_at).page(params[:page]), format_zero: false } %>
+  <%= render partial: 'comments/list', locals: { comments: @problem_thread.comments.order(solution: :desc, votes: :desc, created_at: :desc).page(params[:page]), format_zero: false } %>
 </div>

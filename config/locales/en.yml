@@ -1,6 +1,12 @@
 en:
   actions: 'Actions'
 
+  advice_threads_header:
+      zero: 'No advice threads'
+      one: '1 advice thread'
+      other: '%{count} advice threads'
+  advice_threads_of: 'Advice threads of'
+
   ago: '%{time} ago'
 
   already_commented: 'You have already commented this resource'
@@ -114,9 +120,9 @@ en:
   posted_by: 'Posted by'
 
   problem_threads_header:
-    zero: 'No active problem threads'
-    one: '1 active problem thread'
-    other: '%{count} active problem threads'
+    zero: 'No problem threads'
+    one: '1 problem thread'
+    other: '%{count} problem threads'
   problem_threads_of: 'Problem threads of'
 
   product_same_enterprise: 'Products from the same enterprise'
@@ -218,6 +224,9 @@ en:
       admin:
         one: 'admin'
         other: 'admins'
+      advice_thread:
+        one: 'advice thread'
+        other: 'advice threads'
       comment:
         one: 'comment'
         other: 'comments'

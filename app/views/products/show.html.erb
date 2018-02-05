@@ -45,29 +45,31 @@
     <!-- TODO: search -->
 
     <%= render partial: 'problem_threads/list', locals: { format_zero: false, paginate: false,
-                                                          problem_threads: @product.problem_threads.order(:id).take(10) } %>
+                                                          problem_threads: ProblemThread.order_by_activity(@product).take(10) } %>
 
     <% if policy(@product.problem_threads.build).create? %>
       <%= button_to t(:resource_new, resource: ProblemThread.model_name.human), new_product_problem_thread_path(@product), method: :get, class: 'btn btn-primary btn-raised ml-2' %>
     <% end %>
   </div>
+
+  <div class="jumbotron offset-md-2 col-5 py-2"> <!-- Problem threads -->
+    <div class="row">
+      <h3>
+        <%= t(:advice_threads_header, count: @product.advice_threads.count) %>
+      </h3>
+      <% unless @product.advice_threads.count.zero? %>
+        <%= button_to t(:view_all), product_advice_threads_path(@product), method: :get, class: 'btn btn-info' %>
+      <% end %>
+    </div>
+
+    <!-- TODO: search -->
+
+    <%= render partial: 'advice_threads/list', locals: { format_zero: false, paginate: false,
+                                                         advice_threads: AdviceThread.order_by_activity(@product).take(10) } %>
+
+    <% if policy(@product.advice_threads.build).create? %>
+      <%= button_to t(:resource_new, resource: AdviceThread.model_name.human), new_product_advice_thread_path(@product), method: :get, class: 'btn btn-primary btn-raised ml-2' %>
+    <% end %>
+  </div>
 </div>
-<div class="col-md-8">
-  <% if @product.advice_threads.any? %>
-      <div class="row">
-        <h3>
-          <%= t :advice_threads_header, number: @product.advice_threads.count %>
-        </h3>
 
-        <% if current_consumer %> <!-- TODO: policy(ProblemThread).create? -->
-            <%= button_to I18n.t(:resource_new, resource: I18n.t(:problem_thread)), new_product_advice_thread_path(@product), method: :get, class: 'btn btn-primary btn-raised ml-2' %>
-        <% end %>
-      </div>
-
-      <ol class="advice_threads">
-        <%= render @advice_threads %>
-      </ol>
-
-      <% will_paginate @problem_threads%>
-  <% end %>
-</div>

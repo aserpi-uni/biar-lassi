@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class CommentPolicy < ApplicationPolicy
   attr_reader :user, :comment
 
@@ -6,44 +7,42 @@ class CommentPolicy < ApplicationPolicy
     @comment = comment
   end
 
-  def new?
-    ((@user.is_a?(Consumer) && @user != @comment.problem_thread.author) || referent?(@user, @comment)) &&
-      @comment.problem_thread.product.active &&
-      !@comment.problem_thread.comments.collect(&:author).include?(@user)
-  end
-
   def create?
-    (@comment.problem_thread.comments.count { |c| c.author == @user } == 1) &&
-      @comment.problem_thread.product.active &&
-      ((@user.is_a?(Consumer) && @user != @comment.problem_thread.author) || referent?(@user, @comment))
+    ((@user.is_a?(Consumer) && @user != @comment.domain.author) ||
+      (@user.is_a?(Employee) &&
+        (@comment.domain.is_a?(AdviceThread) ||
+        (@comment.domain.is_a?(ProblemThread) && referent?(@user, @comment))))) &&
+      @comment.domain.product.active &&
+      @comment.domain.comments.where(author: @user).empty?
   end
 
   def update?
     (@user.is_a?(Admin) || @user == @comment.author) &&
-      @comment.problem_thread.product.active
+      @comment.domain.product.active
   end
 
   def down?
     @user &&
-      Pundit.policy(@user, @comment.problem_thread).show? &&
+      Pundit.policy(@user, @comment.domain).show? &&
       @user != @comment.author &&
-      !@comment.down_votes.map(&:downer).include?(@user)
+      @comment.down_votes.where(downer: @user).empty?
   end
 
   def down_votes?
-    Pundit.policy(@user, @comment.problem_thread).show?
+    Pundit.policy(@user, @comment.domain).show?
   end
 
   def mark?
-    ((@user == @comment.problem_thread.author) || referent?(@user, @comment)) &&
-      @comment.problem_thread.product.active
+    @comment.domain.is_a?(ProblemThread) &&
+      ((@user == @comment.domain.author) || referent?(@user, @comment)) &&
+      @comment.domain.product.active
   end
 
   def up?
     @user &&
-      Pundit.policy(@user, @comment.problem_thread).show? &&
+      Pundit.policy(@user, @comment.domain).show? &&
       @user != @comment.author &&
-      !@comment.up_votes.map(&:upper).include?(@user)
+      @comment.up_votes.where(upper: @user).empty?
   end
 
   def permitted_attributes
@@ -53,6 +52,6 @@ class CommentPolicy < ApplicationPolicy
   private
 
   def referent?(user, comment)
-    user == comment.problem_thread.employee
+    user == comment.domain.employee
   end
 end

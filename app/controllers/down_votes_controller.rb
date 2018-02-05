@@ -11,20 +11,19 @@ class DownVotesController < ApplicationController
     if @down.downable.is_a?(Comment)
       redirect_to comment_path(@down.downable)
     else
-      redirect_to problem_thread_path(@down.downable)
+      redirect_to @down.downable
     end
   end
 
   def destroy
     @down = DownVote.find(params[:id])
     authorize @down
+    @down.destroy
 
     if @down.downable.is_a?(Comment)
       redirect_to comment_path(@down.downable)
     else
-      redirect_to problem_thread_path(@down.downable)
+      redirect_to @down.downable
     end
-
-    @down.destroy
   end
 end

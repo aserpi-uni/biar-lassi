@@ -44,22 +44,33 @@ Rails.application.routes.draw do
     get 'search', on: :collection
 
     # Problem thread
-    resources :problem_threads, shallow: true do
+    resources :advice_threads, shallow: true, except: [:destroy] do
+      get :down, on: :member
+      get :down_votes, on: :member
+      post :up, on: :member
+
+      # Advice comment
+      resources :comments, shallow: true, except: %i[index destroy] do
+        get :down, on: :member
+        get :down_votes, on: :member
+        post :up, on: :member
+      end
+    end
+
+    # Problem thread
+    resources :problem_threads, shallow: true, except: [:destroy] do
       get :down, on: :member
       get :down_votes, on: :member
       post :up, on: :member
       post :follow, on: :member
 
-      # Comment
+      # Problem comment
       resources :comments, shallow: true, except: %i[index destroy] do
         get :down, on: :member
         get :down_votes, on: :member
         post :mark, on: :member
         post :up, on: :member
       end
-    end
-    resources :advice_threads do
-      resources :comments
     end
   end
 

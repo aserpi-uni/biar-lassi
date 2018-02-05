@@ -87,7 +87,7 @@ class Employee < ApplicationRecord
     elsif resource.is_a? UpVote
       resource = resource.uppable
     end
-    return resource.problem_thread.product.enterprise == enterprise if resource.is_a?(Comment)
+    return resource.domain.product.enterprise == enterprise if resource.is_a?(Comment)
     return resource.product.enterprise == enterprise if resource.is_a?(ProblemThread)
     return resource.enterprise == enterprise if resource.is_a?(Product)
     return resource == enterprise if resource.is_a?(Enterprise)

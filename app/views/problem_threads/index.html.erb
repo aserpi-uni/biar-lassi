@@ -19,5 +19,5 @@
     <% end %>
   </div>
 
-  <%= render partial: 'list', locals: { problem_threads: @product.problem_threads.order(:created_at).page(params[:page]) } %>
+  <%= render partial: 'list', locals: { problem_threads: ProblemThread.order_by_activity(@product).page(params[:page]) } %>
 </div>

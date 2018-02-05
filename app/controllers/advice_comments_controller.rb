@@ -1,2 +1,0 @@
-class AdviceCommentsController < ApplicationController
-end

@@ -8,7 +8,6 @@ class ProblemThreadsController < ApplicationController
 
   def show
     authorize @problem_thread
-    @problem_thread.comments.order(:created_at).page(params[:page])
   end
 
   def new
@@ -41,13 +40,6 @@ class ProblemThreadsController < ApplicationController
     else
       render :edit
     end
-  end
-
-  def destroy
-    @problem_thread.destroy
-
-    flash[:success] = I18n.t(:deleted_resource, res: ProblemThread.model_name.human)
-    redirect_to product_problem_threads_url
   end
 
   def down

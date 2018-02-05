@@ -15,7 +15,6 @@ class Comment < ApplicationRecord
 
   belongs_to :domain, polymorphic: true
   belongs_to :author, polymorphic: true
-  belongs_to :problem_thread
 
   has_many :up_votes, as: :uppable, dependent: :destroy
   has_many :down_votes, as: :downable, dependent: :destroy
@@ -25,10 +24,11 @@ class Comment < ApplicationRecord
   private
 
   def notify
-    problem_thread.followers.where.not(email: [nil, '']).each do |follower|
+    return if !domain.is_a?(ProblemThread)
+    domain.followers.where.not(email: [nil, '']).each do |follower|
       ConsumerNotifierMailer.comment_created(self, follower).deliver_later
     end
 
-    ReferentNotifierMailer.comment_created(self).deliver_later unless author == problem_thread.employee
+    ReferentNotifierMailer.comment_created(self).deliver_later unless author == domain.employee
   end
 end

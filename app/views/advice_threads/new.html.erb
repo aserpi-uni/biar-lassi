@@ -1,5 +1,25 @@
-<h1>New Advice Thread</h1>
+<% provide :title, t(:resource_new, resource: AdviceThread.model_name.human) %>
 
-<%= render 'form', advice_thread: @advice_thread %>
+<%= render partial: 'errors', locals: { resource: @advice_thread } %>
 
-<%= link_to 'Back', product_path(@product)%>
+<ol class="breadcrumb">
+  <%= render partial: 'breadcrumbs', locals: { problem_thread: @advice_thread } %>
+
+  <%= render partial: 'application/breadcrumbs/finale', locals: { string: t(:create) } %>
+</ol>
+
+<div class="jumbotron align-items-center">
+  <div class="col-6 mx-auto" >
+    <h2>
+      <%= t :resource_create, resource: AdviceThread.model_name.human %>
+    </h2>
+
+    <%= form_with model: @advice_thread, url: product_advice_threads_url, local: true do |f| %>
+      <%= render partial: 'application/forms/title', locals: { form: f } %>
+
+      <%= render partial: 'application/forms/content', locals: { form: f, } %>
+
+      <%= render partial: 'application/forms/submit', locals: { form: f, locale: :create } %>
+    <% end %>
+  </div> <!-- col-6 -->
+</div> <!-- jumbotron -->
