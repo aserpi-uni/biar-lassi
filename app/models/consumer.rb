@@ -18,7 +18,10 @@ class Consumer < ApplicationRecord
 
   has_many :posts, dependent: :destroy
   has_many :problem_threads, dependent: :destroy
-  has_many :comments, as: :commentable
+  has_many :advice_threads, dependent: :destroy
+  has_many :comments, as: :commentable, dependent: :destroy
+  #has_many :advice_comments, as: :commentable, dependent: :destroy
+
 
   # following charasteristics and functions
 

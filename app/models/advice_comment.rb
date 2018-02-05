@@ -1,6 +1,5 @@
-class Comment < ApplicationRecord
-  #belongs_to :problem_thread
-  belongs_to :domain, polymorphic: true
+class AdviceComment < ApplicationRecord
+  belongs_to :advice_thread
   belongs_to :commentable, polymorphic: true
   validates :commentable_id, presence: true
   validates :commentable_type, presence: true

@@ -1,0 +1,2 @@
+module AdviceThreadsHelper
+end

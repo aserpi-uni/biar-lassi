@@ -9,6 +9,8 @@ class ProductsController < ApplicationController
   def show
     @problem_thread = @product.problem_threads.build
     @problem_threads = @product.problem_threads.page(params[:page])
+    @advice_thread = @product.advice_threads.build
+    @advice_threads = @product.advice_threads.page(params[:page])
   end
 
   def new

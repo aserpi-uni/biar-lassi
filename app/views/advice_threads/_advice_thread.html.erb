@@ -1,0 +1,14 @@
+<li id="advice thread-<%= advice_thread.id %>">
+  <small>
+    Posted by: <%= link_to advice_thread.consumer.username, advice_thread.consumer %>
+  </small>
+  <div class = "advice_thread_title">
+    <strong>Title:</strong>
+    <%= link_to advice_thread.title, product_advice_thread_path(advice_thread.product, advice_thread) %>
+  </div>
+  <div class = "timestamp">
+    <small>
+      Posted <%= time_ago_in_words(advice_thread.created_at) %> ago.
+    </small>
+  </div>
+</li>

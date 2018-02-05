@@ -34,7 +34,8 @@ class Employee < ApplicationRecord
 
   belongs_to :enterprise
   has_many :problem_threads
-  has_many :comments, as: :commentable
+  has_many :comments, as: :commentable, dependent: :destroy
+  has_many :advice_comments, as: :commentable, dependent: :destroy
 
   # Create a new Employee from +create+ action parameters.
   def self.from_params(params)

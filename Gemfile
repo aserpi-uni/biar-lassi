@@ -88,3 +88,6 @@ group :test do
   gem 'coveralls', '>= 0.8', require: false
   gem 'simplecov', require: false
 end
+
+# to remove
+#gem 'paperclip', '~> 5.1'

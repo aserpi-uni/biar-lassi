@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171226142029) do
+ActiveRecord::Schema.define(version: 20180202100630) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,28 @@ ActiveRecord::Schema.define(version: 20171226142029) do
     t.index ["username"], name: "index_admins_on_username", unique: true
   end
 
+  create_table "advice_comments", force: :cascade do |t|
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "advice_thread_id"
+    t.string "commentable_type"
+    t.bigint "commentable_id"
+    t.index ["advice_thread_id"], name: "index_advice_comments_on_advice_thread_id"
+    t.index ["commentable_type", "commentable_id"], name: "index_advice_comments_on_commentable_type_and_commentable_id"
+  end
+
+  create_table "advice_threads", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "product_id"
+    t.bigint "consumer_id"
+    t.index ["consumer_id"], name: "index_advice_threads_on_consumer_id"
+    t.index ["product_id"], name: "index_advice_threads_on_product_id"
+  end
+
   create_table "comments", force: :cascade do |t|
     t.text "content"
     t.datetime "created_at", null: false
@@ -45,7 +67,10 @@ ActiveRecord::Schema.define(version: 20171226142029) do
     t.string "commentable_type"
     t.bigint "commentable_id"
     t.boolean "solution"
+    t.string "domain_type"
+    t.bigint "domain_id"
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
+    t.index ["domain_type", "domain_id"], name: "index_comments_on_domain_type_and_domain_id"
     t.index ["problem_thread_id"], name: "index_comments_on_problem_thread_id"
   end
 
@@ -165,6 +190,9 @@ ActiveRecord::Schema.define(version: 20171226142029) do
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
   end
 
+  add_foreign_key "advice_comments", "advice_threads"
+  add_foreign_key "advice_threads", "consumers"
+  add_foreign_key "advice_threads", "products"
   add_foreign_key "comments", "problem_threads"
   add_foreign_key "employees", "enterprises"
   add_foreign_key "posts", "consumers"

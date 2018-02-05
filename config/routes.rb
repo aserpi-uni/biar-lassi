@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'consumer_static_pages/home'
+
+  get 'consumer_static_pages/help'
+
   # Admin
   devise_for :admins, path_prefix: 'auth', controllers: { passwords: 'admins/passwords',
                                                           sessions: 'admins/sessions',
@@ -46,6 +50,9 @@ Rails.application.routes.draw do
       member do
         get :followers
       end
+      resources :comments
+    end
+    resources :advice_threads do
       resources :comments
     end
   end
