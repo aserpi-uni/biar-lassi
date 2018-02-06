@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180205191925) do
+ActiveRecord::Schema.define(version: 20180206113948) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20180205191925) do
     t.bigint "product_id"
     t.bigint "author_id"
     t.integer "votes", default: 0
+    t.integer "status", default: 0
     t.index ["author_id"], name: "index_advice_threads_on_author_id"
     t.index ["product_id"], name: "index_advice_threads_on_product_id"
   end

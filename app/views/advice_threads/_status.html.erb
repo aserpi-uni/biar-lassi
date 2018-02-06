@@ -1,0 +1,14 @@
+<% unless advice_thread.waiting? %>
+  <div class="align-self-center badge ml-2 <% if advice_thread.evaluating? %>
+                           <%= 'badge-secondary' %>
+                         <% elsif advice_thread.planned? %>
+                           <%= 'badge-info' %>
+                         <% elsif advice_thread.implemented? %>
+                           <%= 'badge-success' %>
+                         <% elsif advice_thread.rejected? %>
+                           <%= 'badge-danger' %>
+                         <% end %>">
+
+    <%= AdviceThread.human_enum_name(:status, advice_thread.status) %>
+  </div>
+<% end %>

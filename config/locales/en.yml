@@ -143,6 +143,9 @@ en:
 
   remove: 'Remove'
 
+  resend: 'Send'
+  resend_confirmation: 'Resend confirmation instructions'
+
   resource_create: 'Create a new %{resource}'
   resource_create_success: 'Successfully created a new %{resource}'
   resource_destroy_success: 'Successfully deleted %{name}'
@@ -162,9 +165,6 @@ en:
 
   role: 'Role'
 
-  resend: 'Send'
-  resend_confirmation: 'Resend confirmation instructions'
-
   save: 'Save'
 
   search: 'Search'
@@ -182,9 +182,11 @@ en:
   since: 'Since %{year}'
 
   solution_mark: 'Mark as solution'
-  solution_marked: 'Comment marked as solution'
+  solution_marked: 'Comment marked as solution.'
   solution_unmark: 'Unmark as solution '
-  solution_unmarked: 'Comment unmarked as solution '
+  solution_unmarked: 'Comment unmarked as solution.'
+
+  status: 'Status'
 
   sure: 'Are you sure?'
 
@@ -221,6 +223,14 @@ en:
 
 
   activerecord:
+    attributes:
+      advice_thread:
+        status:
+          evaluating: 'Evaluating'
+          implemented: 'Implemented'
+          planned: 'Planned'
+          rejected: 'Rejected'
+          waiting: 'Waiting'
     models:
       admin:
         one: 'admin'

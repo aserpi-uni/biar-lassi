@@ -17,9 +17,19 @@
     </h2>
 
     <%= form_with model: @advice_thread, metod: :put, local: true do |f| %>
-      <%= render partial: 'application/forms/title', locals: { form: f } %>
+      <%= render partial: 'application/forms/title', locals: { form: f, readonly: current_employee } %>
 
-      <%= render partial: 'application/forms/content', locals: { form: f, } %>
+      <%= render partial: 'application/forms/content', locals: { form: f, readonly: current_employee } %>
+
+      <% if current_employee %>
+        <fieldset class="row align-items-center">
+          <%= fa_icon('cogs fw', class: 'col-1 mt-4') %>
+          <div class="form-group bmd-form-group col" >
+            <%= f.select(:status, AdviceThread.statuses.keys.map { |s| [AdviceThread.human_enum_name(:status, s), s] }, { }, { class: 'form-control', id: :status }) %>
+            <%= label_tag :status, t(:status), class: 'bmd-label-floating'%>
+          </div>
+        </fieldset>
+      <% end %>
 
       <%= render partial: 'application/forms/submit', locals: { form: f, locale: :save } %>
     <% end %>

@@ -4,19 +4,10 @@
 <% advice_threads.each do |thread| %>
   <div class="card mb-2">
     <%=link_to thread, class: 'card-title mx-2 my-2' do %>
-      <h5>
+      <h5 class="row mx-0">
         <%= thread.title %>
 
-        <!-- TODO
-
-        < if thread.status == :implemented %>
-          <span class="badge badge-success">
-            < t(:answered) %>
-          </span>
-        < end %>
-
-        -->
-
+        <%= render partial: 'advice_threads/status', locals: { advice_thread: thread } %>
       </h5>
     <% end %>
 

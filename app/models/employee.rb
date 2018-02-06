@@ -88,7 +88,7 @@ class Employee < ApplicationRecord
       resource = resource.uppable
     end
     return resource.domain.product.enterprise == enterprise if resource.is_a?(Comment)
-    return resource.product.enterprise == enterprise if resource.is_a?(ProblemThread)
+    return resource.product.enterprise == enterprise if resource.is_a?(AdviceThread) || resource.is_a?(ProblemThread)
     return resource.enterprise == enterprise if resource.is_a?(Product)
     return resource == enterprise if resource.is_a?(Enterprise)
     false

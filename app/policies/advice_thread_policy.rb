@@ -20,7 +20,9 @@ class AdviceThreadPolicy < ApplicationPolicy
   end
 
   def update?
-    (@user.is_a?(Admin) || @user == @advice_thread.author) &&
+    (@user.is_a?(Admin) ||
+      @user == @advice_thread.author ||
+      (@user.is_a?(Employee) && @user.same_enterprise?(@advice_thread) && @user.supervisor?)) &&
       @advice_thread.product.active
   end
 
@@ -49,6 +51,10 @@ class AdviceThreadPolicy < ApplicationPolicy
   end
 
   def permitted_attributes
-    %i[content title]
+    if @user.is_a?(Employee)
+      %i[status]
+    else
+      %i[content title]
+    end
   end
 end
