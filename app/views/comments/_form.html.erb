@@ -1,5 +1,5 @@
-<%= form_with model: @comment, url: problem_thread_comments_url, local: true do |f| %>
+<%= form_with model: @comment, url: (@comment.domain.is_a?(ProblemThread) ? problem_thread_comments_url : advice_thread_comments_url), local: true do |f| %>
   <%= render partial: 'application/forms/content', locals: { form: f } %>
 
   <%= render partial: 'application/forms/submit', locals: { form: f, locale: :create } %>
-<% end %> <!-- form -->
+<% end %>

@@ -22,9 +22,10 @@ class Consumer < ApplicationRecord
          :trackable,
          :omniauthable, omniauth_providers: [:facebook]
 
+  has_many :advice_threads, inverse_of: :author, dependent: :destroy
   has_many :comments, as: :author, dependent: :destroy
   has_many :down_votes, as: :downer, dependent: :destroy
-  has_many :problem_threads, inverse_of: 'author'
+  has_many :problem_threads, inverse_of: 'author', dependent: :destroy
   has_many :up_votes, as: :upper, dependent: :destroy
 
   validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i }, allow_blank: true,
@@ -77,8 +78,9 @@ class Consumer < ApplicationRecord
 
   # TODO
 
-  has_many :active_relationships, class_name: 'Relationship', foreign_key: 'follower_id', dependent: :destroy
-  has_many :following, through: :active_relationships, source: :followed
+  has_many :relationships, dependent: :destroy
+  has_many :following_advices, through: :relationships, source: :followed, source_type: AdviceThread.name
+  has_many :following_problems, through: :relationships, source: :followed, source_type: ProblemThread.name
 
   def feed
     Comment.none
@@ -87,15 +89,15 @@ class Consumer < ApplicationRecord
     #Comment.where("problem_thread_id in (?)", following_ids)
   end
 
-  def follow(problem_thread)
-    Relationship.create(followed: problem_thread, follower: self)
+  def follow(resource)
+    Relationship.create(consumer: self, followed: resource)
   end
 
-  def unfollow(problem_thread)
-    active_relationships.find_by(followed_id: problem_thread.id).destroy
+  def unfollow(resource)
+    relationships.find_by(followed: resource).destroy
   end
 
-  def follow?(problem_thread)
-    following.include?(problem_thread)
+  def follow?(resource)
+    !(resource.is_a?(AdviceThread) ? following_advices : following_problems).where(id: resource.id).empty?
   end
 end

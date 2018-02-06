@@ -1,0 +1,4 @@
+<%= render partial:'application/breadcrumbs/enterprise', locals: { enterprise: @advice_thread.product.enterprise} %>
+<%= render partial: 'application/breadcrumbs/products', locals: { enterprise: @advice_thread.product.enterprise} %>
+<%= render partial: 'application/breadcrumbs/product', locals: { product: @advice_thread.product} %>
+<%= render partial: 'application/breadcrumbs/advice_threads', locals: { product: @advice_thread.product} %>

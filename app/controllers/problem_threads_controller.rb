@@ -1,6 +1,6 @@
 class ProblemThreadsController < ApplicationController
   before_action :set_problem_thread, only: %i[show edit update destroy down down_votes follow up]
-  before_action :set_product, only: %i[index new create]
+  before_action :set_product, only: %i[index new create search]
 
   def index
     authorize @product.problem_threads.first_or_create
@@ -8,7 +8,6 @@ class ProblemThreadsController < ApplicationController
 
   def show
     authorize @problem_thread
-    @problem_thread.comments.order(:created_at).page(params[:page])
   end
 
   def new
@@ -43,13 +42,6 @@ class ProblemThreadsController < ApplicationController
     end
   end
 
-  def destroy
-    @problem_thread.destroy
-
-    flash[:success] = I18n.t(:deleted_resource, res: ProblemThread.model_name.human)
-    redirect_to product_problem_threads_url
-  end
-
   def down
     authorize @problem_thread
   end
@@ -68,6 +60,16 @@ class ProblemThreadsController < ApplicationController
     end
 
     render :show
+  end
+
+  def search
+    authorize @product.problem_threads.first_or_create
+
+    @problem_threads = @product.problem_threads.search(params[:search],
+                                                       fields: ['title^100', 'content^10', :comments], operator: :or,
+                                                       order: { _score: :desc },
+                                                       page: params[:page])
+    @search = params[:search]
   end
 
   def up

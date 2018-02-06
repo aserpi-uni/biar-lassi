@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180131092335) do
+ActiveRecord::Schema.define(version: 20180206154930) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,19 @@ ActiveRecord::Schema.define(version: 20180131092335) do
     t.index ["username"], name: "index_admins_on_username", unique: true
   end
 
+  create_table "advice_threads", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "product_id"
+    t.bigint "author_id"
+    t.integer "votes", default: 0
+    t.integer "status", default: 0
+    t.index ["author_id"], name: "index_advice_threads_on_author_id"
+    t.index ["product_id"], name: "index_advice_threads_on_product_id"
+  end
+
   create_table "comments", force: :cascade do |t|
     t.text "content"
     t.datetime "created_at", null: false
@@ -46,7 +59,10 @@ ActiveRecord::Schema.define(version: 20180131092335) do
     t.bigint "author_id"
     t.boolean "solution"
     t.integer "votes", default: 0
+    t.string "domain_type"
+    t.bigint "domain_id"
     t.index ["author_type", "author_id"], name: "index_comments_on_author_type_and_author_id"
+    t.index ["domain_type", "domain_id"], name: "index_comments_on_domain_type_and_domain_id"
     t.index ["problem_thread_id"], name: "index_comments_on_problem_thread_id"
   end
 
@@ -111,6 +127,7 @@ ActiveRecord::Schema.define(version: 20180131092335) do
     t.integer "role", default: 0
     t.string "email"
     t.bigint "enterprise_id"
+    t.integer "assigned_problems"
     t.index ["email"], name: "index_employees_on_email", unique: true
     t.index ["enterprise_id"], name: "index_employees_on_enterprise_id"
     t.index ["reset_password_token"], name: "index_employees_on_reset_password_token", unique: true
@@ -161,13 +178,14 @@ ActiveRecord::Schema.define(version: 20180131092335) do
   end
 
   create_table "relationships", force: :cascade do |t|
-    t.integer "follower_id"
+    t.integer "consumer_id"
     t.integer "followed_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "followed_type"
+    t.index ["consumer_id", "followed_id"], name: "index_relationships_on_consumer_id_and_followed_id", unique: true
+    t.index ["consumer_id"], name: "index_relationships_on_consumer_id"
     t.index ["followed_id"], name: "index_relationships_on_followed_id"
-    t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
-    t.index ["follower_id"], name: "index_relationships_on_follower_id"
   end
 
   create_table "up_votes", force: :cascade do |t|
@@ -179,6 +197,8 @@ ActiveRecord::Schema.define(version: 20180131092335) do
     t.index ["upper_type", "upper_id"], name: "index_up_votes_on_upper_type_and_upper_id"
   end
 
+  add_foreign_key "advice_threads", "consumers", column: "author_id"
+  add_foreign_key "advice_threads", "products"
   add_foreign_key "comments", "problem_threads"
   add_foreign_key "employees", "enterprises"
   add_foreign_key "problem_threads", "consumers", column: "author_id"

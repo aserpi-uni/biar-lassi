@@ -35,6 +35,8 @@
   </aside>
   <div class="col-md-8">
 
+    <!--
+
     <% if @consumer.feed.any? %>
 
         <ul class="feed">
@@ -42,6 +44,40 @@
         </ul>
 
     <% end %>
+    -->
+
+    <div class="col-md-8">
+      <% if @consumer.problem_threads.any? %>
+          <div class="row">
+            <h3>
+              <%= t :problem_threads_header, number: @consumer.problem_threads.count %>
+            </h3>
+
+          </div>
+
+          <ol class="problem_threads">
+            <%= render @problem_threads %>
+          </ol>
+
+          <% will_paginate @problem_threads%>
+      <% end %>
+    </div>
+    <div class="col-md-8">
+      <% if @consumer.advice_threads.any? %>
+          <div class="row">
+            <h3>
+              <%= t :advice_threads_header, number: @consumer.advice_threads.count %>
+            </h3>
+
+          </div>
+
+          <ol class="advice_threads">
+            <%= render @advice_threads %>
+          </ol>
+
+          <% will_paginate @problem_threads%>
+      <% end %>
+    </div>
   </div>
 </div>
 

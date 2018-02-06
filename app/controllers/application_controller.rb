@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
 
   # Path of a comment
   def comment_path(comment)
-    "/problem_threads/#{comment.problem_thread.id}#comments/#{comment.id}"
+    "/#{comment.domain.class.name.underscore.pluralize}/#{comment.domain.id}#comments/#{comment.id}"
   end
 
   # Returns the current user.

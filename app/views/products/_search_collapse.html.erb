@@ -1,0 +1,5 @@
+<div class="collapse" id="<%= id %>">
+  <%= form_with url: url, method: :get, local: true, class: 'form-group pt-0', role: 'search' do |f| %>
+    <%= f.text_field :search, class: 'form-control', placeholder: t(:search) %>
+  <% end %>
+</div>

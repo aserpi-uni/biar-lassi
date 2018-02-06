@@ -1,4 +1,22 @@
 Rails.application.routes.draw do
+  # Concerns
+
+  # Searchable
+  concern :searchable do
+    get :search, on: :collection
+  end
+
+  # Votable
+  concern :votable do
+    member do
+      get :down
+      get :down_votes
+      post :up
+    end
+  end
+
+  # Routes
+
   # Admin
   devise_for :admins, path_prefix: 'auth', controllers: { passwords: 'admins/passwords',
                                                           sessions: 'admins/sessions',
@@ -35,32 +53,34 @@ Rails.application.routes.draw do
   end
 
   # Product
-  resources :products, except: [:index] do
+  resources :products, except: [:index], concerns: :searchable do
     delete 'restore', on: :member
-    get 'search', on: :collection
 
-    # Problem thread
-    resources :problem_threads, shallow: true do
-      get :down, on: :member
-      get :down_votes, on: :member
-      post :up, on: :member
+    # Advice thread
+    resources :advice_threads, shallow: true, except: [:destroy], concerns: %i[searchable votable] do
       post :follow, on: :member
 
-      # Comment
-      resources :comments, shallow: true, except: %i[index destroy] do
-        get :down, on: :member
-        get :down_votes, on: :member
+      # Advice comment
+      resources :comments, shallow: true, except: %i[index destroy], concerns: :votable
+    end
+
+    # Problem thread
+    resources :problem_threads, shallow: true, except: [:destroy], concerns: %i[searchable votable] do
+      post :follow, on: :member
+
+      # Problem comment
+      resources :comments, shallow: true, except: %i[index destroy], concerns: :votable do
         post :mark, on: :member
-        post :up, on: :member
       end
     end
   end
 
-  resources :up_votes, only: %i[destroy]
-  resources :down_votes, only: %i[create destroy]
-
   # Relationship
   resources :relationships, only: %i[create destroy]
+
+  # Votes
+  resources :up_votes, only: %i[destroy]
+  resources :down_votes, only: %i[create destroy]
 
   # Static pages
   get 'user_static_page/home'
@@ -71,4 +91,10 @@ Rails.application.routes.draw do
   get '/welcome/consumer', as: :consumer_root
   get '/welcome/enterprise', as: :employee_root
   root 'welcome#index'
+
+  # TODO
+
+  get 'consumer_static_pages/home'
+
+  get 'consumer_static_pages/help'
 end

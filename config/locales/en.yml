@@ -1,6 +1,12 @@
 en:
   actions: 'Actions'
 
+  advice_threads_header:
+      zero: 'No advice threads'
+      one: '1 advice thread'
+      other: '%{count} advice threads'
+  advice_threads_of: 'Advice threads of'
+
   ago: '%{time} ago'
 
   already_commented: 'You have already commented this resource'
@@ -114,9 +120,9 @@ en:
   posted_by: 'Posted by'
 
   problem_threads_header:
-    zero: 'No active problem threads'
-    one: '1 active problem thread'
-    other: '%{count} active problem threads'
+    zero: 'No problem threads'
+    one: '1 problem thread'
+    other: '%{count} problem threads'
   problem_threads_of: 'Problem threads of'
 
   product_same_enterprise: 'Products from the same enterprise'
@@ -137,6 +143,9 @@ en:
 
   remove: 'Remove'
 
+  resend: 'Send'
+  resend_confirmation: 'Resend confirmation instructions'
+
   resource_create: 'Create a new %{resource}'
   resource_create_success: 'Successfully created a new %{resource}'
   resource_destroy_success: 'Successfully deleted %{name}'
@@ -149,14 +158,12 @@ en:
   restore: 'Restore'
 
   results_for_search:
+    zero: 'No %{resource} matching search "%{string}"'
     one: '1 %{resource} matching search "%{string}"'
     other: '%{count} %{resource} matching search "%{string}"'
   results_no: 'No results'
 
   role: 'Role'
-
-  resend: 'Send'
-  resend_confirmation: 'Resend confirmation instructions'
 
   save: 'Save'
 
@@ -175,9 +182,11 @@ en:
   since: 'Since %{year}'
 
   solution_mark: 'Mark as solution'
-  solution_marked: 'Comment marked as solution'
+  solution_marked: 'Comment marked as solution.'
   solution_unmark: 'Unmark as solution '
-  solution_unmarked: 'Comment unmarked as solution '
+  solution_unmarked: 'Comment unmarked as solution.'
+
+  status: 'Status'
 
   sure: 'Are you sure?'
 
@@ -214,10 +223,21 @@ en:
 
 
   activerecord:
+    attributes:
+      advice_thread:
+        status:
+          evaluating: 'Evaluating'
+          implemented: 'Implemented'
+          planned: 'Planned'
+          rejected: 'Rejected'
+          waiting: 'Waiting'
     models:
       admin:
         one: 'admin'
         other: 'admins'
+      advice_thread:
+        one: 'advice thread'
+        other: 'advice threads'
       comment:
         one: 'comment'
         other: 'comments'
@@ -291,6 +311,10 @@ en:
       body: 'The problem thread "%{problem_thread}" has a new solution, you can find it here: %{link}"'
       greetings: 'Good news, %{user}!'
       subject: 'New solution for problem thread'
+    status_update:
+      body: 'The suggestion thread "%{advice_thread}" has received a status update, you can see it here: %{link}"'
+      greetings: 'Good news, %{user}!'
+      subject: 'Status update for advice thread'
 
   referent_notifier_mailer:
     comment_created:

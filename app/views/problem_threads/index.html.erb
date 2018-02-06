@@ -14,10 +14,13 @@
       <%= t(:problem_threads_of) %>
       <%= link_to @product.model, product_path(@product) %>
     </h2>
+
     <% if policy(@product.problem_threads.build).create? %>
       <%= button_to t(:resource_new, resource: ProblemThread.model_name.human), new_product_problem_thread_path(@product), method: :get, class: 'btn btn-primary btn-raised ml-2' %>
     <% end %>
   </div>
 
-  <%= render partial: 'list', locals: { problem_threads: @product.problem_threads.order(:created_at).page(params[:page]) } %>
+  <%= render partial: 'application/search', locals: { url: search_product_problem_threads_path(@product) } %>
+
+  <%= render partial: 'list', locals: { problem_threads: ProblemThread.order_by_activity(@product).page(params[:page]) } %>
 </div>

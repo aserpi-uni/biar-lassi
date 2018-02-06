@@ -1,19 +1,5 @@
 <% provide :title, t(:downvote) %>
 
-<ol class="breadcrumb">
-  <% if resource.is_a?(Comment) %>
-    <%= render partial: 'comments/breadcrumbs', locals: { comment: resource } %>
-
-    <%= render partial: 'application/breadcrumbs/comment', locals: { comment: @comment } %>
-  <% else %>
-    <%= render partial: 'problem_threads/breadcrumbs', locals: { problem_thread: resource } %>
-
-    <%= render partial: 'application/breadcrumbs/problem_thread', locals: { problem_thread: resource} %>
-  <% end %>
-
-  <%= render partial: 'application/breadcrumbs/finale', locals: { string: t(DownVote.model_name.human.capitalize) } %>
-</ol>
-
 <%= render partial: 'errors', locals: { resource: resource } %>
 
 <div class="jumbotron align-items-center">
