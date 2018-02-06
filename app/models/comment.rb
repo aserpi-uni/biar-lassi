@@ -24,7 +24,8 @@ class Comment < ApplicationRecord
   private
 
   def notify
-    return if !domain.is_a?(ProblemThread)
+    return unless domain.is_a?(ProblemThread)
+
     domain.followers.where.not(email: [nil, '']).each do |follower|
       ConsumerNotifierMailer.comment_created(self, follower).deliver_later
     end

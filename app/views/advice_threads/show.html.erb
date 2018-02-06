@@ -13,6 +13,12 @@
 
       <%= render partial: 'status', locals: { advice_thread: @advice_thread } %>
 
+      <% if policy(@advice_thread).follow? %>
+        <div class="ml-4">
+          <%= render(partial: 'follow') %>
+        </div>
+      <% end %>
+
       <% if policy(@advice_thread).update? %>
         <%= button_to t(:edit), edit_advice_thread_path(@advice_thread), method: :get, class: 'btn btn-primary btn-raised ml-4', form_class: 'form-delete' %>
       <% end %>

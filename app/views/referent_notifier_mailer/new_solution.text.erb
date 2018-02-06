@@ -1,3 +1,3 @@
-<%= t('.greetings', user: @comment.problem_thread.employee.username.split('@')[0]) %>
+<%= t('.greetings', user: @comment.domain.employee.username.split('@')[0]) %>
 
-<%= t('.body', link: "#{problem_thread_url(@comment.problem_thread)}#comments/#{@comment.id}", problem_thread: @comment.problem_thread.title).html_safe %>
+<%= t('.body', link: "#{problem_thread_url(@comment.domain)}#comments/#{@comment.id}", problem_thread: @comment.domain.title).html_safe %>

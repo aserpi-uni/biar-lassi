@@ -19,8 +19,8 @@ class ProblemThread < ApplicationRecord
 
   belongs_to :employee
 
-  has_many :passive_relationships, class_name: 'Relationship', foreign_key: 'followed_id', dependent: :destroy
-  has_many :followers, through: :passive_relationships, source: :follower
+  has_many :relationships, as: :followed, dependent: :destroy
+  has_many :followers, through: :relationships, source: :consumer
 
   def search_data
     {

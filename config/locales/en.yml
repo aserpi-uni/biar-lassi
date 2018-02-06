@@ -311,6 +311,10 @@ en:
       body: 'The problem thread "%{problem_thread}" has a new solution, you can find it here: %{link}"'
       greetings: 'Good news, %{user}!'
       subject: 'New solution for problem thread'
+    status_update:
+      body: 'The suggestion thread "%{advice_thread}" has received a status update, you can see it here: %{link}"'
+      greetings: 'Good news, %{user}!'
+      subject: 'Status update for advice thread'
 
   referent_notifier_mailer:
     comment_created:

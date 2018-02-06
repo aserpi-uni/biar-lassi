@@ -1,0 +1,3 @@
+<%= t('.greetings', user: @consumer.username) %>
+
+<%= t('.body', link: advice_thread_url(@advice_thread), advice_thread: @advice_thread.title).html_safe %>

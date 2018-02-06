@@ -58,6 +58,7 @@ Rails.application.routes.draw do
 
     # Advice thread
     resources :advice_threads, shallow: true, except: [:destroy], concerns: %i[searchable votable] do
+      post :follow, on: :member
 
       # Advice comment
       resources :comments, shallow: true, except: %i[index destroy], concerns: :votable
@@ -74,11 +75,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :up_votes, only: %i[destroy]
-  resources :down_votes, only: %i[create destroy]
-
   # Relationship
   resources :relationships, only: %i[create destroy]
+
+  # Votes
+  resources :up_votes, only: %i[destroy]
+  resources :down_votes, only: %i[create destroy]
 
   # Static pages
   get 'user_static_page/home'

@@ -50,6 +50,18 @@ class AdviceThreadsController < ApplicationController
     authorize @advice_thread
   end
 
+  def follow
+    authorize @advice_thread
+
+    if current_consumer.follow? @advice_thread
+      current_consumer.unfollow @advice_thread
+    else
+      current_consumer.follow @advice_thread
+    end
+
+    render :show
+  end
+
   def search
     authorize @product.advice_threads.first_or_create
 
