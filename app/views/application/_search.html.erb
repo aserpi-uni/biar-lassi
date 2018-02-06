@@ -1,0 +1,6 @@
+<%= form_with url: url, method: :get, local: true, class: 'form-delete', role: 'search' do |f| %>
+  <div class="form-group pt-0 mx-0 align-items-center row">
+    <%= f.text_field :search, class: 'form-control col', placeholder: t(:search) %>
+    <%= f.submit t(:search), name: nil, class: 'btn btn-outline-primary ml-3 col-auto' %>
+  </div>
+<% end %>

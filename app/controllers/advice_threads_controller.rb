@@ -1,6 +1,6 @@
 class AdviceThreadsController < ApplicationController
   before_action :set_advice_thread, only: %i[show edit update destroy down down_votes follow up]
-  before_action :set_product, only: %i[index new create]
+  before_action :set_product, only: %i[index new create search]
 
   def index
     authorize @product.advice_threads.first_or_create
@@ -48,6 +48,16 @@ class AdviceThreadsController < ApplicationController
 
   def down_votes
     authorize @advice_thread
+  end
+
+  def search
+    authorize @product.advice_threads.first_or_create
+
+    @advice_threads = @product.advice_threads.search(params[:search],
+                                                     fields: ['title^10', :content], operator: :or,
+                                                     order: { _score: :desc },
+                                                     page: params[:page])
+    @search = params[:search]
   end
 
   def up

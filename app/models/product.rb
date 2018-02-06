@@ -16,8 +16,8 @@ class Product < ApplicationRecord
 
   belongs_to :enterprise
 
-  has_many :problem_threads, dependent: :destroy
   has_many :advice_threads, dependent: :destroy
+  has_many :problem_threads, dependent: :destroy
 
   validates :model, product_uniqueness: true
 

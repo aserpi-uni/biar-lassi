@@ -1,6 +1,6 @@
 class ProblemThreadsController < ApplicationController
   before_action :set_problem_thread, only: %i[show edit update destroy down down_votes follow up]
-  before_action :set_product, only: %i[index new create]
+  before_action :set_product, only: %i[index new create search]
 
   def index
     authorize @product.problem_threads.first_or_create
@@ -60,6 +60,16 @@ class ProblemThreadsController < ApplicationController
     end
 
     render :show
+  end
+
+  def search
+    authorize @product.problem_threads.first_or_create
+
+    @problem_threads = @product.problem_threads.search(params[:search],
+                                                       fields: ['title^100', 'content^10', :comments], operator: :or,
+                                                       order: { _score: :desc },
+                                                       page: params[:page])
+    @search = params[:search]
   end
 
   def up

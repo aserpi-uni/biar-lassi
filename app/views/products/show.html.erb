@@ -38,11 +38,15 @@
         <%= t(:problem_threads_header, count: @product.problem_threads.count) %>
       </h3>
       <% unless @product.problem_threads.count.zero? %>
-        <%= button_to t(:view_all), product_problem_threads_path(@product), method: :get, class: 'btn btn-info' %>
+        <a class="btn btn-info" data-toggle="collapse" href="#collapseSearchProblem">
+          <%= fa_icon 'search fw' %>
+        </a>
+
+        <%= button_to t(:view_all), product_problem_threads_path(@product), method: :get, class: 'btn btn-info', form_class: 'form-delete' %>
       <% end %>
     </div>
 
-    <!-- TODO: search -->
+    <%= render partial: 'search_collapse', locals: { id: 'collapseSearchProblem', url: search_product_problem_threads_path(@product) } %>
 
     <%= render partial: 'problem_threads/list', locals: { format_zero: false, paginate: false,
                                                           problem_threads: ProblemThread.order_by_activity(@product).take(10) } %>
@@ -58,11 +62,15 @@
         <%= t(:advice_threads_header, count: @product.advice_threads.count) %>
       </h3>
       <% unless @product.advice_threads.count.zero? %>
-        <%= button_to t(:view_all), product_advice_threads_path(@product), method: :get, class: 'btn btn-info' %>
+        <a class="btn btn-info" data-toggle="collapse" href="#collapseSearchAdvice">
+          <%= fa_icon 'search fw' %>
+        </a>
+
+        <%= button_to t(:view_all), product_advice_threads_path(@product), method: :get, class: 'btn btn-info', form_class: 'form-delete' %>
       <% end %>
     </div>
 
-    <!-- TODO: search -->
+    <%= render partial: 'search_collapse', locals: { id: 'collapseSearchAdvice', url: search_product_advice_threads_path(@product) } %>
 
     <%= render partial: 'advice_threads/list', locals: { format_zero: false, paginate: false,
                                                          advice_threads: AdviceThread.order_by_activity(@product).take(10) } %>
@@ -72,4 +80,3 @@
     <% end %>
   </div>
 </div>
-

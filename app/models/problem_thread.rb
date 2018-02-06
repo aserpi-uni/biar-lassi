@@ -12,6 +12,7 @@
 # * +has_many+ [Relationship]           a relationship between the thread and a consumer
 class ProblemThread < ApplicationRecord
   include Threadable
+  searchkick callbacks: :async
 
   after_create :follow_poster, :notify_referent_new
   after_update :notify_referent_update
@@ -20,6 +21,14 @@ class ProblemThread < ApplicationRecord
 
   has_many :passive_relationships, class_name: 'Relationship', foreign_key: 'followed_id', dependent: :destroy
   has_many :followers, through: :passive_relationships, source: :follower
+
+  def search_data
+    {
+      comments: comments.map(&:content),
+      content: content,
+      title: title
+    }
+  end
 
   private
 

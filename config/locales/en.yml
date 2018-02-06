@@ -155,6 +155,7 @@ en:
   restore: 'Restore'
 
   results_for_search:
+    zero: 'No %{resource} matching search "%{string}"'
     one: '1 %{resource} matching search "%{string}"'
     other: '%{count} %{resource} matching search "%{string}"'
   results_no: 'No results'

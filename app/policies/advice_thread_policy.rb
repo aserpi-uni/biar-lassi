@@ -38,6 +38,10 @@ class AdviceThreadPolicy < ApplicationPolicy
     show?
   end
 
+  def search?
+    show?
+  end
+
   def up?
     (@user.is_a?(Consumer) || (@user.is_a?(Employee) && @user.same_enterprise?(@advice_thread))) &&
       @user != @advice_thread.author &&
