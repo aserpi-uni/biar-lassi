@@ -14,7 +14,7 @@ class ProblemThread < ApplicationRecord
   include Threadable
   searchkick callbacks: :async
 
-  after_create :follow_poster, :notify_referent_new
+  after_create :notify_referent_new
   after_update :notify_referent_update
 
   belongs_to :employee

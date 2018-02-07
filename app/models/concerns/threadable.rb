@@ -3,6 +3,8 @@ module Threadable
   extend ActiveSupport::Concern
 
   included do
+    after_create :follow_poster
+
     belongs_to :author, class_name: Consumer.name
     belongs_to :product
 
