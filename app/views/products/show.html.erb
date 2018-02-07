@@ -32,51 +32,55 @@
 </div>
 
 <div class="row mx-0">
-  <div class="jumbotron col-5 py-2"> <!-- Problem threads -->
-    <div class="row">
-      <h3>
-        <%= t(:problem_threads_header, count: @product.problem_threads.count) %>
-      </h3>
-      <% unless @product.problem_threads.count.zero? %>
-        <a class="btn btn-info" data-toggle="collapse" href="#collapseSearchProblem">
-          <%= fa_icon 'search fw' %>
-        </a>
+  <div class="col-6 px-0">
+    <div class="jumbotron col-11 py-2"> <!-- Problem threads -->
+      <div class="row">
+        <h3>
+          <%= t(:problem_threads_header, count: @product.problem_threads.count) %>
+        </h3>
+        <% unless @product.problem_threads.count.zero? %>
+          <a class="btn btn-info" data-toggle="collapse" href="#collapseSearchProblem">
+            <%= fa_icon 'search fw' %>
+          </a>
 
-        <%= button_to t(:view_all), product_problem_threads_path(@product), method: :get, class: 'btn btn-info', form_class: 'form-delete' %>
+          <%= button_to t(:view_all), product_problem_threads_path(@product), method: :get, class: 'btn btn-info', form_class: 'form-delete' %>
+        <% end %>
+      </div>
+
+      <%= render partial: 'search_collapse', locals: { id: 'collapseSearchProblem', url: search_product_problem_threads_path(@product) } %>
+
+      <%= render partial: 'problem_threads/list', locals: { format_zero: false, paginate: false,
+                                                            problem_threads: @product.problem_threads.order_by_activity.take(10) } %>
+
+      <% if policy(@product.problem_threads.build).create? %>
+        <%= button_to t(:resource_new, resource: ProblemThread.model_name.human), new_product_problem_thread_path(@product), method: :get, class: 'btn btn-primary btn-raised ml-2' %>
       <% end %>
     </div>
-
-    <%= render partial: 'search_collapse', locals: { id: 'collapseSearchProblem', url: search_product_problem_threads_path(@product) } %>
-
-    <%= render partial: 'problem_threads/list', locals: { format_zero: false, paginate: false,
-                                                          problem_threads: ProblemThread.order_by_activity(@product).take(10) } %>
-
-    <% if policy(@product.problem_threads.build).create? %>
-      <%= button_to t(:resource_new, resource: ProblemThread.model_name.human), new_product_problem_thread_path(@product), method: :get, class: 'btn btn-primary btn-raised ml-2' %>
-    <% end %>
   </div>
 
-  <div class="jumbotron offset-md-2 col-5 py-2"> <!-- Problem threads -->
-    <div class="row">
-      <h3>
-        <%= t(:advice_threads_header, count: @product.advice_threads.count) %>
-      </h3>
-      <% unless @product.advice_threads.count.zero? %>
-        <a class="btn btn-info" data-toggle="collapse" href="#collapseSearchAdvice">
-          <%= fa_icon 'search fw' %>
-        </a>
+  <div class="col-6 px-0">
+    <div class="jumbotron offset-md-1 col-11 py-2"> <!-- Problem threads -->
+      <div class="row">
+        <h3>
+          <%= t(:advice_threads_header, count: @product.advice_threads.count) %>
+        </h3>
+        <% unless @product.advice_threads.count.zero? %>
+          <a class="btn btn-info" data-toggle="collapse" href="#collapseSearchAdvice">
+            <%= fa_icon 'search fw' %>
+          </a>
 
-        <%= button_to t(:view_all), product_advice_threads_path(@product), method: :get, class: 'btn btn-info', form_class: 'form-delete' %>
+          <%= button_to t(:view_all), product_advice_threads_path(@product), method: :get, class: 'btn btn-info', form_class: 'form-delete' %>
+        <% end %>
+      </div>
+
+      <%= render partial: 'search_collapse', locals: { id: 'collapseSearchAdvice', url: search_product_advice_threads_path(@product) } %>
+
+      <%= render partial: 'advice_threads/list', locals: { format_zero: false, paginate: false,
+                                                           advice_threads: @product.advice_threads.order_by_activity.take(10) } %>
+
+      <% if policy(@product.advice_threads.build).create? %>
+        <%= button_to t(:resource_new, resource: AdviceThread.model_name.human), new_product_advice_thread_path(@product), method: :get, class: 'btn btn-primary btn-raised ml-2' %>
       <% end %>
     </div>
-
-    <%= render partial: 'search_collapse', locals: { id: 'collapseSearchAdvice', url: search_product_advice_threads_path(@product) } %>
-
-    <%= render partial: 'advice_threads/list', locals: { format_zero: false, paginate: false,
-                                                         advice_threads: AdviceThread.order_by_activity(@product).take(10) } %>
-
-    <% if policy(@product.advice_threads.build).create? %>
-      <%= button_to t(:resource_new, resource: AdviceThread.model_name.human), new_product_advice_thread_path(@product), method: :get, class: 'btn btn-primary btn-raised ml-2' %>
-    <% end %>
   </div>
 </div>

@@ -1,10 +1,42 @@
-<h1>ConsumerStaticPages#home</h1>
-<p>Find me in app/views/consumer_static_pages/home.html.erb</p>
+<% provide :title, t(:feed) %>
 
-<% if current_user.feed.any? %>
+<div class="jumbotron py-2">
+  <h3>
+    <%= t :feed %>
+  </h3>
+  <%= t :feed_consumer_explaining %>
+</div>
 
-    <ul class="feed">
-      <%= render 'feed' %>
-    </ul>
+<div class="row mx-0">
+  <div class="col-6 px-0">
+    <div class="jumbotron col-11 py-2"> <!-- Problem threads -->
+      <div class="row">
+        <h3>
+          <%= t(:problem_threads_header, count: current_consumer.following_problems.count) %>
+        </h3>
+        <% unless current_consumer.following_problems.count.zero? %>
+          <%= button_to t(:view_all), 'user_static_pages/problem_threads', method: :get, class: 'btn btn-info', form_class: 'form-delete' %>
+        <% end %>
+      </div>
 
-<% end %>
+      <%= render partial: 'problem_threads/list', locals: { format_zero: false, paginate: false,
+                                                            problem_threads: current_consumer.following_problems.order_by_activity.take(10) } %>
+    </div>
+  </div>
+
+  <div class="col-6 px-0">
+    <div class="jumbotron offset-md-1 col-11 py-2"> <!-- Problem threads -->
+      <div class="row">
+        <h3>
+          <%= t(:advice_threads_header, count: current_consumer.following_advices.count) %>
+        </h3>
+        <% unless current_consumer.following_advices.count.zero? %>
+          <%= button_to t(:view_all), 'user_static_pages/advice_threads', method: :get, class: 'btn btn-info', form_class: 'form-delete' %>
+        <% end %>
+      </div>
+
+      <%= render partial: 'advice_threads/list', locals: { format_zero: false, paginate: false,
+                                                           advice_threads: current_consumer.following_advices.order_by_activity.take(10) } %>
+    </div>
+  </div>
+</div>

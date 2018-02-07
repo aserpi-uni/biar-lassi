@@ -1,14 +1,20 @@
 class UserStaticPagesController < ApplicationController
+  def advice_threads
+    authorize :user_static_page
+  end
+
   def consumer
-    if logged_in?
-      @feed_items = current_user.feed.paginate(page: params[:page]).order(created_at: :desc)
-    end
+    authorize :user_static_page
   end
 
   def employee
+    authorize :user_static_page
 
+    redirect_to current_user if current_employee.supervisor?
   end
 
-  def help
+  def problem_threads
+    authorize :user_static_page
   end
+
 end

@@ -98,8 +98,8 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   ## Static
-
-  get 'consumer_static_pages/help'
+  get 'user_static_pages/advice_threads'
+  get 'user_static_pages/problem_threads'
   post 'auth/consumers/facebook/connect_existing'
   post 'auth/consumers/facebook/select_username'
   delete 'auth/consumers/facebook/disconnect'
