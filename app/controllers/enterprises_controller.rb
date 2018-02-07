@@ -47,7 +47,9 @@ class EnterprisesController < ApplicationController
   end
 
   # TODO: test
-  def products; end
+  def products
+    authorize @enterprise
+  end
 
   private
 
