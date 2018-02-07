@@ -23,6 +23,10 @@ class EnterprisePolicy < ApplicationPolicy
         @enterprise.active?
   end
 
+  def products?
+    show?
+  end
+
   def destroy?
     @user.is_a? Admin
   end
