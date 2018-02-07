@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
-  # Concerns
+  ### Concerns
+
+  # Lockable
+  concern :lockable do
+    member do
+      delete :lock
+      post :manual_unlock
+    end
+  end
 
   # Searchable
   concern :searchable do
@@ -15,15 +23,15 @@ Rails.application.routes.draw do
     end
   end
 
-  # Routes
+  ### Routes
+
+  ## Dynamic
 
   # Admin
   devise_for :admins, path_prefix: 'auth', controllers: { passwords: 'admins/passwords',
                                                           sessions: 'admins/sessions',
                                                           unlocks: 'admins/unlocks' }
-  resources :admins, param: :username
-  delete 'admins/lock/:username', to: 'admins#lock', as: 'admin_lock'
-  post 'admins/unlock/:username', to: 'admins#unlock', as: 'admin_manual_unlock'
+  resources :admins, param: :username, except: [:index], concerns: :lockable
 
   # Consumer
   devise_for :consumers, path_prefix: 'auth',
@@ -32,20 +40,15 @@ Rails.application.routes.draw do
                                         registrations: 'consumers/registrations',
                                         sessions: 'consumers/sessions',
                                         unlocks: 'consumers/unlocks' }
-  resources :consumers, param: :username do
+  resources :consumers, param: :username, except: %i[index new create] do
     get :following, on: :member
   end
-  post 'auth/consumers/facebook/connect_existing'
-  delete 'auth/consumers/facebook/disconnect'
-  post 'auth/consumers/facebook/select_username'
 
   # Employee
-  resources :employees, param: :username
   devise_for :employees, path_prefix: 'auth', controllers: { passwords: 'employees/passwords',
                                                              sessions: 'employees/sessions',
                                                              unlocks: 'employees/unlocks' }
-  delete 'employees/lock/:username', to: 'employees#lock', as: 'employee_lock'
-  post 'employees/unlock/:username', to: 'employees#unlock', as: 'employee_manual_unlock'
+  resources :employees, param: :username, except: [:index], concerns: :lockable
 
   # Enterprise
   resources :enterprises, param: :name, except: [:index] do
@@ -75,26 +78,29 @@ Rails.application.routes.draw do
     end
   end
 
-  # Relationship
-  resources :relationships, only: %i[create destroy]
-
   # Votes
   resources :up_votes, only: %i[destroy]
   resources :down_votes, only: %i[create destroy]
 
-  # Static pages
-  get 'user_static_page/home'
-  get 'user_static_page/help'
+  ## Root pages
 
-  # Root pages
-  get '/welcome/enterprise', as: :admin_root
-  get '/welcome/consumer', as: :consumer_root
-  get '/welcome/enterprise', as: :employee_root
+  # Consumer
+  authenticated :consumer do
+    root 'user_static_pages#consumer', as: :consumer_root
+  end
+
+  # Employee
+  authenticated :employee do
+    root 'user_static_pages#employee', as: :employee_root
+  end
+
+  # General
   root 'welcome#index'
 
-  # TODO
-
-  get 'consumer_static_pages/home'
+  ## Static
 
   get 'consumer_static_pages/help'
+  post 'auth/consumers/facebook/connect_existing'
+  post 'auth/consumers/facebook/select_username'
+  delete 'auth/consumers/facebook/disconnect'
 end

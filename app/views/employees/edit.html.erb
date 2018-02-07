@@ -32,9 +32,9 @@
 
     <% unless @employee.email.blank? %>
       <% if !@employee.locked_at.nil? %>
-        <%= render partial: 'application/edit/unlock', locals: { path: employee_manual_unlock_path(@employee) } %>
+        <%= render partial: 'application/edit/unlock', locals: { path: manual_unlock_employee_path(@employee) } %>
       <% else %>
-        <%= render partial: 'application/edit/lock', locals: { user: @employee, path: employee_lock_path(@employee) } %>
+        <%= render partial: 'application/edit/lock', locals: { user: @employee, path: lock_employee_path(@employee) } %>
 
         <%= render partial: 'application/edit/delete_account', locals: {user: @employee, path: employee_path(@employee) } %>
       <% end %>

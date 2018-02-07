@@ -1,7 +1,5 @@
 class ConsumersController < ApplicationController
   before_action :find_consumer
-  def index
-  end
 
   def show
     # @consumer = Consumer.find_by! username: params[:username]
@@ -21,9 +19,8 @@ class ConsumersController < ApplicationController
     render 'show_follow'
   end
 
-
-
   private
+
   def find_consumer
     @consumer = Consumer.find_by! username: params[:username]
   end

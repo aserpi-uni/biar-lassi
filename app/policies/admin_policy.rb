@@ -22,7 +22,7 @@ class AdminPolicy < ApplicationPolicy
     @user.is_a? Admin
   end
 
-  def unlock?
+  def manual_unlock?
     lock? && @user != @admin
   end
 end
