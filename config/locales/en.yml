@@ -64,9 +64,14 @@ en:
 
   enterprise_settings: 'Enterprise settings'
 
+  feed: 'Feed'
+  feed_consumer_explaining: 'You can find here all your followed threads.'
+  feed_operator_expalining: 'You can find here all your assigned problem threads.'
+
   field_invalid: 'is invalid'
 
   follow: 'Follow'
+  followed: '%{resource} followed'
 
   forbidden: 'You are not authorized to perform this action'
 

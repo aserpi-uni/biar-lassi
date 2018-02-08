@@ -7,8 +7,8 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError, with: :not_authorized
 
-  helper_method :current_user
   helper_method :comment_path
+  helper_method :current_user
   helper_method :user_path
   helper_method :vote_resource_path
 

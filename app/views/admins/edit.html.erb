@@ -23,9 +23,9 @@
 
     <% unless @admin.email.blank? %>
       <% if !@admin.locked_at.nil? %>
-        <%= render partial: 'application/edit/unlock', locals: { path: admin_manual_unlock_path(@admin) } %>
+        <%= render partial: 'application/edit/unlock', locals: { path: manual_unlock_admin_path(@admin) } %>
       <% else %>
-        <%= render partial: 'application/edit/lock', locals: { user: @admin, path: admin_lock_path(@admin) } %>
+        <%= render partial: 'application/edit/lock', locals: { user: @admin, path: lock_admin_path(@admin) } %>
 
         <%= render partial: 'application/edit/delete_account', locals: {user: @admin, path: admin_path(@admin) } %>
       <% end %>

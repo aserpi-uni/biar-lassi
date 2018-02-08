@@ -1,0 +1,13 @@
+<% provide :title, t(:feed) %>
+
+<div class="jumbotron py-4">
+  <h2>
+    <%= t(:feed) %>
+  </h2>
+
+  <p>
+    <%= t :feed_operator_expalining %>
+  </p>
+
+  <%= render partial: 'problem_threads/list', locals: { problem_threads: current_employee.problem_threads.order_by_activity.page(params[:page]) } %>
+</div>

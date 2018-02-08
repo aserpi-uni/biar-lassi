@@ -1,0 +1,9 @@
+<% provide :title, t(:followed, resource: ProblemThread.model_name.human(count: 500)) %>
+
+<div class="jumbotron py-4">
+  <h2 class="mb-3">
+    <%= t :followed, resource: ProblemThread.model_name.human(count: 500).capitalize %>
+  </h2>
+
+  <%= render partial: 'problem_threads/list', locals: { problem_threads: current_consumer.following_problems.order_by_activity.page(params[:page]) } %>
+</div>

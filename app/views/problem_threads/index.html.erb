@@ -22,5 +22,5 @@
 
   <%= render partial: 'application/search', locals: { url: search_product_problem_threads_path(@product) } %>
 
-  <%= render partial: 'list', locals: { problem_threads: ProblemThread.order_by_activity(@product).page(params[:page]) } %>
+  <%= render partial: 'list', locals: { problem_threads: @product.problem_threads.order_by_activity.page(params[:page]) } %>
 </div>

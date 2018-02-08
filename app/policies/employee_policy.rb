@@ -31,7 +31,7 @@ class EmployeePolicy < ApplicationPolicy
       (@user.is_a?(Employee) && @user.enterprise == @employee.enterprise && @employee.supervisor?)
   end
 
-  def unlock?
+  def manual_unlock?
     lock? && @user != @employee
   end
 end

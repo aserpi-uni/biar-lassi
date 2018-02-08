@@ -1,5 +1,5 @@
 class AdminsController < ApplicationController
-  before_action :set_admin, only: %i[show edit update destroy lock unlock]
+  before_action :set_admin, only: %i[show edit update destroy lock manual_unlock]
 
   def show; end
 
@@ -61,7 +61,7 @@ class AdminsController < ApplicationController
     end
   end
 
-  def unlock
+  def manual_unlock
     authorize @admin
 
     @admin.soft_unlock

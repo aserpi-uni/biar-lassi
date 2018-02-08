@@ -1,5 +1,5 @@
 class EmployeesController < ApplicationController
-  before_action :set_employee, only: %i[show edit update destroy lock unlock]
+  before_action :set_employee, only: %i[show edit update destroy lock manual_unlock]
 
   def show
     authorize @employee
@@ -65,10 +65,10 @@ class EmployeesController < ApplicationController
     end
   end
 
-  def unlock
+  def manual_unlock
     authorize @employee
 
-    @employee.soft_lock
+    @employee.soft_unlock
 
     flash[:success] = I18n.t(:unlocked_success, usr: @employee.username)
     redirect_to edit_employee_path(@employee)

@@ -10,6 +10,6 @@ module Accessible
   end
 
   def not_authorized
-    redirect_to user_path(current_user)
+    redirect_to(current_admin ? current_admin : root_path)
   end
 end
