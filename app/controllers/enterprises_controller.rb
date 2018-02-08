@@ -46,7 +46,6 @@ class EnterprisesController < ApplicationController
     redirect_to enterprise_path(@enterprise)
   end
 
-  # TODO: test
   def products
     authorize @enterprise
   end

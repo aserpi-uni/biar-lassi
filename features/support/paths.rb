@@ -22,6 +22,9 @@ module NavigationHelpers
     when /^edit (Admin|Employee|Enterprise) "(.*)"$/
       "/#{Regexp.last_match(1).downcase.pluralize}/#{Regexp.last_match(2)}/edit"
 
+    when /^Enterprise (main|products)$/
+      "/enterprises/#{@enterprise.name}/#{'/products' if Regexp.last_match(1) == 'products'}"
+
     when /^Facebook connect$/
       '/auth/consumers/auth/facebook'
 
