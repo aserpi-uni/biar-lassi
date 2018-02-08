@@ -4,6 +4,10 @@ When(/^he changes the "([^"]*)" field to "([^"]*)"$/) do |field, value|
   fill_in field, with: value
 end
 
+When(/^he changes the "([^"]*)" select to "([^"]*)"$/) do |field, value|
+  select value, from: field
+end
+
 ## Buttons
 
 When(/^he presses "([^"]*)"$/) do |arg|

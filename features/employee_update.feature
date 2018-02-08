@@ -9,13 +9,13 @@ Feature: Update an employee
     Then he should see a "email" input field with value "operator_email_two@example.com"
 
 
-#  Scenario: TODO: An Admin changes the role of an Operator
-#    Given an Operator has an account
-#    And an Admin is logged in
-#    And he is on the Operator's settings page
-#    And he changes the "role" field to "supervisor"
-#    When he saves
-#    Then he should see WAHT?
+  Scenario: An Admin changes the role of an Operator
+    Given an Operator has an account
+    And an Admin is logged in
+    And he is on the Operator's settings page
+    And he changes the "role" select to "Supervisor"
+    When he saves
+    Then he should see a "role" select with value "Supervisor"
 
   Scenario: An Admin locks and unlocks an Employee
     Given an Employee has an account
