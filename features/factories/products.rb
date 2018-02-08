@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :product do
     enterprise { Enterprise.first || association(:enterprise) }
+    active true
     model 'Model'
     description <<~EOS
     A

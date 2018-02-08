@@ -37,7 +37,6 @@ When(/^he deletes the( second)? (Enterprise|Product)$/) do |sec, res|
   visit settings_path_to(instance_variable_get("@#{klass}"))
   click_button I18n.t(:delete)
   click_button I18n.t(:confirm)
-  instance_variable_set("@#{klass}", nil)
 end
 
 When(/^he deletes ((his)|the (.*)) account$/) do |usr|
@@ -48,6 +47,12 @@ When(/^he deletes ((his)|the (.*)) account$/) do |usr|
   end
   click_button I18n.t(:delete)
   click_button I18n.t(:confirm)
+end
+
+When(/^he restores the( second)? (Enterprise|Product)$/) do |sec, res|
+  klass = "#{'second_' if sec}#{res.downcase}"
+  visit settings_path_to(instance_variable_get("@#{klass}"))
+  click_button I18n.t(:restore)
 end
 
 When(/^he (un)?locks ((his)|the (.*)) account$/) do |un, usr|

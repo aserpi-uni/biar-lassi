@@ -8,7 +8,6 @@ Feature: Update a Product
   Scenario: Supervisor updates a Product
     Given he changes the "model" field to "Model_two"
     When he saves
-    And save page
     Then he should see a "Model_two" text
 
   Scenario: Supervisor tries to update a Product with a model already taken
@@ -16,3 +15,8 @@ Feature: Update a Product
     And he changes the "model" field to "Model_two"
     When he saves
     Then he should see a "Model already used" text
+
+  Scenario: Supervisor deletes and restores a product
+    And he deletes the Product
+    When he restores the Product
+    Then he should see a "Delete" text

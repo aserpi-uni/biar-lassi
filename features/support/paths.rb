@@ -31,6 +31,9 @@ module NavigationHelpers
     when /^Facebook disconnect$/
       '/auth/consumers/facebook/disconnect'
 
+    when /^Product main$/
+      "products/#{@product.id}"
+
     else
       begin
         page_name =~ /(.*)/
