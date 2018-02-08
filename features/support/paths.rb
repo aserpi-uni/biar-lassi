@@ -28,6 +28,15 @@ module NavigationHelpers
     when /^Facebook disconnect$/
       '/auth/consumers/facebook/disconnect'
 
+    when /^ new (ProblemThread|AdviceThread)$/
+      "/products/1/#{Regexp.last_match(1).underscore.pluralize}/new"
+
+    when /^ new (ProblemThread|AdviceThread)Comment$/
+      "/#{Regexp.last_match(1).underscore.pluralize}/1/comments/new"
+
+      when /^ new (ProblemThread|AdviceThread)Relationship $/
+        "/#{Regexp.last_match(1).underscore.pluralize}/1/relationships/new"
+
     else
       begin
         page_name =~ /(.*)/
@@ -48,6 +57,12 @@ module NavigationHelpers
       "/enterprises/#{res.name}/edit"
     elsif res.is_a? Product
       "/products/#{res.id}/edit"
+    elsif res.is_a? ProblemThread
+      "/problem_threads/#{res.id}/edit"
+    elsif res.is_a? AdviceThread
+      "/advice_threads/#{res.id}/edit"
+    elsif res.is_a?Comment
+      "/comments/#{res.id}/edit"
     end
   end
 end
