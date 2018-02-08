@@ -38,10 +38,6 @@ end
 
 ## Relationship
 
-When(/^he creates a new Problem Thread Relationship$/) do
-  visit path_to('new ProblemThreadRelationship')
-end
-
-When(/^he creates a new Advice Thread Relationship$/) do
-  visit path_to('new AdviceThreadRelationship')
+When(/^he unfollows$/) do
+  click_button I18n.t(:unfollow)
 end

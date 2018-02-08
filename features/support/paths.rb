@@ -41,6 +41,10 @@ module NavigationHelpers
     when /^new (ProblemThread|AdviceThread)$/
       "/products/#{@product.id}/#{Regexp.last_match(1).underscore.pluralize}/new"
 
+    when /^(ProblemThread|AdviceThread)$/
+      klass = Regexp.last_match(1).underscore
+      "/#{klass.pluralize}/#{instance_variable_get('@' + klass).id}"
+
     when /^ new (ProblemThread|AdviceThread)Comment$/
       "/#{Regexp.last_match(1).underscore.pluralize}/1/comments/new"
 
