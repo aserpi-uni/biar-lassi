@@ -25,7 +25,7 @@ class Consumer < ApplicationRecord
   has_many :advice_threads, inverse_of: :author, dependent: :destroy
   has_many :comments, as: :author, dependent: :destroy
   has_many :down_votes, as: :downer, dependent: :destroy
-  has_many :problem_threads, inverse_of: 'author', dependent: :destroy
+  has_many :problem_threads, inverse_of: :author, dependent: :destroy
   has_many :up_votes, as: :upper, dependent: :destroy
 
   validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i }, allow_blank: true,

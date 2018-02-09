@@ -5,7 +5,7 @@ module Threadable
   included do
     after_create :follow_poster
 
-    belongs_to :author, class_name: Consumer.name
+    belongs_to :author, class_name: Consumer.name, foreign_key: :consumer_id
     belongs_to :product
 
     has_many :comments, as: :domain, dependent: :destroy

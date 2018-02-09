@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180206154930) do
+ActiveRecord::Schema.define(version: 20180209183712) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,10 +43,10 @@ ActiveRecord::Schema.define(version: 20180206154930) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "product_id"
-    t.bigint "author_id"
+    t.bigint "consumer_id"
     t.integer "votes", default: 0
     t.integer "status", default: 0
-    t.index ["author_id"], name: "index_advice_threads_on_author_id"
+    t.index ["consumer_id"], name: "index_advice_threads_on_consumer_id"
     t.index ["product_id"], name: "index_advice_threads_on_product_id"
   end
 
@@ -157,10 +157,10 @@ ActiveRecord::Schema.define(version: 20180206154930) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "product_id"
-    t.bigint "author_id"
+    t.bigint "consumer_id"
     t.bigint "employee_id"
     t.integer "votes", default: 0
-    t.index ["author_id"], name: "index_problem_threads_on_author_id"
+    t.index ["consumer_id"], name: "index_problem_threads_on_consumer_id"
     t.index ["employee_id"], name: "index_problem_threads_on_employee_id"
     t.index ["product_id"], name: "index_problem_threads_on_product_id"
   end
@@ -197,11 +197,11 @@ ActiveRecord::Schema.define(version: 20180206154930) do
     t.index ["upper_type", "upper_id"], name: "index_up_votes_on_upper_type_and_upper_id"
   end
 
-  add_foreign_key "advice_threads", "consumers", column: "author_id"
+  add_foreign_key "advice_threads", "consumers"
   add_foreign_key "advice_threads", "products"
   add_foreign_key "comments", "problem_threads"
   add_foreign_key "employees", "enterprises"
-  add_foreign_key "problem_threads", "consumers", column: "author_id"
+  add_foreign_key "problem_threads", "consumers"
   add_foreign_key "problem_threads", "employees"
   add_foreign_key "problem_threads", "products"
   add_foreign_key "products", "enterprises"
