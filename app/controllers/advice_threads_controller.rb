@@ -72,7 +72,6 @@ class AdviceThreadsController < ApplicationController
                                                      page: params[:page])
     @search = params[:search]
   end
-  # :nocov:
 
   def up
     authorize @advice_thread
@@ -80,6 +79,7 @@ class AdviceThreadsController < ApplicationController
     @advice_thread.save
     redirect_to advice_thread_path(@advice_thread)
   end
+  # :nocov:
 
   private
 

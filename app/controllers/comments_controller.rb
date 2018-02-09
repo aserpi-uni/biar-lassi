@@ -59,12 +59,14 @@ class CommentsController < ApplicationController
     redirect_to comment_path(@comment)
   end
 
+  # :nocov:
   def up
     authorize @comment
     @comment.up_votes.build(upper: current_user)
     @comment.save
     redirect_to comment_path(@comment)
   end
+  # :nocov:
 
   private
 

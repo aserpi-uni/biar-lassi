@@ -56,3 +56,11 @@ end
 When(/^he unfollows$/) do
   click_button I18n.t(:unfollow)
 end
+
+## Vote
+
+When(/^he downvotes the (AdviceThread|ProblemThread)$/) do |type|
+  visit path_to("new #{type} Downvote")
+  fill_in 'reason', with: 'Downvote reason'
+  click_button I18n.t(:create)
+end

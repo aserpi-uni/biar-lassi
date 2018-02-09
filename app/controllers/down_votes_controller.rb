@@ -15,6 +15,7 @@ class DownVotesController < ApplicationController
     end
   end
 
+  # :nocov:
   def destroy
     @down = DownVote.find(params[:id])
     authorize @down
@@ -26,4 +27,5 @@ class DownVotesController < ApplicationController
       redirect_to @down.downable
     end
   end
+  # :nocov:
 end

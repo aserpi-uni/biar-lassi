@@ -44,13 +44,17 @@ module NavigationHelpers
     when /^new (ProblemThread|AdviceThread)$/
       "/products/#{@product.id}/#{Regexp.last_match(1).underscore.pluralize}/new"
 
-    when /^(ProblemThread|AdviceThread) main$/
+    when /^(ProblemThread|AdviceThread) (main|Downvotes)$/
       klass = Regexp.last_match(1).underscore
-      "/#{klass.pluralize}/#{instance_variable_get("@#{klass}").id}"
+      "/#{klass.pluralize}/#{instance_variable_get("@#{klass}").id}/#{'down_votes' if Regexp.last_match(2) == 'Downvotes'}"
 
     when /^new (ProblemThread|AdviceThread) Comment$/
       klass = Regexp.last_match(1).underscore
       "/#{klass.pluralize}/#{instance_variable_get("@#{klass}").id}/comments/new"
+
+    when(/^new (AdviceThread|Comment|ProblemThread) Downvote$/)
+      klass = Regexp.last_match(1).underscore
+      "/#{klass.pluralize}/#{instance_variable_get("@#{klass}").id}/down"
 
     when /^edit Comment$/
       "/comments/#{@comment.id}/edit"
