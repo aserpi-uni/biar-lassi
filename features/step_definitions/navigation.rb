@@ -8,10 +8,6 @@ Given(/^he is on the Enterprise's (products|main) page$/) do |page|
   visit path_to("Enterprise #{page}")
 end
 
-Given(/^he is on the Product's main page$/) do
-  visit path_to("Product main")
-end
-
 ## Settings page
 
 Given(/^he is on his settings page$/) do

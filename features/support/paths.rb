@@ -38,6 +38,9 @@ module NavigationHelpers
     when /^Product main$/
       "products/#{@product.id}"
 
+    when /^Product (AdviceThread|ProblemThread)s$/
+      "products/#{@product.id}/#{Regexp.last_match(1).underscore.pluralize}"
+
     when /^new (ProblemThread|AdviceThread)$/
       "/products/#{@product.id}/#{Regexp.last_match(1).underscore.pluralize}/new"
 
