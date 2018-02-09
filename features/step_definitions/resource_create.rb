@@ -1,6 +1,7 @@
-Given(/^an?( second)? (Enterprise|Product|ProblemThread|AdviceThread)$/) do |sec, res|
+Given(/^an?( second| inactive)? (Enterprise|Product|ProblemThread|AdviceThread)$/) do |sec, res|
   klass = res.underscore
-  instance_variable_set("@#{klass}", FactoryBot.create("#{'second_' if sec}#{klass}"))
+  instance_variable_set("@#{klass}", FactoryBot.create("#{'second_' if sec == ' second'}#{klass}"))
+  instance_variable_get("@#{klass}").update(active: false) if sec == ' inactive'
 end
 
 ## Enterprise
@@ -26,41 +27,12 @@ end
 
 ## Problem Thread
 
-When(/^he creates a new Problem Thread( with a too long( title| content))?$/) do |field|
-  visit path_to('new ProblemThread')
-  if field
-    if field == ' title'
-      fill_in 'title', with: 'a'*300
-      fill_in 'content', with: 'problem thread Content'
-    elsif field == ' content'
-      fill_in 'title', with: 'problem thread Title'
-      fill_in 'content', with: 'a'*300
-    end
-  else
-    fill_in 'title', with: 'problem thread Title'
-    fill_in 'content', with: 'problem thread Content'
-  end
-  click_button I18n.t(:create)
-end
-
-## Advice Thread
-
-When(/^he creates a new Advice Thread( with a too long( title| content))?$/) do |field|
+When(/^he creates a new (Advice|Problem) Thread( with a too long (title|content))?$/) do |type, field|
   @product = FactoryBot.create(:product)
-  visit path_to('new AdviceThread')
-  if field
-    if field == ' title'
-      fill_in 'title', with: 'a'*300
-      fill_in 'content', with: 'advice thread Content'
-    elsif field == ' content'
-      fill_in 'title', with: 'advice thread Title'
-      fill_in 'content', with: 'a'*300
-    end
-  else
-    fill_in 'title', with: 'advice thread Title'
-    fill_in 'content', with: 'advice thread Content'
-  end
-
+  FactoryBot.create(:problem_operator) if type == 'Problem'
+  visit path_to("new #{type}Thread")
+  fill_in 'content', with: (field == 'content' ? 'a' * 300 : "#{type} Thread content")
+  fill_in 'title', with: (field == 'title' ? 'a' * 300 : "#{type} Thread title")
   click_button I18n.t(:create)
 end
 
@@ -73,4 +45,3 @@ end
 When(/^he creates a new Advice Thread Relationship$/) do
   visit path_to('new AdviceThreadRelationship')
 end
-
