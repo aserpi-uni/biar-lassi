@@ -5,6 +5,20 @@ Given(/^an?( second| inactive)? (Enterprise|Product|ProblemThread|AdviceThread)$
   @referent = @problem_thread.employee if @problem_thread
 end
 
+## Comment
+Given(/^an? (AdviceThread|ProblemThread) Comment created by an? (Consumer|Operator)$/) do |domain, author|
+  domain = domain.underscore
+  @comment = FactoryBot.create(:comment, domain.to_sym, author.downcase.to_sym)
+  instance_variable_set("@#{domain}", @comment.domain)
+  @referent = @comment.author if @comment.domain.is_a?(ProblemThread)
+end
+
+When(/^he comments the (AdviceThread|ProblemThread)( writing too much)?$/) do |type, long_winded|
+  visit path_to("new #{type} Comment")
+  fill_in 'content', with: (long_winded ? 'a' * 300 : "#{type} Comment")
+  click_button I18n.t(:create)
+end
+
 ## Enterprise
 
 When(/^(he|the Admin) creates a new Enterprise( with a (.*) already taken)?$/) do |_useless, field|

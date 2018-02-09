@@ -18,6 +18,18 @@ When(/^he saves$/) do
   click_button I18n.t(:save)
 end
 
+## Comment
+When(/^he (un)?marks the Comment as a solution$/) do |un|
+  visit path_to('ProblemThread main')
+  click_button I18n.t(un ? :solution_unmark : :solution_mark)
+end
+
+When(/^he updates the (AdviceThread|ProblemThread) Comment( writing too much)?$/) do |type, long_winded|
+  visit path_to "edit #{type} Comment"
+  fill_in 'content', with: (long_winded ? 'a' * 300 : "New #{type} Comment content")
+  click_button I18n.t(:save)
+end
+
 ## Facebook
 
 When(/^he connects his account to Facebook$/) do

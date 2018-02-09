@@ -41,7 +41,7 @@ module NavigationHelpers
     when /^new (ProblemThread|AdviceThread)$/
       "/products/#{@product.id}/#{Regexp.last_match(1).underscore.pluralize}/new"
 
-    when /^(ProblemThread|AdviceThread)$/
+    when /^(ProblemThread|AdviceThread) main$/
       klass = Regexp.last_match(1).underscore
       "/#{klass.pluralize}/#{instance_variable_get("@#{klass}").id}"
 
@@ -49,8 +49,8 @@ module NavigationHelpers
       klass = Regexp.last_match(1).underscore
       "/#{klass.pluralize}/#{instance_variable_get("@#{klass}").id}/comments/new"
 
-    when /^ new (ProblemThread|AdviceThread)Relationship $/
-      "/#{Regexp.last_match(1).underscore.pluralize}/1/relationships/new"
+    when /^edit Comment$/
+      "/comments/#{@comment.id}/edit"
 
     else
       begin
