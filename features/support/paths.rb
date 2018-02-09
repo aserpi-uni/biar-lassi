@@ -24,7 +24,7 @@ module NavigationHelpers
 
     when /^edit (Advice|Problem) Thread$/
       klass = "#{Regexp.last_match(1).downcase}_thread"
-      "#{klass}s/#{instance_variable_get('@' + klass).id}/edit"
+      "#{klass}s/#{instance_variable_get("@#{klass}").id}/edit"
 
     when /^Enterprise (main|products)$/
       "/enterprises/#{@enterprise.name}/#{'/products' if Regexp.last_match(1) == 'products'}"
@@ -43,10 +43,11 @@ module NavigationHelpers
 
     when /^(ProblemThread|AdviceThread)$/
       klass = Regexp.last_match(1).underscore
-      "/#{klass.pluralize}/#{instance_variable_get('@' + klass).id}"
+      "/#{klass.pluralize}/#{instance_variable_get("@#{klass}").id}"
 
-    when /^ new (ProblemThread|AdviceThread)Comment$/
-      "/#{Regexp.last_match(1).underscore.pluralize}/1/comments/new"
+    when /^new (ProblemThread|AdviceThread) Comment$/
+      klass = Regexp.last_match(1).underscore
+      "/#{klass.pluralize}/#{instance_variable_get("@#{klass}").id}/comments/new"
 
     when /^ new (ProblemThread|AdviceThread)Relationship $/
       "/#{Regexp.last_match(1).underscore.pluralize}/1/relationships/new"

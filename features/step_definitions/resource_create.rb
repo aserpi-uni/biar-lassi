@@ -2,6 +2,7 @@ Given(/^an?( second| inactive)? (Enterprise|Product|ProblemThread|AdviceThread)$
   klass = res.underscore
   instance_variable_set("@#{klass}", FactoryBot.create("#{'second_' if sec == ' second'}#{klass}"))
   instance_variable_get("@#{klass}").update(active: false) if sec == ' inactive'
+  @referent = @problem_thread.employee if @problem_thread
 end
 
 ## Enterprise

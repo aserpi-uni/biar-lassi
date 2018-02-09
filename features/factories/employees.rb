@@ -1,8 +1,16 @@
 FactoryBot.define do
+  sequence :employee_username do |n|
+    "employe_#{n}"
+  end
+
+  sequence :employee_email do |n|
+    "employee_mail_#{n}@example.com"
+  end
+
   factory :employee do
-    enterprise
-    username { "employee_one@#{enterprise.username_suffix}" }
-    email 'employee_email_one@example.com'
+    enterprise { Enterprise.first || association(:enterprise) }
+    username { "#{generate(:employee_username)}@#{enterprise.username_suffix}" }
+    email { generate(:employee_email) }
     role { Employee.roles.keys.sample }
     password 'password'
     password_confirmation 'password'

@@ -50,3 +50,11 @@ When(/^he creates a new AdviceThreadCommentC( with a too long content)?$/) do |f
   end
   click_button I18n.t(:create)
 end
+
+## OK
+
+When(/^he comments the (AdviceThread|ProblemThread)( writing too much)?$/) do |type, long_winded|
+  visit path_to("new #{type} Comment")
+  fill_in 'content', with: (long_winded ? 'a' * 300 : "#{type} Comment")
+  click_button I18n.t(:create)
+end
