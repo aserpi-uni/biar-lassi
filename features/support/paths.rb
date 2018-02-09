@@ -22,6 +22,10 @@ module NavigationHelpers
     when /^edit (Admin|Employee|Enterprise) "(.*)"$/
       "/#{Regexp.last_match(1).downcase.pluralize}/#{Regexp.last_match(2)}/edit"
 
+    when /^edit (Advice|Problem) Thread$/
+      klass = "#{Regexp.last_match(1).downcase}_thread"
+      "#{klass}s/#{instance_variable_get('@' + klass).id}/edit"
+
     when /^Enterprise (main|products)$/
       "/enterprises/#{@enterprise.name}/#{'/products' if Regexp.last_match(1) == 'products'}"
 
@@ -33,6 +37,15 @@ module NavigationHelpers
 
     when /^Product main$/
       "products/#{@product.id}"
+
+    when /^new (ProblemThread|AdviceThread)$/
+      "/products/#{@product.id}/#{Regexp.last_match(1).underscore.pluralize}/new"
+
+    when /^ new (ProblemThread|AdviceThread)Comment$/
+      "/#{Regexp.last_match(1).underscore.pluralize}/1/comments/new"
+
+    when /^ new (ProblemThread|AdviceThread)Relationship $/
+      "/#{Regexp.last_match(1).underscore.pluralize}/1/relationships/new"
 
     else
       begin
@@ -54,6 +67,8 @@ module NavigationHelpers
       "/enterprises/#{res.name}/edit"
     elsif res.is_a? Product
       "/products/#{res.id}/edit"
+    elsif res.is_a?Comment
+      "/comments/#{res.id}/edit"
     end
   end
 end

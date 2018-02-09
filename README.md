@@ -1,6 +1,6 @@
 # Istruzioni per l'uso
-[![Build Status](https://travis-ci.org/aserpi/Tesi.svg?branch=posts)](https://travis-ci.org/aserpi/Tesi)
-[![Coverage Status](https://coveralls.io/repos/github/aserpi/Tesi/badge.svg?branch=posts)](https://coveralls.io/github/aserpi/Tesi?branch=posts)
+[![Build Status](https://travis-ci.org/aserpi/Tesi.svg?branch=development)](https://travis-ci.org/aserpi/Tesi)
+[![Coverage Status](https://coveralls.io/repos/github/aserpi/Tesi/badge.svg?branch=development)](https://coveralls.io/github/aserpi/Tesi?branch=development)
 [![Maintainability](https://api.codeclimate.com/v1/badges/beab3c583232e7da96d9/maintainability)](https://codeclimate.com/github/aserpi/Tesi/maintainability)
 
 Installazione:

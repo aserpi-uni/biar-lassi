@@ -62,6 +62,7 @@ class AdviceThreadsController < ApplicationController
     render :show
   end
 
+  # :nocov:
   def search
     authorize @product.advice_threads.first_or_create
 
@@ -71,6 +72,7 @@ class AdviceThreadsController < ApplicationController
                                                      page: params[:page])
     @search = params[:search]
   end
+  # :nocov:
 
   def up
     authorize @advice_thread
