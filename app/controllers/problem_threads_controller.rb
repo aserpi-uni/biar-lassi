@@ -62,6 +62,7 @@ class ProblemThreadsController < ApplicationController
     render :show
   end
 
+  # :nocov:
   def search
     authorize @product.problem_threads.first_or_create
 
@@ -78,6 +79,7 @@ class ProblemThreadsController < ApplicationController
     @problem_thread.save
     redirect_to problem_thread_path(@problem_thread)
   end
+  # :nocov:
 
   private
 

@@ -53,6 +53,17 @@ Given(/^an? (Admin|Consumer|Employee|Operator|Supervisor) is logged in$/) do |kl
   login_as @current_user, scope: (employee?(klass) ? :employee : klass)
 end
 
+Given(/^a second Operator is logged in$/) do
+  @second_enterprise = FactoryBot.create(:second_enterprise)
+  @current_user = @second_operator = FactoryBot.create(:operator, enterprise: @second_enterprise)
+  login_as @current_user, scope: :employee
+end
+
+Given(/^the referent is logged in$/) do
+  @current_user = @referent
+  login_as @current_user, scope: :employee
+end
+
 When(/^the (Admin|Consumer|Employee|Operator|Supervisor) logs in$/) do |klass|
   @current_user = instance_variable_get("@#{klass.downcase}")
   manual_login klass, @current_user.username, 'password'

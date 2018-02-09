@@ -36,7 +36,6 @@ class ProductsController < ApplicationController
     end
   end
 
-  # TODO: test
   def destroy
     authorize @product
     @product.soft_delete
@@ -45,7 +44,6 @@ class ProductsController < ApplicationController
     redirect_to product_path(@product)
   end
 
-  # TODO: test
   def restore
     authorize @product
     @product.soft_restore
@@ -54,7 +52,7 @@ class ProductsController < ApplicationController
     redirect_to edit_product_path(@product)
   end
 
-  # TODO: test
+  # :nocov:
   def search
     @products = policy_scope(Product).search(params[:search],
                                              fields: ['enterprise^10', :model], operator: :or,
@@ -62,6 +60,7 @@ class ProductsController < ApplicationController
                                              page: params[:page])
     @search = params[:search]
   end
+  # :nocov:
 
   private
 
