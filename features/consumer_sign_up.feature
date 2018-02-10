@@ -5,7 +5,7 @@ Feature: Signing up as a consumer
 
   Scenario: Create a new account with success
     When a Consumer registers an account
-    Then he should see a "Welcome" text
+    Then he should not see a "username" input field
 
   Scenario: Try to create a new account with a password too short
     When a Consumer registers an account with a password too short
