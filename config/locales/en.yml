@@ -1,6 +1,7 @@
 en:
   actions: 'Actions'
 
+  advice: 'Advice'
   advice_threads_header:
       zero: 'No advice threads'
       one: '1 advice thread'
@@ -38,9 +39,7 @@ en:
   confirmation_lost: "Didn't receive confirmation instructions?"
   confirmation_waiting: 'Currently waiting confirmation for: %{resource}'
 
-
   create: 'Create'
-
 
   delete: 'Delete'
   delete_account: 'Delete my account'
@@ -130,6 +129,7 @@ en:
   posted: 'Posted %{time}'
   posted_by: 'Posted by'
 
+  problem: 'Problem'
   problem_threads_header:
     zero: 'No problem threads'
     one: '1 problem thread'
