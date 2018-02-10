@@ -9,7 +9,7 @@
   </div>
 
   <div class="row media mt-1">
-    <%= render partial: 'application/avatar', locals: { size: 50 } %>
+    <%= render partial: 'application/avatar', locals: { size: 50, user: @consumer } %>
 
     <div class="media-body ml-3">
 
@@ -36,7 +36,7 @@
       </div>
 
       <%= render partial: 'problem_threads/list', locals: { format_zero: false, paginate: false,
-                                                            problem_threads: @consumer.problem_threads.order_by_activity.take(10) } %>
+                                                            problem_threads: policy_scope(@consumer.problem_threads).order_by_activity.take(10) } %>
     </div>
   </div>
 

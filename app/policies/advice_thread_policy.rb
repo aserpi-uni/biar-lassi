@@ -57,4 +57,14 @@ class AdviceThreadPolicy < ApplicationPolicy
       %i[content title]
     end
   end
+
+  class Scope < Scope
+    def resolve
+      if @user.is_a? Employee
+        scope.joins(:product).where('products.enterprise_id' => @user.enterprise.id)
+      else
+        scope.all
+      end
+    end
+  end
 end

@@ -31,7 +31,7 @@ class ProductPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       if @user.is_a? Employee
-        scope.where(enterprise: user.enterprise)
+        scope.where(enterprise: @user.enterprise)
       else
         scope.all
       end

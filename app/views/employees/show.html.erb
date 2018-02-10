@@ -9,7 +9,7 @@
   </div>
 
   <div class="row media mt-1">
-    <%= render partial: 'application/avatar', locals: { size: 50 }, class: 'd-flex align-self-start', width: 250 %>
+    <%= render partial: 'application/avatar', locals: { size: 50, user: @employee }, class: 'd-flex align-self-start' %>
 
     <div class="media-body ml-3">
 
@@ -19,13 +19,13 @@
       <small>
         <br>
 
-          <%= t(:profile_created_in, time: @employee.created_at)%>
+          <%= t(:profile_created_in, time: @employee.created_at) %>
           <% if @employee.role ==  0 %>
-            <%= t(:role_employee)%>
+            <%= t(:role_employee) %>
           <%end%>
 
           <% if @employee.role ==  1 %>
-              <%= t(:role_supervisor)%>
+              <%= t(:role_supervisor) %>
           <%end%>
 
         <br>
@@ -50,6 +50,3 @@
   </div>
 
 </div>
-
-
-<%=# debug @employee %>

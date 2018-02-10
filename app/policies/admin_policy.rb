@@ -6,6 +6,10 @@ class AdminPolicy < ApplicationPolicy
     @admin = admin
   end
 
+  def show?
+    @user == @admin
+  end
+
   def create?
     @user.is_a? Admin
   end

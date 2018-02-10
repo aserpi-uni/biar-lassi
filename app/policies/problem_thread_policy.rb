@@ -51,4 +51,14 @@ class ProblemThreadPolicy < ApplicationPolicy
   def permitted_attributes
     %i[content title]
   end
+
+  class Scope < Scope
+    def resolve
+      if @user.is_a? Employee
+        scope.joins(:product).where('products.enterprise_id' => @user.enterprise.id)
+      else
+        scope.all
+      end
+    end
+  end
 end
