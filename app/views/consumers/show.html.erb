@@ -46,9 +46,7 @@
         <h3>
           <%= t(:advice_threads_header, count: @consumer.advice_threads.count) %>
         </h3>
-        <% unless @consumer.advice_threads.count.zero? %>
-            <%= button_to t(:view_all), 'user_static_pages/advice_threads', method: :get, class: 'btn btn-info', form_class: 'form-delete' %>
-        <% end %>
+
       </div>
 
       <%= render partial: 'advice_threads/list', locals: { format_zero: false, paginate: false,
