@@ -1,84 +1,58 @@
 <% provide :title, @consumer.username %>
 
-<%-# post editing form part -%>
 
-<% if false %>
+<div class="jumbotron py-2">
+  <div class="row">
+    <h2>
+      <%= @consumer.username %>
+    </h2>
+  </div>
 
-<% if logged_in? %>
-    <div class="row">
-      <aside class="col-md-4">
-        <section class="user_info">
-          <%= render 'shared/user_info' %>
-        </section>
-        <section class="post_form">
-          <%= render 'shared/post_form' %>
-        </section>
-      </aside>
-    </div>
-    <%end%>
-<%end%>
+  <div class="row media mt-1">
+    <%= render partial: 'application/avatar', locals: { size: 50 } %>
 
-<%-# posts dedicated part -%>
-<div class="row">
-  <aside class="col-md-4">
-    <section class="user_info">
-      <h1>
+    <div class="media-body ml-3">
 
-        <%= render partial: 'application/avatar', locals: {size:50} %>
-
-        <%= @consumer.username %>
-      </h1>
-    </section>
-    <section class="user_stats">
-      <%=render 'stats'%>
-    </section>
-  </aside>
-  <div class="col-md-8">
-
-    <!--
-
-    <% if @consumer.feed.any? %>
-
-        <ul class="feed">
-          <%= render 'feed' %>
-        </ul>
-
-    <% end %>
-    -->
-
-    <div class="col-md-8">
-      <% if @consumer.problem_threads.any? %>
-          <div class="row">
-            <h3>
-              <%= t :problem_threads_header, number: @consumer.problem_threads.count %>
-            </h3>
-
-          </div>
-
-          <ol class="problem_threads">
-            <%= render @problem_threads %>
-          </ol>
-
-          <% will_paginate @problem_threads%>
-      <% end %>
-    </div>
-    <div class="col-md-8">
-      <% if @consumer.advice_threads.any? %>
-          <div class="row">
-            <h3>
-              <%= t :advice_threads_header, number: @consumer.advice_threads.count %>
-            </h3>
-
-          </div>
-
-          <ol class="advice_threads">
-            <%= render @advice_threads %>
-          </ol>
-
-          <% will_paginate @problem_threads%>
-      <% end %>
+      <% if @consumer.email %>
+          <%= t(:personal_contact) %>
+          <%= @consumer.email %>
+      <% end  %>
+      <small>
+        <br>
+        <%= t(:profile_created_in, time: @consumer.created_at)%>
+        <br>
+      </small>
     </div>
   </div>
 </div>
 
+<div class="row mx-0">
+  <div class="col-6 px-0">
+    <div class="jumbotron col-11 py-2"> <!-- Problem threads -->
+      <div class="row">
+        <h3>
+          <%= t(:problem_threads_header, count: @consumer.problem_threads.count) %>
+        </h3>
+      </div>
 
+      <%= render partial: 'problem_threads/list', locals: { format_zero: false, paginate: false,
+                                                            problem_threads: @consumer.problem_threads.order_by_activity.take(10) } %>
+    </div>
+  </div>
+
+  <div class="col-6 px-0">
+    <div class="jumbotron offset-md-1 col-11 py-2"> <!-- Problem threads -->
+      <div class="row">
+        <h3>
+          <%= t(:advice_threads_header, count: @consumer.advice_threads.count) %>
+        </h3>
+        <% unless @consumer.advice_threads.count.zero? %>
+            <%= button_to t(:view_all), 'user_static_pages/advice_threads', method: :get, class: 'btn btn-info', form_class: 'form-delete' %>
+        <% end %>
+      </div>
+
+      <%= render partial: 'advice_threads/list', locals: { format_zero: false, paginate: false,
+                                                           advice_threads: @consumer.advice_threads.order_by_activity.take(10) } %>
+    </div>
+  </div>
+</div>

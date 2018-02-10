@@ -38,7 +38,9 @@ en:
   confirmation_lost: "Didn't receive confirmation instructions?"
   confirmation_waiting: 'Currently waiting confirmation for: %{resource}'
 
+
   create: 'Create'
+
 
   delete: 'Delete'
   delete_account: 'Delete my account'
@@ -121,6 +123,10 @@ en:
   password_reset: 'Reset password'
   password_reset_send: 'Send me reset password instructions'
 
+  personal_contact: 'Personal contact:'
+
+
+
   posted: 'Posted %{time}'
   posted_by: 'Posted by'
 
@@ -139,6 +145,8 @@ en:
     other: '%{count} products'
 
   profile: 'Profile'
+
+  profile_created_in: 'Profile created in %{time}'
 
   or: 'or'
 
@@ -169,6 +177,9 @@ en:
   results_no: 'No results'
 
   role: 'Role'
+
+  role_supervisor: 'Role: Supervisor'
+  role_employee: 'Role: Employee'
 
   save: 'Save'
 
