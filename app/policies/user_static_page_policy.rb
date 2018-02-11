@@ -9,6 +9,11 @@ class UserStaticPagePolicy < Struct.new(:user, :page)
     consumer?
   end
 
+  def comments?
+    @user.is_a?(Consumer) ||
+      (@user.is_a?(Employee) && @user.operator?)
+  end
+
   def consumer?
     @user.is_a?(Consumer)
   end
@@ -18,6 +23,7 @@ class UserStaticPagePolicy < Struct.new(:user, :page)
   end
 
   def problem_threads?
-    consumer?
+    @user.is_a?(Consumer) ||
+      (@user.is_a?(Employee) && @user.operator?)
   end
 end

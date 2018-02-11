@@ -36,7 +36,7 @@
       </div>
 
       <%= render partial: 'problem_threads/list', locals: { format_zero: false, paginate: false,
-                                                            problem_threads: policy_scope(@consumer.problem_threads).order_by_activity.take(10) } %>
+                                                            problem_threads: policy_scope(@consumer.problem_threads).order_by_activity.limit(10) } %>
     </div>
   </div>
 
@@ -50,7 +50,7 @@
       </div>
 
       <%= render partial: 'advice_threads/list', locals: { format_zero: false, paginate: false,
-                                                           advice_threads: @consumer.advice_threads.order_by_activity.take(10) } %>
+                                                           advice_threads: @consumer.advice_threads.order_by_activity.limit(10) } %>
     </div>
   </div>
 </div>

@@ -7,9 +7,3 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 super_admin = Admin.new(username: 'Super@admin', password: ENV['SUPER_PASSWORD'], email: ENV['SUPER_EMAIL'])
 super_admin.save!
-
-consumers = Consumer.order(:created_at).take(1)
-50.times do
-  content = Faker::Lorem.sentence(5)
-  consumers.each { |consumer| consumer.posts.create!(content: content) }
-end

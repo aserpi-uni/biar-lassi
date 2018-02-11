@@ -13,10 +13,13 @@
       <h3>
         <%= t(:comments_header, count: @comments.count) %>
       </h3>
+      <% unless @comments.count.zero? %>
+        <%= button_to t(:view_all), 'user_static_pages/comments', method: :get, class: 'btn btn-info', form_class: 'form-delete' %>
+      <% end %>
     </div>
 
     <%= render partial: 'comments_list', locals: { format_zero: false, paginate: false,
-                                                   comments: @comments.take(10) } %>
+                                                   comments: @comments.limit(10) } %>
   </div>
 </div>
 
@@ -33,7 +36,7 @@
       </div>
 
       <%= render partial: 'problem_threads/list', locals: { format_zero: false, paginate: false,
-                                                            problem_threads: current_consumer.following_problems.order_by_activity.take(10) } %>
+                                                            problem_threads: current_consumer.following_problems.order_by_activity.limit(10) } %>
     </div>
   </div>
 
@@ -49,7 +52,7 @@
       </div>
 
       <%= render partial: 'advice_threads/list', locals: { format_zero: false, paginate: false,
-                                                           advice_threads: current_consumer.following_advices.order_by_activity.take(10) } %>
+                                                           advice_threads: current_consumer.following_advices.order_by_activity.limit(10) } %>
     </div>
   </div>
 </div>

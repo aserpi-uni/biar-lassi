@@ -26,7 +26,11 @@ class Consumer < ApplicationRecord
   has_many :comments, as: :author, dependent: :destroy
   has_many :down_votes, as: :downer, dependent: :destroy
   has_many :problem_threads, inverse_of: :author, dependent: :destroy
+  has_many :relationships, dependent: :destroy
   has_many :up_votes, as: :upper, dependent: :destroy
+
+  has_many :following_advices, through: :relationships, source: :followed, source_type: AdviceThread.name
+  has_many :following_problems, through: :relationships, source: :followed, source_type: ProblemThread.name
 
   validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i }, allow_blank: true,
                     consumer_authentication: true, user_uniqueness: true
@@ -76,28 +80,15 @@ class Consumer < ApplicationRecord
     username
   end
 
-  # TODO
-
-  has_many :relationships, dependent: :destroy
-  has_many :following_advices, through: :relationships, source: :followed, source_type: AdviceThread.name
-  has_many :following_problems, through: :relationships, source: :followed, source_type: ProblemThread.name
-
-  def feed
-    Comment.none
-    #following_ids = 'SELECT followed_id from relationships WHERE follower_id = :consumer_id'
-    #Comment.where("problem_thread_id in (#{following_ids}) OR commentable_id = :consumer_id AND commentable_type = :consumer", consumer_id: id, consumer: Consumer)
-    #Comment.where("problem_thread_id in (?)", following_ids)
-  end
-
   def follow(resource)
     Relationship.create(consumer: self, followed: resource)
   end
 
-  def unfollow(resource)
-    relationships.find_by(followed: resource).destroy
-  end
-
   def follow?(resource)
     !(resource.is_a?(AdviceThread) ? following_advices : following_problems).where(id: resource.id).empty?
+  end
+
+  def unfollow(resource)
+    relationships.find_by(followed: resource).destroy
   end
 end

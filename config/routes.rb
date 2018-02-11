@@ -99,6 +99,7 @@ Rails.application.routes.draw do
 
   ## Static
   get 'user_static_pages/advice_threads'
+  get 'user_static_pages/comments'
   get 'user_static_pages/problem_threads'
   post 'auth/consumers/facebook/connect_existing'
   post 'auth/consumers/facebook/select_username'

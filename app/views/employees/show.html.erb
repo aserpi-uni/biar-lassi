@@ -34,19 +34,21 @@
   </div>
 </div>
 
-<div class="row mx-0">
-  <div class="col-6 px-0">
-    <div class="jumbotron col-11 py-2"> <!-- Problem threads -->
-      <div class="row">
-        <h3>
-          <%= t(:problem_threads_header, count: @employee.problem_threads.count) %>
-        </h3>
+<% if @employee.operator? %>
+  <div class="row mx-0">
+    <div class="col-6 px-0">
+      <div class="jumbotron col-11 py-2"> <!-- Problem threads -->
+        <div class="row">
+          <h3>
+            <%= t(:problem_threads_header, count: @employee.problem_threads.count) %>
+          </h3>
 
+        </div>
+
+        <%= render partial: 'problem_threads/list', locals: { format_zero: false, paginate: false,
+                                                              problem_threads: @employee.problem_threads.order_by_activity.limit(10) } %>
       </div>
-
-      <%= render partial: 'problem_threads/list', locals: { format_zero: false, paginate: false,
-                                                            problem_threads: @employee.problem_threads.order_by_activity.take(10) } %>
     </div>
-  </div>
 
-</div>
+  </div>
+<% end %>

@@ -36,5 +36,5 @@
     <%= button_to t(:view_all), products_enterprise_path(@enterprise), method: :get, class: 'btn btn-info' %>
   </div>
 
-  <%= render partial: 'products/list', locals: { paginate: false, products: @enterprise.products.order(:model).take(6) } %>
+  <%= render partial: 'products/list', locals: { paginate: false, products: @enterprise.products.order(:model).limit(6) } %>
 </div>

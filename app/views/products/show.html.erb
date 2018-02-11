@@ -50,7 +50,7 @@
       <%= render partial: 'search_collapse', locals: { id: 'collapseSearchProblem', url: search_product_problem_threads_path(@product) } %>
 
       <%= render partial: 'problem_threads/list', locals: { format_zero: false, paginate: false,
-                                                            problem_threads: @product.problem_threads.order_by_activity.take(10) } %>
+                                                            problem_threads: @product.problem_threads.order_by_activity.limit(10) } %>
 
       <% if policy(@product.problem_threads.build).create? %>
         <%= button_to t(:resource_new, resource: ProblemThread.model_name.human), new_product_problem_thread_path(@product), method: :get, class: 'btn btn-primary btn-raised ml-2' %>
@@ -76,7 +76,7 @@
       <%= render partial: 'search_collapse', locals: { id: 'collapseSearchAdvice', url: search_product_advice_threads_path(@product) } %>
 
       <%= render partial: 'advice_threads/list', locals: { format_zero: false, paginate: false,
-                                                           advice_threads: @product.advice_threads.order_by_activity.take(10) } %>
+                                                           advice_threads: @product.advice_threads.order_by_activity.limit(10) } %>
 
       <% if policy(@product.advice_threads.build).create? %>
         <%= button_to t(:resource_new, resource: AdviceThread.model_name.human), new_product_advice_thread_path(@product), method: :get, class: 'btn btn-primary btn-raised ml-2' %>
