@@ -1,23 +1,359 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  actions: 'Actions'
+
+  advice: 'Advice'
+  advice_threads_header:
+      zero: 'No advice threads'
+      one: '1 advice thread'
+      other: '%{count} advice threads'
+  advice_threads_of: 'Advice threads of'
+
+  ago: '%{time} ago'
+
+  already_commented: 'You have already commented this resource'
+  already_used: 'already used'
+
+  answered: 'Answered'
+
+  assigned: 'Assigned problem threads'
+
+  at: 'at %{time} (%{ago})'
+
+  avatar: 'Avatar'
+  avatar_operator: "Operator's avatar"
+  avatar_supervisor: "Supervisor's avatar"
+
+  back: 'Back'
+
+  cancel: 'Cancel'
+
+  change: 'Change'
+
+  close: 'Close'
+
+  comments_header:
+    zero: 'No comments'
+    one: '1 comment'
+    other: '%{count} comments'
+
+  confirm: 'Confirm'
+
+  confirmation_lost: "Didn't receive confirmation instructions?"
+  confirmation_waiting: 'Currently waiting confirmation for: %{resource}'
+
+  create: 'Create'
+
+  delete: 'Delete'
+  delete_account: 'Delete my account'
+  delete_account_other: 'Delete the account'
+  delete_account_disclaimer: 'All your contents will remain on the platform. However, we will delete all your account informations, making tracing back to your identity impossible.'
+  delete_account_disclaimer_other: 'All the contents will remain on the platform. However, we will delete all the account informations, making tracing back to the real identity impossible.'
+  delete_resource: 'Delete the %{res}'
+  delete_resource_disclaimer: 'All existing the contents will remail on the platform. However, no new contents can be created.'
+  deleted: 'Your account has been deleted'
+  deleted_other: 'The account has been deleted'
+  deleted_resource: 'The %{res} has been deleted'
+  deleted_enterprise: '%{empl} employees and %{pro} products have been deleted'
+
+  description: 'Description'
+
+  downvote: 'Downvote'
+  downvote_reason: 'Explain the reasons behind your negative vote.'
+  downvotes_for: 'Downvotes for the %{resource_type}'
+
+  edit: 'Edit'
+
+  email: 'Email'
+
+  enterprise_settings: 'Enterprise settings'
+
+  feed: 'Feed'
+  feed_consumer_explaining: 'You can find here all your followed threads.'
+  feed_operator_expalining: 'You can find here all your assigned problem threads.'
+
+  field_invalid: 'is invalid'
+
+  follow: 'Follow'
+  followed: '%{resource} followed'
+
+  forbidden: 'You are not authorized to perform this action'
+
+  founded: 'Founded'
+  founded_in: 'Founded in %{year}'
+
+  headquarters: 'Headquarters'
+  headquarters_in: 'Headquarters in %{loc}'
+
+  image: 'Image'
+
+  inactive: 'Inactive'
+
+  incorrect_credentials: 'Incorrect username or password'
+
+  irreversible: 'This action is irreversible.'
+
+  last_update: 'Last update %{time}'
+
+  lock: 'Lock'
+  lock_account: 'Lock my account'
+  lock_account_other: 'Lock the account'
+  lock_disclaimer: 'You will not be able to login anymore. Are you sure?'
+  lock_disclaimer_other: 'The user will not be able to login anymore. Are you sure?'
+  locked_success: '%{usr} has been locked'
+
+  model: 'Model'
+
+  must_be_active: 'must be active'
+
+  name: 'Name'
+
+  no_auth_methods: 'An email address or a Facebook account must be present'
+  nonexistent: 'does not exist'
+
+  optional: ' (optional)'
+
+  password: 'Password'
+  password_change: 'Change your password'
+  password_confirm: 'Confirm password'
+  password_forgot: 'Forgot your password?'
+  password_forgotten: 'Forgotten password'
+  password_min_length: "At least %{length} characters"
+  password_new: 'New password'
+  password_new_confirm: 'Confirm new password'
+  password_optional: "Password (only if you want to change it)"
+  password_reset: 'Reset password'
+  password_reset_send: 'Send me reset password instructions'
+
+  personal_contact: 'Personal contact:'
+
+
+
+  posted: 'Posted %{time}'
+  posted_by: 'Posted by'
+
+  problem: 'Problem'
+  problem_threads_header:
+    zero: 'No problem threads'
+    one: '1 problem thread'
+    other: '%{count} problem threads'
+  problem_threads_of: 'Problem threads of'
+
+  product_same_enterprise: 'Products from the same enterprise'
+  production_year: 'Production year'
+  products_by: 'Products by'
+  products_header:
+    zero: 'Products'
+    one: '1 product'
+    other: '%{count} products'
+
+  profile: 'Profile'
+
+  profile_created_in: 'Profile created in %{time}'
+
+  or: 'or'
+
+  referent: 'Referent'
+
+  remember_me: 'Remember me'
+
+  remove: 'Remove'
+
+  resend: 'Send'
+  resend_confirmation: 'Resend confirmation instructions'
+
+  resource_create: 'Create a new %{resource}'
+  resource_create_success: 'Successfully created a new %{resource}'
+  resource_destroy_success: 'Successfully deleted %{name}'
+  resource_edit: 'Edit %{name}'
+  resource_edit_success: 'Successfully edited %{name}'
+  resource_new: 'New %{resource}'
+  resource_restore: 'Restore %{res}'
+  resource_restored: 'Successfully restored %{name}'
+
+  restore: 'Restore'
+
+  results_for_search:
+    zero: 'No %{resource} matching search "%{string}"'
+    one: '1 %{resource} matching search "%{string}"'
+    other: '%{count} %{resource} matching search "%{string}"'
+  results_no: 'No results'
+
+  role: 'Role'
+
+  role_supervisor: 'Role: Supervisor'
+  role_employee: 'Role: Employee'
+
+  save: 'Save'
+
+  search: 'Search'
+
+  send: 'Send'
+
+  settings: 'Settings'
+  settings_change: 'Change your settings'
+
+  sign_in: 'Login'
+  sign_in_omniauth: "Login with %{provider}"
+  sign_out: 'Logout'
+  sign_up: 'Register'
+
+  since: 'Since %{year}'
+
+  solution_mark: 'Mark as solution'
+  solution_marked: 'Comment marked as solution.'
+  solution_unmark: 'Unmark as solution '
+  solution_unmarked: 'Comment unmarked as solution.'
+
+  status: 'Status'
+
+  sure: 'Are you sure?'
+
+  title: 'Title'
+
+  unfollow: 'Unfollow'
+
+  unhappy: 'Unhappy?'
+
+  unlock: 'Unlock'
+  unlock_account: 'Unlock the account'
+  unlock_disclaimer: 'The user will be able to login again. Are you sure?'
+  unlock_lost: "Didn't receive unlock instructions?"
+  unlock_resend: 'Resend unlock'
+  unlock_resend_instructions: 'Resend unlock instructions'
+  unlocked_success: '%{usr} has been unlocked'
+
+  username: 'Username'
+  username_edited:
+    one: '1 employee username have been updated'
+    other: '%{count} employee usernames have been updated'
+  username_suffix: 'Username suffix'
+
+  uservoice: 'Uservoice'
+
+  validation_failed:
+    one: "1 error prohibited this %{resource} from being saved:"
+    other: "%{count} errors prohibited this %{resource} from being saved:"
+
+  view_all: 'View all'
+
+  website: 'Website'
+  website_visit: 'For more info, visit'
+
+
+  activerecord:
+    attributes:
+      advice_thread:
+        status:
+          evaluating: 'Evaluating'
+          implemented: 'Implemented'
+          planned: 'Planned'
+          rejected: 'Rejected'
+          waiting: 'Waiting'
+    models:
+      admin:
+        one: 'admin'
+        other: 'admins'
+      advice_thread:
+        one: 'advice thread'
+        other: 'advice threads'
+      comment:
+        one: 'comment'
+        other: 'comments'
+      consumer:
+        one: 'consumer'
+        other: 'consumers'
+      down_vote:
+        one: 'downvote'
+        other: 'downvotes'
+      employee:
+        one: 'employee'
+        other: 'employees'
+      enterprise:
+        one: 'enterprise'
+        other: 'enterprises'
+      problem_thread:
+        one: 'problem thread'
+        other: 'problem threads'
+      product:
+        one: 'product'
+        other: 'products'
+      up_vote:
+        one: 'vote up'
+        other: 'votes up'
+    errors:
+      messages:
+        blank: 'is required'
+        confirmation: 'does not match %{attribute}'
+        invalid: 'is invalid'
+        taken: 'is already taken'
+
+  devise_email:
+    confirmation_link: 'Confirm my account'
+    confirmation_body: 'You can confirm your account through the link below:'
+    confirmation_welcome: "Welcome %{username}!"
+
+    hello: "Hello %{username}!"
+
+    password_change_body: "We're contacting you to notify you that your password has been changed."
+
+    password_reset_body: "If you didn't request this, please ignore this email: your password won't change until you access the link above and create a new one."
+    password_reset_link: 'Change my password'
+    password_reset_preamble: 'Someone has requested a link to change your password. You can do this through the link below.'
+
+    unlock_body: 'Click the link below to unlock your account:'
+    unlock_link: 'Unlock my account'
+    unlock_preamble: 'Your account has been locked due to an excessive number of unsuccessful sign in attempts.'
+
+
+  facebook:
+    connect: 'Connect with Facebook'
+    connected: 'Successfully connected your account with Facebook.'
+    disconnect: 'Disconnect from Facebook'
+    disconnected: 'Successfully disconnected your account from Facebook.'
+    email_invalid: 'This email has already been taken by a non-consumer account.'
+    email_optional: 'If you insert it you need to verify it'
+    failure: 'An error has occurred. Please try again.'
+    first_time: 'This is the first time you are logging in with a Facebook account.'
+    no_email: 'To disconnect from Facebook you must provide a valid email address.'
+    sign_in_existing: 'or sign in with an existing account:'
+    sign_in_existing_only: 'Your email is already taken by a non-consumer account. Please sign in with username and password.'
+    username: 'Choose a username'
+    title: 'Sign in with Facebook'
+
+  consumer_notifier_mailer:
+    comment_created:
+      body: 'A comment to the problem thread "%{problem_thread}" has been posted, you can see it here: %{link}'
+      greetings: 'New developments, %{user}!'
+      subject: 'New comment'
+    new_solution:
+      body: 'The problem thread "%{problem_thread}" has a new solution, you can find it here: %{link}"'
+      greetings: 'Good news, %{user}!'
+      subject: 'New solution for problem thread'
+    status_update:
+      body: 'The suggestion thread "%{advice_thread}" has received a status update, you can see it here: %{link}"'
+      greetings: 'Good news, %{user}!'
+      subject: 'Status update for advice thread'
+
+  referent_notifier_mailer:
+    comment_created:
+      body: 'A comment to the problem thread "%{problem_thread}" has been posted, you can see it here: %{link}'
+      greetings: 'New developments, %{user}!'
+      subject: 'New comment'
+    new_solution:
+      body: 'The problem thread "%{problem_thread}" has a new solution, you can find it here: %{link}"'
+      greetings: 'Good news, %{user}!'
+      subject: 'New solution for problem thread'
+    problem_thread_created:
+      body: 'A new problem thread has been placed under your responsibility, you can see it here: %{link}'
+      greetings: 'New assignment, %{user}!'
+      subject: 'New problem thread'
+    problem_thread_updated:
+      body: 'The problem thread "%{problem_thread}" has been updated, you can see it here: %{link}'
+      greetings: 'New developments, %{user}!'
+      subject: 'Problem thread updated'
+
+  user_mailer:
+    new_email:
+      greetings: 'Hello there, %{user}!'
+      body: 'In order to access the site you need to recover your password here: %{link}'
+      subject: 'New account'

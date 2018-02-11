@@ -1,0 +1,25 @@
+<li class="nav-item active dropdown">
+  <%= link_to employee_path(current_employee), class: 'nav-link dropdown-toggle', data: { toggle: 'dropdown' } do %>
+      <%= fa_icon 'bolt fw' %>
+      <%= t :actions %>
+  <% end %>
+
+  <div class="dropdown-menu dropdown-menu-right">
+    <%= link_to new_employee_path, class: 'dropdown-item' do %>
+      <%= fa_icon 'user-plus fw', class: 'mr-2' %>
+      <%= t(:resource_new, resource: Employee.model_name.human)  %>
+    <% end %>
+
+    <%= link_to new_product_path, class: 'dropdown-item' do %>
+      <%= fa_icon 'plus-square fw', class: 'mr-2' %>
+      <%= t(:resource_new, resource: Product.model_name.human) %>
+    <% end %>
+
+    <%= link_to edit_enterprise_path(current_employee.enterprise), class: 'dropdown-item' do %>
+       <span class="col" style="padding-left:0;padding-right:0">
+         <%= fa_icon 'briefcase fw' %>
+         <%= t(:enterprise_settings) %>
+       </span>
+    <% end %>
+  </div>
+</li>

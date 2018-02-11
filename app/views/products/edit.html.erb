@@ -1,0 +1,32 @@
+<% name = "#{@product.enterprise.name} #{@product.model}" %>
+
+<% provide :title, t(:resource_edit, name: name) %>
+
+<%= render partial: 'errors', locals: { resource: @product } %>
+
+<ol class="breadcrumb">
+  <%= render partial:'breadcrumbs', locals: { product: @product} %>
+
+  <%= render partial:'application/breadcrumbs/product', locals: { product: @product} %>
+
+  <%= render partial: 'application/breadcrumbs/finale', locals: { string: t(:edit)} %>
+</ol>
+
+<div class="jumbotron align-items-center">
+  <div class="col-6 mx-auto" >
+    <h2>
+      <%= name %>
+    </h2>
+
+    <%= render partial: 'form', locals: { submit: :save } %>
+
+    <% if @product.active %>
+      <%= render partial: 'application/edit/delete_resource', locals: { resource: @product, path: product_path(@product) }  %>
+    <% elsif @product.enterprise.active %>
+      <h3>
+        <%= t :resource_restore, res: Product.model_name.human %>
+        <%= button_to t(:restore), restore_product_path(@product), method: :delete, class: 'btn btn-danger btn-raised', form_class: 'form-delete'%>
+      </h3>
+    <% end %>
+  </div> <!-- col-6 -->
+</div> <!-- jumbotron -->

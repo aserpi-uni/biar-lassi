@@ -1,0 +1,25 @@
+<% provide :title, t(:resource_edit, name: Comment.model_name.human) %>
+
+<%= render partial: 'errors', locals: { resource: @comment } %>
+
+<ol class="breadcrumb">
+  <%= render partial: 'breadcrumbs', locals: { comment: @comment } %>
+
+  <%= render partial: 'application/breadcrumbs/comment', locals: { comment: @comment } %>
+
+  <%= render partial: 'application/breadcrumbs/finale', locals: { string: t(:edit) } %>
+</ol>
+
+<div class="jumbotron align-items-center">
+  <div class="col-6 mx-auto" >
+    <h2>
+      <%= t :resource_edit, name: Comment.model_name.human %>
+    </h2>
+
+    <%= form_with model: @comment, url: comment_url(@comment), metod: :put, local: true do |f| %>
+      <%= render partial: 'application/forms/content', locals: { form: f } %>
+
+      <%= render partial: 'application/forms/submit', locals: { form: f, locale: :save } %>
+    <% end %>
+  </div> <!-- col-6 -->
+</div> <!-- jumbotron -->

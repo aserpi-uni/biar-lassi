@@ -1,0 +1,11 @@
+<%= render partial: 'application/breadcrumbs/enterprise', locals: { enterprise: comment.domain.product.enterprise } %>
+<%= render partial: 'application/breadcrumbs/products', locals: { enterprise: comment.domain.product.enterprise } %>
+<%= render partial: 'application/breadcrumbs/product', locals: { product: comment.domain.product } %>
+
+<% if @comment.domain.is_a? ProblemThread %>
+  <%= render partial: 'application/breadcrumbs/problem_threads', locals: { product: comment.domain.product } %>
+  <%= render partial: 'application/breadcrumbs/problem_thread', locals: { problem_thread: comment.domain } %>
+<% else %>
+  <%= render partial: 'application/breadcrumbs/advice_threads', locals: { product: comment.domain.product } %>
+  <%= render partial: 'application/breadcrumbs/advice_thread', locals: { advice_thread: comment.domain } %>
+<% end %>

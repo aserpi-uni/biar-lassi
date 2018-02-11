@@ -1,0 +1,37 @@
+<% provide :title, t(:resource_edit, name: AdviceThread.model_name.human) %>
+
+<%= render partial: 'errors', locals: { resource: @advice_thread } %>
+
+<ol class="breadcrumb">
+  <%= render partial: 'breadcrumbs', locals: { problem_thread: @advice_thread } %>
+
+  <%= render partial: 'application/breadcrumbs/advice_thread', locals: { advice_thread: @advice_thread} %>
+
+  <%= render partial: 'application/breadcrumbs/finale', locals: { string: t(:edit) } %>
+</ol>
+
+<div class="jumbotron align-items-center">
+  <div class="col-6 mx-auto" >
+    <h2>
+      <%= t :resource_edit, name: AdviceThread.model_name.human %>
+    </h2>
+
+    <%= form_with model: @advice_thread, metod: :put, local: true do |f| %>
+      <%= render partial: 'application/forms/title', locals: { form: f, readonly: current_employee } %>
+
+      <%= render partial: 'application/forms/content', locals: { form: f, readonly: current_employee } %>
+
+      <% if current_employee %>
+        <fieldset class="row align-items-center">
+          <%= fa_icon('cogs fw', class: 'col-1 mt-4') %>
+          <div class="form-group bmd-form-group col" >
+            <%= f.select(:status, AdviceThread.statuses.keys.map { |s| [AdviceThread.human_enum_name(:status, s), s] }, { }, { class: 'form-control', id: :status }) %>
+            <%= label_tag :status, t(:status), class: 'bmd-label-floating'%>
+          </div>
+        </fieldset>
+      <% end %>
+
+      <%= render partial: 'application/forms/submit', locals: { form: f, locale: :save } %>
+    <% end %>
+  </div> <!-- col-6 -->
+</div> <!-- jumbotron -->

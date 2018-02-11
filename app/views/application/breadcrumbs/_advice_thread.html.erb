@@ -1,0 +1,11 @@
+<% active = false if active.nil? %>
+
+<% if active %>
+  <li class="breadcrumb-item active">
+    <%= advice_thread.title %>
+  </li>
+<% else %>
+  <li class="breadcrumb-item">
+    <%= link_to advice_thread.title, advice_thread_path(advice_thread) %>
+  </li>
+<% end %>

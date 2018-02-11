@@ -1,0 +1,59 @@
+<% provide :title, @advice_thread.title %>
+
+<ol class="breadcrumb">
+  <%= render partial: 'breadcrumbs', locals: { advice_thread: @advice_thread } %>
+
+  <%= render partial: 'application/breadcrumbs/advice_thread', locals: { active: true, advice_thread: @advice_thread} %>
+</ol>
+
+<div class="jumbotron mx-0 py-2">
+  <div class="card">
+    <h3 class="card-title row mx-4 my-2">
+      <%= @advice_thread.title %>
+
+      <%= render partial: 'status', locals: { advice_thread: @advice_thread } %>
+
+      <% if policy(@advice_thread).follow? %>
+        <div class="ml-4">
+          <%= render(partial: 'follow') %>
+        </div>
+      <% end %>
+
+      <% if policy(@advice_thread).update? %>
+        <%= button_to t(:edit), edit_advice_thread_path(@advice_thread), method: :get, class: 'btn btn-primary btn-raised ml-4', form_class: 'form-delete' %>
+      <% end %>
+    </h3>
+
+    <div class="card-body row mx-0">
+      <div class="col-sm-auto align-self-center pl-0">
+        <%= render partial: 'application/vote_view', locals: { resource: @advice_thread } %>
+      </div>
+
+      <div class="col">
+        <div class="row">
+          <%= simple_format(@advice_thread.content) %>
+        </div>
+
+        <% if @advice_thread.updated_at != @advice_thread.updated_at %>
+          <small class="row">
+            <%= t(:last_update, time: @advice_thread.updated_at.to_s(:long)) %>
+          </small>
+        <% end %>
+      </div>
+
+    </div>
+
+    <div class="card-footer row mx-0">
+      <%= render partial: 'application/posted_at', locals: { time: @advice_thread.created_at, user: @advice_thread.author } %>
+    </div>
+  </div>
+
+  <h3 class="row mt-4 mx-0">
+    <%= t(:comments_header, count: @advice_thread.comments.count) %>
+    <% if policy(@advice_thread.comments.new).new? %>
+      <%= button_to t(:resource_new, resource: Comment.model_name.human), new_advice_thread_comment_path(@advice_thread), method: :get, class: 'btn btn-primary btn-raised ml-3' %>
+    <% end %>
+  </h3>
+
+  <%= render partial: 'comments/list', locals: { comments: @advice_thread.comments.order(votes: :desc, created_at: :desc).page(params[:page]), format_zero: false } %>
+</div>

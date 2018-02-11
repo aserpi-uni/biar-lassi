@@ -1,0 +1,51 @@
+<% format_zero = true if format_zero.nil? %>
+<% paginate = true if paginate.nil?%>
+
+<% comments.each do |comment| %>
+  <div class="card mb-2">
+    <%=link_to comment, class: 'card-title mx-2 my-2' do %>
+      <h5 class="row mx-0">
+        <span class="badge badge-primary align-self-center mr-2">
+            <%= t(comment.domain.class.name[0..-7].downcase) %>
+        </span>
+
+        <%= comment.domain.title %>
+
+        <%= render(partial: 'advice_threads/status', locals: { advice_thread: comment.domain }) if comment.domain.is_a?(AdviceThread) %>
+
+        <% if comment.domain.is_a?(ProblemThread) && !comment.domain.comments.where(solution: true).empty? %>
+          <span class="badge badge-success">
+            <%= t(:answered) %>
+          </span>
+        <% end %>
+      </h5>
+    <% end %>
+
+    <div class="card-body px-2 py-0">
+      <%= comment.content.split("\n", 2)[0] %>
+    </div>
+
+    <div class="card-footer row mx-0 px-2">
+      <%= t(:ago, time: time_ago_in_words(comment.created_at)) %>
+
+      <div class="row ml-4">
+        <% if comment.votes < 0 %>
+          <%= fa_icon 'thumbs-down fw' %>
+        <% else %>
+          <%= fa_icon 'thumbs-up fw' %>
+        <% end %>
+        <%= comment.votes.abs %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<% if paginate %>
+  <%= will_paginate(comments, renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer) %>
+<% end %>
+
+<% if comments.empty? && format_zero %>
+  <h3>
+    <%= t(:results_no) %>
+  </h3>
+<% end %>

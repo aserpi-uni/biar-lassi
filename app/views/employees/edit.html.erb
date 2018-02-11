@@ -1,0 +1,43 @@
+<% provide :title, @employee == current_employee ? t(:settings) : t(:resource_edit, name: @employee.username) %>
+
+<%= render partial: 'errors', locals: { resource: @employee } %>
+
+<div class="jumbotron align-items-center">
+  <div class="col-6 mx-auto" >
+    <h3>
+      <%= t :settings %>
+    </h3>
+    <%= form_with model: @employee, html: { method: :put }, local: true do |f| %>
+      <%= render partial: 'application/forms/username', locals: { form: f, disabled: true} %>
+
+      <fieldset class="row align-items-center">
+        <%= fa_icon('briefcase fw', class: 'col-1 mt-4') %>
+        <div class="form-group bmd-form-group col">
+          <%= f.text_field :enterprise, class: 'form-control', id: :enterprise, disabled: true, value: @employee.enterprise.name %>
+          <%= label_tag :enterprise, Enterprise.model_name.human.capitalize, class: 'bmd-label-floating'%>
+        </div>
+      </fieldset>
+
+      <%= render partial: 'application/forms/email', locals: { form: f } %>
+
+      <%= render partial: 'application/forms/role', locals: { form: f } %>
+
+      <%= render partial: 'application/forms/password', locals: { form: f, locale: :password_optional, min_length: 8 } %>
+
+      <%= render partial: 'application/forms/password_confirmation', locals: { form: f } %>
+
+      <%= render partial: 'application/forms/submit', locals: { form: f, locale: :save } %>
+    <% end %>
+
+
+    <% unless @employee.email.blank? %>
+      <% if !@employee.locked_at.nil? %>
+        <%= render partial: 'application/edit/unlock', locals: { path: manual_unlock_employee_path(@employee) } %>
+      <% else %>
+        <%= render partial: 'application/edit/lock', locals: { user: @employee, path: lock_employee_path(@employee) } %>
+
+        <%= render partial: 'application/edit/delete_account', locals: {user: @employee, path: employee_path(@employee) } %>
+      <% end %>
+    <% end %>
+  </div> <!-- col-6 -->
+</div> <!-- jumbotron -->

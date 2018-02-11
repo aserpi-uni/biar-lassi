@@ -1,0 +1,17 @@
+<% provide :title, t(:downvotes_for, resource_type: AdviceThread.model_name.human) %>
+
+<ol class="breadcrumb">
+  <%= render partial: 'breadcrumbs', locals: { advice_thread: @advice_thread } %>
+
+  <%= render partial: 'application/breadcrumbs/advice_thread', locals: { advice_thread: @advice_thread } %>
+
+  <%= render partial: 'application/breadcrumbs/finale', locals: { string: t(DownVote.model_name.human(count: 500)) } %>
+</ol>
+
+<div class="jumbotron mx-0 py-2">
+  <h3 class="row">
+    <%= t(:downvotes_for, resource_type: AdviceThread.model_name.human) %>
+  </h3>
+
+  <%= render partial: 'down_votes/list', locals: { votes: @advice_thread.down_votes.order(created_at: :desc).page(params[:page]) } %>
+</div>

@@ -1,0 +1,26 @@
+<li class="nav-item active dropdown"> <!-- profile dropdown -->
+  <%= link_to user_path(current_user), class: 'nav-link dropdown-toggle', data: { toggle: 'dropdown' } do %>
+      <%= render partial: 'application/avatar', locals: { size: 23 } %>
+      <%= current_user.username %>
+  <% end %>
+  <div class="dropdown-menu">
+    <% unless current_admin %>
+      <%= link_to root_path, class: 'dropdown-item' do %>
+        <%= fa_icon 'home fw', class: 'mr-2' %>
+        <%= "Homepage" %>
+      <% end %>
+    <% end %>
+    <%= link_to user_path(current_user), class: 'dropdown-item' do %>
+        <%= fa_icon 'user fw', class: 'mr-2' %>
+        <%= t(:profile) %>
+    <% end %>
+    <%= link_to edit_path(current_user), class: 'dropdown-item' do %>
+        <%= fa_icon 'wrench fw', class: 'mr-2' %>
+        <%= t(:settings) %>
+    <% end %>
+    <%= link_to destroy_consumer_session_path, class: 'dropdown-item', method: :delete do %>
+        <%= fa_icon 'sign-out fw', class: 'mr-2' %>
+        <%= t(:sign_out) %>
+    <% end %>
+  </div>
+</li>

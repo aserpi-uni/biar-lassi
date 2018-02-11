@@ -1,0 +1,18 @@
+<div class="my-5">
+  <h3>
+    <%= t :delete_resource, res: resource.class.model_name.human %>
+  </h3>
+
+  <p>
+    <%= t :delete_resource_disclaimer %>
+  </p>
+  <p>
+    <%= t :irreversible %>
+  </p>
+
+  <button type="button" class="btn btn-danger btn-raised" data-toggle="modal" data-target="#deleteModal">
+    <%= t :delete %>
+  </button>
+</div>
+
+<%= render partial: 'application/edit/modal_irreversible', locals: { id: 'deleteModal', path: path } %>

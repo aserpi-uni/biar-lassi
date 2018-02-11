@@ -1,0 +1,19 @@
+<% provide :title, t(:resource_new, resource: Product.model_name.human) %>
+
+<%= render partial: 'errors', locals: { resource: @product } %>
+
+<ol class="breadcrumb">
+  <%= render partial:'products/breadcrumbs', locals: { product: @product} %>
+
+  <%= render partial: 'application/breadcrumbs/finale', locals: { string: t(:create)} %>
+</ol>
+
+<div class="jumbotron align-items-center">
+  <div class="col-6 mx-auto" >
+    <h2>
+      <%= t(:resource_create, resource: Product.model_name.human) %>
+    </h2>
+
+    <%= render partial: 'form', locals: { submit: :create } %>
+  </div>
+</div>

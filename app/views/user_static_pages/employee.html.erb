@@ -1,0 +1,40 @@
+<% provide :title, t(:feed) %>
+
+<div class="jumbotron py-4">
+  <h2>
+    <%= t(:feed) %>
+  </h2>
+
+  <p>
+    <%= t :feed_operator_expalining %>
+  </p>
+</div>
+
+<div class="row mx-0">
+  <div class="jumbotron col-12 py-2"> <!-- Problem threads -->
+    <div class="row">
+      <h3>
+        <%= t(:comments_header, count: @comments.count) %>
+      </h3>
+      <% unless @comments.count.zero? %>
+        <%= button_to t(:view_all), 'user_static_pages/comments', method: :get, class: 'btn btn-info', form_class: 'form-delete' %>
+      <% end %>
+    </div>
+
+    <%= render partial: 'comments_list', locals: { format_zero: false, paginate: false,
+                                                   comments: @comments.limit(10) } %>
+  </div>
+</div>
+
+<div class="jumbotron col-12 py-2"> <!-- Problem threads -->
+  <div class="row">
+    <h3>
+      <%= t(:problem_threads_header, count: current_employee.problem_threads.count) %>
+    </h3>
+    <% unless current_employee.problem_threads.count.zero? %>
+      <%= button_to t(:view_all), 'user_static_pages/problem_threads', method: :get, class: 'btn btn-info', form_class: 'form-delete' %>
+    <% end %>
+  </div>
+
+  <%= render partial: 'problem_threads/list', locals: { problem_threads: current_employee.problem_threads.order_by_activity.page(params[:page]) } %>
+</div>

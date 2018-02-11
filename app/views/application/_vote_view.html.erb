@@ -1,0 +1,45 @@
+<h3>
+  <% if policy(resource).up? %>
+    <div class="row justify-content-center"> <!-- uppable -->
+      <%= button_to vote_resource_path(resource), class: 'row btn btn-lg btn-success', form_class: 'form-delete' do %>
+        <%= fa_icon 'thumbs-up fw' %>
+      <% end %>
+    </div>
+  <% else %>
+    <% up = resource.up_votes.find_by(upper: current_user) %>
+    <% if up %> <!-- already upped -->
+      <%= button_to up_vote_path(up), method: :delete, class: 'row btn btn-lg btn-success', form_class: 'form-delete' do %>
+        <%= fa_stacked_icon 'thumbs-up', base: 'ban' %>
+      <% end %>
+    <% else %> <!-- not uppable -->
+      <%= button_to vote_resource_path(resource), class: 'row btn btn-lg btn-success', form_class: 'form-delete', disabled: true do %>
+        <%= fa_icon 'thumbs-up fw' %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <div class="row justify-content-center">
+    <%= button_to downs_resource_path(resource), method: :get, class: 'row btn btn-lg btn-down', form_class: 'form-delete' do %>
+      <%= resource.votes %>
+    <% end %>
+  </div>
+
+  <% if policy(resource).down? %>
+    <div class="row justify-content-center"> <!-- downable -->
+      <%= button_to down_resource_path(resource), method: :get, class: 'row btn btn-lg btn-danger', form_class: 'form-delete' do %>
+        <%= fa_icon 'thumbs-down fw' %>
+      <% end %>
+    </div>
+  <% else %>
+    <% up = resource.down_votes.find_by(downer: current_user) %>
+    <% if up %> <!-- already downed -->
+      <%= button_to down_vote_path(up), method: :delete, class: 'row btn btn-lg btn-danger', form_class: 'form-delete' do %>
+        <%= fa_stacked_icon 'thumbs-down', base: 'ban' %>
+      <% end %>
+    <% else %> <!-- not downable -->
+      <%= button_to down_resource_path(resource), method: :get, class: 'row btn btn-lg btn-danger', form_class: 'form-delete', disabled: true do %>
+        <%= fa_icon 'thumbs-down fw' %>
+      <% end %>
+    <% end %>
+  <% end %>
+</h3>

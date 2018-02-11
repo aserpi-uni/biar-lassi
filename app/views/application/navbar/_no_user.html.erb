@@ -1,0 +1,20 @@
+<li class="nav-item <%= 'active' unless current_page? new_employee_session_path %>">
+  <%= link_to new_employee_session_path, class: 'nav-link' do %>
+      <%= fa_icon 'users' %>
+      <%= Enterprise.model_name.human %>
+  <% end %>
+</li>
+
+<li class="nav-item <%= 'active' unless current_page? new_consumer_registration_path %>">
+  <%= link_to new_consumer_registration_path, class: 'nav-link' do %>
+      <%= fa_icon 'user-plus' %>
+      <%= t(:sign_up) %>
+  <% end %>
+</li>
+
+<li class="nav-item <%= 'active' unless current_page? new_consumer_session_path %>">
+  <%= link_to new_consumer_session_path, class: 'nav-link' do %>
+      <%= fa_icon 'sign-in' %>
+      <%= t(:sign_in) %>
+  <% end %>
+</li>

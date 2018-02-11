@@ -1,0 +1,46 @@
+<% provide :title, t(:settings) %>
+
+<% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+    <% flash.now[:alert] ||= '\n' %>
+    <% flash.now[:alert] = t(:confirmation_waiting, resource: resource.unconfirmed_email) %>
+<% end %>
+
+<div class="jumbotron align-items-center">
+  <div class="col-6 mx-auto" >
+    <h3>
+      <%= t :settings %>
+    </h3>
+
+    <%= form_with model: resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, local: true do |f| %>
+      <%= devise_error_messages! %>
+
+      <%= render partial: 'application/forms/email', locals: { form: f } %>
+
+      <%= render partial: 'application/forms/password', locals: { form: f, locale: :password_optional, min_length: 8 } %>
+
+      <%= render partial: 'application/forms/password_confirmation', locals: { form: f } %>
+
+      <%= render partial: 'application/forms/password', locals: { form: f, id: :current_password, input_for: :current_password, locale: :current_password } %>
+
+      <%= render partial: 'application/forms/submit', locals: { form: f, locale: :save } %>
+    <% end %>
+
+    <div class="my-5">
+      <h3>
+        Facebook
+      </h3>
+
+      <p>
+        <% if resource.provider.blank? %>
+          <%= link_to t(:connect, scope: [:facebook]), consumer_facebook_omniauth_authorize_path %>
+        <% elsif not resource.email.blank? %>
+          <%= link_to t(:disconnect, scope: [:facebook]), auth_consumers_facebook_disconnect_path, method: :delete %>
+        <% else %>
+          <%= t :no_email, scope: [:facebook] %>
+        <% end %>
+      </p>
+    </div>
+
+    <%= render partial: 'application/edit/delete_account', locals: {user: current_consumer, path: registration_path(resource_name) } %>
+  </div> <!-- col-6 -->
+</div> <!-- jumbotron -->

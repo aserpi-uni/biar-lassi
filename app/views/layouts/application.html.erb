@@ -1,14 +1,29 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Tesi</title>
-    <%= csrf_meta_tags %>
+  <html>
+    <head>
+      <title><%= yield :title %></title>
+      <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+      <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css">
 
-  <body>
-    <%= yield %>
-  </body>
+      <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    </head>
+
+    <body>
+      <%= render partial: 'navbar' %>
+
+      <%= render partial: 'flash_messages' %>
+
+      <div class="container mt-3">
+        <%= yield %>
+      </div>
+
+      <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"></script>
+      <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
+    </body>
+
+  <!-- GNU Terry Pratchett -->
+
 </html>

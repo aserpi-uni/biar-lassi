@@ -1,0 +1,30 @@
+<% paginate = true if paginate.nil?%>
+
+<div class="card-deck">
+  <% products.each do |product|%>
+    <div class="card" style="max-width: 500px">
+      <%= link_to((image_tag product.image_url(:medium), class: 'card-img-top'), product) %>
+      <div class="card-body">
+        <h4 class="card-title">
+          <%=link_to "#{product.enterprise.name} #{product.model}", product %>
+          <% unless product.active %>
+            <%= render partial: 'application/inactive_badge' %>
+          <% end %>
+        </h4>
+        <div class="card-text">
+          <%= product.description %>
+        </div>
+      </div>
+    </div>
+  <%end%>
+</div>
+
+<% if paginate %>
+  <%= will_paginate(products, renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer) %>
+<% end %>
+
+<% if products.empty? %>
+  <h5>
+    <%= t(:results_no) %>
+  </h5>
+<% end %>

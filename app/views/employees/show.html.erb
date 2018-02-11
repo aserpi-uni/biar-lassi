@@ -1,0 +1,54 @@
+<% provide :title, @employee.username %>
+
+
+<div class="jumbotron py-2">
+  <div class="row">
+    <h2>
+      <%= @employee.username %>
+    </h2>
+  </div>
+
+  <div class="row media mt-1">
+    <%= render partial: 'application/avatar', locals: { size: 50, user: @employee }, class: 'd-flex align-self-start' %>
+
+    <div class="media-body ml-3">
+
+      <% if @employee.email %>
+          <%= t(:personal_contact) %>
+      <% end  %>
+      <small>
+        <br>
+
+          <%= t(:profile_created_in, time: @employee.created_at) %>
+          <% if @employee.role ==  0 %>
+            <%= t(:role_employee) %>
+          <%end%>
+
+          <% if @employee.role ==  1 %>
+              <%= t(:role_supervisor) %>
+          <%end%>
+
+        <br>
+      </small>
+    </div>
+  </div>
+</div>
+
+<% if @employee.operator? %>
+  <div class="row mx-0">
+    <div class="col-6 px-0">
+      <div class="jumbotron col-11 py-2"> <!-- Problem threads -->
+        <div class="row">
+          <h3>
+            <%= t(:problem_threads_header, count: @employee.problem_threads.count) %>
+          </h3>
+
+        </div>
+
+        <%= render partial: 'problem_threads/list', locals: { format_zero: false, paginate: false,
+                                                              problem_threads: @employee.problem_threads.order_by_activity.limit(10) } %>
+      </div>
+    </div>
+
+  </div>
+<% end %>

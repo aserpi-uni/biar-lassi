@@ -1,0 +1,26 @@
+<% provide :title, "#{t(:problem_threads_of)} #{@product.model}" %>
+
+<ol class="breadcrumb">
+  <%= render partial:'products/breadcrumbs', locals: { product: @product} %>
+
+  <%= render partial:'application/breadcrumbs/product', locals: { product: @product} %>
+
+  <%= render partial: 'application/breadcrumbs/problem_threads', locals: { active: true, product: @product} %>
+</ol>
+
+<div class="jumbotron py-4">
+  <div class="row">
+    <h2 class="mb-3">
+      <%= t(:problem_threads_of) %>
+      <%= link_to @product.model, product_path(@product) %>
+    </h2>
+
+    <% if policy(@product.problem_threads.build).create? %>
+      <%= button_to t(:resource_new, resource: ProblemThread.model_name.human), new_product_problem_thread_path(@product), method: :get, class: 'btn btn-primary btn-raised ml-2' %>
+    <% end %>
+  </div>
+
+  <%= render partial: 'application/search', locals: { url: search_product_problem_threads_path(@product) } %>
+
+  <%= render partial: 'list', locals: { problem_threads: @product.problem_threads.order_by_activity.page(params[:page]) } %>
+</div>

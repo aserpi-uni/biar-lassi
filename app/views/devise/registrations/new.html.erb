@@ -1,0 +1,25 @@
+<% provide :title, t(:sign_up) %>
+
+<%= devise_error_messages! %>
+
+<div class="jumbotron align-items-center">
+  <div class="col-6 mx-auto" >
+    <h2>
+      <%= t :sign_up %>
+    </h2>
+
+    <%= form_with model: resource, as: resource_name, url: registration_path(resource_name), local: true do |f| %>
+      <%= render partial: 'application/forms/username', locals: { form: f } %>
+
+      <%= render partial: 'application/forms/email', locals: { form: f } %>
+
+      <%= render partial: 'application/forms/password', locals: { form: f } %>
+
+      <%= render partial: 'application/forms/password_confirmation', locals: { form: f } %>
+
+      <%= render partial: 'application/forms/submit', locals: { form: f, locale: :sign_up } %>
+    <% end %> <!-- form -->
+
+    <%= render 'devise/shared/links' %>
+  </div> <!-- col-6 -->
+</div> <!-- jumbotron -->

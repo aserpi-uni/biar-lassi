@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  upper: one
+  upper_type: Upper
+  uppable: one
+  uppable_type: Uppable
+
+two:
+  upper: two
+  upper_type: Upper
+  uppable: two
+  uppable_type: Uppable

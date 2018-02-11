@@ -1,0 +1,5 @@
+<% if current_consumer.follow?(@problem_thread) %>
+  <%= button_to t(:unfollow), follow_problem_thread_path(@problem_thread), class: 'btn btn-danger btn-raised', form_class: 'form-delete' %>
+<% else %>
+  <%= button_to t(:follow), follow_problem_thread_path(@problem_thread), class: 'btn btn-primary btn-raised', form_class: 'form-delete' %>
+<% end %>

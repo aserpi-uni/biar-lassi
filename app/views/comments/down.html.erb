@@ -1,0 +1,9 @@
+<ol class="breadcrumb">
+  <%= render partial: 'comments/breadcrumbs', locals: { comment: @comment } %>
+
+  <%= render partial: 'application/breadcrumbs/comment', locals: { comment: @comment } %>
+
+  <%= render partial: 'application/breadcrumbs/finale', locals: { string: t(DownVote.model_name.human.capitalize) } %>
+</ol>
+
+<%= render partial: 'down_votes/new', locals: { resource: @comment } %>

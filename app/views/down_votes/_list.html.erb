@@ -1,0 +1,24 @@
+<div class="row">
+  <table class="table">
+    <% votes.each do |vote|%>
+      <tr>
+        <td class="row">
+          <div class="col-auto">
+            <%= simple_format(vote.reason, class: 'my-0') %>
+          </div>
+          <small class="col align-self-center">
+            ~  <%= link_to vote.downer.username, user_path(vote.downer) %>
+          </small>
+        </td>
+      </tr>
+    <%end%>
+  </table>
+</div>
+
+<%= will_paginate(votes, renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer) %>
+
+<% if votes.empty? %>
+  <h3 class="row">
+    <%= t(:results_no) %>
+  </h3>
+<% end %>

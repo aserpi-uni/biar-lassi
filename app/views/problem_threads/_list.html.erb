@@ -1,0 +1,50 @@
+<% format_zero = true if format_zero.nil? %>
+<% paginate = true if paginate.nil?%>
+
+<% problem_threads.each do |thread| %>
+  <div class="card mb-2">
+    <%=link_to thread, class: 'card-title mx-2 my-2' do %>
+      <h5>
+        <%= thread.title %>
+
+        <% unless thread.comments.where(solution: true).empty? %>
+          <span class="badge badge-success">
+            <%= t(:answered) %>
+          </span>
+        <% end %>
+      </h5>
+    <% end %>
+
+    <div class="card-body px-2 py-0">
+      <%= thread.content.split("\n", 2)[0] %>
+    </div>
+
+    <div class="card-footer row mx-0 px-2">
+      <%= t(:ago, time: time_ago_in_words(thread.created_at)) %>
+
+      <div class="row ml-4">
+        <% if thread.votes < 0 %>
+          <%= fa_icon 'thumbs-down fw' %>
+        <% else %>
+          <%= fa_icon 'thumbs-up fw' %>
+        <% end %>
+        <%= thread.votes.abs %>
+      </div>
+
+      <div class="row ml-4">
+        <%= fa_icon 'fw comment' %>
+        <%= thread.comments.count %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<% if paginate %>
+  <%= will_paginate(problem_threads, renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer) %>
+<% end %>
+
+<% if problem_threads.empty? && format_zero %>
+  <h3>
+    <%= t(:results_no) %>
+  </h3>
+<% end %>

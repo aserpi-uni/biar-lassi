@@ -1,0 +1,9 @@
+<% provide :title, Comment.model_name.human(count: 500).capitalize %>
+
+<div class="jumbotron py-4">
+  <h2 class="mb-3">
+    <%= t :comments_header, count: @comments.count %>
+  </h2>
+
+  <%= render partial: 'comments_list', locals: { comments: @comments.page(params[:page]) } %>
+</div>

@@ -1,0 +1,19 @@
+<% provide :title, t(:resource_new, resource: t(@admin.class.name.downcase, count: 1)) %>
+
+<%= render partial: 'errors', locals: { resource: @admin } %>
+
+<div class="jumbotron align-items-center">
+  <div class="col-6 mx-auto" >
+    <h2>
+      <%= t :resource_create, resource: t(@admin.class.name.downcase, count: 1) %>
+    </h2>
+
+    <%= form_with model: @admin, local: true do |f| %>
+      <%= render partial: 'application/forms/username', locals: { form: f } %>
+
+      <%= render partial: 'application/forms/email', locals: { form: f } %>
+
+      <%= render partial: 'application/forms/submit', locals: { form: f, locale: :create } %>
+    <% end %> <!-- form -->
+  </div> <!-- col-6 -->
+</div> <!-- jumbotron -->

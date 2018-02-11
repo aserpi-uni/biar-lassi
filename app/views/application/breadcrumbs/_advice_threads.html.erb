@@ -1,0 +1,11 @@
+<% active = false if active.nil? %>
+
+<% if active %>
+  <li class="breadcrumb-item active">
+    <%= AdviceThread.model_name.human(count: 500).capitalize %>
+  </li>
+<% else %>
+  <li class="breadcrumb-item">
+    <%= link_to AdviceThread.model_name.human(count: 500).capitalize, product_advice_threads_path(product) %>
+  </li>
+<% end %>

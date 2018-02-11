@@ -1,0 +1,9 @@
+<% readonly = false if readonly.nil? %>
+
+<fieldset class="row align-items-center">
+  <%= fa_icon('fw commenting-o', class: 'col-1 mt-4') %>
+  <div class="form-group bmd-form-group col">
+    <%= form.text_area :content, class: 'form-control', id: :content, disabled: readonly %>
+    <%= label_tag :content, t(:description), class: 'bmd-label-floating'%>
+  </div>
+</fieldset>

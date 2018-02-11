@@ -1,0 +1,37 @@
+<nav class="navbar sticky-top navbar-expand-md navbar-dark bg-dark">
+  <div class="container-fluid">
+
+    <%= link_to root_path, class: 'navbar-brand' do %>
+        <%= fa_icon 'comments' %>
+        <%= t :uservoice %>
+    <% end %>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbarNavDropdown" class="navbar-collapse collapse">
+      <ul class="navbar-nav mr-auto">
+        <%= form_with url: search_products_path, method: :get, local: true, class: 'form-inline my-2 my-lg-0', role: 'search' do |f| %>
+          <%= f.text_field :search, class: 'form-control mr-sm-2 navbar-form-custom', placeholder: Product.model_name.human.capitalize %>
+          <%= f.submit t(:search), name: nil, class: 'btn btn-outline-primary my-2 my-sm-0' %>
+        <% end %>
+      </ul>
+
+      <ul class="navbar-nav ml-auto">
+        <% if !current_user %>
+          <%= render partial: 'application/navbar/no_user' %>
+        <% else %>
+          <% if current_admin %>
+            <%= render partial: 'application/navbar/admin_create_menu' %>
+          <% elsif current_employee&.supervisor? %>
+            <%= render partial: 'application/navbar/employee_supervisor_menu' %>
+          <% end %>
+          <%= render partial: 'application/navbar/user_menu' %>
+        <% end %>
+
+      </ul> <!-- right elements -->
+    </div> <!-- collapsable -->
+  </div> <!-- container-fluid -->
+</nav>

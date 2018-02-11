@@ -1,0 +1,26 @@
+<% provide :title, t(:downvote) %>
+
+<%= render partial: 'errors', locals: { resource: resource } %>
+
+<div class="jumbotron align-items-center">
+  <div class="col-6 mx-auto" >
+    <h2>
+      <%= t :resource_create, resource: DownVote.model_name.human %>
+    </h2>
+
+    <%= t(:downvote_reason) %>
+
+    <%= form_with model: DownVote.new, url: down_votes_path, local: true do |f| %>
+      <%= hidden_field :down_vote, :downable_id, value: resource.id %>
+      <%= hidden_field :down_vote, :downable_type, value: resource.class.name %>
+      <fieldset class="row align-items-center">
+        <%= fa_icon('fw commenting-o', class: 'col-1 mt-4') %>
+        <div class="form-group bmd-form-group col">
+          <%= f.text_area :reason, class: 'form-control', id: :reason %>
+          <%= label_tag :reason, t(:description), class: 'bmd-label-floating'%>
+        </div>
+      </fieldset>
+      <%= render partial: 'application/forms/submit', locals: { form: f, locale: :create } %>
+    <% end %>
+  </div> <!-- col-6 -->
+</div> <!-- jumbotron -->

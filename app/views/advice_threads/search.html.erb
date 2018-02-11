@@ -1,0 +1,21 @@
+<% provide :title, @search %>
+
+<ol class="breadcrumb">
+  <%= render partial:'products/breadcrumbs', locals: { product: @product} %>
+
+  <%= render partial:'application/breadcrumbs/product', locals: { product: @product} %>
+
+  <%= render partial: 'application/breadcrumbs/advice_threads', locals: { product: @product} %>
+
+  <%= render partial: 'application/breadcrumbs/finale', locals: { string: @search } %>
+</ol>
+
+<div class="jumbotron py-4">
+  <h2 class="mb-3">
+    <%= t(:results_for_search, count: @advice_threads.count, resource: AdviceThread.model_name.human(count: @advice_threads.count), string: @search) %>
+  </h2>
+
+  <%= render partial: 'application/search', locals: { url: search_product_advice_threads_path(@product) } %>
+
+  <%= render partial: 'list', locals: { advice_threads: @advice_threads } %>
+</div>

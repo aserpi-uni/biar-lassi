@@ -1,0 +1,29 @@
+<% provide(:title, @title) %>
+<div class="row">
+  <aside class="col-md-4">
+    <section class="consumer_info">
+      <h1><%= @consumer.username %></h1>
+    </section>
+    <section class="stats">
+      <%= render 'stats' %>
+      <% if @problem_threads.any? %>
+          <div class="problem_thread_title">
+            <% if false%>
+            <% @problem_threads.each do |thread| %>
+                <%= link_to thread.title, product_problem_thread_path(thread.product, thread) %>
+            <% end %>
+                <%end%>
+          </div>
+      <% end %>
+    </section>
+  </aside>
+  <div class="col-md-8">
+    <h3><%= @title %></h3>
+    <% if @problem_threads.any? %>
+        <ul class="users follow">
+          <%= render @problem_threads %>
+        </ul>
+
+    <% end %>
+  </div>
+</div>

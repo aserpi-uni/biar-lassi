@@ -1,0 +1,11 @@
+<% active = false if active.nil? %>
+
+<% if active %>
+  <li class="breadcrumb-item active">
+    <%= product.model %>
+  </li>
+<% else %>
+  <li class="breadcrumb-item">
+    <%= link_to product.model, product_path(product) %>
+  </li>
+<% end %>

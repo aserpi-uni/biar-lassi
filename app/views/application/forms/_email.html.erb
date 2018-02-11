@@ -1,0 +1,9 @@
+<% id ||= :email %>
+
+<fieldset class="row align-items-center">
+  <%= fa_icon('envelope fw', class: 'col-1 mt-4') %>
+  <div class="form-group bmd-form-group col" >
+    <%= form.email_field :email,  class: 'form-control', id: id %>
+    <%= label_tag id, t(:email), class: 'bmd-label-floating'%>
+  </div>
+</fieldset>
